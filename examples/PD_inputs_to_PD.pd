@@ -1,0 +1,83 @@
+#N canvas 583 37 658 481 10;
+#X obj 29 56 r pushButton2;
+#X obj 29 76 nbx 3 16 -1e+37 1e+37 0 0 empty empty empty 0 -6 0 14
+-241291 -1 -1 0 256;
+#X obj 129 56 r pushButton3;
+#X obj 129 76 nbx 3 16 -1e+37 1e+37 0 0 empty empty empty 0 -6 0 14
+-241291 -1 -1 0 256;
+#X obj 229 56 r pushButton4;
+#X obj 229 76 nbx 3 16 -1e+37 1e+37 0 0 empty empty empty 0 -6 0 14
+-241291 -1 -1 0 256;
+#X obj 329 56 r pushButton5;
+#X obj 329 76 nbx 3 16 -1e+37 1e+37 0 0 empty empty empty 0 -6 0 14
+-241291 -1 -1 0 256;
+#X obj 429 56 r pushButton6;
+#X obj 429 76 nbx 3 16 -1e+37 1e+37 0 0 empty empty empty 0 -6 0 14
+-241291 -1 -1 0 256;
+#X obj 529 56 r pushButton7;
+#X obj 529 76 nbx 3 16 -1e+37 1e+37 0 0 empty empty empty 0 -6 0 14
+-241291 -1 -1 0 256;
+#X obj 127 129 nbx 6 16 -1e+37 1e+37 0 0 empty empty empty 0 -6 0 14
+-3754 -1 -1 0 256;
+#X obj 127 109 r potentioMeter0;
+#X obj 248 129 nbx 6 16 -1e+37 1e+37 0 0 empty empty empty 0 -6 0 14
+-3754 -1 -1 0 256;
+#X obj 248 109 r potentioMeter1;
+#X obj 369 129 nbx 6 16 -1e+37 1e+37 0 0 empty empty empty 0 -6 0 14
+-3754 -1 -1 0 256;
+#X obj 369 109 r potentioMeter2;
+#X msg 246 316 devicename /dev/tty.usbserial-181;
+#X text 242 298 On Mac OS X \, set this to the right value:;
+#X msg 192 255 open \$1;
+#X obj 192 358 comport 1 9600;
+#X text 107 186 You might need to select another port \, check the
+Pd window to see if it connected successfully:;
+#X obj 193 421 moses;
+#X obj 724 500;
+#X msg 823 360;
+#X obj 838 358;
+#X msg 820 377;
+#X msg 252 255 close;
+#X obj 192 392 select 10;
+#X text 263 392 select new line;
+#X obj 262 426 print;
+#X obj 165 423 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
+-1;
+#X text 16 13 This patch works with the example Arduino firmware of
+the same name.;
+#N canvas 162 133 518 368 serin 0;
+#X obj 160 101 cnv 15 15 15 empty \$0-number-canvas 1 4 7 0 14 -233017
+-1 0;
+#X obj 241 251 s \$0-number-canvas;
+#X obj 100 101 hradio 15 1 0 4 empty empty empty 0 -6 0 8 -225271 -1
+-1 0;
+#X obj 101 134 + 1;
+#X obj 100 173 outlet;
+#X obj 101 39 inlet;
+#X msg 241 228 label \$1;
+#X obj 241 206 makefilename %d;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 3 0 7 0;
+#X connect 5 0 2 0;
+#X connect 6 0 1 0;
+#X connect 7 0 6 0;
+#X coords 0 -1 1 1 76 17 1 100 100;
+#X restore 192 232 pd serin;
+#X text 273 233 serial port #;
+#X connect 0 0 1 0;
+#X connect 2 0 3 0;
+#X connect 4 0 5 0;
+#X connect 6 0 7 0;
+#X connect 8 0 9 0;
+#X connect 10 0 11 0;
+#X connect 13 0 12 0;
+#X connect 15 0 14 0;
+#X connect 17 0 16 0;
+#X connect 18 0 21 0;
+#X connect 20 0 21 0;
+#X connect 21 0 29 0;
+#X connect 28 0 21 0;
+#X connect 29 0 32 0;
+#X connect 29 1 31 0;
+#X connect 34 0 20 0;
