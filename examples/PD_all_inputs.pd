@@ -1,0 +1,95 @@
+#N canvas 159 48 492 617 10;
+#X obj 346 18 import zexy;
+#X text 112 148 On Mac OS X \, set this to the right value:;
+#X text 5 38 You might need to select another port \, check the Pd
+window to see if it connected successfully:;
+#X msg 136 120 close;
+#X msg 116 165 devicename /dev/tty.usbserial-191;
+#X obj 11 508 nbx 4 20 -1e+37 1e+37 0 0 empty empty ADC0 5 30 1 10
+-3754 -1 -1 508 256;
+#N canvas 162 133 518 368 serin 0;
+#X obj 160 101 cnv 15 15 15 empty \$0-number-canvas 1 4 7 0 14 -233017
+-1 0;
+#X obj 241 251 s \$0-number-canvas;
+#X obj 100 101 hradio 15 1 0 4 empty empty empty 0 -6 0 8 -225271 -1
+-1 0;
+#X obj 101 134 + 1;
+#X obj 100 173 outlet;
+#X obj 101 39 inlet;
+#X msg 241 228 label \$1;
+#X obj 241 206 makefilename %d;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 3 0 7 0;
+#X connect 5 0 2 0;
+#X connect 6 0 1 0;
+#X connect 7 0 6 0;
+#X coords 0 -1 1 1 76 17 1 100 100;
+#X restore 77 71 pd serin;
+#X msg 77 119 open \$1;
+#X text 4 -3 This patch works with the example Arduino firmware of
+the same name.;
+#X text 9 552 CAUTION! Watch out if you connect your potentiometer
+without an extra resistor \, when you turn it all the way up \, the
+full voltage and current will go to the input. This could fry your
+board!;
+#X obj 79 357 +;
+#X obj 78 259 trigger float bang;
+#X obj 95 318 float;
+#X obj 95 337 * 10;
+#X obj 176 345 float;
+#X msg 196 290 0;
+#X text 250 459 ASCII for A B C D E F;
+#X obj 77 235 - 48;
+#X obj 79 460 route 65 66 67 68 69 70;
+#X obj 79 378 trigger bang float;
+#X obj 79 417 float;
+#X obj 247 386 float;
+#X obj 79 440 pack float float;
+#X obj 61 508 nbx 4 20 -1e+37 1e+37 0 0 empty empty ADC1 5 30 1 10
+-3754 -1 -1 0 256;
+#X obj 111 508 nbx 4 20 -1e+37 1e+37 0 0 empty empty ADC2 5 30 1 10
+-3754 -1 -1 10 256;
+#X obj 161 508 nbx 4 20 -1e+37 1e+37 0 0 empty empty ADC3 5 30 1 10
+-3754 -1 -1 98 256;
+#X obj 211 508 nbx 4 20 -1e+37 1e+37 0 0 empty empty ADC4 5 30 1 10
+-3754 -1 -1 158 256;
+#X obj 261 508 nbx 4 20 -1e+37 1e+37 0 0 empty empty ADC5 5 30 1 10
+-3754 -1 -1 623 256;
+#X obj 320 511 print ERRANT_VALUE;
+#X obj 247 250 float;
+#X obj 77 211 moses 58;
+#X text 84 88 (sometimes it takes up to 10 seconds to close the serial
+port \, if things are running fast);
+#X text 181 121 <-- close before uploading a new firmware!;
+#X obj 77 188 comport 1 19200;
+#X connect 3 0 33 0;
+#X connect 4 0 33 0;
+#X connect 6 0 7 0;
+#X connect 7 0 33 0;
+#X connect 10 0 14 0;
+#X connect 10 0 19 0;
+#X connect 11 0 10 0;
+#X connect 11 1 12 0;
+#X connect 12 0 13 0;
+#X connect 13 0 10 1;
+#X connect 14 0 12 1;
+#X connect 15 0 12 1;
+#X connect 17 0 11 0;
+#X connect 18 0 5 0;
+#X connect 18 1 23 0;
+#X connect 18 2 24 0;
+#X connect 18 3 25 0;
+#X connect 18 4 26 0;
+#X connect 18 5 27 0;
+#X connect 18 6 28 0;
+#X connect 19 0 20 0;
+#X connect 19 1 22 1;
+#X connect 20 0 22 0;
+#X connect 21 0 20 1;
+#X connect 22 0 18 0;
+#X connect 29 0 15 0;
+#X connect 29 0 21 0;
+#X connect 30 0 17 0;
+#X connect 30 1 29 0;
+#X connect 33 0 30 0;

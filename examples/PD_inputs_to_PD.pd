@@ -1,4 +1,4 @@
-#N canvas 583 37 658 481 10;
+#N canvas 583 37 662 485 10;
 #X obj 29 56 r pushButton2;
 #X obj 29 76 nbx 3 16 -1e+37 1e+37 0 0 empty empty empty 0 -6 0 14
 -241291 -1 -1 0 256;
@@ -26,7 +26,6 @@
 #X obj 369 129 nbx 6 16 -1e+37 1e+37 0 0 empty empty empty 0 -6 0 14
 -3754 -1 -1 0 256;
 #X obj 369 109 r potentioMeter2;
-#X msg 246 316 devicename /dev/tty.usbserial-181;
 #X text 242 298 On Mac OS X \, set this to the right value:;
 #X msg 192 255 open \$1;
 #X obj 192 358 comport 1 9600;
@@ -65,6 +64,7 @@ the same name.;
 #X coords 0 -1 1 1 76 17 1 100 100;
 #X restore 192 232 pd serin;
 #X text 273 233 serial port #;
+#X msg 246 316 devicename /dev/tty.usbserial-191;
 #X connect 0 0 1 0;
 #X connect 2 0 3 0;
 #X connect 4 0 5 0;
@@ -74,10 +74,10 @@ the same name.;
 #X connect 13 0 12 0;
 #X connect 15 0 14 0;
 #X connect 17 0 16 0;
-#X connect 18 0 21 0;
-#X connect 20 0 21 0;
-#X connect 21 0 29 0;
-#X connect 28 0 21 0;
-#X connect 29 0 32 0;
-#X connect 29 1 31 0;
-#X connect 34 0 20 0;
+#X connect 19 0 20 0;
+#X connect 20 0 28 0;
+#X connect 27 0 20 0;
+#X connect 28 0 31 0;
+#X connect 28 1 30 0;
+#X connect 33 0 19 0;
+#X connect 35 0 20 0;

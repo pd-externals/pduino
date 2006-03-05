@@ -1,0 +1,80 @@
+#N canvas 327 35 530 629 10;
+#X obj 420 2 import zexy;
+#X text 127 139 On Mac OS X \, set this to the right value:;
+#X obj 77 195 comport 1 9600;
+#X text 5 42 You might need to select another port \, check the Pd
+window to see if it connected successfully:;
+#X msg 137 104 close;
+#X msg 131 156 devicename /dev/tty.usbserial-191;
+#X obj 111 506 nbx 4 20 -1e+37 1e+37 0 0 empty empty Analog_in_0 -15
+30 1 14 -3754 -1 -1 0 256;
+#N canvas 162 133 518 368 serin 0;
+#X obj 160 101 cnv 15 15 15 empty \$0-number-canvas 1 4 7 0 14 -233017
+-1 0;
+#X obj 241 251 s \$0-number-canvas;
+#X obj 100 101 hradio 15 1 0 4 empty empty empty 0 -6 0 8 -225271 -1
+-1 0;
+#X obj 101 134 + 1;
+#X obj 100 173 outlet;
+#X obj 101 39 inlet;
+#X msg 241 228 label \$1;
+#X obj 241 206 makefilename %d;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 3 0 7 0;
+#X connect 5 0 2 0;
+#X connect 6 0 1 0;
+#X connect 7 0 6 0;
+#X coords 0 -1 1 1 76 17 1 100 100;
+#X restore 77 78 pd serin;
+#X msg 77 103 open \$1;
+#X text 158 79 serial port #;
+#X text 4 -3 This patch works with the example Arduino firmware of
+the same name.;
+#X text 6 550 CAUTION! Watch out if you connect your potentiometer
+without an extra resistor \, when you turn it all the way up \, the
+full voltage and current will go to the input. This could fry your
+board!;
+#X obj 156 246 makefilename %c;
+#X obj 77 225 select 13 10;
+#X text 266 246 <-- convert integer to ASCII;
+#X obj 223 424 +;
+#X obj 193 470 float;
+#X obj 221 315 trigger float bang;
+#X obj 239 385 float;
+#X obj 239 404 * 10;
+#X obj 221 289 symbol2list;
+#X obj 320 412 float;
+#X msg 164 337 0;
+#X obj 150 470 float;
+#X text 197 339 <-- reset for the next pot reading;
+#X text 303 285 <-- converts the ASCII digit;
+#X text 332 297 symbol to a float;
+#X text 169 225 <-- filter out newline characters;
+#X obj 156 267 select B A;
+#X obj 209 506 nbx 4 20 -1e+37 1e+37 0 0 empty empty Analog_in_1 -15
+30 1 14 -3754 -1 -1 0 256;
+#X connect 2 0 13 0;
+#X connect 4 0 2 0;
+#X connect 5 0 2 0;
+#X connect 7 0 8 0;
+#X connect 8 0 2 0;
+#X connect 12 0 28 0;
+#X connect 13 2 12 0;
+#X connect 15 0 16 1;
+#X connect 15 0 21 0;
+#X connect 15 0 23 1;
+#X connect 16 0 29 0;
+#X connect 17 0 15 0;
+#X connect 17 1 18 0;
+#X connect 18 0 19 0;
+#X connect 19 0 15 1;
+#X connect 20 0 17 0;
+#X connect 21 0 18 1;
+#X connect 22 0 18 1;
+#X connect 23 0 6 0;
+#X connect 28 0 22 0;
+#X connect 28 0 23 0;
+#X connect 28 1 22 0;
+#X connect 28 1 16 0;
+#X connect 28 2 20 0;

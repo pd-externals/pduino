@@ -1,16 +1,12 @@
-#N canvas 66 362 494 354 10;
-#X text 153 122 On Mac OS X \, set this to the right value:;
-#X obj 103 182 comport 1 9600;
-#X text 30 11 You might need to select another port \, check the Pd
+#N canvas 66 362 498 358 10;
+#X text 151 136 On Mac OS X \, set this to the right value:;
+#X obj 101 196 comport 1 9600;
+#X text 28 25 You might need to select another port \, check the Pd
 window to see if it connected successfully:;
-#X msg 163 87 close;
-#X msg 157 139 devicename /dev/tty.usbserial-191;
-#X obj 102 215 nbx 6 16 -1e+37 1e+37 0 0 empty empty empty 0 -6 0 14
--3754 -1 -1 79 256;
-#X text 36 252 CAUTION! Watch out if you connect your potentiometer
-without an extra resistor \, when you turn it all the way up \, the
-full voltage and currrent will go to the input. This could kill your
-board!;
+#X msg 161 101 close;
+#X msg 155 153 devicename /dev/tty.usbserial-191;
+#X obj 100 229 nbx 6 16 -1e+37 1e+37 0 0 empty empty empty 0 -6 0 14
+-3754 -1 -1 13 256;
 #N canvas 162 133 518 368 serin 0;
 #X obj 160 101 cnv 15 15 15 empty \$0-number-canvas 1 4 7 0 14 -233017
 -1 0;
@@ -29,13 +25,17 @@ board!;
 #X connect 6 0 1 0;
 #X connect 7 0 6 0;
 #X coords 0 -1 1 1 76 17 1 100 100;
-#X restore 103 61 pd serin;
-#X msg 103 86 open \$1;
-#X text 184 62 serial port #;
-#X text 30 -20 This patch works with the example Arduino firmware of
+#X restore 101 75 pd serin;
+#X msg 101 100 open \$1;
+#X text 182 76 serial port #;
+#X text 28 -6 This patch works with the example Arduino firmware of
 the same name.;
+#X text 34 266 CAUTION! Watch out if you connect your potentiometer
+without an extra resistor \, when you turn it all the way up \, the
+full voltage and current will go to the input. This could kill your
+board!;
 #X connect 1 0 5 0;
 #X connect 3 0 1 0;
 #X connect 4 0 1 0;
-#X connect 7 0 8 0;
-#X connect 8 0 1 0;
+#X connect 6 0 7 0;
+#X connect 7 0 1 0;
