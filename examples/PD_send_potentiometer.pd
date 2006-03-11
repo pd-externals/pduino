@@ -1,4 +1,4 @@
-#N canvas 66 362 498 358 10;
+#N canvas 66 362 502 362 10;
 #X text 151 136 On Mac OS X \, set this to the right value:;
 #X obj 101 196 comport 1 9600;
 #X text 28 25 You might need to select another port \, check the Pd
@@ -6,7 +6,7 @@ window to see if it connected successfully:;
 #X msg 161 101 close;
 #X msg 155 153 devicename /dev/tty.usbserial-191;
 #X obj 100 229 nbx 6 16 -1e+37 1e+37 0 0 empty empty empty 0 -6 0 14
--3754 -1 -1 13 256;
+-3754 -1 -1 0 256;
 #N canvas 162 133 518 368 serin 0;
 #X obj 160 101 cnv 15 15 15 empty \$0-number-canvas 1 4 7 0 14 -233017
 -1 0;
@@ -34,6 +34,9 @@ the same name.;
 without an extra resistor \, when you turn it all the way up \, the
 full voltage and current will go to the input. This could kill your
 board!;
+#X text 247 338 released under the GNU GPL;
+#X text 33 323 (C) Copyright 2006 Hans-Christoph Steiner <hans@at.or.at>
+;
 #X connect 1 0 5 0;
 #X connect 3 0 1 0;
 #X connect 4 0 1 0;

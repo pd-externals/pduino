@@ -1,12 +1,12 @@
-#N canvas 327 35 530 629 10;
-#X obj 420 2 import zexy;
+#N canvas 1102 74 533 633 10;
+#X obj 431 598 import zexy;
 #X text 127 139 On Mac OS X \, set this to the right value:;
 #X obj 77 195 comport 1 9600;
 #X text 5 42 You might need to select another port \, check the Pd
 window to see if it connected successfully:;
 #X msg 137 104 close;
 #X msg 131 156 devicename /dev/tty.usbserial-191;
-#X obj 111 506 nbx 4 20 -1e+37 1e+37 0 0 empty empty Analog_in_0 -15
+#X obj 110 496 nbx 4 20 -1e+37 1e+37 0 0 empty empty Analog_in_0 -15
 30 1 14 -3754 -1 -1 0 256;
 #N canvas 162 133 518 368 serin 0;
 #X obj 160 101 cnv 15 15 15 empty \$0-number-canvas 1 4 7 0 14 -233017
@@ -31,7 +31,7 @@ window to see if it connected successfully:;
 #X text 158 79 serial port #;
 #X text 4 -3 This patch works with the example Arduino firmware of
 the same name.;
-#X text 6 550 CAUTION! Watch out if you connect your potentiometer
+#X text 20 537 CAUTION! Watch out if you connect your potentiometer
 without an extra resistor \, when you turn it all the way up \, the
 full voltage and current will go to the input. This could fry your
 board!;
@@ -52,8 +52,11 @@ board!;
 #X text 332 297 symbol to a float;
 #X text 169 225 <-- filter out newline characters;
 #X obj 156 267 select B A;
-#X obj 209 506 nbx 4 20 -1e+37 1e+37 0 0 empty empty Analog_in_1 -15
+#X obj 209 495 nbx 4 20 -1e+37 1e+37 0 0 empty empty Analog_in_1 -15
 30 1 14 -3754 -1 -1 0 256;
+#X text 227 606 released under the GNU GPL;
+#X text 13 591 (C) Copyright 2006 Hans-Christoph Steiner <hans@at.or.at>
+;
 #X connect 2 0 13 0;
 #X connect 4 0 2 0;
 #X connect 5 0 2 0;

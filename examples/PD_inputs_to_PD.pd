@@ -1,83 +1,127 @@
-#N canvas 583 37 662 485 10;
-#X obj 29 56 r pushButton2;
-#X obj 29 76 nbx 3 16 -1e+37 1e+37 0 0 empty empty empty 0 -6 0 14
+#N canvas 1030 43 584 697 10;
+#X obj 480 668 import zexy;
+#X obj 21 78 nbx 4 16 -1e+37 1e+37 0 0 empty empty empty 0 -6 0 14
 -241291 -1 -1 0 256;
-#X obj 129 56 r pushButton3;
-#X obj 129 76 nbx 3 16 -1e+37 1e+37 0 0 empty empty empty 0 -6 0 14
+#X obj 91 78 nbx 3 16 -1e+37 1e+37 0 0 empty empty empty 0 -6 0 14
 -241291 -1 -1 0 256;
-#X obj 229 56 r pushButton4;
-#X obj 229 76 nbx 3 16 -1e+37 1e+37 0 0 empty empty empty 0 -6 0 14
+#X obj 161 78 nbx 3 16 -1e+37 1e+37 0 0 empty empty empty 0 -6 0 14
 -241291 -1 -1 0 256;
-#X obj 329 56 r pushButton5;
-#X obj 329 76 nbx 3 16 -1e+37 1e+37 0 0 empty empty empty 0 -6 0 14
+#X obj 231 78 nbx 3 16 -1e+37 1e+37 0 0 empty empty empty 0 -6 0 14
 -241291 -1 -1 0 256;
-#X obj 429 56 r pushButton6;
-#X obj 429 76 nbx 3 16 -1e+37 1e+37 0 0 empty empty empty 0 -6 0 14
+#X obj 301 78 nbx 3 16 -1e+37 1e+37 0 0 empty empty empty 0 -6 0 14
 -241291 -1 -1 0 256;
-#X obj 529 56 r pushButton7;
-#X obj 529 76 nbx 3 16 -1e+37 1e+37 0 0 empty empty empty 0 -6 0 14
+#X obj 371 78 nbx 3 16 -1e+37 1e+37 0 0 empty empty empty 0 -6 0 14
 -241291 -1 -1 0 256;
-#X obj 127 129 nbx 6 16 -1e+37 1e+37 0 0 empty empty empty 0 -6 0 14
+#X obj 21 132 nbx 6 16 -1e+37 1e+37 0 0 empty empty empty 0 -6 0 14
 -3754 -1 -1 0 256;
-#X obj 127 109 r potentioMeter0;
-#X obj 248 129 nbx 6 16 -1e+37 1e+37 0 0 empty empty empty 0 -6 0 14
+#X obj 122 132 nbx 6 16 -1e+37 1e+37 0 0 empty empty empty 0 -6 0 14
 -3754 -1 -1 0 256;
-#X obj 248 109 r potentioMeter1;
-#X obj 369 129 nbx 6 16 -1e+37 1e+37 0 0 empty empty empty 0 -6 0 14
+#X obj 223 132 nbx 6 16 -1e+37 1e+37 0 0 empty empty empty 0 -6 0 14
 -3754 -1 -1 0 256;
-#X obj 369 109 r potentioMeter2;
-#X text 242 298 On Mac OS X \, set this to the right value:;
-#X msg 192 255 open \$1;
-#X obj 192 358 comport 1 9600;
-#X text 107 186 You might need to select another port \, check the
-Pd window to see if it connected successfully:;
-#X obj 193 421 moses;
-#X obj 724 500;
-#X msg 823 360;
-#X obj 838 358;
-#X msg 820 377;
-#X msg 252 255 close;
-#X obj 192 392 select 10;
-#X text 263 392 select new line;
-#X obj 262 426 print;
-#X obj 165 423 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
--1;
-#X text 16 13 This patch works with the example Arduino firmware of
+#X text 160 241 On Mac OS X \, set this to the right value:;
+#X msg 100 220 open \$1;
+#X obj 100 287 comport 1 9600;
+#X text 15 156 You might need to select another port \, check the Pd
+window to see if it connected successfully:;
+#X obj 724 492;
+#X msg 823 352;
+#X obj 838 350;
+#X msg 820 369;
+#X msg 160 220 close;
+#X obj 100 311 select 10;
+#X text 16 5 This patch works with the example Arduino firmware of
 the same name.;
-#N canvas 162 133 518 368 serin 0;
-#X obj 160 101 cnv 15 15 15 empty \$0-number-canvas 1 4 7 0 14 -233017
+#N canvas 162 133 526 376 serin 0;
+#X obj 120 61 cnv 15 15 15 empty \$0-number-canvas 1 4 7 0 14 -233017
 -1 0;
-#X obj 241 251 s \$0-number-canvas;
-#X obj 100 101 hradio 15 1 0 4 empty empty empty 0 -6 0 8 -225271 -1
+#X obj 200 225 s \$0-number-canvas;
+#X obj 60 61 hradio 15 1 0 4 empty empty empty 0 -6 0 8 -225271 -1
 -1 0;
-#X obj 101 134 + 1;
-#X obj 100 173 outlet;
-#X obj 101 39 inlet;
-#X msg 241 228 label \$1;
-#X obj 241 206 makefilename %d;
+#X obj 60 108 + 1;
+#X obj 59 147 outlet;
+#X obj 60 13 inlet;
+#X msg 200 202 label \$1;
+#X obj 200 180 makefilename %d;
 #X connect 2 0 3 0;
 #X connect 3 0 4 0;
 #X connect 3 0 7 0;
 #X connect 5 0 2 0;
 #X connect 6 0 1 0;
 #X connect 7 0 6 0;
-#X coords 0 -1 1 1 76 17 1 100 100;
-#X restore 192 232 pd serin;
-#X text 273 233 serial port #;
-#X msg 246 316 devicename /dev/tty.usbserial-191;
-#X connect 0 0 1 0;
-#X connect 2 0 3 0;
-#X connect 4 0 5 0;
-#X connect 6 0 7 0;
-#X connect 8 0 9 0;
-#X connect 10 0 11 0;
-#X connect 13 0 12 0;
-#X connect 15 0 14 0;
-#X connect 17 0 16 0;
-#X connect 19 0 20 0;
-#X connect 20 0 28 0;
-#X connect 27 0 20 0;
-#X connect 28 0 31 0;
-#X connect 28 1 30 0;
-#X connect 33 0 19 0;
-#X connect 35 0 20 0;
+#X coords 0 -1 1 1 76 17 1 60 60;
+#X restore 100 197 pd serin;
+#X text 181 198 serial port #;
+#X msg 164 259 devicename /dev/tty.usbserial-191;
+#X obj 265 551 +;
+#X obj 235 572 float;
+#X obj 244 415 trigger float bang;
+#X obj 281 512 float;
+#X obj 281 531 * 10;
+#X obj 347 536 float;
+#X msg 311 493 0;
+#X text 336 493 <-- reset for the next pot reading;
+#X obj 121 572 makefilename %c;
+#X obj 121 596 pack symbol float;
+#X msg 122 625 \; \$1 \$2;
+#X obj 158 333 moses 64;
+#X obj 21 112 receive A;
+#X obj 122 112 receive B;
+#X obj 223 112 receive C;
+#X obj 91 58 receive E;
+#X obj 21 58 receive D;
+#X obj 161 58 receive F;
+#X obj 231 58 receive G;
+#X obj 301 58 receive H;
+#X obj 371 58 receive I;
+#X obj 244 365 makefilename %c;
+#X obj 244 385 symbol2list;
+#X obj 75 458 trigger float bang bang;
+#X obj 87 521 float;
+#X text 12 95 potentiometers:;
+#X text 10 39 pushbuttons;
+#X text 359 365 <-- convert integer to ASCII;
+#X text 327 384 <-- converts the ASCII digit;
+#X text 404 396 symbol to a float;
+#X text 170 311 <-- filter out newline characters;
+#X text 169 633 <-- send to a [receive] using the letter as the name
+;
+#X text 8 543 store letter to output with value;
+#X text 221 334 <-- split the labels from the data;
+#X text 281 675 released under the GNU GPL;
+#X text 67 660 (C) Copyright 2006 Hans-Christoph Steiner <hans@at.or.at>
+;
+#X connect 11 0 12 0;
+#X connect 12 0 19 0;
+#X connect 18 0 12 0;
+#X connect 19 1 35 0;
+#X connect 21 0 11 0;
+#X connect 23 0 12 0;
+#X connect 24 0 25 1;
+#X connect 24 0 29 0;
+#X connect 25 0 33 1;
+#X connect 26 0 24 0;
+#X connect 26 1 27 0;
+#X connect 27 0 28 0;
+#X connect 28 0 24 1;
+#X connect 29 0 27 1;
+#X connect 30 0 27 1;
+#X connect 32 0 33 0;
+#X connect 33 0 34 0;
+#X connect 35 0 45 0;
+#X connect 35 1 47 0;
+#X connect 36 0 7 0;
+#X connect 37 0 8 0;
+#X connect 38 0 9 0;
+#X connect 39 0 2 0;
+#X connect 40 0 1 0;
+#X connect 41 0 3 0;
+#X connect 42 0 4 0;
+#X connect 43 0 5 0;
+#X connect 44 0 6 0;
+#X connect 45 0 46 0;
+#X connect 46 0 26 0;
+#X connect 47 0 48 1;
+#X connect 47 1 48 0;
+#X connect 47 2 30 0;
+#X connect 47 2 25 0;
+#X connect 48 0 32 0;
