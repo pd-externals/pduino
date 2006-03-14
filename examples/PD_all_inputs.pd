@@ -1,5 +1,5 @@
-#N canvas 970 165 635 705 10;
-#X obj 480 668 import zexy;
+#N canvas 510 32 651 721 10;
+#X obj 480 668 import cyclone zexy;
 #X obj 21 78 nbx 4 16 -1e+37 1e+37 0 0 empty empty empty 0 -6 0 14
 -241291 -1 -1 0 256;
 #X obj 91 78 nbx 3 16 -1e+37 1e+37 0 0 empty empty empty 0 -6 0 14
@@ -13,14 +13,13 @@
 #X obj 371 78 nbx 3 16 -1e+37 1e+37 0 0 empty empty empty 0 -6 0 14
 -241291 -1 -1 0 256;
 #X obj 21 132 nbx 6 16 -1e+37 1e+37 0 0 empty empty empty 0 -6 0 14
--3754 -1 -1 0 256;
+-3754 -1 -1 716 256;
 #X obj 122 132 nbx 6 16 -1e+37 1e+37 0 0 empty empty empty 0 -6 0 14
--3754 -1 -1 0 256;
+-3754 -1 -1 717 256;
 #X obj 223 132 nbx 6 16 -1e+37 1e+37 0 0 empty empty empty 0 -6 0 14
--3754 -1 -1 0 256;
+-3754 -1 -1 492 256;
 #X text 160 241 On Mac OS X \, set this to the right value:;
 #X msg 100 220 open \$1;
-#X obj 100 287 comport 1 9600;
 #X text 15 156 You might need to select another port \, check the Pd
 window to see if it connected successfully:;
 #X obj 724 492;
@@ -29,29 +28,26 @@ window to see if it connected successfully:;
 #X msg 820 369;
 #X text 16 5 This patch works with the example Arduino firmware of
 the same name.;
-#N canvas 162 133 526 376 serin 0;
-#X obj 120 61 cnv 15 15 15 empty \$0-number-canvas 1 4 7 0 14 -233017
+#N canvas 162 133 530 380 serin 0;
+#X obj 120 61 cnv 15 15 15 empty \$0-number-canvas 0 4 7 0 14 -233017
 -1 0;
 #X obj 200 225 s \$0-number-canvas;
 #X obj 60 61 hradio 15 1 0 4 empty empty empty 0 -6 0 8 -225271 -1
 -1 0;
-#X obj 60 108 + 1;
 #X obj 59 147 outlet;
 #X obj 60 13 inlet;
 #X msg 200 202 label \$1;
 #X obj 200 180 makefilename %d;
-#X connect 2 0 3 0;
-#X connect 3 0 4 0;
-#X connect 3 0 7 0;
-#X connect 5 0 2 0;
-#X connect 6 0 1 0;
+#X obj 59 108 float;
+#X connect 2 0 7 0;
+#X connect 4 0 2 0;
+#X connect 5 0 1 0;
+#X connect 6 0 5 0;
+#X connect 7 0 3 0;
 #X connect 7 0 6 0;
 #X coords 0 -1 1 1 76 17 1 60 60;
 #X restore 100 197 pd serin;
 #X text 181 198 serial port #;
-#X obj 21 112 receive A;
-#X obj 122 112 receive B;
-#X obj 223 112 receive C;
 #X obj 91 58 receive E;
 #X obj 21 58 receive D;
 #X obj 161 58 receive F;
@@ -64,24 +60,17 @@ the same name.;
 #X text 67 660 (C) Copyright 2006 Hans-Christoph Steiner <hans@at.or.at>
 ;
 #X obj 324 132 nbx 6 16 -1e+37 1e+37 0 0 empty empty empty 0 -6 0 14
--3754 -1 -1 0 256;
+-3754 -1 -1 2 256;
 #X obj 425 132 nbx 6 16 -1e+37 1e+37 0 0 empty empty empty 0 -6 0 14
--3754 -1 -1 0 256;
+-3754 -1 -1 620 256;
 #X obj 526 132 nbx 6 16 -1e+37 1e+37 0 0 empty empty empty 0 -6 0 14
--3754 -1 -1 0 256;
-#X obj 324 112 receive D;
-#X obj 425 112 receive E;
-#X obj 526 112 receive F;
-#X obj 65 383 spigot;
-#X obj 105 361 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0
+-3754 -1 -1 20 256;
+#X obj 100 308 spigot;
+#X obj 150 310 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0
 1;
 #X msg 160 220 close;
-#X obj 68 492 print --------------------;
-#X obj 67 434 select 10 65;
-#X obj 105 466 print A;
-#X obj 163 454 print;
-#X msg 164 259 devicename /dev/tty.usbserial-0B1;
-#N canvas 630 635 454 304 alternate 0;
+#X obj 31 633 print --------------------;
+#N canvas 630 546 462 312 alternate 0;
 #X obj 87 8 inlet;
 #X obj 151 244 outlet;
 #X obj 319 247 outlet;
@@ -95,12 +84,12 @@ the same name.;
 #X obj 196 173 float;
 #X obj 355 168 float;
 #X obj 86 34 route reset;
-#X msg 103 82 1;
 #X obj 356 128 -;
-#X msg 73 82 0;
 #X obj 196 133 -;
 #X obj 15 35 loadbang;
 #X obj 86 54 bang;
+#X msg 73 82 1;
+#X msg 103 82 0;
 #X connect 0 0 12 0;
 #X connect 3 0 1 0;
 #X connect 4 0 2 0;
@@ -109,50 +98,131 @@ the same name.;
 #X connect 5 1 9 0;
 #X connect 6 0 10 0;
 #X connect 8 0 11 0;
+#X connect 9 0 13 0;
 #X connect 9 0 14 0;
-#X connect 9 0 16 0;
 #X connect 10 0 3 1;
 #X connect 10 0 7 0;
-#X connect 10 0 16 1;
+#X connect 10 0 14 1;
 #X connect 11 0 4 1;
-#X connect 11 0 14 1;
-#X connect 12 0 18 0;
+#X connect 11 0 13 1;
+#X connect 12 0 16 0;
 #X connect 12 1 5 0;
-#X connect 13 0 14 1;
-#X connect 14 0 8 0;
-#X connect 15 0 16 1;
-#X connect 16 0 6 0;
-#X connect 17 0 13 0;
-#X connect 17 0 15 0;
-#X connect 18 0 13 0;
-#X connect 18 0 15 0;
-#X restore 286 465 pd alternate;
-#X msg 317 423 reset;
-#X obj 285 499 print HIGH;
-#X obj 365 498 print LOW;
-#X connect 11 0 12 0;
-#X connect 12 0 40 0;
-#X connect 19 0 11 0;
-#X connect 21 0 7 0;
-#X connect 22 0 8 0;
-#X connect 23 0 9 0;
-#X connect 24 0 2 0;
-#X connect 25 0 1 0;
-#X connect 26 0 3 0;
-#X connect 27 0 4 0;
-#X connect 28 0 5 0;
-#X connect 29 0 6 0;
-#X connect 37 0 34 0;
-#X connect 38 0 35 0;
-#X connect 39 0 36 0;
-#X connect 40 0 44 0;
-#X connect 41 0 40 1;
-#X connect 42 0 12 0;
-#X connect 44 0 43 0;
-#X connect 44 1 45 0;
-#X connect 44 2 46 0;
-#X connect 44 2 48 0;
-#X connect 47 0 12 0;
-#X connect 48 0 50 0;
-#X connect 48 1 51 0;
-#X connect 49 0 48 0;
+#X connect 13 0 8 0;
+#X connect 14 0 6 0;
+#X connect 15 0 18 0;
+#X connect 15 0 17 0;
+#X connect 16 0 18 0;
+#X connect 16 0 17 0;
+#X connect 17 0 14 1;
+#X connect 18 0 13 1;
+#X restore 179 407 pd alternate;
+#X msg 100 361 reset;
+#X obj 100 287 comport 0 9600;
+#X obj 218 366 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
+-1;
+#X obj 258 427 * 32;
+#X obj 242 448 +;
+#X obj 242 469 trigger bang float;
+#X obj 250 601 pack symbol float;
+#X obj 232 579 makefilename \$0-%c;
+#X msg 251 624 \; \$1 \$2;
+#X obj 21 112 receive \$0-A;
+#X obj 122 112 receive \$0-B;
+#X obj 223 112 receive \$0-C;
+#X obj 324 112 receive \$0-D;
+#X obj 425 112 receive \$0-E;
+#X obj 526 112 receive \$0-F;
+#X obj 232 525 +;
+#X obj 260 525 float;
+#X msg 261 504 0;
+#X msg 232 504 1;
+#X obj 232 555 + 64;
+#X obj 6 580 spigot;
+#X obj 44 552 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0 1
+;
+#X obj 360 397 gate 4;
+#X obj 351 421 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
+-1;
+#X obj 369 421 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
+-1;
+#X obj 388 421 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
+-1;
+#X obj 407 421 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
+-1;
+#X obj 398 376 metro 400;
+#X obj 399 356 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0
+1;
+#X obj 327 323 float;
+#X obj 370 323 + 1;
+#X obj 327 289 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
+-1;
+#X obj 413 321 bang;
+#X msg 346 289 1;
+#X obj 327 345 moses 5;
+#X obj 100 335 select 255;
+#X msg 164 259 devicename /dev/tty.usbserial-1913;
+#X obj 45 435 spigot;
+#X obj 83 407 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0 1
+;
+#X obj 108 480 print RAW;
+#X obj 42 460 select 255;
+#X connect 7 0 58 0;
+#X connect 11 0 39 0;
+#X connect 18 0 11 0;
+#X connect 20 0 2 0;
+#X connect 21 0 1 0;
+#X connect 22 0 3 0;
+#X connect 23 0 4 0;
+#X connect 24 0 5 0;
+#X connect 25 0 6 0;
+#X connect 33 0 73 0;
+#X connect 34 0 33 1;
+#X connect 35 0 39 0;
+#X connect 37 0 42 0;
+#X connect 37 1 41 0;
+#X connect 38 0 37 0;
+#X connect 38 0 55 0;
+#X connect 39 0 33 0;
+#X connect 39 0 75 0;
+#X connect 40 0 37 0;
+#X connect 41 0 42 1;
+#X connect 42 0 43 0;
+#X connect 43 0 56 0;
+#X connect 43 1 44 1;
+#X connect 44 0 46 0;
+#X connect 45 0 44 0;
+#X connect 47 0 7 0;
+#X connect 48 0 8 0;
+#X connect 49 0 9 0;
+#X connect 50 0 30 0;
+#X connect 51 0 31 0;
+#X connect 52 0 32 0;
+#X connect 53 0 54 0;
+#X connect 53 0 57 0;
+#X connect 54 0 53 1;
+#X connect 55 0 54 0;
+#X connect 56 0 53 0;
+#X connect 57 0 45 0;
+#X connect 58 0 36 0;
+#X connect 59 0 58 1;
+#X connect 60 0 61 0;
+#X connect 60 1 62 0;
+#X connect 60 2 63 0;
+#X connect 60 3 64 0;
+#X connect 65 0 60 1;
+#X connect 66 0 65 0;
+#X connect 67 0 72 0;
+#X connect 68 0 67 1;
+#X connect 69 0 67 0;
+#X connect 70 0 71 0;
+#X connect 71 0 67 0;
+#X connect 72 0 68 0;
+#X connect 72 0 60 0;
+#X connect 72 1 70 0;
+#X connect 73 0 38 0;
+#X connect 73 1 37 0;
+#X connect 74 0 39 0;
+#X connect 75 0 78 0;
+#X connect 76 0 75 1;
+#X connect 78 0 36 0;
+#X connect 78 1 77 0;
