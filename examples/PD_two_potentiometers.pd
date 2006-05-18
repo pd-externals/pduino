@@ -1,4 +1,4 @@
-#N canvas 1102 74 533 633 10;
+#N canvas 747 74 537 637 10;
 #X obj 431 598 import zexy;
 #X text 127 139 On Mac OS X \, set this to the right value:;
 #X obj 77 195 comport 1 9600;
@@ -7,28 +7,28 @@ window to see if it connected successfully:;
 #X msg 137 104 close;
 #X msg 131 156 devicename /dev/tty.usbserial-191;
 #X obj 110 496 nbx 4 20 -1e+37 1e+37 0 0 empty empty Analog_in_0 -15
-30 1 14 -3754 -1 -1 0 256;
-#N canvas 162 133 518 368 serin 0;
-#X obj 160 101 cnv 15 15 15 empty \$0-number-canvas 1 4 7 0 14 -233017
+30 1 14 -3754 -1 -1 406 256;
+#N canvas 162 133 562 412 serin 0;
+#X obj 220 101 cnv 13 14 13 empty \$0-number-canvas 0 4 7 0 14 -233017
 -1 0;
 #X obj 241 251 s \$0-number-canvas;
-#X obj 100 101 hradio 15 1 0 4 empty empty empty 0 -6 0 8 -225271 -1
+#X obj 100 100 hradio 15 1 0 8 empty empty empty 0 -6 0 8 -225271 -1
 -1 0;
-#X obj 101 134 + 1;
 #X obj 100 173 outlet;
 #X obj 101 39 inlet;
 #X msg 241 228 label \$1;
 #X obj 241 206 makefilename %d;
-#X connect 2 0 3 0;
-#X connect 3 0 4 0;
-#X connect 3 0 7 0;
-#X connect 5 0 2 0;
-#X connect 6 0 1 0;
+#X obj 101 134 float;
+#X connect 2 0 7 0;
+#X connect 4 0 2 0;
+#X connect 5 0 1 0;
+#X connect 6 0 5 0;
+#X connect 7 0 3 0;
 #X connect 7 0 6 0;
-#X coords 0 -1 1 1 76 17 1 100 100;
+#X coords 0 -1 1 1 136 15 1 100 100;
 #X restore 77 78 pd serin;
 #X msg 77 103 open \$1;
-#X text 158 79 serial port #;
+#X text 217 79 serial port #;
 #X text 4 -3 This patch works with the example Arduino firmware of
 the same name.;
 #X text 20 537 CAUTION! Watch out if you connect your potentiometer
@@ -53,7 +53,7 @@ board!;
 #X text 169 225 <-- filter out newline characters;
 #X obj 156 267 select B A;
 #X obj 209 495 nbx 4 20 -1e+37 1e+37 0 0 empty empty Analog_in_1 -15
-30 1 14 -3754 -1 -1 0 256;
+30 1 14 -3754 -1 -1 3.70039e+18 256;
 #X text 227 606 released under the GNU GPL;
 #X text 13 591 (C) Copyright 2006 Hans-Christoph Steiner <hans@at.or.at>
 ;

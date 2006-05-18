@@ -1,4 +1,4 @@
-#N canvas 1030 43 584 697 10;
+#N canvas 429 31 592 705 10;
 #X obj 480 668 import zexy;
 #X obj 21 78 nbx 4 16 -1e+37 1e+37 0 0 empty empty empty 0 -6 0 14
 -241291 -1 -1 0 256;
@@ -13,11 +13,11 @@
 #X obj 371 78 nbx 3 16 -1e+37 1e+37 0 0 empty empty empty 0 -6 0 14
 -241291 -1 -1 0 256;
 #X obj 21 132 nbx 6 16 -1e+37 1e+37 0 0 empty empty empty 0 -6 0 14
--3754 -1 -1 0 256;
+-3754 -1 -1 403 256;
 #X obj 122 132 nbx 6 16 -1e+37 1e+37 0 0 empty empty empty 0 -6 0 14
--3754 -1 -1 0 256;
+-3754 -1 -1 387 256;
 #X obj 223 132 nbx 6 16 -1e+37 1e+37 0 0 empty empty empty 0 -6 0 14
--3754 -1 -1 0 256;
+-3754 -1 -1 410 256;
 #X text 160 241 On Mac OS X \, set this to the right value:;
 #X msg 100 220 open \$1;
 #X obj 100 287 comport 1 9600;
@@ -31,26 +31,6 @@ window to see if it connected successfully:;
 #X obj 100 311 select 10;
 #X text 16 5 This patch works with the example Arduino firmware of
 the same name.;
-#N canvas 162 133 526 376 serin 0;
-#X obj 120 61 cnv 15 15 15 empty \$0-number-canvas 1 4 7 0 14 -233017
--1 0;
-#X obj 200 225 s \$0-number-canvas;
-#X obj 60 61 hradio 15 1 0 4 empty empty empty 0 -6 0 8 -225271 -1
--1 0;
-#X obj 60 108 + 1;
-#X obj 59 147 outlet;
-#X obj 60 13 inlet;
-#X msg 200 202 label \$1;
-#X obj 200 180 makefilename %d;
-#X connect 2 0 3 0;
-#X connect 3 0 4 0;
-#X connect 3 0 7 0;
-#X connect 5 0 2 0;
-#X connect 6 0 1 0;
-#X connect 7 0 6 0;
-#X coords 0 -1 1 1 76 17 1 60 60;
-#X restore 100 197 pd serin;
-#X text 181 198 serial port #;
 #X msg 164 259 devicename /dev/tty.usbserial-191;
 #X obj 265 551 +;
 #X obj 235 572 float;
@@ -90,38 +70,58 @@ the same name.;
 #X text 281 675 released under the GNU GPL;
 #X text 67 660 (C) Copyright 2006 Hans-Christoph Steiner <hans@at.or.at>
 ;
+#N canvas 162 133 562 412 serin 0;
+#X obj 220 101 cnv 13 14 13 empty \$0-number-canvas 1 4 7 0 14 -233017
+-1 0;
+#X obj 241 251 s \$0-number-canvas;
+#X obj 100 100 hradio 15 1 0 8 empty empty empty 0 -6 0 8 -225271 -1
+-1 1;
+#X obj 100 173 outlet;
+#X obj 101 39 inlet;
+#X msg 241 228 label \$1;
+#X obj 241 206 makefilename %d;
+#X obj 101 134 float;
+#X connect 2 0 7 0;
+#X connect 4 0 2 0;
+#X connect 5 0 1 0;
+#X connect 6 0 5 0;
+#X connect 7 0 3 0;
+#X connect 7 0 6 0;
+#X coords 0 -1 1 1 136 15 1 100 100;
+#X restore 100 198 pd serin;
+#X text 240 199 serial port #;
 #X connect 11 0 12 0;
 #X connect 12 0 19 0;
 #X connect 18 0 12 0;
-#X connect 19 1 35 0;
-#X connect 21 0 11 0;
-#X connect 23 0 12 0;
-#X connect 24 0 25 1;
-#X connect 24 0 29 0;
-#X connect 25 0 33 1;
-#X connect 26 0 24 0;
-#X connect 26 1 27 0;
-#X connect 27 0 28 0;
-#X connect 28 0 24 1;
-#X connect 29 0 27 1;
-#X connect 30 0 27 1;
-#X connect 32 0 33 0;
-#X connect 33 0 34 0;
-#X connect 35 0 45 0;
-#X connect 35 1 47 0;
-#X connect 36 0 7 0;
-#X connect 37 0 8 0;
-#X connect 38 0 9 0;
-#X connect 39 0 2 0;
-#X connect 40 0 1 0;
-#X connect 41 0 3 0;
-#X connect 42 0 4 0;
-#X connect 43 0 5 0;
-#X connect 44 0 6 0;
-#X connect 45 0 46 0;
-#X connect 46 0 26 0;
-#X connect 47 0 48 1;
-#X connect 47 1 48 0;
-#X connect 47 2 30 0;
-#X connect 47 2 25 0;
-#X connect 48 0 32 0;
+#X connect 19 1 33 0;
+#X connect 21 0 12 0;
+#X connect 22 0 23 1;
+#X connect 22 0 27 0;
+#X connect 23 0 31 1;
+#X connect 24 0 22 0;
+#X connect 24 1 25 0;
+#X connect 25 0 26 0;
+#X connect 26 0 22 1;
+#X connect 27 0 25 1;
+#X connect 28 0 25 1;
+#X connect 30 0 31 0;
+#X connect 31 0 32 0;
+#X connect 33 0 43 0;
+#X connect 33 1 45 0;
+#X connect 34 0 7 0;
+#X connect 35 0 8 0;
+#X connect 36 0 9 0;
+#X connect 37 0 2 0;
+#X connect 38 0 1 0;
+#X connect 39 0 3 0;
+#X connect 40 0 4 0;
+#X connect 41 0 5 0;
+#X connect 42 0 6 0;
+#X connect 43 0 44 0;
+#X connect 44 0 24 0;
+#X connect 45 0 46 1;
+#X connect 45 1 46 0;
+#X connect 45 2 28 0;
+#X connect 45 2 23 0;
+#X connect 46 0 30 0;
+#X connect 58 0 11 0;
