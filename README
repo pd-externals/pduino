@@ -1,0 +1,4 @@
+
+The code in the examples patch are example patches that match the included examples in the Arduino package.
+
+Pd_firmware is a Arduino firmware where you can control everything from Pd, so you don't need to program in Arduino.
