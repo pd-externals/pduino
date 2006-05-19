@@ -18,11 +18,11 @@
  * 
  * Pd->Arduino commands
  * --------------------
- * 150 - next byte sets PWM0 value
- * 151 - next byte sets PWM1 value
- * 152 - next byte sets PWM2 value
- * 200-213 - set digital pin 0-13 to input
- * 220-233 - set digital pin 0-13 to output
+ * 200-213 - set digital pin 0-13 to output
+ * 214-227 - set digital pin 0-13 to input
+ * 230 - next byte sets PWM0 value
+ * 231 - next byte sets PWM1 value
+ * 232 - next byte sets PWM2 value
  * 
  *
  * Pd->Arduino byte cycle
@@ -61,15 +61,22 @@
  * without a delay() so its very fast.
  */
 
+#define TOTAL_DIGITAL_PINS 14
 
 byte i;
 
-// this int serves as an array of bits to store pin status
+// this flag says that the next serial input will be data, not control
+boolean waitForData = 0;
+
+/* this int serves as an array of bits to store pin status
+ * 0 = INPUT, 1 = OUTPUT
+ */
 int digitalPinStatus;
 
 byte analogPin;
 int analogData;
 
+// -------------------------------------------------------------------------
 void outputDigital(byte startPin) {
   byte digitalPin;
   byte digitalPinBit;
@@ -78,21 +85,115 @@ void outputDigital(byte startPin) {
   for(i=0;i<7;++i)
   {
     digitalPin = i+startPin;
-    digitalPinBit = 2^digitalPin;
+    digitalPinBit = OUTPUT << digitalPin;
     // only read the pin if its set to input
-    if(digitalPinStatus & digitalPinBit) 
+    if(digitalPinStatus & digitalPinBit) {
+      digitalData = 0; // pin set to OUTPUT, don't read
+    }
+    else {
       digitalData = digitalRead(digitalPin);
-    else
-      digitalData = 0;
+    }
     digitalOutputByte = digitalOutputByte + (2^(i+1-startPin)*digitalData);
   }
   printByte(digitalOutputByte);
 }
 
-void setup() {
-  beginSerial(9600);
+// -------------------------------------------------------------------------
+void setPinMode(int pin, int mode) {
+  pinMode(pin,mode);
+  if(mode == INPUT) {
+      digitalPinStatus = digitalPinStatus &~ (1 << pin);
+  }
+  if(mode == OUTPUT) {
+      digitalPinStatus = digitalPinStatus | (1 << pin);
+  }
 }
 
+// -------------------------------------------------------------------------
+void checkForInput() {
+  if(serialAvailable()) {  
+    while(serialAvailable()) {
+      processInput(serialRead());
+    }
+  }
+}
+
+// -------------------------------------------------------------------------
+void processInput(int inputData) {
+  if (waitForData > 0) {  
+    // the PWM commands (230-232) have a byte of data following the command
+    analogWrite(waitForData,inputData);
+    waitForData = 0;
+  }
+  else {
+    switch (inputData) {
+      case 200:
+      case 201:
+      case 202:
+      case 203:
+      case 204:
+      case 205:
+      case 206:
+      case 207:
+      case 208:
+      case 209:
+      case 210:
+      case 211:
+      case 212:
+      case 213:
+        setPinMode(inputData-200,OUTPUT);
+        printByte(inputData);
+        printByte(inputData);
+        printByte(inputData);
+        printByte(inputData);
+        break;
+      case 214:
+      case 215:
+      case 216:
+      case 217:
+      case 218:
+      case 219:
+      case 220:
+      case 221:
+      case 222:
+      case 223:
+      case 224:
+      case 225:
+      case 226:
+      case 227:
+        setPinMode(inputData-214,INPUT);
+        printByte(inputData);
+        printByte(inputData);
+        printByte(inputData);
+        printByte(inputData);
+        break;
+      case 230:
+      case 231:
+      case 232:
+        // set waitForData to the PWM pin number
+        waitForData = inputData - 221;
+        printByte(inputData);
+        printByte(inputData);
+        printByte(inputData);
+        printByte(inputData);
+        break;
+      case 255:
+        break;
+    }
+  }
+}
+
+// =========================================================================
+
+// -------------------------------------------------------------------------
+void setup() {
+  beginSerial(9600);
+  for(i=0; i<TOTAL_DIGITAL_PINS; ++i) {
+      setPinMode(i,INPUT);
+  }
+}
+
+// -------------------------------------------------------------------------
 void loop() {
   // read all digital pins
   outputDigital(0);
@@ -100,12 +201,24 @@ void loop() {
   /*
    * get analog in
    */
+/*   
+  for(analogPin=0; analogPin<5; ++analogPin)
+  {
   analogData = analogRead(analogPin);
   // these two bytes get converted back into the whole number in Pd
-  printByte(analogData / 32);  // div by 32 for the big byte
-  printByte(analogData % 32);  // mod by 32 for the small byte
-  ++analogPin; 
-  if (analogPin > 5) analogPin = 0;   
+  printByte(analogData >> 7);  // bitshift the big stuff into the output byte
+  printByte(analogData % 128);  // mod by 32 for the small byte
+  }
+*/  
+//  ++analogPin; 
+//  if (analogPin > 5) analogPin = 0;   
   /* end with the cycle marker */
+  // bitshift the big stuff into the output byte
+  printByte(digitalPinStatus >> 7);
+  // clear the 8th bit before truncating to a byte for small byte
+  printByte(digitalPinStatus % 128); 
+
+  checkForInput();
+  
   printByte(255);   
 }
