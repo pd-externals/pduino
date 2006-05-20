@@ -146,10 +146,8 @@ void checkForInput() {
 
 // -------------------------------------------------------------------------
 void processInput(byte inputData) {
-  byte i;
+  int i;
   int mask;
-//  byte writeTest;
-//  byte highDigitalPinStatus;
 
   // the PWM commands (230-232) have a byte of data following the command
   if (waitForPWMData > 0) {  
@@ -158,45 +156,34 @@ void processInput(byte inputData) {
     analogWrite(waitForPWMData,inputData);
     waitForPWMData = 0;
   }
- else if(inputData < 128) {
+  else if(inputData < 128) {
     printByte(151);
     if(firstInputByte) {
       printByte(160);
-      printByte(inputData);
-      // TODO: this section is for digital out...    
       for(i=0; i<7; ++i) {
         mask = 1 << i;
-/*        writeTest = digitalPinStatus;
-//        writeTest = writeTest & mask;
-//        printByte(writeTest);
-//        if(writeTest) {
-// or
-/*        if((byte)digitalPinStatus & mask) {
-//          digitalWrite(i,(inputData & mask) >> i);
-          printByte(254);
-          printByte(i);
-          printByte(mask);
-          printByte(inputData & mask);
-        } */
+        //printByte(254);
+        //printByte(i);
+        //printByte(mask);
+        if(digitalPinStatus & mask) {
+          digitalWrite(i, inputData & mask);
+          //printByte(inputData & mask);
+        } 
       }
       firstInputByte = false;
     }
     else {
       printByte(161);
-      printByte(inputData);
       // output data for pins 7-13
-      //highDigitalPinStatus = digitalPinStatus >> 7;
       for(i=7; i<TOTAL_DIGITAL_PINS; ++i) {
         mask = 1 << i;
-        printByte(254);
-        printByte(i);
-        printByte(mask);
-//        if(digitalPinStatus & mask) {
-// need to add test for pwmStatus
+        //printByte(254);
+        //printByte(i);
+        //printByte(mask);
         if( (digitalPinStatus & mask) && !(pwmStatus & mask) ) {
+          // inputData is a byte and mask is an int, so align the high part of mask
           digitalWrite(i, inputData & (mask >> 7));
-          printByte(inputData & (mask >> 7));
-//          printByte(highDigitalPinStatus & mask);
+          //printByte(inputData & (mask >> 7));
         }        
       }
     }

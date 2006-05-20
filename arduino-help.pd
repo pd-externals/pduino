@@ -1,4 +1,4 @@
-#N canvas 390 0 638 592 10;
+#N canvas 386 0 642 596 10;
 #X obj 478 -14 import cyclone zexy;
 #X obj 9 25 nbx 6 16 -1e+037 1e+037 0 0 empty empty empty 0 -6 0 14
 -3754 -1 -1 0 256;
@@ -55,7 +55,7 @@
 14 -3754 -1 -1 0 256;
 #X obj 510 5 receive \$0-G;
 #X obj 395 89 hradio 15 1 0 14 empty empty empty 0 -6 0 8 -262144 -1
--1 9;
+-1 6;
 #X obj 372 90 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 1 1
 ;
 #X obj 391 162 +;
@@ -147,7 +147,7 @@
 #X connect 28 0 17 0;
 #X restore 465 534 pd decode buttons;
 #X obj 57 70 hsl 128 15 0 1 0 0 empty empty PWM_control_(0-1) -2 -6
-1 10 -225271 -1 -1 800 0;
+1 10 -225271 -1 -1 2500 0;
 #X msg 33 436 bang;
 #X obj 235 297 arduino 3;
 #X obj 123 399 select 255;
@@ -169,13 +169,16 @@
 -1;
 #X obj 195 136 t b b;
 #X msg 219 155 2;
-#X msg 13 241 255 \, 126 \, 0;
-#X msg 114 176 230 \, 1 \, 231 \, 1 \, 214 \, 215 \, 216;
-#X msg 14 222 255 \, 127 \, 4;
-#X msg 13 201 255 \, 126 \, 8;
 #X text 504 72 0;
 #X text 547 73 3;
-#X msg 12 293 231 \, 1 \, 223 \, 255 \, 0 \, 12;
+#X msg 13 309 231 \, 1 \, 223 \, 255 \, 0 \, 12;
+#X msg 18 277 255 \, \$1;
+#X obj 17 260 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 64
+64;
+#X obj 20 239 metro 500;
+#X obj 14 215 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 1 1
+;
+#X msg 114 176 230 \, 1 \, 231 \, 1 \, 220;
 #X connect 4 0 47 0;
 #X connect 5 0 4 0;
 #X connect 13 0 12 1;
@@ -222,11 +225,12 @@
 #X connect 60 0 14 0;
 #X connect 61 0 47 0;
 #X connect 62 0 63 0;
-#X connect 63 0 66 0;
+#X connect 63 0 72 0;
 #X connect 63 1 64 0;
 #X connect 64 0 5 0;
-#X connect 65 0 47 0;
-#X connect 66 0 47 0;
 #X connect 67 0 47 0;
 #X connect 68 0 47 0;
-#X connect 71 0 47 0;
+#X connect 69 0 68 0;
+#X connect 70 0 69 0;
+#X connect 71 0 70 0;
+#X connect 72 0 47 0;
