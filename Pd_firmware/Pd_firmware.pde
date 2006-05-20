@@ -251,35 +251,26 @@ void setup() {
 
 // -------------------------------------------------------------------------
 void loop() {
-  // read all digital pins
-  //transmitDigitalInput(0);
-  //transmitDigitalInput(7);
   /*
    * get analog in
    */
-  /*   
-   for(analogPin=0; analogPin<5; ++analogPin)
-   {
-   analogData = analogRead(analogPin);
-   // these two bytes get converted back into the whole number in Pd
-   printByte(analogData >> 7);  // bitshift the big stuff into the output byte
-   printByte(analogData % 128);  // mod by 32 for the small byte
-   }
-   */
-  //  ++analogPin; 
-  //  if (analogPin > 5) analogPin = 0;   
-  /* end with the cycle marker */
-  // bitshift the big stuff into the output byte
-  printByte(digitalPinStatus >> 7);
-  // clear the 8th bit before truncating to a byte for small data byte
-  printByte(digitalPinStatus % 128); 
+  for(analogPin=0; analogPin<6; ++analogPin)
+  {
+    analogData = analogRead(analogPin);
+    // these two bytes get converted back into the whole number in Pd
+    printByte(analogData >> 7);  // bitshift the big stuff into the output byte
+    printByte(analogData % 128);  // mod by 32 for the small byte
+  }
 
-  printByte(pwmStatus >> 7);
-  printByte(pwmStatus % 128);
+  // read all digital pins
+  transmitDigitalInput(0);
+  transmitDigitalInput(7);
 
   checkForInput();
 
+  /* end with the cycle marker */
   printByte(255); 
-  setPinMode(13,OUTPUT);  
-  digitalWrite(13,HIGH);
+
+    //  setPinMode(13,OUTPUT);  
+  //  digitalWrite(13,HIGH);
 }
