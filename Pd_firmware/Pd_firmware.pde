@@ -24,6 +24,15 @@
  * 230 - next byte sets PWM0 value
  * 231 - next byte sets PWM1 value
  * 232 - next byte sets PWM2 value
+ * 238 - disable all digital inputs
+ * 239 - enable all digital inputs
+ * 240 - disable all analog inputs
+ * 241 - enable 1 analog input (0)
+ * 242 - enable 2 analog inputs (0,1)
+ * 243 - enable 3 analog inputs (0-2)
+ * 244 - enable 4 analog inputs (0-3)
+ * 245 - enable 5 analog inputs (0-4)
+ * 246 - enable 6 analog inputs (0-5)
  *
  * Pd->Arduino byte cycle
  * ----------------------
@@ -83,6 +92,9 @@ int digitalPinStatus;
  */
 int pwmStatus;
 
+boolean digitalInputsEnabled = true;
+byte analogInputsEnabled = 6;
+
 byte analogPin;
 int analogData;
 
@@ -105,6 +117,7 @@ void transmitDigitalInput(byte startPin) {
       digitalData = 0; // pin set to PWM, don't read
     }
     else {
+      // TODO: get digital in working
       //      digitalData = digitalRead(digitalPin);
       digitalData = pwmStatus;
     }
@@ -151,15 +164,15 @@ void processInput(byte inputData) {
 
   // the PWM commands (230-232) have a byte of data following the command
   if (waitForPWMData > 0) {  
-    printByte(150);
-    printByte(inputData);
+    //    printByte(150);
+    //    printByte(inputData);
     analogWrite(waitForPWMData,inputData);
     waitForPWMData = 0;
   }
   else if(inputData < 128) {
-    printByte(151);
+    //    printByte(151);
     if(firstInputByte) {
-      printByte(160);
+      //      printByte(160);
       for(i=0; i<7; ++i) {
         mask = 1 << i;
         //printByte(254);
@@ -173,7 +186,7 @@ void processInput(byte inputData) {
       firstInputByte = false;
     }
     else {
-      printByte(161);
+      //      printByte(161);
       // output data for pins 7-13
       for(i=7; i<TOTAL_DIGITAL_PINS; ++i) {
         mask = 1 << i;
@@ -189,8 +202,8 @@ void processInput(byte inputData) {
     }
   }
   else {
-    printByte(152);      
-    printByte(inputData);
+    //    printByte(152);      
+    //    printByte(inputData);
     switch (inputData) {
     case 200:
     case 201:
@@ -230,6 +243,21 @@ void processInput(byte inputData) {
       waitForPWMData = inputData - 221; // set waitForPWMData to the PWM pin number
       setPinMode(waitForPWMData, PWM);
       break;
+    case 238:
+      digitalInputsEnabled = false;
+      break;
+    case 239:
+      digitalInputsEnabled = true;
+      break;
+    case 240:
+    case 241:
+    case 242:
+    case 243:
+    case 244:
+    case 245:
+    case 246:
+      analogInputsEnabled = inputData - 240;
+      break;      
     case 255:
       firstInputByte = true;
       break;
@@ -251,26 +279,33 @@ void setup() {
 
 // -------------------------------------------------------------------------
 void loop() {
-  /*
-   * get analog in
+  checkForInput();  
+
+  // read all digital pins, in enabled
+  if(digitalInputsEnabled) {
+    transmitDigitalInput(0);
+    checkForInput();
+    transmitDigitalInput(7);
+    checkForInput();
+  }
+  else if(analogInputsEnabled) {
+    // filler bytes, since the first thing sent is always the digitalInputs
+    printByte(0);
+    printByte(0);
+  }
+
+  /* get analog in, for the number enabled
    */
-  for(analogPin=0; analogPin<6; ++analogPin)
-  {
+  for(analogPin=0; analogPin<analogInputsEnabled; ++analogPin) {
     analogData = analogRead(analogPin);
     // these two bytes get converted back into the whole number in Pd
     printByte(analogData >> 7);  // bitshift the big stuff into the output byte
     printByte(analogData % 128);  // mod by 32 for the small byte
+    checkForInput();
   }
 
-  // read all digital pins
-  transmitDigitalInput(0);
-  transmitDigitalInput(7);
-
-  checkForInput();
-
-  /* end with the cycle marker */
-  printByte(255); 
-
-    //  setPinMode(13,OUTPUT);  
-  //  digitalWrite(13,HIGH);
+  /* end with the cycle marker, if any of the inputs are enabled */
+  if( digitalInputsEnabled || analogInputsEnabled) {
+    printByte(255); 
+  }
 }

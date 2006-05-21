@@ -1,4 +1,4 @@
-#N canvas 81 0 588 515 10;
+#N canvas 81 0 600 527 10;
 #X obj 388 -14 import cyclone zexy;
 #X text 390 446 released under the GNU GPL;
 #X text 17 448 (C) Copyright 2006 Hans-Christoph Steiner <hans@at.or.at>
@@ -52,7 +52,7 @@
 #X msg 11 100 reset;
 #X obj 121 173 +;
 #X obj 121 194 trigger bang float;
-#X obj 127 363 pack symbol float;
+#X obj 127 345 pack symbol float;
 #X msg 125 228 0;
 #X obj 349 135 gate 4;
 #X obj 340 159 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
@@ -76,7 +76,7 @@
 #X obj 11 58 select 255;
 #X obj 134 152 * 128;
 #X obj 11 -9 inlet;
-#X obj 127 413 outlet;
+#X obj 127 395 outlet;
 #X obj 492 396 outlet;
 #X obj 11 36 comport \$1 9600;
 #N canvas 0 0 466 316 command 0;
@@ -108,23 +108,23 @@
 #X connect 11 0 1 0;
 #X restore 11 12 pd command processing;
 #X obj 67 94 moses 128;
-#X obj 100 271 moses 6;
-#X msg 140 335 symbol digital;
-#X obj 7 335 makefilename analog%c;
-#X obj 140 314 bang;
-#X obj 7 312 + 48;
+#X msg 48 316 symbol digital;
+#X obj 143 315 makefilename analog%c;
 #X obj 100 249 float;
 #X obj 139 249 + 1;
-#X obj 127 388 list trim;
+#X obj 127 370 list trim;
+#X obj 100 271 select 0;
+#X text 373 418 DEBUG/RAW data (this will change);
+#X obj 143 293 + 47;
 #X connect 3 0 5 0;
 #X connect 3 1 23 0;
 #X connect 4 0 3 0;
 #X connect 4 0 8 0;
 #X connect 5 0 6 0;
-#X connect 6 0 35 0;
+#X connect 6 0 32 0;
 #X connect 6 1 7 1;
-#X connect 7 0 37 0;
-#X connect 8 0 35 1;
+#X connect 7 0 34 0;
+#X connect 8 0 32 1;
 #X connect 9 0 10 0;
 #X connect 9 1 11 0;
 #X connect 9 2 12 0;
@@ -147,13 +147,12 @@
 #X connect 27 0 26 0;
 #X connect 28 0 27 0;
 #X connect 29 0 3 0;
-#X connect 30 0 34 0;
-#X connect 30 1 33 0;
+#X connect 30 0 7 0;
 #X connect 31 0 7 0;
-#X connect 32 0 7 0;
-#X connect 33 0 31 0;
-#X connect 34 0 32 0;
+#X connect 32 0 33 0;
+#X connect 32 0 35 0;
+#X connect 33 0 32 1;
+#X connect 34 0 25 0;
 #X connect 35 0 30 0;
-#X connect 35 0 36 0;
-#X connect 36 0 35 1;
-#X connect 37 0 25 0;
+#X connect 35 1 37 0;
+#X connect 37 0 31 0;
