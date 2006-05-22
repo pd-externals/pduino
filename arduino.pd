@@ -1,4 +1,4 @@
-#N canvas 81 0 605 522 10;
+#N canvas 81 0 609 526 10;
 #X text 390 446 released under the GNU GPL;
 #X text 12 446 (C) Copyright 2006 Hans-Christoph Steiner <hans@at.or.at>
 ;
@@ -59,7 +59,7 @@
 #X obj 126 425 outlet;
 #X obj 494 241 outlet;
 #X obj 11 66 comport \$1 9600;
-#N canvas 240 282 603 439 command 0;
+#N canvas 240 282 607 443 command 1;
 #X obj 79 8 inlet;
 #X obj 55 378 outlet;
 #X obj 155 114 * 255;
@@ -83,7 +83,7 @@
 #X obj 370 129 trigger float float bang;
 #X msg 494 154 255;
 #X text 337 56 break up digital-out bitmask;
-#X floatatom 321 194 5 0 0 0 - - -;
+#X obj 370 151 >> 7;
 #X connect 0 0 16 0;
 #X connect 2 0 8 0;
 #X connect 3 0 9 0;
@@ -109,8 +109,11 @@
 #X connect 17 1 1 0;
 #X connect 18 0 1 0;
 #X connect 19 0 1 0;
+#X connect 20 0 23 0;
+#X connect 20 1 18 0;
 #X connect 20 2 21 0;
 #X connect 21 0 1 0;
+#X connect 23 0 19 0;
 #X restore 11 22 pd command processing;
 #X obj 66 132 moses 128;
 #X msg 47 346 symbol digital;
