@@ -1,14 +1,15 @@
-/* Pd_firmware
+/* Pd_firmware aka Pduino
  * ------------------
+ * 
+ * It was designed to work with the Pd object [arduino]
+ * which is included in Pd-extended.  This firmware could 
+ * easily be used with other programs like Max/MSP, Processing,
+ * or whatever can do serial communications.
  *
- *
- * It was designed to work with the Pd patch of the same 
- * name in:  Help -> Browser -> examples -> hardware
- *
- * (cleft) 2006 Hans-Christoph Steiner
+ * (copyleft) 2006 Hans-Christoph Steiner <hans@at.or.at>
  * @author: Hans-Christoph Steiner
- * @date: 2006-03-10
- * @location: Polytechnic University, Brooklyn, New York, USA
+ * @date: 2006-05-19
+ * @location: STEIM, Amsterdam, Netherlands
  */
 
 /*
@@ -57,11 +58,6 @@
  * 12 analogIn5 byte0
  * 13 analogIn5 byte1
  * 14 cycle marker (255/11111111)
- * 
- * 
- *      TX         RX
- * -----------------------
- *   					 
  */
 
 /*
@@ -118,8 +114,7 @@ void transmitDigitalInput(byte startPin) {
     }
     else {
       // TODO: get digital in working
-      //      digitalData = digitalRead(digitalPin);
-      digitalData = pwmStatus;
+      digitalData = digitalRead(digitalPin);
     }
     transmitByte = transmitByte + (2^(i+1-startPin)*digitalData);
   }
@@ -149,6 +144,9 @@ void setPinMode(int pin, int mode) {
 }
 
 // -------------------------------------------------------------------------
+/* this function checks to see if there is data waiting on the serial port 
+ * then processes all of the stored data
+ */
 void checkForInput() {
   if(serialAvailable()) {  
     while(serialAvailable()) {
@@ -243,22 +241,22 @@ void processInput(byte inputData) {
       waitForPWMData = inputData - 221; // set waitForPWMData to the PWM pin number
       setPinMode(waitForPWMData, PWM);
       break;
-    case 238:
+    case 238: // all digital inputs off
       digitalInputsEnabled = false;
       break;
-    case 239:
+    case 239: // all digital inputs on
       digitalInputsEnabled = true;
       break;
-    case 240:
-    case 241:
-    case 242:
-    case 243:
-    case 244:
-    case 245:
-    case 246:
+    case 240: // analog input off
+    case 241: // analog 0 on  
+    case 242: // analog 0,1 on  
+    case 243: // analog 0-2 on  
+    case 244: // analog 0-3 on  
+    case 245: // analog 0-4 on  
+    case 246: // analog 0-5 on  
       analogInputsEnabled = inputData - 240;
       break;      
-    case 255:
+    case 255: // incoming digital output bytes
       firstInputByte = true;
       break;
     }
@@ -292,6 +290,7 @@ void loop() {
     // filler bytes, since the first thing sent is always the digitalInputs
     printByte(0);
     printByte(0);
+    checkForInput();  
   }
 
   /* get analog in, for the number enabled

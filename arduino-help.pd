@@ -1,8 +1,7 @@
-#N canvas 374 0 654 608 10;
-#X obj 478 -14 import cyclone zexy;
-#X msg 200 183 open \$1;
-#N canvas 162 133 530 380 serin 0;
-#X obj 120 61 cnv 15 15 15 empty \$0-number-canvas 2 4 7 0 14 -233017
+#N canvas 302 28 640 574 10;
+#X msg 156 146 open \$1;
+#N canvas 162 133 534 384 serin 0;
+#X obj 120 61 cnv 15 15 15 empty \$0-number-canvas 3 4 8 0 14 -233017
 -1 0;
 #X obj 200 225 s \$0-number-canvas;
 #X obj 60 61 hradio 15 1 0 4 empty empty empty 0 -6 0 8 -225271 -1
@@ -11,7 +10,7 @@
 #X obj 60 13 inlet;
 #X msg 200 202 label \$1;
 #X obj 200 180 makefilename %d;
-#X obj 59 108 float;
+#X obj 59 108 int;
 #X connect 2 0 7 0;
 #X connect 4 0 2 0;
 #X connect 5 0 1 0;
@@ -19,49 +18,37 @@
 #X connect 7 0 3 0;
 #X connect 7 0 6 0;
 #X coords 0 -1 1 1 76 17 1 60 60;
-#X restore 200 160 pd serin;
-#X text 197 142 serial port #;
-#X text 259 552 released under the GNU GPL;
-#X text 45 537 (C) Copyright 2006 Hans-Christoph Steiner <hans@at.or.at>
+#X restore 156 123 pd serin;
+#X text 153 105 serial port #;
+#X text 400 510 released under the GNU GPL;
+#X text 45 510 (C) Copyright 2006 Hans-Christoph Steiner <hans@at.or.at>
 ;
-#X obj 21 394 nbx 4 16 -1e+037 1e+037 0 0 empty empty empty 0 -6 0
-14 -3754 -1 -1 0 256;
-#X msg 260 183 close;
-#X obj 83 513 print --------------------;
-#X obj 519 330 spigot;
-#X obj 550 312 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0
-1;
-#X obj 516 355 select 255;
-#X obj 395 29 hradio 15 1 0 14 empty empty empty 0 -6 0 8 -262144 -1
+#X msg 216 146 close;
+#X obj 63 478 print --------------------;
+#X obj 408 289 tgl 15 0 empty empty changes 0 -6 0 8 -262144 -1 -1
+0 1;
+#X obj 293 29 hradio 15 1 0 14 empty empty empty 0 -6 0 8 -262131 -1
 -1 0;
-#X obj 372 30 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0 1
+#X obj 270 30 tgl 15 0 empty empty empty 0 -6 0 8 -262131 -1 -1 0 1
 ;
-#X obj 391 102 +;
-#X obj 372 76 * 14;
-#X obj 391 123 + 200;
-#X floatatom 397 146 5 0 0 0 - - -;
-#X obj 395 48 t b f;
-#X obj 538 387 tolist;
-#X obj 541 495 print;
-#X obj 541 476 list;
-#X obj 565 409 list-len;
-#X obj 565 429 change;
-#X obj 456 360 spigot;
-#X obj 489 342 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0
-1;
-#X obj 567 450 bang;
-#N canvas 295 269 594 315 decode 0;
+#X obj 289 102 +;
+#X obj 270 76 * 14;
+#X obj 289 123 + 200;
+#X floatatom 295 146 5 0 0 0 - - -;
+#X obj 293 48 t b f;
+#X obj 355 292 tgl 15 0 empty empty all 0 -6 0 8 -262144 -1 -1 0 1
+;
+#N canvas 100 289 614 333 decode 0;
 #X obj 241 26 inlet;
 #X obj 46 189 & 1;
 #X obj 72 189 & 2;
 #X obj 98 189 & 4;
-#X obj 46 213 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0 1
+#X obj 46 213 tgl 15 0 empty empty 0 4 25 1 12 -262144 -1 -1 0 1;
+#X obj 72 213 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0 2
 ;
-#X obj 72 213 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 2 2
+#X obj 98 213 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0 4
 ;
-#X obj 98 213 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 4 4
-;
-#X obj 124 213 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 8
+#X obj 124 213 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0
 8;
 #X obj 150 213 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0
 16;
@@ -71,16 +58,16 @@
 64;
 #X obj 248 213 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0
 128;
-#X obj 287 213 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 256
+#X obj 287 213 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0
 256;
-#X obj 326 213 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 512
+#X obj 326 213 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0
 512;
-#X obj 365 213 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 1024
-1024;
+#X obj 365 213 tgl 15 0 empty empty 10 -1 25 1 12 -262144 -1 -1 0 1024
+;
 #X obj 409 213 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0
 2048;
 #X obj 453 213 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0
-2;
+4096;
 #X obj 499 213 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0
 4;
 #X obj 124 189 & 8;
@@ -123,130 +110,213 @@
 #X connect 26 0 15 0;
 #X connect 27 0 16 0;
 #X connect 28 0 17 0;
-#X restore 344 479 pd decode buttons;
-#X obj 57 10 hsl 128 15 0 1 0 0 empty empty PWM_control_(0-1) -2 -6
+#X restore 473 488 pd decode buttons;
+#X obj 57 23 hsl 128 15 0 1 0 0 empty empty PWM_control_(0-1) -2 -6
 1 10 -225271 -1 -1 0 0;
-#X msg 82 473 bang;
-#X obj 255 261 arduino 3;
-#X floatatom 434 50 5 0 0 0 - - -;
-#X text 504 2 7;
-#X text 399 12 0;
-#X text 547 3 10;
-#X msg 54 94 \$2 \$1;
-#X obj 54 72 pack float symbol;
-#X obj 151 53 symbol;
-#X msg 165 31 PWM2;
-#X msg 129 31 PWM1;
-#X msg 94 31 PWM0;
-#X text 357 1 turn on output mode;
-#X obj 259 -11 bng 80 250 50 0 empty empty empty 0 -6 0 8 -258699 -1
--1;
-#X msg 14 122 255 \, 127 \, 127;
-#X obj 203 31 bng 35 250 50 0 empty empty empty 0 -6 0 8 -24198 -1
--1;
-#X obj 195 76 t b b;
-#X text 504 12 0;
-#X text 547 13 3;
-#X msg 13 249 231 \, 1 \, 223 \, 255 \, 0 \, 12;
-#X msg 18 217 255 \, \$1;
-#X obj 17 200 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0 64
+#X msg 64 453 bang;
+#X obj 255 274 arduino 3;
+#X floatatom 332 50 5 0 0 0 - - -;
+#X text 402 15 7;
+#X text 297 15 0;
+#X text 443 15 10;
+#X msg 54 107 \$2 \$1;
+#X obj 54 85 pack float symbol;
+#X msg 165 44 PWM2;
+#X msg 129 44 PWM1;
+#X msg 94 44 PWM0;
+#X obj 67 215 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0 16383
 ;
-#X obj 20 179 metro 500;
-#X obj 14 155 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0 1
+#X obj 67 196 metro 500;
+#X obj 67 178 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0 1
 ;
-#X msg 114 116 230 \, 1 \, 231 \, 1 \, 220;
-#X obj 456 381 print;
-#X obj 217 314 spigot 0;
-#X obj 260 295 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0
+#X obj 21 336 spigot 0;
+#X obj 64 307 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0 1
+;
+#X obj 21 358 route analog0 analog1 analog2 analog3 analog4 analog5
+;
+#X obj 414 408 route digital;
+#X obj 487 428 print GARBAGE;
+#X floatatom 430 488 6 0 0 0 - - -;
+#X text 393 56 how many analogIns to enable:;
+#X obj 405 117 tgl 15 1 empty empty empty 0 -6 0 8 -257472 -1 -1 1
 1;
-#X obj 48 365 route analog0 analog1 analog2 analog3 analog4 analog5
-;
-#X obj 340 435 route digital;
-#X obj 413 455 print GARBAGE;
-#X obj 84 394 nbx 4 16 -1e+037 1e+037 0 0 empty empty empty 0 -6 0
-14 -3754 -1 -1 0 256;
-#X obj 336 394 nbx 4 16 -1e+037 1e+037 0 0 empty empty empty 0 -6 0
-14 -3754 -1 -1 0 256;
-#X obj 273 394 nbx 4 16 -1e+037 1e+037 0 0 empty empty empty 0 -6 0
-14 -3754 -1 -1 0 256;
-#X obj 210 394 nbx 4 16 -1e+037 1e+037 0 0 empty empty empty 0 -6 0
-14 -3754 -1 -1 0 256;
-#X obj 147 394 nbx 4 16 -1e+037 1e+037 0 0 empty empty empty 0 -6 0
-14 -3754 -1 -1 0 256;
-#X floatatom 287 491 6 0 0 0 - - -;
-#X msg 219 95 3;
-#X obj 373 184 hradio 15 1 1 7 empty empty empty 0 -6 0 8 -262144 -1
+#X text 428 116 enable/disable digitalIns;
+#X msg 405 135 digitalIns \$1;
+#X msg 394 90 analogIns \$1;
+#N canvas 162 133 542 392 serin 0;
+#X obj 165 61 cnv 15 15 15 empty \$0-analog-number-canvas 6 4 8 0 14
+-233017 -1 0;
+#X obj 60 61 hradio 15 1 0 7 empty empty empty 0 -6 0 8 -225280 -1
 -1 0;
-#X text 371 168 how many analogIns to enable:;
-#X obj 372 203 + 240;
-#X obj 419 205 tgl 15 1 empty empty empty 0 -6 0 8 -262144 -1 -1 0
+#X obj 59 147 outlet;
+#X obj 60 13 inlet;
+#X msg 200 202 label \$1;
+#X obj 200 180 makefilename %d;
+#X obj 59 108 int;
+#X obj 200 225 send \$0-analog-number-canvas;
+#X connect 1 0 6 0;
+#X connect 3 0 1 0;
+#X connect 4 0 7 0;
+#X connect 5 0 4 0;
+#X connect 6 0 2 0;
+#X connect 6 0 5 0;
+#X coords 0 -1 1 1 121 17 1 60 60;
+#X restore 394 70 pd serin;
+#X text 488 15 13;
+#X text 245 1 turn on output mode for each pin (off = input);
+#X obj 367 462 spigot;
+#X obj 400 444 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0
 1;
-#X obj 419 223 + 238;
-#X text 442 204 enable/disable digitalIns;
-#X floatatom 359 184 1 0 0 0 - - -;
-#X obj 218 337 speedlim 5;
-#X connect 1 0 30 0;
-#X connect 2 0 1 0;
-#X connect 7 0 30 0;
-#X connect 9 0 11 0;
-#X connect 10 0 9 1;
-#X connect 11 0 19 1;
-#X connect 11 1 19 0;
-#X connect 12 0 18 0;
-#X connect 12 0 31 0;
-#X connect 13 0 15 0;
-#X connect 14 0 16 0;
-#X connect 15 0 14 0;
+#X obj 367 483 print;
+#X msg 381 225 231 \, 20 \, 226 \, 213;
+#X text 5 229 this will flash any pin set to output;
+#N canvas 0 0 261 248 speed 0;
+#X obj 21 41 inlet;
+#X obj 21 62 maxlib/speedlim 100;
+#X obj 21 84 outlet;
+#X obj 82 125 inlet;
+#X obj 82 146 maxlib/speedlim 100;
+#X obj 82 168 outlet;
+#X obj 92 135 inlet;
+#X obj 92 156 maxlib/speedlim 100;
+#X obj 92 178 outlet;
+#X obj 102 145 inlet;
+#X obj 102 166 maxlib/speedlim 100;
+#X obj 102 188 outlet;
+#X obj 112 155 inlet;
+#X obj 112 176 maxlib/speedlim 100;
+#X obj 112 198 outlet;
+#X obj 122 165 inlet;
+#X obj 122 186 maxlib/speedlim 100;
+#X obj 122 208 outlet;
+#X obj 132 175 inlet;
+#X obj 132 196 maxlib/speedlim 100;
+#X obj 132 218 outlet;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 3 0 4 0;
+#X connect 4 0 5 0;
+#X connect 6 0 7 0;
+#X connect 7 0 8 0;
+#X connect 9 0 10 0;
+#X connect 10 0 11 0;
+#X connect 12 0 13 0;
+#X connect 13 0 14 0;
+#X connect 15 0 16 0;
 #X connect 16 0 17 0;
-#X connect 16 0 30 0;
-#X connect 18 0 15 0;
-#X connect 18 1 14 1;
-#X connect 19 0 21 1;
-#X connect 19 0 22 0;
-#X connect 21 0 20 0;
-#X connect 22 0 23 0;
-#X connect 23 0 26 0;
-#X connect 24 0 54 0;
-#X connect 25 0 24 1;
-#X connect 26 0 21 0;
-#X connect 28 0 36 0;
-#X connect 29 0 8 0;
-#X connect 30 0 55 0;
-#X connect 30 1 9 0;
-#X connect 30 1 24 0;
-#X connect 35 0 30 0;
-#X connect 36 0 35 0;
-#X connect 37 0 36 1;
-#X connect 38 0 37 0;
-#X connect 39 0 37 0;
-#X connect 40 0 37 0;
-#X connect 42 0 7 0;
-#X connect 43 0 30 0;
-#X connect 44 0 45 0;
-#X connect 45 0 53 0;
-#X connect 45 1 66 0;
-#X connect 48 0 30 0;
-#X connect 49 0 30 0;
-#X connect 50 0 49 0;
-#X connect 51 0 50 0;
-#X connect 52 0 51 0;
-#X connect 53 0 30 0;
-#X connect 55 0 74 0;
-#X connect 56 0 55 1;
-#X connect 57 0 6 0;
-#X connect 57 1 60 0;
-#X connect 57 2 64 0;
-#X connect 57 3 63 0;
-#X connect 57 4 62 0;
-#X connect 57 5 61 0;
-#X connect 57 6 58 0;
-#X connect 58 0 27 0;
-#X connect 58 0 65 0;
-#X connect 58 1 59 0;
-#X connect 66 0 2 0;
-#X connect 67 0 69 0;
-#X connect 67 0 73 0;
-#X connect 69 0 30 0;
-#X connect 70 0 71 0;
-#X connect 71 0 30 0;
-#X connect 74 0 57 0;
+#X connect 18 0 19 0;
+#X connect 19 0 20 0;
+#X restore 21 380 pd speed limiting for displaying values with pegging
+the CPU;
+#N canvas 77 268 454 304 debugging 0;
+#X obj 136 31 inlet;
+#X obj 324 29 inlet;
+#X obj 27 31 inlet;
+#X obj 162 81 spigot;
+#X obj 159 106 select 255;
+#X obj 184 246 print;
+#X obj 184 227 list;
+#X obj 96 80 spigot;
+#X obj 210 201 bang;
+#X obj 96 101 print;
+#X obj 181 138 mapping/tolist;
+#X obj 208 181 change;
+#X obj 208 159 list-abs/list-len;
+#X connect 0 0 7 1;
+#X connect 1 0 3 1;
+#X connect 2 0 7 0;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 4 0 10 1;
+#X connect 4 1 10 0;
+#X connect 6 0 5 0;
+#X connect 7 0 9 0;
+#X connect 8 0 6 0;
+#X connect 10 0 6 1;
+#X connect 10 0 12 0;
+#X connect 11 0 8 0;
+#X connect 12 0 11 0;
+#X restore 304 311 pd debugging stuff;
+#X text 334 209 use raw data to save settings more compactly;
+#X floatatom 21 405 5 0 0 0 - - -;
+#X floatatom 80 405 5 0 0 0 - - -;
+#X floatatom 139 405 5 0 0 0 - - -;
+#X floatatom 198 405 5 0 0 0 - - -;
+#X floatatom 257 405 5 0 0 0 - - -;
+#X floatatom 316 405 5 0 0 0 - - -;
+#X obj 151 66 symbol;
+#N canvas 0 0 478 328 stress 0;
+#X obj 83 28 inlet;
+#X obj 83 257 outlet;
+#X obj 100 101 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0
+1;
+#X obj 74 130 spigot;
+#X obj 74 154 bang;
+#X obj 74 181 random 2;
+#X obj 19 215 * 16383;
+#X msg 111 216 PWM1 \$1;
+#X connect 0 0 3 0;
+#X connect 2 0 3 1;
+#X connect 3 0 4 0;
+#X connect 4 0 5 0;
+#X connect 5 0 6 0;
+#X connect 6 0 1 0;
+#X connect 7 0 1 0;
+#X coords 0 -1 1 1 85 17 1 100 100;
+#X restore 154 276 pd stress test;
+#X connect 0 0 19 0;
+#X connect 1 0 0 0;
+#X connect 5 0 19 0;
+#X connect 7 0 52 2;
+#X connect 8 0 14 0;
+#X connect 8 0 20 0;
+#X connect 9 0 11 0;
+#X connect 10 0 12 0;
+#X connect 11 0 10 0;
+#X connect 12 0 13 0;
+#X connect 12 0 19 0;
+#X connect 14 0 11 0;
+#X connect 14 1 10 1;
+#X connect 15 0 52 1;
+#X connect 17 0 25 0;
+#X connect 18 0 6 0;
+#X connect 19 0 32 0;
+#X connect 19 0 61 0;
+#X connect 19 1 52 0;
+#X connect 24 0 19 0;
+#X connect 25 0 24 0;
+#X connect 26 0 60 0;
+#X connect 27 0 60 0;
+#X connect 28 0 60 0;
+#X connect 29 0 19 0;
+#X connect 30 0 29 0;
+#X connect 31 0 30 0;
+#X connect 32 0 34 0;
+#X connect 33 0 32 1;
+#X connect 34 0 51 0;
+#X connect 34 1 51 1;
+#X connect 34 2 51 2;
+#X connect 34 3 51 3;
+#X connect 34 4 51 4;
+#X connect 34 5 51 5;
+#X connect 34 6 51 6;
+#X connect 35 0 16 0;
+#X connect 35 0 37 0;
+#X connect 35 0 46 0;
+#X connect 35 1 36 0;
+#X connect 39 0 41 0;
+#X connect 41 0 19 0;
+#X connect 42 0 19 0;
+#X connect 43 0 42 0;
+#X connect 46 0 48 0;
+#X connect 47 0 46 1;
+#X connect 49 0 19 1;
+#X connect 51 0 54 0;
+#X connect 51 1 55 0;
+#X connect 51 2 56 0;
+#X connect 51 3 57 0;
+#X connect 51 4 58 0;
+#X connect 51 5 59 0;
+#X connect 51 6 35 0;
+#X connect 60 0 25 1;
+#X connect 61 0 19 0;
