@@ -12,6 +12,14 @@
  * @location: STEIM, Amsterdam, Netherlands
  */
 
+/* TODO
+ *
+ * - get digitalInput working
+ * - add pulseIn functionality
+ * - redesign protocol to accomodate boards with more I/Os
+ * - add cycle markers to mark start of analog, digital, pulseIn, and PWM
+ */
+
 /*
  * Pduino protocol
  * =============== 
@@ -22,9 +30,16 @@
  * --------------------
  * 200-213 - set digital pin 0-13 to INPUT
  * 214-227 - set digital pin 0-13 to OUTPUT
+ * 228 - UNUSED
+ * 229 - UNUSED
  * 230 - next byte sets PWM0 value
  * 231 - next byte sets PWM1 value
  * 232 - next byte sets PWM2 value
+ * 233 - UNUSED
+ * 234 - UNUSED
+ * 235 - UNUSED
+ * 236 - UNUSED
+ * 237 - UNUSED
  * 238 - disable all digital inputs
  * 239 - enable all digital inputs
  * 240 - disable all analog inputs
@@ -34,30 +49,31 @@
  * 244 - enable 4 analog inputs (0-3)
  * 245 - enable 5 analog inputs (0-4)
  * 246 - enable 6 analog inputs (0-5)
+ * 255 - cycle marker
  *
  * Pd->Arduino byte cycle
  * ----------------------
- * 0  digitalOut 0-6 bitmask
- * 1  digitalOut 7-13 bitmask
- * 2  cycle marker (255/11111111)
+ * 0  start of cycle marker (255/11111111)
+ * 1  digitalOut 0-6 bitmask
+ * 2  digitalOut 7-13 bitmask
  * 
  * Arduino->Pd byte cycle
  * ----------------------
- * 0  digitalIn 0-6 bitmask
- * 1  digitalIn 7-13 bitmask
- * 2  analogIn0 byte0
- * 3  analogIn0 byte1
- * 4  analogIn1 byte0
- * 5  analogIn1 byte1
- * 6  analogIn2 byte0
- * 7  analogIn2 byte1
- * 8  analogIn3 byte0
- * 9 analogIn3 byte1
- * 10 analogIn4 byte0
- * 11 analogIn4 byte1
- * 12 analogIn5 byte0
- * 13 analogIn5 byte1
- * 14 cycle marker (255/11111111)
+ * 0 start of cycle marker (255/11111111)
+ * 1  digitalIn 0-6 bitmask
+ * 2  digitalIn 7-13 bitmask
+ * 3  analogIn0 byte0
+ * 4  analogIn0 byte1
+ * 5  analogIn1 byte0
+ * 6  analogIn1 byte1
+ * 7  analogIn2 byte0
+ * 8  analogIn2 byte1
+ * 9  analogIn3 byte0
+ * 10 analogIn3 byte1
+ * 11 analogIn4 byte0
+ * 12 analogIn4 byte1
+ * 13 analogIn5 byte0
+ * 14 analogIn5 byte1
  */
 
 /*
