@@ -16,6 +16,7 @@
  *
  * - get digitalInput working
  * - add pulseIn functionality
+ * - add software PWM for servos, etc
  * - redesign protocol to accomodate boards with more I/Os
  * - add cycle markers to mark start of analog, digital, pulseIn, and PWM
  */
@@ -129,10 +130,11 @@ void transmitDigitalInput(byte startPin) {
       digitalData = 0; // pin set to PWM, don't read
     }
     else {
-      // TODO: get digital in working
       digitalData = digitalRead(digitalPin);
     }
-    transmitByte = transmitByte + (2^(i+1-startPin)*digitalData);
+/* the next line probably needs to be re-thought (i.e. it might not work...) since my 
+   first attempt was miserably wrong.  <hans@at.or.at> */
+    transmitByte = transmitByte + ((2^i)*digitalData);
   }
   printByte(transmitByte);
 }
@@ -314,6 +316,7 @@ void loop() {
   for(analogPin=0; analogPin<analogInputsEnabled; ++analogPin) {
     analogData = analogRead(analogPin);
     // these two bytes get converted back into the whole number in Pd
+	 // the higher bits should be zeroed so that the 8th bit doesn't get set
     printByte(analogData >> 7);  // bitshift the big stuff into the output byte
     printByte(analogData % 128);  // mod by 32 for the small byte
     checkForInput();
