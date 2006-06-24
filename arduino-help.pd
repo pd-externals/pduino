@@ -1,4 +1,4 @@
-#N canvas 302 28 656 590 10;
+#N canvas 202 94 654 546 10;
 #X msg 156 146 open \$1;
 #N canvas 162 133 534 384 serin 0;
 #X obj 120 61 cnv 15 15 15 empty \$0-number-canvas 3 4 8 0 14 -233017
@@ -20,25 +20,20 @@
 #X coords 0 -1 1 1 76 17 1 60 60;
 #X restore 156 123 pd serin;
 #X text 153 105 serial port #;
-#X text 400 510 released under the GNU GPL;
-#X text 45 510 (C) Copyright 2006 Hans-Christoph Steiner <hans@at.or.at>
+#X text 424 509 released under the GNU GPL;
+#X text 7 507 (C) Copyright 2006 Hans-Christoph Steiner <hans@at.or.at>
 ;
 #X msg 216 146 close;
 #X obj 63 478 print --------------------;
 #X obj 408 289 tgl 15 0 empty empty changes 0 -6 0 8 -262144 -1 -1
 0 1;
-#X obj 293 29 hradio 15 1 0 14 empty empty empty 0 -6 0 8 -262131 -1
+#X obj 278 29 hradio 15 1 0 14 empty empty empty 0 -6 0 8 -262131 -1
 -1 0;
-#X obj 270 30 tgl 15 0 empty empty empty 0 -6 0 8 -262131 -1 -1 0 1
+#X obj 255 30 tgl 15 0 empty empty empty 0 -6 0 8 -262131 -1 -1 0 1
 ;
-#X obj 289 102 +;
-#X obj 270 76 * 14;
-#X obj 289 123 + 200;
-#X floatatom 295 146 5 0 0 0 - - -;
-#X obj 293 48 t b f;
 #X obj 355 292 tgl 15 0 empty empty all 0 -6 0 8 -262144 -1 -1 0 1
 ;
-#N canvas 100 289 614 333 decode 0;
+#N canvas 100 289 626 345 decode 0;
 #X obj 241 26 inlet;
 #X obj 46 189 & 1;
 #X obj 72 189 & 2;
@@ -115,10 +110,9 @@
 1 10 -225271 -1 -1 0 0;
 #X msg 64 453 bang;
 #X obj 255 274 arduino 3;
-#X floatatom 332 50 5 0 0 0 - - -;
-#X text 402 15 7;
-#X text 297 15 0;
-#X text 443 15 10;
+#X text 387 15 7;
+#X text 282 15 0;
+#X text 428 15 10;
 #X msg 54 107 \$2 \$1;
 #X obj 54 85 pack float symbol;
 #X msg 165 44 PWM2;
@@ -161,15 +155,15 @@
 #X connect 6 0 5 0;
 #X coords 0 -1 1 1 121 17 1 60 60;
 #X restore 394 70 pd serin;
-#X text 488 15 13;
-#X text 245 1 turn on output mode for each pin (off = input);
+#X text 473 15 13;
+#X text 230 1 turn on output mode for each pin (off = input);
 #X obj 367 462 spigot;
 #X obj 400 444 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0
 1;
 #X obj 367 483 print;
 #X msg 381 225 231 \, 20 \, 226 \, 213;
 #X text 5 229 this will flash any pin set to output;
-#N canvas 0 0 261 248 speed 0;
+#N canvas 0 22 261 248 speed 0;
 #X obj 21 41 inlet;
 #X obj 21 62 maxlib/speedlim 100;
 #X obj 21 84 outlet;
@@ -245,57 +239,120 @@ the CPU;
 #X floatatom 316 405 5 0 0 0 - - -;
 #X obj 151 66 symbol;
 #X obj 66 196 metro 100;
-#X connect 0 0 19 0;
+#X obj 255 50 pack 0 0;
+#X text 342 15 4;
+#X text 311 15 2;
+#X text 356 15 5;
+#X text 371 15 6;
+#X text 327 15 3;
+#X msg 255 71 outputMode \$2 \$1;
+#N canvas 485 91 546 327 sending 0;
+#X obj 142 285 outlet;
+#X obj 129 84 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0 1
+;
+#X obj 146 84 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0 1
+;
+#X obj 163 84 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0 1
+;
+#X obj 180 84 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0 1
+;
+#X obj 197 84 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0 1
+;
+#X obj 214 84 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0 1
+;
+#X obj 231 84 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0 1
+;
+#X obj 168 125 bytemask;
+#X text 60 11 The 8th bit is not used in the bitmask \, there are 7
+bits of digital output values per byte.;
+#X obj 300 85 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0 1
+;
+#X obj 317 85 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0 1
+;
+#X obj 334 85 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0 1
+;
+#X obj 351 85 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0 1
+;
+#X obj 368 85 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0 1
+;
+#X obj 385 85 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0 1
+;
+#X obj 402 85 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0 1
+;
+#X obj 339 126 bytemask;
+#X obj 142 205 pack float float;
+#X msg 142 231 255 \, \$1 \, \$2;
+#X text 143 65 pins 0-6;
+#X text 330 66 pins 7-13;
+#X obj 212 164 trigger bang float;
+#X connect 1 0 8 0;
+#X connect 2 0 8 1;
+#X connect 3 0 8 2;
+#X connect 4 0 8 3;
+#X connect 5 0 8 4;
+#X connect 6 0 8 5;
+#X connect 7 0 8 6;
+#X connect 8 0 18 0;
+#X connect 10 0 17 0;
+#X connect 11 0 17 1;
+#X connect 12 0 17 2;
+#X connect 13 0 17 3;
+#X connect 14 0 17 4;
+#X connect 15 0 17 5;
+#X connect 16 0 17 6;
+#X connect 17 0 22 0;
+#X connect 18 0 19 0;
+#X connect 19 0 0 0;
+#X connect 22 0 18 0;
+#X connect 22 1 18 1;
+#X restore 10 258 pd sending digital outs;
+#X connect 0 0 14 0;
 #X connect 1 0 0 0;
-#X connect 5 0 19 0;
-#X connect 7 0 51 2;
-#X connect 8 0 14 0;
-#X connect 8 0 20 0;
-#X connect 9 0 11 0;
-#X connect 10 0 12 0;
-#X connect 11 0 10 0;
-#X connect 12 0 13 0;
+#X connect 5 0 14 0;
+#X connect 7 0 45 2;
+#X connect 8 0 55 1;
+#X connect 9 0 55 0;
+#X connect 10 0 45 1;
 #X connect 12 0 19 0;
-#X connect 14 0 11 0;
-#X connect 14 1 10 1;
-#X connect 15 0 51 1;
-#X connect 17 0 25 0;
-#X connect 18 0 6 0;
-#X connect 19 0 31 0;
-#X connect 19 1 51 0;
-#X connect 24 0 19 0;
-#X connect 25 0 24 0;
-#X connect 26 0 59 0;
-#X connect 27 0 59 0;
-#X connect 28 0 59 0;
-#X connect 29 0 19 0;
-#X connect 30 0 60 0;
-#X connect 31 0 33 0;
-#X connect 32 0 31 1;
-#X connect 33 0 50 0;
-#X connect 33 1 50 1;
-#X connect 33 2 50 2;
-#X connect 33 3 50 3;
-#X connect 33 4 50 4;
-#X connect 33 5 50 5;
-#X connect 33 6 50 6;
-#X connect 34 0 16 0;
-#X connect 34 0 36 0;
-#X connect 34 0 45 0;
-#X connect 34 1 35 0;
-#X connect 38 0 40 0;
-#X connect 40 0 19 0;
-#X connect 41 0 19 0;
-#X connect 42 0 41 0;
-#X connect 45 0 47 0;
-#X connect 46 0 45 1;
-#X connect 48 0 19 1;
-#X connect 50 0 53 0;
-#X connect 50 1 54 0;
-#X connect 50 2 55 0;
-#X connect 50 3 56 0;
-#X connect 50 4 57 0;
-#X connect 50 5 58 0;
-#X connect 50 6 34 0;
-#X connect 59 0 25 1;
-#X connect 60 0 29 0;
+#X connect 13 0 6 0;
+#X connect 14 0 25 0;
+#X connect 14 1 45 0;
+#X connect 18 0 14 0;
+#X connect 19 0 18 0;
+#X connect 20 0 53 0;
+#X connect 21 0 53 0;
+#X connect 22 0 53 0;
+#X connect 23 0 14 0;
+#X connect 24 0 54 0;
+#X connect 25 0 27 0;
+#X connect 26 0 25 1;
+#X connect 27 0 44 0;
+#X connect 27 1 44 1;
+#X connect 27 2 44 2;
+#X connect 27 3 44 3;
+#X connect 27 4 44 4;
+#X connect 27 5 44 5;
+#X connect 27 6 44 6;
+#X connect 28 0 11 0;
+#X connect 28 0 30 0;
+#X connect 28 0 39 0;
+#X connect 28 1 29 0;
+#X connect 32 0 34 0;
+#X connect 34 0 14 0;
+#X connect 35 0 14 0;
+#X connect 36 0 35 0;
+#X connect 39 0 41 0;
+#X connect 40 0 39 1;
+#X connect 42 0 14 1;
+#X connect 44 0 47 0;
+#X connect 44 1 48 0;
+#X connect 44 2 49 0;
+#X connect 44 3 50 0;
+#X connect 44 4 51 0;
+#X connect 44 5 52 0;
+#X connect 44 6 28 0;
+#X connect 53 0 19 1;
+#X connect 54 0 23 0;
+#X connect 55 0 61 0;
+#X connect 61 0 14 0;
+#X connect 62 0 14 0;
