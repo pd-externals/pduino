@@ -1,24 +1,45 @@
-/* Arduino firmware aka Firmata
- * ------------------
- * 
- * It was designed to work with the Pd object [arduino]
- * which is included in Pd-extended.  This firmware could 
- * easily be used with other programs like Max/MSP, Processing,
- * or whatever can do serial communications.
+/* Copyright (C) 2006 Hans-Christoph Steiner 
  *
- * (copyleft) 2006 Hans-Christoph Steiner <hans@at.or.at>
- * @author: Hans-Christoph Steiner
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General
+ * Public License along with this library; if not, write to the
+ * Free Software Foundation, Inc., 59 Temple Place, Suite 330,
+ * Boston, MA  02111-1307  USA
+ *
+ * -----------------------------
+ * Firmata, the Arduino firmware
+ * -----------------------------
+ * 
+ * Firmata turns the Arduino into a Plug-n-Play sensorbox, servo
+ * controller, and/or PWM motor/lamp controller.
+ *
+ * It was originally designed to work with the Pd object [arduino]
+ * which is included in Pd-extended.  This firmware is intended to
+ * work with any host computer software package.  It can easily be
+ * used with other programs like Max/MSP, Processing, or whatever can
+ * do serial communications.
+ *
+ * @authors: Hans-Christoph Steiner <hans@at.or.at> and Jamie Allen <jamie@heavyside.net>
  * @date: 2006-05-19
- * @location: STEIM, Amsterdam, Netherlands
+ * @location: STEIM, Amsterdam, Netherlands and New York, NY
+ *
  */
 
-/* TODO
- *
- * - get digitalInput working
- * - add pulseIn functionality
- * - add software PWM for servos, etc
- * - redesign protocol to accomodate boards with more I/Os
- * - add cycle markers to mark start of analog, digital, pulseIn, and PWM
+/* 
+ * TODO: get digitalInput working
+ * TODO: add pulseIn functionality
+ * TODO: add software PWM for servos, etc (servo.h or pulse.h)
+ * TODO: redesign protocol to accomodate boards with more I/Os
+ * TODO: add cycle markers to mark start of analog, digital, pulseIn, and PWM
  */
 
 /* firmata protocol
@@ -29,7 +50,7 @@
   
 /* computer->Arduino commands
  * -------------------- */
- /* 128-129 // UNUSED */
+/* 128-129 // UNUSED */
 #define SET_PIN_ZERO_TO_IN      130 // set digital pin 0 to INPUT
 #define SET_PIN_ONE_TO_IN       131 // set digital pin 1 to INPUT
 #define SET_PIN_TWO_TO_IN       132 // set digital pin 2 to INPUT
@@ -89,11 +110,11 @@
  * 2  digitalOut 7-13 bitmask 
  */
 
- /* two byte software PWM data format
+/* two byte PWM data format
  * ----------------------
- * 0  get ready for digital input bytes (250/251)
+ * 0  get ready for digital input bytes (ENABLE_SOFTWARE_PWM/ENABLE_PWM)
  * 1  pin #
- * 2  pulse width
+ * 2  duty cycle expressed as 1 byte (255 = 100%)
  */
 
  
@@ -114,12 +135,6 @@
  * 12  analog input pin 9 from Arduino // byte 12 
  * 13  analog input pin 10 from Arduino // byte 13 
  * 14  analog input pin 11 from Arduino // byte 14 
- */
-
-/*
- * CAUTION!! Be careful with the Serial Monitor, it could freeze 
- * your computer with this firmware running!  It outputs data 
- * without a delay() so its very fast.
  */
 
 #define TOTAL_DIGITAL_PINS 14
@@ -180,8 +195,8 @@ void transmitDigitalInput(byte startPin) {
     else {
       digitalData = digitalRead(digitalPin);
     }
-/* the next line probably needs to be re-thought (i.e. it might not work...) since my 
-   first attempt was miserably wrong.  <hans@at.or.at> */
+    /* the next line probably needs to be re-thought (i.e. it might not work...) since my 
+       first attempt was miserably wrong.  <hans@at.or.at> */
     transmitByte = transmitByte + ((2^i)*digitalData);
   }
   printByte(transmitByte);
@@ -219,20 +234,20 @@ void setPinMode(int pin, int mode) {
 }
 
 void setSoftPwm (int pin, byte pulsePeriod) {
-    byte i;
-/*    for(i=0; i<7; ++i) {
+  byte i;
+  /*    for(i=0; i<7; ++i) {
         mask = 1 << i;
         if(digitalPinStatus & mask) {
-            digitalWrite(i, inputData & mask);
+	digitalWrite(i, inputData & mask);
         } 
-    }
-    */    
-    //read timer type thing
+	}
+  */    
+  //read timer type thing
 
-    //loop through each pin, turn them on if selected
-    //softwarePWMStatus
-    //check timer type thing against pulsePeriods for each pin 
-    //throw pin low if expired
+  //loop through each pin, turn them on if selected
+  //softwarePWMStatus
+  //check timer type thing against pulsePeriods for each pin 
+  //throw pin low if expired
 }
 
 void setSoftPwmFreq(byte freq) {
@@ -240,13 +255,13 @@ void setSoftPwmFreq(byte freq) {
 
 
 void disSoftPwm(int pin) {
-    //throw pin low
+  //throw pin low
     
 }
 
 
-// -------------------------------------------------------------------------
-/* this function checks to see if there is data waiting on the serial port 
+/* -------------------------------------------------------------------------
+ * this function checks to see if there is data waiting on the serial port 
  * then processes all of the stored data
  */
 void checkForInput() {
@@ -257,7 +272,10 @@ void checkForInput() {
   }
 }
 
-// -------------------------------------------------------------------------
+/* -------------------------------------------------------------------------
+ * processInput() is called whenever a byte is available on the
+ * Arduino's serial port.  This is where the commands are handled.
+ */
 void processInput(byte inputData) {
   int i;
   int mask;
@@ -273,19 +291,19 @@ void processInput(byte inputData) {
     switch(executeMultiByteCommand) {
     case ENABLE_PWM:
     case DISABLE_PWM:
-        //PWM 0 on the board is PIN 9
-        analogWrite(storedInputData[0] + 9, storedInputData[1]);
-        break;
+      //PWM 0 on the board is PIN 9
+      analogWrite(storedInputData[0] + 9, storedInputData[1]);
+      break;
     case ENABLE_SOFTWARE_PWM:
-        setPinMode(storedInputData[0],SOFTPWM);
-        setSoftPwm(storedInputData[0], storedInputData[1]);     
-        break; 
+      setPinMode(storedInputData[0],SOFTPWM);
+      setSoftPwm(storedInputData[0], storedInputData[1]);     
+      break; 
     case DISABLE_SOFTWARE_PWM:
-        disSoftPwm(storedInputData[0]);
-        break;
+      disSoftPwm(storedInputData[0]);
+      break;
     case SET_SOFTWARE_PWM_FREQ:
-        setSoftPwmFreq(storedInputData[0]);
-        break;
+      setSoftPwmFreq(storedInputData[0]);
+      break;
     }
     executeMultiByteCommand = 0;
   }
@@ -313,7 +331,7 @@ void processInput(byte inputData) {
   }
   else {
     switch (inputData) {
-    case SET_PIN_ZERO_TO_IN:
+    case SET_PIN_ZERO_TO_IN:       // set digital pins to INPUT
     case SET_PIN_ONE_TO_IN:
     case SET_PIN_TWO_TO_IN:
     case SET_PIN_THREE_TO_IN:
@@ -327,9 +345,9 @@ void processInput(byte inputData) {
     case SET_PIN_ELEVEN_TO_IN:
     case SET_PIN_TWELVE_TO_IN:
     case SET_PIN_THIRTEEN_TO_IN:
-        setPinMode(inputData - SET_PIN_ZERO_TO_IN, INPUT);
-        break;
-    case SET_PIN_ZERO_TO_OUT:
+      setPinMode(inputData - SET_PIN_ZERO_TO_IN, INPUT);
+      break;
+    case SET_PIN_ZERO_TO_OUT:      // set digital pins to OUTPUT
     case SET_PIN_ONE_TO_OUT:
     case SET_PIN_TWO_TO_OUT:
     case SET_PIN_THREE_TO_OUT:
@@ -343,45 +361,45 @@ void processInput(byte inputData) {
     case SET_PIN_ELEVEN_TO_OUT:
     case SET_PIN_TWELVE_TO_OUT:
     case SET_PIN_THIRTEEN_TO_OUT:
-        setPinMode(inputData - SET_PIN_ZERO_TO_OUT, OUTPUT);
-        break;
-    case DISABLE_DIGITAL_INPUTS: // all digital inputs off
-        digitalInputsEnabled = false;
-        break;
-    case ENABLE_DIGITAL_INPUTS: // all digital inputs on
-        digitalInputsEnabled = true;
-        break;
-    case DISABLE_ALL_ANALOG_INS:  // analog input off
-    case ENABLE_ONE_ANALOG_IN:    // analog 0 on  
-    case ENABLE_TWO_ANALOG_INS:   // analog 0,1 on  
-    case ENABLE_THREE_ANALOG_INS: // analog 0-2 on  
-    case ENABLE_FOUR_ANALOG_INS:  // analog 0-3 on  
-    case ENABLE_FIVE_ANALOG_INS:  // analog 0-4 on  
-    case ENABLE_SIX_ANALOG_INS:   // analog 0-5 on  
-        analogInputsEnabled = inputData - DISABLE_ALL_ANALOG_INS;
-        break;
+      setPinMode(inputData - SET_PIN_ZERO_TO_OUT, OUTPUT);
+      break;
+    case DISABLE_DIGITAL_INPUTS:   // all digital inputs off
+      digitalInputsEnabled = false;
+      break;
+    case ENABLE_DIGITAL_INPUTS:    // all digital inputs on
+      digitalInputsEnabled = true;
+      break;
+    case DISABLE_ALL_ANALOG_INS:   // analog input off
+    case ENABLE_ONE_ANALOG_IN:     // analog 0 on  
+    case ENABLE_TWO_ANALOG_INS:    // analog 0,1 on  
+    case ENABLE_THREE_ANALOG_INS:  // analog 0-2 on  
+    case ENABLE_FOUR_ANALOG_INS:   // analog 0-3 on  
+    case ENABLE_FIVE_ANALOG_INS:   // analog 0-4 on  
+    case ENABLE_SIX_ANALOG_INS:    // analog 0-5 on  
+      analogInputsEnabled = inputData - DISABLE_ALL_ANALOG_INS;
+      break;
     case ENABLE_PWM:
-        waitForData = 2;  // (pin#, dutyCycle) 
-        executeMultiByteCommand = inputData;
-        break;
+      waitForData = 2;  // 2 bytes needed (pin#, dutyCycle) 
+      executeMultiByteCommand = inputData;
+      break;
     case DISABLE_PWM:
-        waitForData = 1;  // pin#
-        executeMultiByteCommand = inputData;
-        break;      
+      waitForData = 1;  // 1 byte needed (pin#)
+      executeMultiByteCommand = inputData;
+      break;      
     case SET_SOFTWARE_PWM_FREQ:
-        waitForData = 1;  // pin#
-        executeMultiByteCommand = inputData;
-        break;
+      waitForData = 1;  // 1 byte needed (pin#)
+      executeMultiByteCommand = inputData;
+      break;
     case ENABLE_SOFTWARE_PWM:
-        waitForData = 2;  // (pin#, dutyCycle) 
-        executeMultiByteCommand = inputData;
-        break;
+      waitForData = 2;  // 2 bytes needed (pin#, dutyCycle) 
+      executeMultiByteCommand = inputData;
+      break;
     case DISABLE_SOFTWARE_PWM:
-        waitForData = 1;  // pin#
-        executeMultiByteCommand = inputData;
-        break;
-    case OUTPUT_TO_DIGITAL_PINS: // bytes to send to digital outputs
-        firstInputByte = true;
+      waitForData = 1;  // 1 byte needed (pin#)
+      executeMultiByteCommand = inputData;
+      break;
+    case OUTPUT_TO_DIGITAL_PINS:   // bytes to send to digital outputs
+      firstInputByte = true;
       break;
     }
   }
@@ -423,7 +441,7 @@ void loop() {
   for(analogPin=0; analogPin<analogInputsEnabled; ++analogPin) {
     analogData = analogRead(analogPin);
     // these two bytes get converted back into the whole number in Pd
-	 // the higher bits should be zeroed so that the 8th bit doesn't get set
+    // the higher bits should be zeroed so that the 8th bit doesn't get set
     printByte(analogData >> 7);  // bitshift the big stuff into the output byte
     printByte(analogData % 128);  // mod by 32 for the small byte
     checkForInput();
