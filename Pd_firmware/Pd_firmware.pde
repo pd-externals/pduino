@@ -120,21 +120,21 @@
  
 /* Arduino->Computer byte cycle
  * ----------------------
- * 0  start of cycle marker (255/11111111)
- * 1  digital read from Arduino // 0-6 bitmask
- * 2  digital read from Arduino // 7-13 bitmask
- * 3  analog input pin 0 from Arduino // byte 0 
- * 4  analog input pin 1 from Arduino // byte 1 
- * 5  analog input pin 2 from Arduino // byte 2 
- * 6  analog input pin 3 from Arduino // byte 3 
- * 7  analog input pin 4 from Arduino // byte 4 
- * 8  analog input pin 5 from Arduino // byte 5 
- * 9  analog input pin 6 from Arduino // byte 6 
- * 10  analog input pin 7 from Arduino // byte 10 
- * 11  analog input pin 8 from Arduino // byte 11 
- * 12  analog input pin 9 from Arduino // byte 12 
- * 13  analog input pin 10 from Arduino // byte 13 
- * 14  analog input pin 11 from Arduino // byte 14 
+ * 0   start of cycle marker (255/11111111)
+ * 1   digital read from Arduino // 0-6 bitmask
+ * 2   digital read from Arduino // 7-13 bitmask
+ * 3   low byte from analog input pin 0
+ * 4   high byte from analog input pin 0 
+ * 5   low byte from analog input pin 1
+ * 6   high byte from analog input pin 1 
+ * 7   low byte from analog input pin 2
+ * 8   high byte from analog input pin 2 
+ * 9   low byte from analog input pin 3
+ * 10  high byte from analog input pin 3 
+ * 11  low byte from analog input pin 4
+ * 12  high byte from analog input pin 4 
+ * 13  low byte from analog input pin 5
+ * 14  high byte from analog input pin 5 
  */
 
 #define TOTAL_DIGITAL_PINS 14
@@ -178,26 +178,24 @@ int analogData;
 void transmitDigitalInput(byte startPin) {
   byte i;
   byte digitalPin;
-  byte digitalPinBit;
-  byte transmitByte;
+//  byte digitalPinBit;
+  byte transmitByte = 0;
   byte digitalData;
 
   for(i=0;i<7;++i) {
     digitalPin = i+startPin;
-    digitalPinBit = OUTPUT << digitalPin;
+/*    digitalPinBit = OUTPUT << digitalPin;
     // only read the pin if its set to input
     if(digitalPinStatus & digitalPinBit) {
       digitalData = 0; // pin set to OUTPUT, don't read
     }
     else if( (digitalPin >= 9) && (pwmStatus & (1 << digitalPin)) ) {
       digitalData = 0; // pin set to PWM, don't read
+    }*/
+    if( !(digitalPinStatus & (1 << digitalPin)) ) {
+      digitalData = (byte) digitalRead(digitalPin);
+      transmitByte = transmitByte + ((1 << i) * digitalData);
     }
-    else {
-      digitalData = digitalRead(digitalPin);
-    }
-    /* the next line probably needs to be re-thought (i.e. it might not work...) since my 
-       first attempt was miserably wrong.  <hans@at.or.at> */
-    transmitByte = transmitByte + ((2^i)*digitalData);
   }
   printByte(transmitByte);
 }
@@ -412,7 +410,7 @@ void processInput(byte inputData) {
 void setup() {
   byte i;
 
-  beginSerial(9600);
+  beginSerial(19200);
   for(i=0; i<TOTAL_DIGITAL_PINS; ++i) {
     setPinMode(i,INPUT);
   }
@@ -442,8 +440,8 @@ void loop() {
     analogData = analogRead(analogPin);
     // these two bytes get converted back into the whole number in Pd
     // the higher bits should be zeroed so that the 8th bit doesn't get set
-    printByte(analogData >> 7);  // bitshift the big stuff into the output byte
     printByte(analogData % 128);  // mod by 32 for the small byte
+    printByte(analogData >> 7);  // bitshift the big stuff into the output byte
     checkForInput();
   }
 
