@@ -279,22 +279,23 @@ void processInput(byte inputData) {
   int mask;
   
   // a few commands have byte(s) of data following the command
-  if( waitForData > 0 ) {  
-    storedInputData[waitForData - 1] = inputData;
-    //analogWrite(waitForPWMData,inputData);
+  if( waitForData > 0) {  
     waitForData--;
+    storedInputData[waitForData] = inputData;
   }
   else if(executeMultiByteCommand) {
     //we got everything
     switch(executeMultiByteCommand) {
     case ENABLE_PWM:
+      setPinMode(storedInputData[1],PWM);
+      analogWrite(storedInputData[1], storedInputData[0]);
+      break;
     case DISABLE_PWM:
-      //PWM 0 on the board is PIN 9
-      analogWrite(storedInputData[0] + 9, storedInputData[1]);
+      setPinMode(storedInputData[0],INPUT);
       break;
     case ENABLE_SOFTWARE_PWM:
-      setPinMode(storedInputData[0],SOFTPWM);
-      setSoftPwm(storedInputData[0], storedInputData[1]);     
+      setPinMode(storedInputData[1],SOFTPWM);
+      setSoftPwm(storedInputData[1], storedInputData[0]);     
       break; 
     case DISABLE_SOFTWARE_PWM:
       disSoftPwm(storedInputData[0]);

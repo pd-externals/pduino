@@ -1,11 +1,11 @@
-#N canvas 456 108 679 554 10;
-#X msg 166 173 open 1;
+#N canvas 812 22 683 558 10;
+#X msg 166 173 open 0;
 #N canvas 627 365 356 380 serin 0;
-#X obj 180 61 cnv 15 15 15 empty \$0-number-canvas 1 4 8 0 14 -233017
+#X obj 180 61 cnv 15 15 15 empty \$0-number-canvas 0 4 8 0 14 -233017
 -1 0;
 #X obj 200 225 s \$0-number-canvas;
 #X obj 60 61 hradio 15 1 1 8 empty empty empty 0 -6 0 8 -225271 -1
--1 1;
+-1 0;
 #X obj 59 337 outlet;
 #X obj 60 13 inlet;
 #X msg 200 202 label \$1;
@@ -35,8 +35,8 @@
 #X obj 434 321 tgl 15 0 empty empty changes 0 -6 0 8 -262144 -1 -1
 0 1;
 #X obj 353 61 hradio 15 1 0 14 empty empty empty 0 -6 0 8 -262131 -1
--1 0;
-#X obj 330 62 tgl 15 0 empty empty empty 0 -6 0 8 -262131 -1 -1 0 1
+-1 13;
+#X obj 330 62 tgl 15 0 empty empty empty 0 -6 0 8 -262131 -1 -1 1 1
 ;
 #X obj 373 321 tgl 15 0 empty empty all 0 -6 0 8 -262144 -1 -1 0 1
 ;
@@ -54,7 +54,7 @@
 8;
 #X obj 389 213 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0
 16;
-#X obj 314 213 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 64
+#X obj 314 213 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0
 64;
 #X obj 277 213 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0
 128;
@@ -62,10 +62,10 @@
 512;
 #X obj 151 213 tgl 15 0 empty empty 10 -1 25 1 12 -262144 -1 -1 0 1024
 ;
-#X obj 107 213 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 2048
+#X obj 107 213 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0
 2048;
-#X obj 63 213 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0 4096
-;
+#X obj 63 213 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 4096
+4096;
 #X obj 19 213 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0 8192
 ;
 #X obj 433 189 & 8;
@@ -116,7 +116,7 @@
 #X connect 26 0 15 0;
 #X restore 473 507 pd decode buttons;
 #X obj 93 89 hsl 150 17 0 1 0 0 empty empty PWM_control_(0-1) -2 -6
-1 10 -225271 -1 -1 3400 0;
+1 10 -225271 -1 -1 10100 0;
 #X msg 64 472 bang;
 #X text 461 47 7;
 #X text 355 47 0;
@@ -130,16 +130,16 @@
 #X obj 521 442 print GARBAGE;
 #X floatatom 430 507 6 0 0 0 - - -;
 #X text 329 127 how many analogIns to enable:;
-#X obj 330 188 tgl 15 1 empty empty empty 0 -6 0 8 -257472 -1 -1 0
+#X obj 330 188 tgl 15 1 empty empty empty 0 -6 0 8 -257472 -1 -1 1
 1;
 #X text 353 187 enable/disable digitalIns;
 #X msg 330 206 digitalIns \$1;
-#X msg 330 164 analogIns 0;
+#X msg 330 164 analogIns 6;
 #N canvas 162 133 554 404 serin 0;
-#X obj 165 61 cnv 15 15 15 empty \$0-analog-number-canvas 0 4 8 0 14
+#X obj 165 61 cnv 15 15 15 empty \$0-analog-number-canvas 6 4 8 0 14
 -233017 -1 0;
 #X obj 60 61 hradio 15 1 1 7 empty empty empty 0 -6 0 8 -225280 -1
--1 0;
+-1 6;
 #X obj 60 13 inlet;
 #X msg 200 202 label \$1;
 #X obj 200 180 makefilename %d;
@@ -205,7 +205,7 @@
 #X connect 19 0 20 0;
 #X restore 21 399 pd speed limiting for displaying values with pegging
 the CPU;
-#N canvas 77 268 458 308 debugging 0;
+#N canvas 77 268 462 312 debugging 0;
 #X obj 136 31 inlet;
 #X obj 324 29 inlet;
 #X obj 27 31 inlet;
@@ -213,26 +213,26 @@ the CPU;
 #X obj 159 106 select 255;
 #X obj 184 246 print;
 #X obj 184 227 list;
-#X obj 96 80 spigot;
+#X obj 43 115 spigot;
 #X obj 210 201 bang;
-#X obj 96 101 print;
 #X obj 181 138 mapping/tolist;
 #X obj 208 181 change;
 #X obj 208 159 list-abs/list-len;
+#X obj 43 136 print DEBUG;
 #X connect 0 0 7 1;
 #X connect 1 0 3 1;
 #X connect 2 0 7 0;
 #X connect 2 0 3 0;
 #X connect 3 0 4 0;
-#X connect 4 0 10 1;
-#X connect 4 1 10 0;
+#X connect 4 0 9 1;
+#X connect 4 1 9 0;
 #X connect 6 0 5 0;
-#X connect 7 0 9 0;
+#X connect 7 0 12 0;
 #X connect 8 0 6 0;
-#X connect 10 0 6 1;
-#X connect 10 0 12 0;
-#X connect 11 0 8 0;
-#X connect 12 0 11 0;
+#X connect 9 0 6 1;
+#X connect 9 0 11 0;
+#X connect 10 0 8 0;
+#X connect 11 0 10 0;
 #X restore 313 339 pd debugging stuff;
 #X text 351 235 use raw data to save settings more compactly;
 #X floatatom 21 424 5 0 0 3 analog0 - -;
@@ -246,8 +246,8 @@ the CPU;
 #X text 429 47 5;
 #X text 444 47 6;
 #X text 400 47 3;
-#X msg 330 103 outputMode 11 0;
-#N canvas 546 311 538 361 sending 0;
+#X msg 330 103 outputMode 13 1;
+#N canvas 304 39 550 373 sending 0;
 #X obj 167 325 outlet;
 #X obj 49 64 tgl 15 0 empty empty 0 4 -6 1 12 -233017 -1 -1 0 1;
 #X obj 66 64 tgl 15 0 empty empty 1 4 -6 1 12 -233017 -1 -1 0 1;
@@ -268,15 +268,16 @@ bits of digital output values per byte.;
 #X obj 167 140 trigger bang float;
 #X obj 167 105 mapping/bytemask;
 #X obj 48 105 mapping/bytemask;
-#X obj 324 263 tgl 15 0 empty empty empty 0 -6 0 8 -225271 -1 -1 0
+#X obj 380 175 tgl 15 0 empty empty empty 0 -6 0 8 -225271 -1 -1 16383
 16383;
-#X obj 324 226 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0
-1;
-#X obj 323 244 metro 100;
+#X obj 380 138 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0
+16383;
+#X obj 379 156 metro 100;
 #X obj 167 200 +;
 #X obj 167 163 float;
 #X obj 288 161 << 7;
 #X text 251 205 this will flash all pins set to output;
+#X obj 380 45 inlet;
 #X connect 1 0 18 0;
 #X connect 2 0 18 1;
 #X connect 3 0 18 2;
@@ -301,6 +302,7 @@ bits of digital output values per byte.;
 #X connect 22 0 0 0;
 #X connect 23 0 22 0;
 #X connect 24 0 22 1;
+#X connect 26 0 20 0;
 #X restore 20 249 pd sending digital outs;
 #X msg 398 251 251 \, 9 \, 20 \, 142 \, 213;
 #X text 325 292 <- argument sets port #;
@@ -311,7 +313,7 @@ bits of digital output values per byte.;
 #X text 531 47 12;
 #X text 370 47 1;
 #X obj 35 61 hradio 15 1 0 14 empty empty empty 0 -6 0 8 -176124 -1
--1 0;
+-1 13;
 #X text 143 47 7;
 #X text 37 47 0;
 #X text 184 47 10;
@@ -365,7 +367,7 @@ bits of digital output values per byte.;
 #X connect 16 0 2 0;
 #X connect 16 1 15 0;
 #X restore 36 115 pd pwm;
-#X msg 36 135 pwm 0 0.228188;
+#X msg 36 135 pwm 13 0.677852;
 #N canvas 45 415 395 319 pin 0;
 #X obj 42 19 inlet;
 #X obj 218 20 inlet;
@@ -389,6 +391,12 @@ bits of digital output values per byte.;
 #X obj 255 293 arduino 1;
 #X text 17 7 The [arduino] object works with the Firmata firmware for
 Arduino.;
+#X msg 195 196 info;
+#X obj 488 333 key;
+#X obj 489 356 select 32;
+#X obj 20 230 tgl 15 0 empty empty empty 0 -6 0 8 -225271 -1 -1 0 16383
+;
+#X text 38 229 pulse all outputs;
 #X connect 0 0 76 0;
 #X connect 1 0 0 0;
 #X connect 5 0 76 0;
@@ -434,3 +442,7 @@ Arduino.;
 #X connect 75 0 48 0;
 #X connect 76 0 17 0;
 #X connect 76 1 35 0;
+#X connect 78 0 76 0;
+#X connect 79 0 80 0;
+#X connect 80 0 10 0;
+#X connect 81 0 49 0;
