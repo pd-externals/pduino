@@ -36,8 +36,7 @@
 
 /* 
  * TODO: get digitalInput working
- * TODO: add pulseIn/pulseOut functionality
- * TODO: save settings to EEPROM
+ * TODO: add pulseIn functionality
  * TODO: add software PWM for servos, etc (servo.h or pulse.h)
  * TODO: redesign protocol to accomodate boards with more I/Os
  * TODO: add cycle markers to mark start of analog, digital, pulseIn, and PWM
@@ -113,7 +112,7 @@
 
 /* two byte PWM data format
  * ----------------------
- * 0  get ready for digital input bytes (ENABLE_PWM)
+ * 0  get ready for digital input bytes (ENABLE_SOFTWARE_PWM/ENABLE_PWM)
  * 1  pin #
  * 2  duty cycle expressed as 1 byte (255 = 100%)
  */
@@ -218,12 +217,18 @@ void setPinMode(int pin, int mode) {
     pwmStatus = pwmStatus &~ (1 << pin);
     pinMode(pin,OUTPUT);
   }
-  // this will apply to all digital pins once softPWM is implemented
   else if( (mode == PWM) && (pin >= 9) && (pin <= 11) ) {
     digitalPinStatus = digitalPinStatus | (1 << pin);
     pwmStatus = pwmStatus | (1 << pin);
+    softPwmStatus = softPwmStatus &~ (1 << pin);
     pinMode(pin,OUTPUT);
   }
+  else if(mode == SOFTPWM) {
+    digitalPinStatus = digitalPinStatus | (1 << pin);
+    pwmStatus = pwmStatus &~ (1 << pin);
+    softPwmStatus = softPwmStatus | (1 << pin);
+    pinMode(pin,OUTPUT);
+  } 
 }
 
 void setSoftPwm (int pin, byte pulsePeriod) {
@@ -277,32 +282,31 @@ void processInput(byte inputData) {
   if( waitForData > 0) {  
     waitForData--;
     storedInputData[waitForData] = inputData;
-  }
-  else if(executeMultiByteCommand) {
-    //we got everything
-    switch(executeMultiByteCommand) {
-    case ENABLE_PWM:
-      setPinMode(storedInputData[1],PWM);
-      analogWrite(storedInputData[1], storedInputData[0]);
-      break;
-    case DISABLE_PWM:
-      setPinMode(storedInputData[0],INPUT);
-      break;
-/*    case ENABLE_SOFTWARE_PWM:
-      setPinMode(storedInputData[1],SOFTPWM);
-      setSoftPwm(storedInputData[1], storedInputData[0]);     
-      break; 
-    case DISABLE_SOFTWARE_PWM:
-      disSoftPwm(storedInputData[0]);
-      break;
-    case SET_SOFTWARE_PWM_FREQ:
-      setSoftPwmFreq(storedInputData[0]);
-      break;
-      */
+
+    if(executeMultiByteCommand && (waitForData==0)) {
+      //we got everything
+      switch(executeMultiByteCommand) {
+      case ENABLE_PWM:
+        setPinMode(storedInputData[1],PWM);
+        analogWrite(storedInputData[1], storedInputData[0]);
+        break;
+      case DISABLE_PWM:
+        setPinMode(storedInputData[0],INPUT);
+        break;
+      case ENABLE_SOFTWARE_PWM:
+        setPinMode(storedInputData[1],SOFTPWM);
+        setSoftPwm(storedInputData[1], storedInputData[0]);     
+        break; 
+      case DISABLE_SOFTWARE_PWM:
+        disSoftPwm(storedInputData[0]);
+        break;
+      case SET_SOFTWARE_PWM_FREQ:
+        setSoftPwmFreq(storedInputData[0]);
+        break;
+      }
+      executeMultiByteCommand = 0;
     }
-    executeMultiByteCommand = 0;
   }
-  
   else if(inputData < 128) {
     if(firstInputByte) {  //
       for(i=0; i<7; ++i) {
@@ -409,7 +413,7 @@ void setup() {
 
   beginSerial(19200);
   for(i=0; i<TOTAL_DIGITAL_PINS; ++i) {
-    setPinMode(i,OUTPUT);
+    setPinMode(i,INPUT);
   }
 }
 
