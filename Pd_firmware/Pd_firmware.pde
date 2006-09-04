@@ -409,7 +409,7 @@ void setup() {
 
   beginSerial(19200);
   for(i=0; i<TOTAL_DIGITAL_PINS; ++i) {
-    setPinMode(i,INPUT);
+    setPinMode(i,OUTPUT);
   }
 }
 
