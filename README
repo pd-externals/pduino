@@ -1,4 +1,11 @@
 
-The code in the examples patch are example patches that match the included examples in the Arduino package.
+This package includes a Pd object and a matching Arduino firmware.  It allows
+you to control the Arduino board from Pd without having to program in
+Arduino's C++
 
-Pd_firmware is a Arduino firmware where you can control everything from Pd, so you don't need to program in Arduino.
+To use it, open Pd_firmware in Arduino and upload it to the board.  Open up
+arduino-test.pd in Pd, then choose your serial port with the [open( message.
+
+For more on Arduino, go to http://arduino.cc
+
+
