@@ -1,5 +1,5 @@
-#N canvas 654 0 691 634 10;
-#N canvas 233 472 450 300 INSTALL-NOTES 0;
+#N canvas 62 23 698 571 10;
+#N canvas 233 472 454 304 INSTALL-NOTES 0;
 #X text 39 201 [comport] \, from pd-cvs/externals/iem/comport;
 #X text 39 185 [arduino] \, from pd-cvs/externals/hardware/arduino
 ;
@@ -15,18 +15,18 @@ board !;
 ;
 #X text 22 257 5 If you still have troubles \, mail to the pd list
 !;
-#X restore 25 136 pd INSTALL-NOTES;
-#X text 150 137 <- read this first !;
-#X obj 402 134 arduino 5;
-#X obj 26 244 hradio 15 1 0 8 empty empty empty 0 -6 0 8 -260818 -1
--1 5;
-#X msg 26 262 open \$1;
-#X floatatom 109 261 5 0 0 0 - - -;
-#X obj 402 113 r \$0-arduino;
-#X msg 37 283 close;
-#X msg 47 304 info;
-#X text 21 221 select/close the serial port:;
-#X obj 26 326 s \$0-arduino;
+#X restore 25 92 pd INSTALL-NOTES;
+#X text 150 93 <- read this first !;
+#X obj 402 90 arduino 5;
+#X obj 26 180 hradio 15 1 0 8 empty empty empty 0 -6 0 8 -260818 -1
+-1 0;
+#X msg 26 198 open \$1;
+#X floatatom 109 197 5 0 0 0 - - -;
+#X obj 402 69 r \$0-arduino;
+#X msg 37 219 close;
+#X msg 47 240 info;
+#X text 21 157 select/close the serial port:;
+#X obj 26 262 s \$0-arduino;
 #N canvas 728 223 550 248 DIGITAL-OUTPUT 0;
 #X text 21 78 I/O the individual pins:;
 #X obj 42 118 tgl 15 0 empty empty 1 3 -6 0 10 -260818 -1 -1 0 1;
@@ -46,7 +46,7 @@ board !;
 ;
 #X obj 264 118 tgl 15 0 empty empty 13 3 -6 0 10 -260818 -1 -1 0 1
 ;
-#X obj 284 98 tgl 20 0 empty empty empty 0 -6 0 8 -258699 -1 -1 1 1
+#X obj 284 98 tgl 20 0 empty empty empty 0 -6 0 8 -258699 -1 -1 0 1
 ;
 #X obj 24 118 tgl 15 0 empty empty 0 3 -6 0 10 -260818 -1 -1 0 1;
 #N canvas 688 388 650 300 send-to-arduino................. 0;
@@ -268,7 +268,7 @@ you have to convert the binary toggle to a decimal number;
 #X connect 15 0 16 0;
 #X connect 16 0 17 0;
 #X connect 16 0 18 0;
-#X restore 171 502 pd DIGITAL-OUTPUT;
+#X restore 171 438 pd DIGITAL-OUTPUT;
 #N canvas 494 94 550 252 DIGITAL-INPUT 0;
 #X obj 46 128 tgl 15 0 empty empty 1 3 -6 0 10 -260818 -1 -1 0 2;
 #X obj 64 128 tgl 15 0 empty empty 2 3 -6 0 10 -260818 -1 -1 0 4;
@@ -293,7 +293,7 @@ you have to convert the binary toggle to a decimal number;
 ;
 #X obj 267 128 tgl 15 0 empty empty 13 3 -6 0 10 -260818 -1 -1 0 8192
 ;
-#X obj 28 128 tgl 15 0 empty empty 0 3 -6 0 10 -260818 -1 -1 1 1;
+#X obj 28 128 tgl 15 0 empty empty 0 3 -6 0 10 -260818 -1 -1 0 1;
 #N canvas 64 160 778 300 send-to-arduino................. 0;
 #X obj 35 55 route digital;
 #X obj 35 229 outlet;
@@ -379,30 +379,30 @@ to the ground \, you will get random values (0 or 1) - to avoid that
 #X connect 14 12 11 0;
 #X connect 14 13 12 0;
 #X connect 15 0 14 0;
-#X restore 178 478 pd DIGITAL-INPUT;
-#X obj 402 155 s \$0-arduino-out;
-#X text 525 303 (0=input \, 1=output);
-#X obj 289 276 tgl 15 0 empty empty 1 3 -6 0 10 -260818 -1 -1 1 1;
-#X obj 307 276 tgl 15 0 empty empty 2 3 -6 0 10 -260818 -1 -1 1 1;
-#X obj 325 276 tgl 15 0 empty empty 3 3 -6 0 10 -260818 -1 -1 1 1;
-#X obj 343 276 tgl 15 0 empty empty 4 3 -6 0 10 -260818 -1 -1 1 1;
-#X obj 361 276 tgl 15 0 empty empty 5 3 -6 0 10 -260818 -1 -1 1 1;
-#X obj 379 276 tgl 15 0 empty empty 6 3 -6 0 10 -260818 -1 -1 1 1;
-#X obj 397 276 tgl 15 0 empty empty 7 3 -6 0 10 -260818 -1 -1 1 1;
-#X obj 415 276 tgl 15 0 empty empty 8 3 -6 0 10 -260818 -1 -1 1 1;
-#X obj 433 276 tgl 15 0 empty empty 9 3 -6 0 10 -260818 -1 -1 1 1;
-#X obj 451 276 tgl 15 0 empty empty 10 3 -6 0 10 -260818 -1 -1 1 1
+#X restore 178 414 pd DIGITAL-INPUT;
+#X obj 402 111 s \$0-arduino-out;
+#X text 525 239 (0=input \, 1=output);
+#X obj 289 212 tgl 15 0 empty empty 1 3 -6 0 10 -260818 -1 -1 0 1;
+#X obj 307 212 tgl 15 0 empty empty 2 3 -6 0 10 -260818 -1 -1 0 1;
+#X obj 325 212 tgl 15 0 empty empty 3 3 -6 0 10 -260818 -1 -1 0 1;
+#X obj 343 212 tgl 15 0 empty empty 4 3 -6 0 10 -260818 -1 -1 0 1;
+#X obj 361 212 tgl 15 0 empty empty 5 3 -6 0 10 -260818 -1 -1 0 1;
+#X obj 379 212 tgl 15 0 empty empty 6 3 -6 0 10 -260818 -1 -1 0 1;
+#X obj 397 212 tgl 15 0 empty empty 7 3 -6 0 10 -260818 -1 -1 0 1;
+#X obj 415 212 tgl 15 0 empty empty 8 3 -6 0 10 -260818 -1 -1 0 1;
+#X obj 433 212 tgl 15 0 empty empty 9 3 -6 0 10 -260818 -1 -1 0 1;
+#X obj 451 212 tgl 15 0 empty empty 10 3 -6 0 10 -260818 -1 -1 0 1
 ;
-#X obj 469 276 tgl 15 0 empty empty 11 3 -6 0 10 -260818 -1 -1 1 1
+#X obj 469 212 tgl 15 0 empty empty 11 3 -6 0 10 -260818 -1 -1 0 1
 ;
-#X obj 487 276 tgl 15 0 empty empty 12 3 -6 0 10 -260818 -1 -1 1 1
+#X obj 487 212 tgl 15 0 empty empty 12 3 -6 0 10 -260818 -1 -1 0 1
 ;
-#X obj 505 276 tgl 15 0 empty empty 13 3 -6 0 10 -260818 -1 -1 1 1
+#X obj 505 212 tgl 15 0 empty empty 13 3 -6 0 10 -260818 -1 -1 0 1
 ;
-#X obj 531 256 tgl 20 0 empty empty empty 0 -6 0 8 -258699 -1 -1 1
+#X obj 531 192 tgl 20 0 empty empty empty 0 -6 0 8 -258699 -1 -1 0
 1;
-#X text 530 241 all;
-#X obj 271 276 tgl 15 0 empty empty 0 3 -6 0 10 -260818 -1 -1 1 1;
+#X text 530 177 all;
+#X obj 271 212 tgl 15 0 empty empty 0 3 -6 0 10 -260818 -1 -1 0 1;
 #N canvas 554 328 750 300 send-to-arduino---------------- 0;
 #X obj 49 54 inlet;
 #X obj 89 54 inlet;
@@ -461,11 +461,11 @@ to the ground \, you will get random values (0 or 1) - to avoid that
 #X connect 25 0 28 0;
 #X connect 26 0 27 0;
 #X connect 27 0 28 0;
-#X restore 271 303 pd send-to-arduino----------------;
-#X obj 271 356 s \$0-arduino;
-#X msg 294 329 outputMode 13 1;
-#X text 412 329 set pin 13 to output mode;
-#X text 270 223 Set input/output mode of the pins for digital IO:;
+#X restore 271 239 pd send-to-arduino----------------;
+#X obj 271 292 s \$0-arduino;
+#X msg 294 265 outputMode 13 1;
+#X text 412 265 set pin 13 to output mode;
+#X text 270 159 Set input/output mode of the pins for digital IO:;
 #N canvas 374 455 492 344 ANALOG-INPUT 0;
 #X obj 29 59 r \$0-arduino-out;
 #X obj 29 97 spigot 0;
@@ -532,7 +532,7 @@ the ground \, if you want to avoid flickering of the values !;
 #X connect 10 3 7 0;
 #X connect 10 4 8 0;
 #X connect 10 5 9 0;
-#X restore 185 526 pd ANALOG-INPUT;
+#X restore 185 462 pd ANALOG-INPUT;
 #N canvas 729 582 542 358 ANALOG-OUTPUT-PWM 0;
 #X text 16 17 Analog Output \, PWM (Pulse Width Modulation);
 #X text 16 53 With the help of PWM you can write analog values to the
@@ -541,16 +541,16 @@ pins 9 \, 10 \, 11 of your Arduino board.;
 !;
 #X msg 21 189 pwm 9 \$1;
 #X obj 24 168 hsl 150 17 0 1 0 0 empty empty PWM_control_(0-1) -2 -6
-1 10 -260818 -1 -1 6800 1;
+1 10 -260818 -1 -1 0 1;
 #X msg 31 234 pwm 9 off;
 #X obj 21 258 s \$0-arduino;
 #X text 29 215 disable PWM:;
 #X obj 192 168 hsl 150 17 0 1 0 0 empty empty PWM_control_(0-1) -2
--6 1 10 -260818 -1 -1 8200 1;
+-6 1 10 -260818 -1 -1 0 1;
 #X obj 189 258 s \$0-arduino;
 #X text 197 215 disable PWM:;
 #X obj 354 168 hsl 150 17 0 1 0 0 empty empty PWM_control_(0-1) -2
--6 1 10 -260818 -1 -1 6400 1;
+-6 1 10 -260818 -1 -1 0 1;
 #X obj 351 258 s \$0-arduino;
 #X text 359 215 disable PWM:;
 #X text 21 133 PIN9:;
@@ -571,18 +571,18 @@ to send software-PWM signals (will come soon ...);
 #X connect 18 0 9 0;
 #X connect 19 0 12 0;
 #X connect 20 0 12 0;
-#X restore 150 551 pd ANALOG-OUTPUT-PWM;
-#X text 25 421 With the Arduino-Board you can do digital and analog
+#X restore 150 487 pd ANALOG-OUTPUT-PWM;
+#X text 25 357 With the Arduino-Board you can do digital and analog
 input and output \, as descriped in the following sub-patches:;
-#X text 301 501 <- example of Digital Output;
-#X text 301 479 <- example of Digital Input;
-#X text 301 527 <- example of Analog Input;
-#X text 301 552 <- example of Analog Output;
-#X text 259 54 Arduino Interface For PD;
-#X text 286 28 ::::_PDUINO_::::;
-#X text 475 595 2006 \, released under GNU GPL \; Gerda Strobl \, Georg
+#X text 301 437 <- example of Digital Output;
+#X text 301 415 <- example of Digital Input;
+#X text 301 463 <- example of Analog Input;
+#X text 301 488 <- example of Analog Output;
+#X text 259 30 Arduino Interface For PD;
+#X text 286 4 ::::_PDUINO_::::;
+#X text 475 531 2006 \, released under GNU GPL \; Gerda Strobl \, Georg
 Holzmann;
-#X text 86 305 <- list devices;
+#X text 86 241 <- list devices;
 #X connect 2 0 13 0;
 #X connect 3 0 4 0;
 #X connect 3 0 5 0;
