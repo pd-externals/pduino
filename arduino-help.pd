@@ -1,5 +1,5 @@
-#N canvas 62 23 698 571 10;
-#N canvas 233 472 454 304 INSTALL-NOTES 0;
+#N canvas 515 191 722 595 10;
+#N canvas 233 472 458 308 INSTALL-NOTES 0;
 #X text 39 201 [comport] \, from pd-cvs/externals/iem/comport;
 #X text 39 185 [arduino] \, from pd-cvs/externals/hardware/arduino
 ;
@@ -17,7 +17,6 @@ board !;
 !;
 #X restore 25 92 pd INSTALL-NOTES;
 #X text 150 93 <- read this first !;
-#X obj 402 90 arduino 5;
 #X obj 26 180 hradio 15 1 0 8 empty empty empty 0 -6 0 8 -260818 -1
 -1 0;
 #X msg 26 198 open \$1;
@@ -27,29 +26,29 @@ board !;
 #X msg 47 240 info;
 #X text 21 157 select/close the serial port:;
 #X obj 26 262 s \$0-arduino;
-#N canvas 728 223 550 248 DIGITAL-OUTPUT 0;
+#N canvas 328 479 574 272 DIGITAL-OUTPUT 0;
 #X text 21 78 I/O the individual pins:;
 #X obj 42 118 tgl 15 0 empty empty 1 3 -6 0 10 -260818 -1 -1 0 1;
-#X obj 60 118 tgl 15 0 empty empty 2 3 -6 0 10 -260818 -1 -1 0 1;
+#X obj 60 118 tgl 15 0 empty empty 2 3 -6 0 10 -260818 -1 -1 1 1;
 #X obj 79 118 tgl 15 0 empty empty 3 3 -6 0 10 -260818 -1 -1 0 1;
-#X obj 97 118 tgl 15 0 empty empty 4 3 -6 0 10 -260818 -1 -1 0 1;
-#X obj 116 118 tgl 15 0 empty empty 5 3 -6 0 10 -260818 -1 -1 0 1;
-#X obj 134 118 tgl 15 0 empty empty 6 3 -6 0 10 -260818 -1 -1 0 1;
-#X obj 153 118 tgl 15 0 empty empty 7 3 -6 0 10 -260818 -1 -1 0 1;
-#X obj 171 118 tgl 15 0 empty empty 8 3 -6 0 10 -260818 -1 -1 0 1;
-#X obj 190 118 tgl 15 0 empty empty 9 3 -6 0 10 -260818 -1 -1 0 1;
-#X obj 208 118 tgl 15 0 empty empty 10 3 -6 0 10 -260818 -1 -1 0 1
+#X obj 97 118 tgl 15 0 empty empty 4 3 -6 0 10 -260818 -1 -1 1 1;
+#X obj 116 118 tgl 15 0 empty empty 5 3 -6 0 10 -260818 -1 -1 1 1;
+#X obj 134 118 tgl 15 0 empty empty 6 3 -6 0 10 -260818 -1 -1 1 1;
+#X obj 153 118 tgl 15 0 empty empty 7 3 -6 0 10 -260818 -1 -1 1 1;
+#X obj 171 118 tgl 15 0 empty empty 8 3 -6 0 10 -260818 -1 -1 1 1;
+#X obj 190 118 tgl 15 0 empty empty 9 3 -6 0 10 -260818 -1 -1 1 1;
+#X obj 208 118 tgl 15 0 empty empty 10 3 -6 0 10 -260818 -1 -1 1 1
 ;
-#X obj 227 118 tgl 15 0 empty empty 11 3 -6 0 10 -260818 -1 -1 0 1
+#X obj 227 118 tgl 15 0 empty empty 11 3 -6 0 10 -260818 -1 -1 1 1
 ;
-#X obj 245 118 tgl 15 0 empty empty 12 3 -6 0 10 -260818 -1 -1 0 1
+#X obj 245 118 tgl 15 0 empty empty 12 3 -6 0 10 -260818 -1 -1 1 1
 ;
-#X obj 264 118 tgl 15 0 empty empty 13 3 -6 0 10 -260818 -1 -1 0 1
+#X obj 264 118 tgl 15 0 empty empty 13 3 -6 0 10 -260818 -1 -1 1 1
 ;
 #X obj 284 98 tgl 20 0 empty empty empty 0 -6 0 8 -258699 -1 -1 0 1
 ;
 #X obj 24 118 tgl 15 0 empty empty 0 3 -6 0 10 -260818 -1 -1 0 1;
-#N canvas 688 388 650 300 send-to-arduino................. 0;
+#N canvas 46 604 662 312 send-to-arduino................. 0;
 #X obj 39 44 inlet;
 #X obj 79 44 inlet;
 #X obj 118 44 inlet;
@@ -68,8 +67,7 @@ board !;
 #X obj 358 220 +;
 #X obj 358 183 float;
 #X obj 479 181 << 8;
-#N canvas 742 158 609 360 bytemask------------------------------ 0
-;
+#N canvas 15 158 617 368 bytemask------------------------------ 0;
 #X obj 269 332 outlet;
 #X obj 269 279 float;
 #X obj 318 183 |;
@@ -139,7 +137,7 @@ board !;
 #X connect 30 0 14 0;
 #X connect 31 0 15 0;
 #X restore 39 100 pd bytemask------------------------------;
-#N canvas 742 158 609 360 bytemask------------------ 0;
+#N canvas 378 173 613 364 bytemask------------------ 0;
 #X obj 269 332 outlet;
 #X obj 269 279 float;
 #X obj 318 183 |;
@@ -273,11 +271,11 @@ you have to convert the binary toggle to a decimal number;
 #X obj 46 128 tgl 15 0 empty empty 1 3 -6 0 10 -260818 -1 -1 0 2;
 #X obj 64 128 tgl 15 0 empty empty 2 3 -6 0 10 -260818 -1 -1 0 4;
 #X obj 82 128 tgl 15 0 empty empty 3 3 -6 0 10 -260818 -1 -1 0 8;
-#X obj 100 128 tgl 15 0 empty empty 4 3 -6 0 10 -260818 -1 -1 0 16
+#X obj 100 128 tgl 15 0 empty empty 4 3 -6 0 10 -260818 -1 -1 16 16
 ;
-#X obj 119 128 tgl 15 0 empty empty 5 3 -6 0 10 -260818 -1 -1 0 32
+#X obj 119 128 tgl 15 0 empty empty 5 3 -6 0 10 -260818 -1 -1 32 32
 ;
-#X obj 137 128 tgl 15 0 empty empty 6 3 -6 0 10 -260818 -1 -1 0 64
+#X obj 137 128 tgl 15 0 empty empty 6 3 -6 0 10 -260818 -1 -1 64 64
 ;
 #X obj 156 128 tgl 15 0 empty empty 7 3 -6 0 10 -260818 -1 -1 0 128
 ;
@@ -383,27 +381,27 @@ to the ground \, you will get random values (0 or 1) - to avoid that
 #X obj 402 111 s \$0-arduino-out;
 #X text 525 239 (0=input \, 1=output);
 #X obj 289 212 tgl 15 0 empty empty 1 3 -6 0 10 -260818 -1 -1 0 1;
-#X obj 307 212 tgl 15 0 empty empty 2 3 -6 0 10 -260818 -1 -1 0 1;
-#X obj 325 212 tgl 15 0 empty empty 3 3 -6 0 10 -260818 -1 -1 0 1;
-#X obj 343 212 tgl 15 0 empty empty 4 3 -6 0 10 -260818 -1 -1 0 1;
-#X obj 361 212 tgl 15 0 empty empty 5 3 -6 0 10 -260818 -1 -1 0 1;
-#X obj 379 212 tgl 15 0 empty empty 6 3 -6 0 10 -260818 -1 -1 0 1;
-#X obj 397 212 tgl 15 0 empty empty 7 3 -6 0 10 -260818 -1 -1 0 1;
-#X obj 415 212 tgl 15 0 empty empty 8 3 -6 0 10 -260818 -1 -1 0 1;
-#X obj 433 212 tgl 15 0 empty empty 9 3 -6 0 10 -260818 -1 -1 0 1;
-#X obj 451 212 tgl 15 0 empty empty 10 3 -6 0 10 -260818 -1 -1 0 1
+#X obj 307 212 tgl 15 0 empty empty 2 3 -6 0 10 -260818 -1 -1 1 1;
+#X obj 325 212 tgl 15 0 empty empty 3 3 -6 0 10 -260818 -1 -1 1 1;
+#X obj 343 212 tgl 15 0 empty empty 4 3 -6 0 10 -260818 -1 -1 1 1;
+#X obj 361 212 tgl 15 0 empty empty 5 3 -6 0 10 -260818 -1 -1 1 1;
+#X obj 379 212 tgl 15 0 empty empty 6 3 -6 0 10 -260818 -1 -1 1 1;
+#X obj 397 212 tgl 15 0 empty empty 7 3 -6 0 10 -260818 -1 -1 1 1;
+#X obj 415 212 tgl 15 0 empty empty 8 3 -6 0 10 -260818 -1 -1 1 1;
+#X obj 433 212 tgl 15 0 empty empty 9 3 -6 0 10 -260818 -1 -1 1 1;
+#X obj 451 212 tgl 15 0 empty empty 10 3 -6 0 10 -260818 -1 -1 1 1
 ;
-#X obj 469 212 tgl 15 0 empty empty 11 3 -6 0 10 -260818 -1 -1 0 1
+#X obj 469 212 tgl 15 0 empty empty 11 3 -6 0 10 -260818 -1 -1 1 1
 ;
-#X obj 487 212 tgl 15 0 empty empty 12 3 -6 0 10 -260818 -1 -1 0 1
+#X obj 487 212 tgl 15 0 empty empty 12 3 -6 0 10 -260818 -1 -1 1 1
 ;
-#X obj 505 212 tgl 15 0 empty empty 13 3 -6 0 10 -260818 -1 -1 0 1
+#X obj 505 212 tgl 15 0 empty empty 13 3 -6 0 10 -260818 -1 -1 1 1
 ;
 #X obj 531 192 tgl 20 0 empty empty empty 0 -6 0 8 -258699 -1 -1 0
 1;
 #X text 530 177 all;
 #X obj 271 212 tgl 15 0 empty empty 0 3 -6 0 10 -260818 -1 -1 0 1;
-#N canvas 554 328 750 300 send-to-arduino---------------- 0;
+#N canvas 365 337 762 312 send-to-arduino---------------- 0;
 #X obj 49 54 inlet;
 #X obj 89 54 inlet;
 #X obj 128 54 inlet;
@@ -462,11 +460,11 @@ to the ground \, you will get random values (0 or 1) - to avoid that
 #X connect 26 0 27 0;
 #X connect 27 0 28 0;
 #X restore 271 239 pd send-to-arduino----------------;
-#X obj 271 292 s \$0-arduino;
+#X obj 269 324 s \$0-arduino;
 #X msg 294 265 outputMode 13 1;
 #X text 412 265 set pin 13 to output mode;
 #X text 270 159 Set input/output mode of the pins for digital IO:;
-#N canvas 374 455 492 344 ANALOG-INPUT 0;
+#N canvas 374 455 496 348 ANALOG-INPUT 0;
 #X obj 29 59 r \$0-arduino-out;
 #X obj 29 97 spigot 0;
 #X obj 91 94 tgl 20 0 empty empty empty 0 -6 0 8 -258699 -1 -1 0 1
@@ -533,7 +531,7 @@ the ground \, if you want to avoid flickering of the values !;
 #X connect 10 4 8 0;
 #X connect 10 5 9 0;
 #X restore 185 462 pd ANALOG-INPUT;
-#N canvas 729 582 542 358 ANALOG-OUTPUT-PWM 0;
+#N canvas 462 515 546 362 ANALOG-OUTPUT-PWM 0;
 #X text 16 17 Analog Output \, PWM (Pulse Width Modulation);
 #X text 16 53 With the help of PWM you can write analog values to the
 pins 9 \, 10 \, 11 of your Arduino board.;
@@ -583,40 +581,77 @@ input and output \, as descriped in the following sub-patches:;
 #X text 475 531 2006 \, released under GNU GPL \; Gerda Strobl \, Georg
 Holzmann;
 #X text 86 241 <- list devices;
-#X connect 2 0 13 0;
-#X connect 3 0 4 0;
-#X connect 3 0 5 0;
-#X connect 4 0 10 0;
-#X connect 6 0 2 0;
-#X connect 7 0 10 0;
-#X connect 8 0 10 0;
-#X connect 15 0 31 1;
-#X connect 16 0 31 2;
-#X connect 17 0 31 3;
-#X connect 18 0 31 4;
-#X connect 19 0 31 5;
-#X connect 20 0 31 6;
-#X connect 21 0 31 7;
-#X connect 22 0 31 8;
-#X connect 23 0 31 9;
-#X connect 24 0 31 10;
-#X connect 25 0 31 11;
-#X connect 26 0 31 12;
-#X connect 27 0 31 13;
-#X connect 28 0 27 0;
-#X connect 28 0 26 0;
-#X connect 28 0 25 0;
-#X connect 28 0 24 0;
-#X connect 28 0 23 0;
-#X connect 28 0 22 0;
-#X connect 28 0 21 0;
-#X connect 28 0 20 0;
-#X connect 28 0 19 0;
-#X connect 28 0 18 0;
-#X connect 28 0 17 0;
-#X connect 28 0 16 0;
-#X connect 28 0 15 0;
-#X connect 28 0 30 0;
+#X obj 404 90 arduino 1;
+#X obj 534 89 spigot;
+#X obj 565 67 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 534 113 print;
+#X obj 79 25 hradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144 -1
+-1 0;
+#X floatatom 91 55 5 0 0 0 - - -;
+#X msg 202 55 analogIns \$1;
+#X msg 387 300 8192;
+#X msg 426 299 16383;
+#X msg 467 300 0;
+#X obj 490 326 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 467 353 metro 1000;
+#X obj 487 387 delay 500;
+#X msg 440 36 version;
+#X msg 500 36 info;
+#X obj 305 118 route version;
+#X obj 303 138 print version;
+#X connect 2 0 3 0;
+#X connect 2 0 4 0;
+#X connect 3 0 9 0;
+#X connect 5 0 46 0;
+#X connect 6 0 9 0;
+#X connect 7 0 9 0;
+#X connect 14 0 30 1;
+#X connect 15 0 30 2;
+#X connect 16 0 30 3;
+#X connect 17 0 30 4;
+#X connect 18 0 30 5;
+#X connect 19 0 30 6;
+#X connect 20 0 30 7;
+#X connect 21 0 30 8;
+#X connect 22 0 30 9;
+#X connect 23 0 30 10;
+#X connect 24 0 30 11;
+#X connect 25 0 30 12;
+#X connect 26 0 30 13;
+#X connect 27 0 26 0;
+#X connect 27 0 25 0;
+#X connect 27 0 24 0;
+#X connect 27 0 23 0;
+#X connect 27 0 22 0;
+#X connect 27 0 21 0;
+#X connect 27 0 20 0;
+#X connect 27 0 19 0;
+#X connect 27 0 18 0;
+#X connect 27 0 17 0;
+#X connect 27 0 16 0;
+#X connect 27 0 15 0;
+#X connect 27 0 14 0;
+#X connect 27 0 29 0;
+#X connect 29 0 30 0;
 #X connect 30 0 31 0;
-#X connect 31 0 32 0;
-#X connect 33 0 32 0;
+#X connect 32 0 31 0;
+#X connect 46 0 12 0;
+#X connect 46 0 61 0;
+#X connect 46 1 47 0;
+#X connect 47 0 49 0;
+#X connect 48 0 47 1;
+#X connect 50 0 51 0;
+#X connect 50 0 52 0;
+#X connect 52 0 46 0;
+#X connect 53 0 31 0;
+#X connect 54 0 31 0;
+#X connect 55 0 31 0;
+#X connect 56 0 57 0;
+#X connect 57 0 54 0;
+#X connect 57 0 58 0;
+#X connect 58 0 55 0;
+#X connect 59 0 46 0;
+#X connect 60 0 46 0;
+#X connect 61 0 62 0;
