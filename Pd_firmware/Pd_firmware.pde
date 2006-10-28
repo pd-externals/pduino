@@ -39,11 +39,11 @@
  */
 
 /* 
- * TODO: add pulseIn functionality
+ * TODO: add pulseOut functionality
  * TODO: add software PWM for servos, etc (servo.h or pulse.h)
  * TODO: redesign protocol to accomodate boards with more I/Os
  * TODO: 
- * TODO: add "outputMode all 0/1" command
+ * TODO: add "pinMode all 0/1" command
  * TODO: add cycle markers to mark start of analog, digital, pulseIn, and PWM
  */
 
@@ -58,7 +58,7 @@
  * control: 128-255
  */
   
-/* computer->Arduino commands
+/* computer<->Arduino commands
  * -------------------- */
 /* 128-129 // UNUSED */
 #define SET_PIN_ZERO_TO_IN      130 // set digital pin 0 to INPUT
@@ -86,6 +86,9 @@
 #define FOUR_ANALOG_INS         164 // enable reporting for 4 analog ins (0-3)
 #define FIVE_ANALOG_INS         165 // enable reporting for 5 analog ins (0-4)
 #define SIX_ANALOG_INS          166 // enable reporting for 6 analog ins (0-5)
+#define SEVEN_ANALOG_INS        167 // enable reporting for 6 analog ins (0-6)
+#define EIGHT_ANALOG_INS        168 // enable reporting for 6 analog ins (0-7)
+#define NINE_ANALOG_INS         169 // enable reporting for 6 analog ins (0-8)
 /* 167-199 // UNUSED */
 #define SET_PIN_ZERO_TO_OUT     200 // set digital pin 0 to OUTPUT
 #define SET_PIN_ONE_TO_OUT      201 // set digital pin 1 to OUTPUT
@@ -137,7 +140,7 @@
 
 /* analog input message format
  * ----------------------
- * 0   analog input marker
+ * 0   analog input marker (160 + number of pins to report)
  * 1   high byte from analog input pin 0 
  * 2   low byte from analog input pin 0
  * 3   high byte from analog input pin 1 
@@ -270,9 +273,9 @@ void disSoftPwm(int pin) {
  * then processes all of the stored data
  */
 void checkForInput() {
-  if(serialAvailable()) {  
-    while(serialAvailable()) {
-      processInput( (byte)serialRead() );
+  if(Serial.available()) {  
+    while(Serial.available()) {
+      processInput( (byte)Serial.read() );
     }
   }
 }
@@ -382,8 +385,11 @@ void processInput(byte inputData) {
     case FOUR_ANALOG_INS:   // analog 0-3 on  
     case FIVE_ANALOG_INS:   // analog 0-4 on  
     case SIX_ANALOG_INS:    // analog 0-5 on  
-      analogInputsEnabled = inputData - ZERO_ANALOG_INS;
-      break;
+    case SEVEN_ANALOG_INS:  // analog 0-6 on  
+    case EIGHT_ANALOG_INS:  // analog 0-7 on  
+    case NINE_ANALOG_INS:   // analog 0-8 on  
+	  analogInputsEnabled = inputData - ZERO_ANALOG_INS;
+	  break;
     case ENABLE_PWM:
       waitForData = 2;  // 2 bytes needed (pin#, dutyCycle) 
       executeMultiByteCommand = inputData;
@@ -423,7 +429,7 @@ void processInput(byte inputData) {
 void setup() {
   byte i;
 
-  beginSerial(19200);
+  Serial.begin(19200);
   for(i=0; i<TOTAL_DIGITAL_PINS; ++i) {
     setPinMode(i,INPUT);
   }
