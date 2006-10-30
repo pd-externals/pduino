@@ -1,6 +1,10 @@
 ;********************************************************
 ;														*
 ;	Filename:		f767duino.asm						*
+;	Date:			20061023							*
+;	File Version:	0.7									*
+;		implement analogWrite for hardware pwm on		*
+;		digital pins 9,10 and 11.						*
 ;	Date:			20061016							*
 ;	File Version:	0.6									*
 ;		Fixed a bug in receive interrupt handler and	*
@@ -60,11 +64,17 @@
 ;	AnalogInput5		= 	RB3/AN9			*
 ;	VRef				= 	RA3/AN3			*
 ;											*
-; Timing parameters:
+; Timing parameters using PIC16F767:
 ; FOsc = 14745600Hz
-; TOsc = 67.8ns
-; Tad = 2.17us, Tcnv = 26.04us
+; TOsc = 67.8168ns
+; Tad = 32*TOsc = 2.17014us, Tcnv = 12*Tad = 26.0417us Taqu = 12*Tad = 26.0417us
 ; ADC needs 20us (~10Tad) to charge the sampling capacitor + 2Tad(~5us) after each conversion
+; Total adc time = 26*Tad = 56.4236us 
+; Maximum ADC rate (1 channel) = 17723.1 conversions per second
+;
+; Baud rate is 19200
+; ADC conversion packet length 3 bytes = 30 bits
+; Time to transmit 30 bits at 19200 baud: 0.0015625s = 640 results per second
 ;********************************************
 ; This is based on Pd_firmware_pde
 ; Copyright (C) 2006 Hans-Christoph Steiner
@@ -427,6 +437,15 @@ slp_1
 ;6. Read A/D Result registers (ADRESH:ADRESL); clear bit ADIF (if required).
 ;7. For next conversion, go to step 1 or step 2 as required. The A/D conversion time per bit is
 ; defined as TAD. A minimum wait of 2 TAD is required before the next acquisition starts.
+;
+; Setup Timer2 for hardware PWM (1.002kHz: timer prescale 1:16, PR2=254)
+		movlw 	d'254' ; 903.53Hz
+		bsf		STATUS,RP0 ; bank 1
+		movwf	PR2
+		bcf		STATUS,RP0 ; bank 0
+		movlw	b'00000111' ; timer on, prescale 1:16
+		movwf	T2CON
+;
 ;  }
 ;}
 ;
@@ -1342,25 +1361,136 @@ processInput ; on entry w contains a byte of input data from rxBuf
 mb_enablePwm
 ;      case ENABLE_PWM: ; 251
 ;        setPinMode(storedInputData[1],PWM);
-		movf	storedInputData1,w
-		movwf	pin
 		movlw	PWM
 		movwf	mode
+		movf	storedInputData1,w
+		movwf	pin
+		sublw	d'9'	; 9-PIN pins 9,10,11 only
+		btfsc	STATUS,Z
+		goto	setPWM9
+		addlw	d'1'
+		btfsc	STATUS,Z
+		goto	setPWM10
+		addlw	d'1'
+		btfss	STATUS,Z
+		goto	pi_6	; not a hardware PWM pin
+setPWM11
 		call	setPinMode
+		movf	storedInputData0,w
+		movwf	CCPR2L
+		movlw	b'00001100' ; PWM mode, PWM LSBs=00
+		movwf	CCP2CON
+		goto	pi_6
+setPWM10
+		call	setPinMode
+		movf	storedInputData0,w
+		movwf	CCPR1L
+		movlw	b'00001100' ; PWM mode, PWM LSBs=00
+		movwf	CCP1CON
+		goto	pi_6
+setPWM9
+		call	setPinMode
+		movf	storedInputData0,w
+		bsf		STATUS,RP0 ; bank 1
+		movwf	CCPR3L
+		movlw	b'00001100' ; PWM mode, PWM LSBs=00
+		movwf	CCP3CON
+		bcf		STATUS,RP0 ; bank 0
+		goto	pi_6
+				
 ;        analogWrite(storedInputData[1], storedInputData[0]);
+; analogWrite from wiring.c (http://svn.berlios.de/svnroot/repos/arduino/trunk/targets/arduino/wiring.c):
+;// Right now, PWM output only works on the pins with
+;// hardware support.  These are defined in the appropriate
+;// pins_*.c file.  For the rest of the pins, we default
+;// to digital output.
+;void analogWrite(int pin, int val)
+;{
+;	// We need to make sure the PWM output is enabled for those pins
+;	// that support it, as we turn it off when digitally reading or
+;	// writing with them.  Also, make sure the pin is in output mode
+;	// for consistenty with Wiring, which doesn't require a pinMode
+;	// call for the analog output pins.
+;	pinMode(pin, OUTPUT);
+;	
+;	if (analogOutPinToTimer(pin) == TIMER1A) {
+;		// connect pwm to pin on timer 1, channel A
+;		sbi(TCCR1A, COM1A1);
+;		// set pwm duty
+;		OCR1A = val;
+;	} else if (analogOutPinToTimer(pin) == TIMER1B) {
+;		// connect pwm to pin on timer 1, channel B
+;		sbi(TCCR1A, COM1B1);
+;		// set pwm duty
+;		OCR1B = val;
+;#if defined(__AVR_ATmega168__)
+;	} else if (analogOutPinToTimer(pin) == TIMER0A) {
+;		// connect pwm to pin on timer 0, channel A
+;		sbi(TCCR0A, COM0A1);
+;		// set pwm duty
+;		OCR0A = val;	
+;	} else if (analogOutPinToTimer(pin) == TIMER0B) {
+;		// connect pwm to pin on timer 0, channel B
+;		sbi(TCCR0A, COM0B1);
+;		// set pwm duty
+;		OCR0B = val;
+;	} else if (analogOutPinToTimer(pin) == TIMER2A) {
+;		// connect pwm to pin on timer 2, channel A
+;		sbi(TCCR2A, COM2A1);
+;		// set pwm duty
+;		OCR2A = val;	
+;	} else if (analogOutPinToTimer(pin) == TIMER2B) {
+;		// connect pwm to pin on timer 2, channel B
+;		sbi(TCCR2A, COM2B1);
+;		// set pwm duty
+;		OCR2B = val;
+;#else
+;	} else if (analogOutPinToTimer(pin) == TIMER2) {
+;		// connect pwm to pin on timer 2, channel B
+;		sbi(TCCR2, COM21);
+;		// set pwm duty
+;		OCR2 = val;
+;#endif
+;	} else if (val < 128)
+;		digitalWrite(pin, LOW);
+;	else
+;		digitalWrite(pin, HIGH);
+;}
+; end of analogWrite() from wiring.c
 ;        break;
 		goto	pi_6
 ; -------------------------------------------------------------------------
 mb_disablePwm
 ;      case DISABLE_PWM: ; 250
 ;        setPinMode(storedInputData[0],INPUT);
-		movf	storedInputData0,w
-		movwf	pin
 		movlw	INPUT
 		movwf	mode
+		movf	storedInputData0,w
+		movwf	pin
+		sublw	d'9'	; 9 - PIN, pins 9,10,11 only
+		btfsc	STATUS,Z
+		goto	disPWM9
+		addlw	d'1'
+		btfsc	STATUS,Z
+		goto	disPWM10
+		addlw	d'1'
+		btfss	STATUS,Z
+		goto	pi_6	; not a hardware PWM pin
+disPWM11
 		call 	setPinMode
+		clrf	CCP2CON
+		goto	pi_6	; not a hardware PWM pin
+disPWM10
+		call 	setPinMode
+		clrf	CCP1CON
+		goto	pi_6	; not a hardware PWM pin
+disPWM9
+		call 	setPinMode
+		bsf		STATUS,RP0 ; bank 1
+		clrf	CCP3CON
+		bcf		STATUS,RP0 ; bank 0
+		goto	pi_6	; not a hardware PWM pin
 ;        break;
-		goto	pi_6
 ; -------------------------------------------------------------------------
 mb_enableSoftPwm
 ;      case ENABLE_SOFTWARE_PWM: ; 253
