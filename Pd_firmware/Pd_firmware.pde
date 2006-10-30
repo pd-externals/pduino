@@ -39,7 +39,7 @@
  */
 
 /* 
- * TODO: add pulseOut functionality
+ * TODO: add pulseOut functionality for servos
  * TODO: add software PWM for servos, etc (servo.h or pulse.h)
  * TODO: redesign protocol to accomodate boards with more I/Os
  * TODO: 
@@ -49,8 +49,9 @@
 
 /* firmware version numbers.  The protocol is still changing, so these version
  * numbers are important */
+// cvs version: $Id $
 #define MAJOR_VERSION 0
-#define MINOR_VERSION 1
+#define MINOR_VERSION 2
 
 /* firmata protocol
  * =============== 
@@ -140,19 +141,9 @@
 
 /* analog input message format
  * ----------------------
- * 0   analog input marker (160 + number of pins to report)
- * 1   high byte from analog input pin 0 
- * 2   low byte from analog input pin 0
- * 3   high byte from analog input pin 1 
- * 4   low byte from analog input pin 1
- * 5   high byte from analog input pin 2 
- * 6   low byte from analog input pin 2
- * 7   high byte from analog input pin 3 
- * 8   low byte from analog input pin 3
- * 9   high byte from analog input pin 4 
- * 10  low byte from analog input pin 4
- * 11  high byte from analog input pin 5 
- * 12  low byte from analog input pin 5
+ * 0   analog input marker (160 + pin number reported)
+ * 1   high byte from analog input
+ * 2   low byte from analog input
  */
 
 #define TOTAL_DIGITAL_PINS 14
@@ -181,10 +172,6 @@ int digitalPinStatus;
  */
 int pwmStatus;
 
-/* this byte stores the status of whether software PWM is on or not */
-/* 00000010 00000000 means bit 10 is softWarePWM enabled */
-int softPwmStatus;
-
 boolean digitalInputsEnabled = true;
 byte analogInputsEnabled = 6;
 
@@ -193,14 +180,14 @@ int analogData;
 
 // -------------------------------------------------------------------------
 void transmitDigitalInput(byte startPin) {
-  byte i;
-  byte digitalPin;
+	byte i;
+	byte digitalPin;
 //  byte digitalPinBit;
-  byte transmitByte = 0;
-  byte digitalData;
+	byte transmitByte = 0;
+	byte digitalData;
 
-  for(i=0;i<7;++i) {
-    digitalPin = i+startPin;
+	for(i=0;i<7;++i) {
+		digitalPin = i+startPin;
 /*    digitalPinBit = OUTPUT << digitalPin;
 // only read the pin if its set to input
 if(digitalPinStatus & digitalPinBit) {
@@ -209,12 +196,12 @@ digitalData = 0; // pin set to OUTPUT, don't read
 else if( (digitalPin >= 9) && (pwmStatus & (1 << digitalPin)) ) {
 digitalData = 0; // pin set to PWM, don't read
 }*/
-    if( !(digitalPinStatus & (1 << digitalPin)) ) {
-      digitalData = (byte) digitalRead(digitalPin);
-      transmitByte = transmitByte + ((1 << i) * digitalData);
-    }
-  }
-  printByte(transmitByte);
+		if( !(digitalPinStatus & (1 << digitalPin)) ) {
+			digitalData = (byte) digitalRead(digitalPin);
+			transmitByte = transmitByte + ((1 << i) * digitalData);
+		}
+	}
+	printByte(transmitByte);
 }
 
 
@@ -224,47 +211,21 @@ digitalData = 0; // pin set to PWM, don't read
  * bits in the two bit-arrays that track Digital I/O and PWM status
  */
 void setPinMode(int pin, int mode) {
-  if(mode == INPUT) {
-    digitalPinStatus = digitalPinStatus &~ (1 << pin);
-    pwmStatus = pwmStatus &~ (1 << pin);
-    pinMode(pin,INPUT);
-  }
-  else if(mode == OUTPUT) {
-    digitalPinStatus = digitalPinStatus | (1 << pin);
-    pwmStatus = pwmStatus &~ (1 << pin);
-    pinMode(pin,OUTPUT);
-  }
-  else if( (mode == PWM) && (pin >= 9) && (pin <= 11) ) {
-    digitalPinStatus = digitalPinStatus | (1 << pin);
-    pwmStatus = pwmStatus | (1 << pin);
-    pinMode(pin,OUTPUT);
-  }
-}
-
-void setSoftPwm (int pin, byte pulsePeriod) {
-  byte i;
-  /*    for(i=0; i<7; ++i) {
-      mask = 1 << i;
-      if(digitalPinStatus & mask) {
-      digitalWrite(i, inputData & mask);
-      } 
-      }
-  */    
-  //read timer type thing
-
-  //loop through each pin, turn them on if selected
-  //softwarePWMStatus
-  //check timer type thing against pulsePeriods for each pin 
-  //throw pin low if expired
-}
-
-void setSoftPwmFreq(byte freq) {
-}
-
-
-void disSoftPwm(int pin) {
-  //throw pin low
-    
+	if(mode == INPUT) {
+		digitalPinStatus = digitalPinStatus &~ (1 << pin);
+		pwmStatus = pwmStatus &~ (1 << pin);
+		pinMode(pin,INPUT);
+	}
+	else if(mode == OUTPUT) {
+		digitalPinStatus = digitalPinStatus | (1 << pin);
+		pwmStatus = pwmStatus &~ (1 << pin);
+		pinMode(pin,OUTPUT);
+	}
+	else if( (mode == PWM) && (pin >= 9) && (pin <= 11) ) {
+		digitalPinStatus = digitalPinStatus | (1 << pin);
+		pwmStatus = pwmStatus | (1 << pin);
+		pinMode(pin,OUTPUT);
+	}
 }
 
 
@@ -273,153 +234,149 @@ void disSoftPwm(int pin) {
  * then processes all of the stored data
  */
 void checkForInput() {
-  if(Serial.available()) {  
-    while(Serial.available()) {
-      processInput( (byte)Serial.read() );
-    }
-  }
+	if(Serial.available()) {  
+		while(Serial.available()) {
+			processInput( (byte)Serial.read() );
+		}
+	}
 }
 
 /* -------------------------------------------------------------------------
  * processInput() is called whenever a byte is available on the
- * Arduino's serial port.  This is where the commands are handled.
+ * Arduino's serial port.  This is where the comm1ands are handled.
  */
 void processInput(byte inputData) {
-  int i;
-  int mask;
+	int i;
+	int mask;
   
-  // a few commands have byte(s) of data following the command
-  if( waitForData > 0) {  
-    waitForData--;
-    storedInputData[waitForData] = inputData;
+	// a few commands have byte(s) of data following the command
+	if( waitForData > 0) {  
+		waitForData--;
+		storedInputData[waitForData] = inputData;
 
-    if(executeMultiByteCommand && (waitForData==0)) {
-      //we got everything
-      switch(executeMultiByteCommand) {
-      case ENABLE_PWM:
-        setPinMode(storedInputData[1],PWM);
-        analogWrite(storedInputData[1], storedInputData[0]);
-        break;
-      case DISABLE_PWM:
-        setPinMode(storedInputData[0],INPUT);
-        break;
-      case ENABLE_SOFTWARE_PWM:
-        setPinMode(storedInputData[1],PWM);
-        setSoftPwm(storedInputData[1], storedInputData[0]);     
-        break; 
-      case DISABLE_SOFTWARE_PWM:
-        disSoftPwm(storedInputData[0]);
-        break;
-      case SET_SOFTWARE_PWM_FREQ:
-        setSoftPwmFreq(storedInputData[0]);
-        break;
-      }
-      executeMultiByteCommand = 0;
-    }
-  }
-  else if(inputData < 128) {
-    if(firstInputByte) {
-      // output data for pins 7-13
-      for(i=7; i<TOTAL_DIGITAL_PINS; ++i) {
-        mask = 1 << i;
-        if( (digitalPinStatus & mask) && !(pwmStatus & mask) ) {
-          // inputData is a byte and mask is an int, so align the high part of mask
-          digitalWrite(i, inputData & (mask >> 7));
-        }        
-      }
-      firstInputByte = false;
-    }
-    else { //
-      for(i=0; i<7; ++i) {
-        mask = 1 << i;
-        if( (digitalPinStatus & mask) && !(pwmStatus & mask) ) {
-          digitalWrite(i, inputData & mask);
-        } 
-      }
-    }
-  }
-  else {
-    switch (inputData) {
-    case SET_PIN_ZERO_TO_IN:       // set digital pins to INPUT
-    case SET_PIN_ONE_TO_IN:
-    case SET_PIN_TWO_TO_IN:
-    case SET_PIN_THREE_TO_IN:
-    case SET_PIN_FOUR_TO_IN:
-    case SET_PIN_FIVE_TO_IN:
-    case SET_PIN_SIX_TO_IN:
-    case SET_PIN_SEVEN_TO_IN:
-    case SET_PIN_EIGHT_TO_IN:
-    case SET_PIN_NINE_TO_IN:
-    case SET_PIN_TEN_TO_IN:
-    case SET_PIN_ELEVEN_TO_IN:
-    case SET_PIN_TWELVE_TO_IN:
-    case SET_PIN_THIRTEEN_TO_IN:
-      setPinMode(inputData - SET_PIN_ZERO_TO_IN, INPUT);
-      break;
-    case SET_PIN_ZERO_TO_OUT:      // set digital pins to OUTPUT
-    case SET_PIN_ONE_TO_OUT:
-    case SET_PIN_TWO_TO_OUT:
-    case SET_PIN_THREE_TO_OUT:
-    case SET_PIN_FOUR_TO_OUT:
-    case SET_PIN_FIVE_TO_OUT:
-    case SET_PIN_SIX_TO_OUT:
-    case SET_PIN_SEVEN_TO_OUT:
-    case SET_PIN_EIGHT_TO_OUT:
-    case SET_PIN_NINE_TO_OUT:
-    case SET_PIN_TEN_TO_OUT:
-    case SET_PIN_ELEVEN_TO_OUT:
-    case SET_PIN_TWELVE_TO_OUT:
-    case SET_PIN_THIRTEEN_TO_OUT:
-      setPinMode(inputData - SET_PIN_ZERO_TO_OUT, OUTPUT);
-      break;
-    case DISABLE_DIGITAL_INPUTS:   // all digital inputs off
-      digitalInputsEnabled = false;
-      break;
-    case ENABLE_DIGITAL_INPUTS:    // all digital inputs on
-      digitalInputsEnabled = true;
-      break;
-    case ZERO_ANALOG_INS:   // analog input off
-    case ONE_ANALOG_IN:     // analog 0 on  
-    case TWO_ANALOG_INS:    // analog 0,1 on  
-    case THREE_ANALOG_INS:  // analog 0-2 on  
-    case FOUR_ANALOG_INS:   // analog 0-3 on  
-    case FIVE_ANALOG_INS:   // analog 0-4 on  
-    case SIX_ANALOG_INS:    // analog 0-5 on  
-    case SEVEN_ANALOG_INS:  // analog 0-6 on  
-    case EIGHT_ANALOG_INS:  // analog 0-7 on  
-    case NINE_ANALOG_INS:   // analog 0-8 on  
-	  analogInputsEnabled = inputData - ZERO_ANALOG_INS;
-	  break;
-    case ENABLE_PWM:
-      waitForData = 2;  // 2 bytes needed (pin#, dutyCycle) 
-      executeMultiByteCommand = inputData;
-      break;
-    case DISABLE_PWM:
-      waitForData = 1;  // 1 byte needed (pin#)
-      executeMultiByteCommand = inputData;
-      break;      
-    case SET_SOFTWARE_PWM_FREQ:
-      waitForData = 1;  // 1 byte needed (pin#)
-      executeMultiByteCommand = inputData;
-      break;
-    case ENABLE_SOFTWARE_PWM:
-      waitForData = 2;  // 2 bytes needed (pin#, dutyCycle) 
-      executeMultiByteCommand = inputData;
-      break;
-    case DISABLE_SOFTWARE_PWM:
-      waitForData = 1;  // 1 byte needed (pin#)
-      executeMultiByteCommand = inputData;
-      break;
-    case OUTPUT_TO_DIGITAL_PINS:   // bytes to send to digital outputs
-      firstInputByte = true;
-      break;
-    case REPORT_VERSION:
-      printByte(REPORT_VERSION);
-      printByte(MAJOR_VERSION);
-      printByte(MINOR_VERSION);
-      break;
-    }
-  }
+		if(executeMultiByteCommand && (waitForData==0)) {
+			//we got everything
+			switch(executeMultiByteCommand) {
+			case ENABLE_PWM:
+				setPinMode(storedInputData[1],PWM);
+				analogWrite(storedInputData[1], storedInputData[0]);
+				break;
+			case DISABLE_PWM:
+				setPinMode(storedInputData[0],INPUT);
+				break;
+			case ENABLE_SOFTWARE_PWM:
+				break; 
+			case DISABLE_SOFTWARE_PWM:
+				break;
+			case SET_SOFTWARE_PWM_FREQ:
+				break;
+			}
+			executeMultiByteCommand = 0;
+		}
+	}
+	else if(inputData < 128) {
+		if(firstInputByte) {
+			// output data for pins 7-13
+			for(i=7; i<TOTAL_DIGITAL_PINS; ++i) {
+				mask = 1 << i;
+				if( (digitalPinStatus & mask) && !(pwmStatus & mask) ) {
+					// inputData is a byte and mask is an int, so align the high part of mask
+					digitalWrite(i, inputData & (mask >> 7));
+				}        
+			}
+			firstInputByte = false;
+		}
+		else { //
+			for(i=0; i<7; ++i) {
+				mask = 1 << i;
+				if( (digitalPinStatus & mask) && !(pwmStatus & mask) ) {
+					digitalWrite(i, inputData & mask);
+				} 
+			}
+		}
+	}
+	else {
+		switch (inputData) {
+		case SET_PIN_ZERO_TO_IN:       // set digital pins to INPUT
+		case SET_PIN_ONE_TO_IN:
+		case SET_PIN_TWO_TO_IN:
+		case SET_PIN_THREE_TO_IN:
+		case SET_PIN_FOUR_TO_IN:
+		case SET_PIN_FIVE_TO_IN:
+		case SET_PIN_SIX_TO_IN:
+		case SET_PIN_SEVEN_TO_IN:
+		case SET_PIN_EIGHT_TO_IN:
+		case SET_PIN_NINE_TO_IN:
+		case SET_PIN_TEN_TO_IN:
+		case SET_PIN_ELEVEN_TO_IN:
+		case SET_PIN_TWELVE_TO_IN:
+		case SET_PIN_THIRTEEN_TO_IN:
+			setPinMode(inputData - SET_PIN_ZERO_TO_IN, INPUT);
+			break;
+		case SET_PIN_ZERO_TO_OUT:      // set digital pins to OUTPUT
+		case SET_PIN_ONE_TO_OUT:
+		case SET_PIN_TWO_TO_OUT:
+		case SET_PIN_THREE_TO_OUT:
+		case SET_PIN_FOUR_TO_OUT:
+		case SET_PIN_FIVE_TO_OUT:
+		case SET_PIN_SIX_TO_OUT:
+		case SET_PIN_SEVEN_TO_OUT:
+		case SET_PIN_EIGHT_TO_OUT:
+		case SET_PIN_NINE_TO_OUT:
+		case SET_PIN_TEN_TO_OUT:
+		case SET_PIN_ELEVEN_TO_OUT:
+		case SET_PIN_TWELVE_TO_OUT:
+		case SET_PIN_THIRTEEN_TO_OUT:
+			setPinMode(inputData - SET_PIN_ZERO_TO_OUT, OUTPUT);
+			break;
+		case DISABLE_DIGITAL_INPUTS:   // all digital inputs off
+			digitalInputsEnabled = false;
+			break;
+		case ENABLE_DIGITAL_INPUTS:    // all digital inputs on
+			digitalInputsEnabled = true;
+			break;
+		case ZERO_ANALOG_INS:   // analog input off
+		case ONE_ANALOG_IN:     // analog 0 on  
+		case TWO_ANALOG_INS:    // analog 0,1 on  
+		case THREE_ANALOG_INS:  // analog 0-2 on  
+		case FOUR_ANALOG_INS:   // analog 0-3 on  
+		case FIVE_ANALOG_INS:   // analog 0-4 on  
+		case SIX_ANALOG_INS:    // analog 0-5 on  
+		case SEVEN_ANALOG_INS:  // analog 0-6 on  
+		case EIGHT_ANALOG_INS:  // analog 0-7 on  
+		case NINE_ANALOG_INS:   // analog 0-8 on  
+			analogInputsEnabled = inputData - ZERO_ANALOG_INS;
+			break;
+		case ENABLE_PWM:
+			waitForData = 2;  // 2 bytes needed (pin#, dutyCycle) 
+			executeMultiByteCommand = inputData;
+			break;
+		case DISABLE_PWM:
+			waitForData = 1;  // 1 byte needed (pin#)
+			executeMultiByteCommand = inputData;
+			break;      
+		case SET_SOFTWARE_PWM_FREQ:
+			waitForData = 1;  // 1 byte needed (pin#)
+			executeMultiByteCommand = inputData;
+			break;
+		case ENABLE_SOFTWARE_PWM:
+			waitForData = 2;  // 2 bytes needed (pin#, dutyCycle) 
+			executeMultiByteCommand = inputData;
+			break;
+		case DISABLE_SOFTWARE_PWM:
+			waitForData = 1;  // 1 byte needed (pin#)
+			executeMultiByteCommand = inputData;
+			break;
+		case OUTPUT_TO_DIGITAL_PINS:   // bytes to send to digital outputs
+			firstInputByte = true;
+			break;
+		case REPORT_VERSION:
+			printByte(REPORT_VERSION);
+			printByte(MAJOR_VERSION);
+			printByte(MINOR_VERSION);
+			break;
+		}
+	}
 }
 
 
@@ -427,35 +384,43 @@ void processInput(byte inputData) {
 
 // -------------------------------------------------------------------------
 void setup() {
-  byte i;
-
-  Serial.begin(19200);
-  for(i=0; i<TOTAL_DIGITAL_PINS; ++i) {
-    setPinMode(i,INPUT);
-  }
+	byte i;
+	
+// flash the pin 13 with the protocol minor version
+	pinMode(13,OUTPUT);
+	for(i-0; i<MINOR_VERSION; i++) {
+		digitalWrite(13,1);
+		delay(100);
+		digitalWrite(13,0);
+		delay(100);
+	}
+	Serial.begin(19200);
+	for(i=0; i<TOTAL_DIGITAL_PINS; ++i) {
+		setPinMode(i,INPUT);
+	}
 }
 
 // -------------------------------------------------------------------------
 void loop() {
-  checkForInput();  
+	checkForInput();  
   
-  // read all digital pins, in enabled
-  if(digitalInputsEnabled) {
-    printByte(ENABLE_DIGITAL_INPUTS);
-    transmitDigitalInput(7);
-    checkForInput();
-    transmitDigitalInput(0);
-    checkForInput();
-  }
+	// read all digital pins, in enabled
+	if(digitalInputsEnabled) {
+		printByte(ENABLE_DIGITAL_INPUTS);
+		transmitDigitalInput(7);
+		checkForInput();
+		transmitDigitalInput(0);
+		checkForInput();
+	}
 
-  /* get analog in, for the number enabled */
-  for(analogPin=0; analogPin<analogInputsEnabled; ++analogPin) {
-    analogData = analogRead(analogPin);
-    // these two bytes get converted back into the whole number in Pd
-    // the higher bits should be zeroed so that the 8th bit doesn't get set
-    printByte(ONE_ANALOG_IN + analogPin); 
-    printByte(analogData >> 7);  // bitshift the big stuff into the output byte
-    printByte(analogData % 128); // mod by 32 for the small byte
-    checkForInput();
-  }
+	/* get analog in, for the number enabled */
+	for(analogPin=0; analogPin<analogInputsEnabled; ++analogPin) {
+		analogData = analogRead(analogPin);
+		// these two bytes get converted back into the whole number in Pd
+		// the higher bits should be zeroed so that the 8th bit doesn't get set
+		printByte(ONE_ANALOG_IN + analogPin); 
+		printByte(analogData >> 7);  // bitshift the big stuff into the output byte
+		printByte(analogData % 128); // mod by 32 for the small byte
+		checkForInput();
+	}
 }
