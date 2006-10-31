@@ -47,9 +47,12 @@
  * TODO: add cycle markers to mark start of analog, digital, pulseIn, and PWM
  */
 
-/* firmware version numbers.  The protocol is still changing, so these version
- * numbers are important */
-// cvs version: $Id $
+/* cvs version: $Id: Pd_firmware.pde,v 1.21 2006-10-31 00:39:07 eighthave Exp $ */
+
+/* Version numbers for the protocol.  The protocol is still changing, so these
+ * version numbers are important.  This number can be queried so that host
+ * software can test whether it will be compatible with the currently
+ * installed firmware. */
 #define MAJOR_VERSION 0
 #define MINOR_VERSION 2
 
@@ -61,7 +64,7 @@
   
 /* computer<->Arduino commands
  * -------------------- */
-/* 128-129 // UNUSED */
+/* 128-129 // UNASSIGNED */
 #define SET_PIN_ZERO_TO_IN      130 // set digital pin 0 to INPUT
 #define SET_PIN_ONE_TO_IN       131 // set digital pin 1 to INPUT
 #define SET_PIN_TWO_TO_IN       132 // set digital pin 2 to INPUT
@@ -76,10 +79,10 @@
 #define SET_PIN_ELEVEN_TO_IN    141 // set digital pin 11 to INPUT
 #define SET_PIN_TWELVE_TO_IN    142 // set digital pin 12 to INPUT
 #define SET_PIN_THIRTEEN_TO_IN  143 // set digital pin 13 to INPUT
-/* 144-149 // UNUSED */
+/* 144-149 // UNASSIGNED */
 #define DISABLE_DIGITAL_INPUTS  150 // disable reporting of digital inputs
 #define ENABLE_DIGITAL_INPUTS   151 // enable reporting of digital inputs
-/* 152-159 // UNUSED */
+/* 152-159 // UNASSIGNED */
 #define ZERO_ANALOG_INS         160 // disable reporting on all analog ins
 #define ONE_ANALOG_IN           161 // enable reporting for 1 analog in (0)
 #define TWO_ANALOG_INS          162 // enable reporting for 2 analog ins (0,1)
@@ -90,7 +93,7 @@
 #define SEVEN_ANALOG_INS        167 // enable reporting for 6 analog ins (0-6)
 #define EIGHT_ANALOG_INS        168 // enable reporting for 6 analog ins (0-7)
 #define NINE_ANALOG_INS         169 // enable reporting for 6 analog ins (0-8)
-/* 167-199 // UNUSED */
+/* 170-199 // UNASSIGNED */
 #define SET_PIN_ZERO_TO_OUT     200 // set digital pin 0 to OUTPUT
 #define SET_PIN_ONE_TO_OUT      201 // set digital pin 1 to OUTPUT
 #define SET_PIN_TWO_TO_OUT      202 // set digital pin 2 to OUTPUT
@@ -105,17 +108,17 @@
 #define SET_PIN_ELEVEN_TO_OUT   211 // set digital pin 11 to OUTPUT
 #define SET_PIN_TWELVE_TO_OUT   212 // set digital pin 12 to OUTPUT
 #define SET_PIN_THIRTEEN_TO_OUT 213 // set digital pin 13 to OUTPUT
-/* 214-228 // UNUSED */
+/* 214-228 // UNASSIGNED */
 #define OUTPUT_TO_DIGITAL_PINS  229 // next two bytes set digital output data 
-/* 230-239 // UNUSED */
+/* 230-239 // UNASSIGNED */
 #define REPORT_VERSION          240 // return the firmware version
-/* 240-249 // UNUSED */
+/* 240-249 // UNASSIGNED */
 #define DISABLE_PWM             250 // next byte sets pin # to disable
 #define ENABLE_PWM              251 // next two bytes set pin # and duty cycle
 #define DISABLE_SOFTWARE_PWM    252 // next byte sets pin # to disable
 #define ENABLE_SOFTWARE_PWM     253 // next two bytes set pin # and duty cycle
 #define SET_SOFTWARE_PWM_FREQ   254 // set master frequency for software PWMs
-/* 255 // UNUSED */
+/* 255 // UNASSIGNED */
 
  
 /* two byte digital output data format
@@ -161,16 +164,21 @@ byte storedInputData[MAX_DATA_BYTES] = {0,0}; // multi-byte data
 // this flag says the first data byte for the digital outs is next
 boolean firstInputByte = false;
 
+/* store the previously sent digital inputs to compare against the current
+ * digital inputs.  If there is no change, do not transmit. */ 
+byte previousDigitalInputHighByte = 0;
+byte previousDigitalInputLowByte = 0;
+byte digitalInputHighByte = 0;
+byte digitalInputLowByte = 0;
+
 /* this int serves as a bit-wise array to store pin status
- * 0 = INPUT, 1 = OUTPUT
- */
-int digitalPinStatus;
+ * 0 = INPUT, 1 = OUTPUT  */
+int digitalPinStatus = 0;
 
 /* this byte stores the status off whether PWM is on or not
  * bit 9 = PWM0, bit 10 = PWM1, bit 11 = PWM2
- * the rest of the bits are unused and should remain 0
- */
-int pwmStatus;
+ * the rest of the bits are unused and should remain 0  */
+int pwmStatus = 0;
 
 boolean digitalInputsEnabled = true;
 byte analogInputsEnabled = 6;
@@ -179,11 +187,11 @@ byte analogPin;
 int analogData;
 
 // -------------------------------------------------------------------------
-void transmitDigitalInput(byte startPin) {
+byte transmitDigitalInput(byte startPin) {
 	byte i;
 	byte digitalPin;
 //  byte digitalPinBit;
-	byte transmitByte = 0;
+	byte returnByte = 0;
 	byte digitalData;
 
 	for(i=0;i<7;++i) {
@@ -198,10 +206,10 @@ digitalData = 0; // pin set to PWM, don't read
 }*/
 		if( !(digitalPinStatus & (1 << digitalPin)) ) {
 			digitalData = (byte) digitalRead(digitalPin);
-			transmitByte = transmitByte + ((1 << i) * digitalData);
+			returnByte = returnByte + ((1 << i) * digitalData);
 		}
 	}
-	printByte(transmitByte);
+	return(returnByte);
 }
 
 
@@ -226,6 +234,7 @@ void setPinMode(int pin, int mode) {
 		pwmStatus = pwmStatus | (1 << pin);
 		pinMode(pin,OUTPUT);
 	}
+// TODO: save status to EEPROM here, if changed
 }
 
 
@@ -371,9 +380,9 @@ void processInput(byte inputData) {
 			firstInputByte = true;
 			break;
 		case REPORT_VERSION:
-			printByte(REPORT_VERSION);
-			printByte(MAJOR_VERSION);
-			printByte(MINOR_VERSION);
+			Serial.print(REPORT_VERSION, BYTE);
+			Serial.print(MAJOR_VERSION, BYTE);
+			Serial.print(MINOR_VERSION, BYTE);
 			break;
 		}
 	}
@@ -385,19 +394,25 @@ void processInput(byte inputData) {
 // -------------------------------------------------------------------------
 void setup() {
 	byte i;
-	
-// flash the pin 13 with the protocol minor version
+
+// TODO: load state from EEPROM here
+
+/* TODO: send digital inputs here, if enabled, to set the initial state on the
+ * host computer, since once in the loop(), the Arduino will only send data on
+ * change. */
+
+// flash the pin 13 with the protocol minor version (add major once > 0)
 	pinMode(13,OUTPUT);
 	for(i-0; i<MINOR_VERSION; i++) {
 		digitalWrite(13,1);
 		delay(100);
 		digitalWrite(13,0);
-		delay(100);
+		delay(200);
 	}
-	Serial.begin(19200);
 	for(i=0; i<TOTAL_DIGITAL_PINS; ++i) {
 		setPinMode(i,INPUT);
 	}
+	Serial.begin(115200);	
 }
 
 // -------------------------------------------------------------------------
@@ -406,21 +421,30 @@ void loop() {
   
 	// read all digital pins, in enabled
 	if(digitalInputsEnabled) {
-		printByte(ENABLE_DIGITAL_INPUTS);
-		transmitDigitalInput(7);
-		checkForInput();
-		transmitDigitalInput(0);
+		digitalInputHighByte = transmitDigitalInput(7);
+		checkForInput();  
+		digitalInputLowByte = transmitDigitalInput(0);
+		checkForInput();  
+		// only send data if it has changed
+		if( (digitalInputHighByte != previousDigitalInputHighByte) && 
+			(digitalInputLowByte != previousDigitalInputLowByte) ) {
+			Serial.print(ENABLE_DIGITAL_INPUTS, BYTE);
+			Serial.print(digitalInputHighByte, BYTE);
+			Serial.print(digitalInputLowByte, BYTE);
+			previousDigitalInputHighByte = digitalInputHighByte;
+			previousDigitalInputLowByte = digitalInputLowByte;
+		}
 		checkForInput();
 	}
 
 	/* get analog in, for the number enabled */
 	for(analogPin=0; analogPin<analogInputsEnabled; ++analogPin) {
 		analogData = analogRead(analogPin);
-		// these two bytes get converted back into the whole number in Pd
-		// the higher bits should be zeroed so that the 8th bit doesn't get set
-		printByte(ONE_ANALOG_IN + analogPin); 
-		printByte(analogData >> 7);  // bitshift the big stuff into the output byte
-		printByte(analogData % 128); // mod by 32 for the small byte
+		/* These two bytes get converted back into the whole number on host.
+		  Highest bits should be zeroed so the 8th bit doesn't get set */
+		Serial.print(ONE_ANALOG_IN + analogPin, BYTE);
+		Serial.print(analogData >> 7, BYTE); // shift high bits into output byte
+		Serial.print(analogData % 128, BYTE); // mod by 32 for the small byte
 		checkForInput();
 	}
 }
