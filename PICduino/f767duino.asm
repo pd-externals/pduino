@@ -37,8 +37,8 @@
 ;											*
 ;************************************************************************************************
 ;																								*
-;	This is an implementation of the Arduino using a PIC16F767 instead of an ATmega8.			*
-;	See PICduino.CKT for the schematic.															*
+;	This is an implementation of the pd firmware on Arduino using a PIC16F767 instead of an ATmega8.*
+;	See picduino.png for the schematic.															*
 ;																								*
 ;************************************************************************************************
 ;___Arduino_Pin_Name____=___PIC_Pin_Name____*
