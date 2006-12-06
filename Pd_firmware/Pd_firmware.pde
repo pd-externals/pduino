@@ -45,16 +45,17 @@
  * TODO: 
  * TODO: add "pinMode all 0/1" command
  * TODO: add cycle markers to mark start of analog, digital, pulseIn, and PWM
+ * TODO: convert to MIDI protocol using SysEx for longer messages
  */
 
-/* cvs version: $Id: Pd_firmware.pde,v 1.21 2006-10-31 00:39:07 eighthave Exp $ */
+/* cvs version: $Id: Pd_firmware.pde,v 1.22 2006-12-06 03:29:06 eighthave Exp $ */
 
 /* Version numbers for the protocol.  The protocol is still changing, so these
  * version numbers are important.  This number can be queried so that host
  * software can test whether it will be compatible with the currently
  * installed firmware. */
-#define MAJOR_VERSION 0
-#define MINOR_VERSION 2
+#define MAJOR_VERSION 0  // for non-compatible changes
+#define MINOR_VERSION 3  // for backwards compatible changes
 
 /* firmata protocol
  * =============== 
@@ -112,26 +113,25 @@
 #define OUTPUT_TO_DIGITAL_PINS  229 // next two bytes set digital output data 
 /* 230-239 // UNASSIGNED */
 #define REPORT_VERSION          240 // return the firmware version
-/* 240-249 // UNASSIGNED */
+/* 240-248 // UNASSIGNED */
+#define SET_PIN_STATE           249 // set a digital pit to INPUT or OUTPUT
 #define DISABLE_PWM             250 // next byte sets pin # to disable
 #define ENABLE_PWM              251 // next two bytes set pin # and duty cycle
-#define DISABLE_SOFTWARE_PWM    252 // next byte sets pin # to disable
-#define ENABLE_SOFTWARE_PWM     253 // next two bytes set pin # and duty cycle
-#define SET_SOFTWARE_PWM_FREQ   254 // set master frequency for software PWMs
+#define RESET                   254 // reset if receive 8 of these bytes
 /* 255 // UNASSIGNED */
 
  
 /* two byte digital output data format
  * ----------------------
- * 0  get ready for digital input bytes (229)
+ * 0  set digital output bytes (229/OUTPUT_TO_DIGITAL_PINS)
  * 1  digitalOut 7-13 bitmask 
  * 2  digitalOut 0-6 bitmask
  */
 
-/* two byte PWM data format
+/* control PWM 
  * ----------------------
- * 0  get ready for digital input bytes (ENABLE_SOFTWARE_PWM/ENABLE_PWM)
- * 1  pin #
+ * 0  send digital input bytes (ENABLE_PWM)
+ * 1  pin # (0-127)
  * 2  duty cycle expressed as 1 byte (255 = 100%)
  */
 
@@ -147,6 +147,47 @@
  * 0   analog input marker (160 + pin number reported)
  * 1   high byte from analog input
  * 2   low byte from analog input
+ */
+
+/* version report format
+ * Send a single byte 240, Arduino will reply with:
+ * ----------------------
+ * 0  version report header (240)
+ * 1  major version (0-127)
+ * 2  minor version (0-127)
+ */
+
+/* PROPOSED PROTOCOL ADDITIONS */
+
+/* set digital pin state (249/SET_PIN_STATE)
+ * ----------------------
+ * 0  set digital pin state
+ * 1  pin number (0-127)
+ * 2  state (OUTPUT/INPUT, 0/1) */
+
+/* toggle analogIn reporting (249/SET_PIN_STATE)
+ * ----------------------
+ * 0  analogIn reporting mode
+ * 1  pin number (0-127)
+ * 2  state (0/1)
+ */
+
+/* control PWM 14-bit
+ * ----------------------
+ * 0  send digital input bytes (ENABLE_PWM)
+ * 1  pin # (0-127)
+ * 2  duty cycle, high bits (8-13)
+ * 3  duty cycle, low bits (0-7)
+ */
+
+
+/* pulseIn (uses 32-bit value)
+ * ----------------------
+ * 0  pulseIn
+ * 1  bits 24-31 (most significant byte)
+ * 2  bits 16-23
+ * 3  bits 8-15
+ * 4  bits 0-7 (least significant byte)
  */
 
 #define TOTAL_DIGITAL_PINS 14
@@ -181,6 +222,7 @@ int digitalPinStatus = 0;
 int pwmStatus = 0;
 
 boolean digitalInputsEnabled = true;
+// TODO: convert this to a bit array int, 1=report, 0=no report
 byte analogInputsEnabled = 6;
 
 byte analogPin;
@@ -273,12 +315,6 @@ void processInput(byte inputData) {
 			case DISABLE_PWM:
 				setPinMode(storedInputData[0],INPUT);
 				break;
-			case ENABLE_SOFTWARE_PWM:
-				break; 
-			case DISABLE_SOFTWARE_PWM:
-				break;
-			case SET_SOFTWARE_PWM_FREQ:
-				break;
 			}
 			executeMultiByteCommand = 0;
 		}
@@ -306,6 +342,40 @@ void processInput(byte inputData) {
 	}
 	else {
 		switch (inputData) {
+		case REPORT_VERSION:
+			Serial.print(REPORT_VERSION, BYTE);
+			Serial.print(MAJOR_VERSION, BYTE);
+			Serial.print(MINOR_VERSION, BYTE);
+			break;
+		case ENABLE_PWM:
+			waitForData = 2;  // 2 bytes needed (pin#, dutyCycle) 
+			executeMultiByteCommand = inputData;
+			break;
+		case DISABLE_PWM:
+			waitForData = 1;  // 1 byte needed (pin#)
+			executeMultiByteCommand = inputData;
+			break;      
+		case OUTPUT_TO_DIGITAL_PINS:   // bytes to send to digital outputs
+			firstInputByte = true;
+			break;
+		case DISABLE_DIGITAL_INPUTS:   // all digital inputs off
+			digitalInputsEnabled = false;
+			break;
+		case ENABLE_DIGITAL_INPUTS:    // all digital inputs on
+			digitalInputsEnabled = true;
+			break;
+		case ZERO_ANALOG_INS:   // analog input off
+		case ONE_ANALOG_IN:     // analog 0 on  
+		case TWO_ANALOG_INS:    // analog 0,1 on  
+		case THREE_ANALOG_INS:  // analog 0-2 on  
+		case FOUR_ANALOG_INS:   // analog 0-3 on  
+		case FIVE_ANALOG_INS:   // analog 0-4 on  
+		case SIX_ANALOG_INS:    // analog 0-5 on  
+		case SEVEN_ANALOG_INS:  // analog 0-6 on  
+		case EIGHT_ANALOG_INS:  // analog 0-7 on  
+		case NINE_ANALOG_INS:   // analog 0-8 on  
+			analogInputsEnabled = inputData - ZERO_ANALOG_INS;
+			break;
 		case SET_PIN_ZERO_TO_IN:       // set digital pins to INPUT
 		case SET_PIN_ONE_TO_IN:
 		case SET_PIN_TWO_TO_IN:
@@ -338,52 +408,6 @@ void processInput(byte inputData) {
 		case SET_PIN_THIRTEEN_TO_OUT:
 			setPinMode(inputData - SET_PIN_ZERO_TO_OUT, OUTPUT);
 			break;
-		case DISABLE_DIGITAL_INPUTS:   // all digital inputs off
-			digitalInputsEnabled = false;
-			break;
-		case ENABLE_DIGITAL_INPUTS:    // all digital inputs on
-			digitalInputsEnabled = true;
-			break;
-		case ZERO_ANALOG_INS:   // analog input off
-		case ONE_ANALOG_IN:     // analog 0 on  
-		case TWO_ANALOG_INS:    // analog 0,1 on  
-		case THREE_ANALOG_INS:  // analog 0-2 on  
-		case FOUR_ANALOG_INS:   // analog 0-3 on  
-		case FIVE_ANALOG_INS:   // analog 0-4 on  
-		case SIX_ANALOG_INS:    // analog 0-5 on  
-		case SEVEN_ANALOG_INS:  // analog 0-6 on  
-		case EIGHT_ANALOG_INS:  // analog 0-7 on  
-		case NINE_ANALOG_INS:   // analog 0-8 on  
-			analogInputsEnabled = inputData - ZERO_ANALOG_INS;
-			break;
-		case ENABLE_PWM:
-			waitForData = 2;  // 2 bytes needed (pin#, dutyCycle) 
-			executeMultiByteCommand = inputData;
-			break;
-		case DISABLE_PWM:
-			waitForData = 1;  // 1 byte needed (pin#)
-			executeMultiByteCommand = inputData;
-			break;      
-		case SET_SOFTWARE_PWM_FREQ:
-			waitForData = 1;  // 1 byte needed (pin#)
-			executeMultiByteCommand = inputData;
-			break;
-		case ENABLE_SOFTWARE_PWM:
-			waitForData = 2;  // 2 bytes needed (pin#, dutyCycle) 
-			executeMultiByteCommand = inputData;
-			break;
-		case DISABLE_SOFTWARE_PWM:
-			waitForData = 1;  // 1 byte needed (pin#)
-			executeMultiByteCommand = inputData;
-			break;
-		case OUTPUT_TO_DIGITAL_PINS:   // bytes to send to digital outputs
-			firstInputByte = true;
-			break;
-		case REPORT_VERSION:
-			Serial.print(REPORT_VERSION, BYTE);
-			Serial.print(MAJOR_VERSION, BYTE);
-			Serial.print(MINOR_VERSION, BYTE);
-			break;
 		}
 	}
 }
@@ -396,6 +420,8 @@ void setup() {
 	byte i;
 
 // TODO: load state from EEPROM here
+
+	Serial.begin(115200);	
 
 /* TODO: send digital inputs here, if enabled, to set the initial state on the
  * host computer, since once in the loop(), the Arduino will only send data on
@@ -412,7 +438,6 @@ void setup() {
 	for(i=0; i<TOTAL_DIGITAL_PINS; ++i) {
 		setPinMode(i,INPUT);
 	}
-	Serial.begin(115200);	
 }
 
 // -------------------------------------------------------------------------
