@@ -1,4 +1,4 @@
-#N canvas 216 76 699 540 10;
+#N canvas 216 76 703 544 10;
 #X obj 512 7 import hardware mapping;
 #X obj 323 136 cnv 15 100 22 empty empty empty 20 12 0 14 -253938 -66577
 0;
@@ -45,8 +45,8 @@
 #X obj 520 328 tgl 15 0 empty empty all 0 -6 0 8 -262144 -1 -1 0 1
 ;
 #X obj 138 119 hsl 150 17 0 1 0 0 empty empty PWM_control_(0-1) -2
--6 1 10 -225271 -1 -1 0 0;
-#X obj 277 332 tgl 15 1 empty empty empty 0 -6 0 8 -225271 -1 -1 1
+-6 1 10 -225271 -1 -1 8800 0;
+#X obj 277 332 tgl 15 1 empty empty empty 0 -6 0 8 -225271 -1 -1 0
 1;
 #X text 454 156 how many analogIns to enable:;
 #X obj 455 217 tgl 15 1 empty empty empty 0 -6 0 8 -257472 -1 -1 0
@@ -152,7 +152,7 @@
 #X text 300 311 <- argument sets port #;
 #X msg 102 119 off;
 #X obj 80 91 hradio 15 1 0 14 empty empty empty 0 -6 0 8 -176124 -1
--1 0;
+-1 11;
 #X text 188 77 7;
 #X text 82 77 0;
 #X text 229 77 10;
@@ -167,7 +167,7 @@
 #X text 245 77 11;
 #X text 260 77 12;
 #X text 97 77 1;
-#N canvas 66 58 415 495 pwm 0;
+#N canvas 66 58 419 499 pwm 0;
 #X obj 38 10 inlet;
 #X obj 131 10 inlet;
 #X msg 37 308 pwm \$1 \$2;
@@ -208,7 +208,7 @@
 #X connect 16 0 17 0;
 #X connect 17 0 14 0;
 #X restore 81 145 pd pwm;
-#X msg 81 167 pwm 0 0;
+#X msg 81 167 pwm 11 0.590604;
 #X msg 328 195 info;
 #X msg 367 195 version;
 #X obj 468 422 print [arduino]_VERSION;
@@ -428,28 +428,28 @@ Arduino (previously known as Pduino firmware).;
 #X obj 121 389 route 0 1 2 3 4 5 6 7;
 #N canvas 0 22 499 396 display 0;
 #X obj 6 7 inlet;
-#X obj 6 28 maxlib/speedlim 100;
+#X obj 6 28 mapping/resample 100;
 #X obj 6 50 outlet;
 #X obj 54 50 inlet;
-#X obj 54 71 maxlib/speedlim 100;
+#X obj 54 71 mapping/resample 100;
 #X obj 54 93 outlet;
 #X obj 103 93 inlet;
-#X obj 103 114 maxlib/speedlim 100;
+#X obj 103 114 mapping/resample 100;
 #X obj 103 136 outlet;
 #X obj 151 136 inlet;
-#X obj 151 157 maxlib/speedlim 100;
+#X obj 151 157 mapping/resample 100;
 #X obj 151 179 outlet;
 #X obj 200 179 inlet;
-#X obj 200 200 maxlib/speedlim 100;
+#X obj 200 200 mapping/resample 100;
 #X obj 200 222 outlet;
 #X obj 247 222 inlet;
-#X obj 247 243 maxlib/speedlim 100;
+#X obj 247 243 mapping/resample 100;
 #X obj 247 265 outlet;
 #X obj 295 265 inlet;
-#X obj 295 286 maxlib/speedlim 100;
+#X obj 295 286 mapping/resample 100;
 #X obj 295 308 outlet;
 #X obj 345 308 inlet;
-#X obj 345 329 maxlib/speedlim 100;
+#X obj 345 329 mapping/resample 100;
 #X obj 345 351 outlet;
 #X connect 0 0 1 0;
 #X connect 1 0 2 0;
@@ -485,9 +485,17 @@ Arduino (previously known as Pduino firmware).;
 ;
 #X obj 613 468 tgl 15 0 empty empty 12 0 23 1 12 -232448 -1 -1 0 1
 ;
-#X obj 631 468 tgl 15 0 empty empty 13 0 23 1 12 -232448 -1 -1 1 1
+#X obj 631 468 tgl 15 0 empty empty 13 0 23 1 12 -232448 -1 -1 0 1
 ;
 #X obj 397 468 tgl 15 0 empty empty 0 4 23 1 12 -232448 -1 -1 0 1;
+#N canvas 0 22 454 304 raw 0;
+#X obj 96 231 outlet;
+#X obj 96 63 hsl 128 15 0 127 0 0 empty empty empty -2 -6 0 10 -262144
+-1 -1 2500 1;
+#X msg 90 139 171 \, \$1 \, 0;
+#X connect 1 0 2 0;
+#X connect 2 0 0 0;
+#X restore 374 292 pd raw PWM;
 #X connect 4 0 71 0;
 #X connect 5 0 4 0;
 #X connect 9 0 71 0;
@@ -560,3 +568,4 @@ Arduino (previously known as Pduino firmware).;
 #X connect 78 11 89 0;
 #X connect 78 12 90 0;
 #X connect 78 13 91 0;
+#X connect 93 0 71 1;

@@ -56,7 +56,7 @@
  * TODO: use Program Control to load stored profiles from EEPROM
  */
 
-/* cvs version: $Id: Pd_firmware.pde,v 1.23 2007-02-20 06:25:56 eighthave Exp $ */
+/* cvs version: $Id: Pd_firmware.pde,v 1.24 2007-02-22 06:16:43 eighthave Exp $ */
 
 /*==========================================================================
  * MESSAGE FORMATS
@@ -168,7 +168,8 @@
 #define MAJOR_VERSION 1  // for non-compatible changes
 #define MINOR_VERSION 0  // for backwards compatible changes
 
-/* total number of digital pins supported */  
+/* total number of pins currently supported */  
+#define TOTAL_ANALOG_PINS 16
 #define TOTAL_DIGITAL_PINS 14
 
 // for comparing along with INPUT and OUTPUT
@@ -206,6 +207,9 @@ int digitalPinStatus = 0;
  * the rest of the bits are unused and should remain 0  */
 int pwmStatus = 0;
 
+/* bit-wise array to store pin reporting */
+unsigned int analogPinsToReport = 65536;
+
 
 /*==========================================================================
  * FUNCTIONS                                                                
@@ -215,17 +219,17 @@ int pwmStatus = 0;
  * output digital bytes received from the serial port
  */
 void outputDigitalBytes(byte pin0_6, byte pin7_13) {
-	int i;
-	int mask;
-	int twoBytesForPorts;
-	
-	twoBytesForPorts = pin0_6 + (pin7_13 << 7);
-	for(i=0; i<14; ++i) {
-		mask = 1 << i;
-		if( (digitalPinStatus & mask) && !(pwmStatus & mask) ) {
-			digitalWrite(i, twoBytesForPorts & mask);
-		} 
-	}
+  int i;
+  int mask;
+  int twoBytesForPorts;
+    
+  twoBytesForPorts = pin0_6 + (pin7_13 << 7);
+  for(i=0; i<14; ++i) {
+    mask = 1 << i;
+    if( (digitalPinStatus & mask) && !(pwmStatus & mask) ) {
+      digitalWrite(i, twoBytesForPorts & mask);
+    } 
+  }
 }
 
 /* -------------------------------------------------------------------------
@@ -233,60 +237,60 @@ void outputDigitalBytes(byte pin0_6, byte pin7_13) {
  * Arduino's serial port.  This is where the commands are handled.
  */
 void processInput(int inputData) {
-	int command, channel;
+  int command, channel;
 
-	// a few commands have byte(s) of data following the command
-	if( (waitForData > 0) && (inputData < 128) ) {  
-		waitForData--;
-		storedInputData[waitForData] = inputData;
-		if( (waitForData==0) && executeMultiByteCommand ) {
-			//we got everything
-			switch(executeMultiByteCommand) {
-			case ANALOG_MESSAGE:
-				channel = inputData & 0x0F; // get channel from command byte
-				break;
-			case DIGITAL_MESSAGE:
-				outputDigitalBytes(storedInputData[1], storedInputData[0]);
-				break;
-			case SET_DIGITAL_PIN_MODE:
-				setPinMode(storedInputData[1], storedInputData[0]);
-				break;
-			case REPORT_ANALOG_PIN:
-				break;
-			case REPORT_DIGITAL_PORTS:
-				break;
-			}
-			executeMultiByteCommand = 0;
-		}
-	} else {
-		// remove channel info from command byte if less than 0xF0
-		if(inputData < 0xF0) {
-			command = inputData & 0xF0;
-		} else {
-			command = inputData;
-		}
-		switch (inputData) {
-		case ANALOG_MESSAGE:
-		case DIGITAL_MESSAGE:
-		case SET_DIGITAL_PIN_MODE:
-			waitForData = 2; // two data bytes needed
-			executeMultiByteCommand = inputData;
-			break;
-		case REPORT_ANALOG_PIN:
-		case REPORT_DIGITAL_PORTS:
-			waitForData = 1; // two data bytes needed
-			executeMultiByteCommand = inputData;
-			break;
-		case SYSTEM_RESET:
-			// this doesn't do anything yet
-			break;
-		case REPORT_VERSION:
-			Serial.print(REPORT_VERSION, BYTE);
-			Serial.print(MAJOR_VERSION, BYTE);
-			Serial.print(MINOR_VERSION, BYTE);
-			break;
-		}
-	}
+  // a few commands have byte(s) of data following the command
+  if( (waitForData > 0) && (inputData < 128) ) {  
+    waitForData--;
+    storedInputData[waitForData] = inputData;
+    if( (waitForData==0) && executeMultiByteCommand ) {
+      //we got everything
+      switch(executeMultiByteCommand) {
+      case ANALOG_MESSAGE:
+        channel = inputData & 0x0F; // get channel from command byte
+        break;
+      case DIGITAL_MESSAGE:
+        outputDigitalBytes(storedInputData[1], storedInputData[0]);
+        break;
+      case SET_DIGITAL_PIN_MODE:
+        setPinMode(storedInputData[1], storedInputData[0]);
+        break;
+      case REPORT_ANALOG_PIN:
+        break;
+      case REPORT_DIGITAL_PORTS:
+        break;
+      }
+      executeMultiByteCommand = 0;
+    }
+  } else {
+    // remove channel info from command byte if less than 0xF0
+    if(inputData < 0xF0) {
+      command = inputData & 0xF0;
+    } else {
+      command = inputData;
+    }
+    switch (inputData) {
+    case ANALOG_MESSAGE:
+    case DIGITAL_MESSAGE:
+    case SET_DIGITAL_PIN_MODE:
+      waitForData = 2; // two data bytes needed
+      executeMultiByteCommand = inputData;
+      break;
+    case REPORT_ANALOG_PIN:
+    case REPORT_DIGITAL_PORTS:
+      waitForData = 1; // two data bytes needed
+      executeMultiByteCommand = inputData;
+      break;
+    case SYSTEM_RESET:
+      // this doesn't do anything yet
+      break;
+    case REPORT_VERSION:
+      Serial.print(REPORT_VERSION, BYTE);
+      Serial.print(MINOR_VERSION, BYTE);
+      Serial.print(MAJOR_VERSION, BYTE);
+      break;
+    }
+  }
 }
 
 
@@ -300,8 +304,8 @@ void processInput(int inputData) {
  * Therefore, it only checks for input once per cycle of the serial port.
  */
 void checkForInput() {
-	if(Serial.available())
-		processInput( Serial.read() );
+  if(Serial.available())
+    processInput( Serial.read() );
 }
 
 // -------------------------------------------------------------------------
@@ -309,71 +313,87 @@ void checkForInput() {
  * bits in the two bit-arrays that track Digital I/O and PWM status
  */
 void setPinMode(byte pin, byte mode) {
-	if(mode == INPUT) {
-		digitalPinStatus = digitalPinStatus &~ (1 << pin);
-		pwmStatus = pwmStatus &~ (1 << pin);
-		pinMode(pin,INPUT);
-	}
-	else if(mode == OUTPUT) {
-		digitalPinStatus = digitalPinStatus | (1 << pin);
-		pwmStatus = pwmStatus &~ (1 << pin);
-		pinMode(pin,OUTPUT);
-	}
-	else if( mode == PWM ) {
-		digitalPinStatus = digitalPinStatus | (1 << pin);
-		pwmStatus = pwmStatus | (1 << pin);
-		pinMode(pin,OUTPUT);
-	}
-// TODO: save status to EEPROM here, if changed
+  if(mode == INPUT) {
+    digitalPinStatus = digitalPinStatus &~ (1 << pin);
+    pwmStatus = pwmStatus &~ (1 << pin);
+    pinMode(pin,INPUT);
+  }
+  else if(mode == OUTPUT) {
+    digitalPinStatus = digitalPinStatus | (1 << pin);
+    pwmStatus = pwmStatus &~ (1 << pin);
+    pinMode(pin,OUTPUT);
+  }
+  else if( mode == PWM ) {
+    digitalPinStatus = digitalPinStatus | (1 << pin);
+    pwmStatus = pwmStatus | (1 << pin);
+    pinMode(pin,OUTPUT);
+  }
+  // TODO: save status to EEPROM here, if changed
 }
 
 // =========================================================================
 
 // used for flashing the pin for the version number
 void pin13strobe(int count, int onInterval, int offInterval) {
-	byte i;
-	for(i=0; i<count; i++) {
-		digitalWrite(13,1);
-		delay(onInterval);
-		digitalWrite(13,0);
-		delay(offInterval);
-	}
+  byte i;
+  for(i=0; i<count; i++) {
+    digitalWrite(13,1);
+    delay(onInterval);
+    digitalWrite(13,0);
+    delay(offInterval);
+  }
 }
 
 /*==========================================================================
  * SETUP()
  *==========================================================================*/
 void setup() {
-	byte i;
+  byte i;
 
-// TODO: load state from EEPROM here
-	Serial.begin(115200); // 9600, 14400, 38400, 57600, 115200
+  // TODO: load state from EEPROM here
+  Serial.begin(115200); // 9600, 14400, 38400, 57600, 115200
 
-/* TODO: send digital inputs here, if enabled, to set the initial state on the
- * host computer, since once in the loop(), the Arduino will only send data on
- * change. */
+  /* TODO: send digital inputs here, if enabled, to set the initial state on the
+   * host computer, since once in the loop(), the Arduino will only send data on
+   * change. */
 
-// flash the pin 13 with the protocol minor version (add major once > 0)
-	pinMode(13,OUTPUT);
-	pin13strobe(10,5,20); // separator, a quick burst
-	delay(500);
-	pin13strobe(MAJOR_VERSION, 200, 400);
-	delay(500);
-	pin13strobe(10,5,20); // separator, a quick burst
-	delay(500);
-	pin13strobe(MINOR_VERSION, 200, 400);
-	delay(500);
-	pin13strobe(10,5,20); // separator, a quick burst
-	delay(1000);
-	for(i=0; i<TOTAL_DIGITAL_PINS; ++i) {
-		setPinMode(i,OUTPUT);
-	}
+  // flash the pin 13 with the protocol minor version (add major once > 0)
+  pinMode(13,OUTPUT);
+  pin13strobe(10,5,20); // separator, a quick burst
+  delay(500);
+  pin13strobe(MAJOR_VERSION, 200, 400);
+  delay(500);
+  pin13strobe(10,5,20); // separator, a quick burst
+  delay(500);
+  pin13strobe(MINOR_VERSION, 200, 400);
+  delay(500);
+  pin13strobe(10,5,20); // separator, a quick burst
+  delay(1000);
+  for(i=0; i<TOTAL_DIGITAL_PINS; ++i) {
+    setPinMode(i,OUTPUT);
+  }
 }
 
 /*==========================================================================
  * LOOP()
  *==========================================================================*/
 void loop() {
-
-	checkForInput();
+  int i; // counter for analog pins
+  int analogData;
+    
+  checkForInput();
+  /* get analog in, for the number enabled */
+  for(i=0; i<TOTAL_ANALOG_PINS; ++i) {
+    checkForInput();
+    //if( analogPinsToReport & (1 << i) ) {
+      analogData = analogRead(i);
+      /* These two bytes get converted back into the whole number on host.
+         Highest bits should be zeroed so the 8th bit doesn't get set */
+      checkForInput();
+      Serial.print(ANALOG_MESSAGE + i, BYTE);
+      Serial.print(analogData % 128, BYTE); // mod by 32 for the small byte
+      Serial.print(analogData >> 7, BYTE); // shift high bits into output byte
+	  //}
+    checkForInput();
+  }
 }
