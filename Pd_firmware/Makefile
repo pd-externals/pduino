@@ -43,7 +43,7 @@
 #  7. Type "make upload", reset your Arduino board, and press enter  to
 #     upload your program to the Arduino board.
 #
-# $Id: Makefile,v 1.2 2007-02-28 04:02:06 eighthave Exp $
+# $Id: Makefile,v 1.3 2007-02-28 04:10:41 eighthave Exp $
 
 PORT = /dev/tty.usbserial-1*
 TARGET = Pd_firmware
@@ -123,6 +123,8 @@ ALL_ASFLAGS = -mmcu=$(MCU) -I. -x assembler-with-cpp $(ASFLAGS)
 
 # Default target.
 all: build
+	qtplay press.wav
+	make upload
 
 build: applet_files elf hex
 
