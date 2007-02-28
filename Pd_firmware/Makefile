@@ -43,7 +43,7 @@
 #  7. Type "make upload", reset your Arduino board, and press enter  to
 #     upload your program to the Arduino board.
 #
-# $Id: Makefile,v 1.1 2007-02-28 03:51:51 eighthave Exp $
+# $Id: Makefile,v 1.2 2007-02-28 04:02:06 eighthave Exp $
 
 PORT = /dev/tty.usbserial-1*
 TARGET = Pd_firmware
@@ -225,3 +225,26 @@ depend:
 	$(CC) -M -mmcu=$(MCU) $(CDEFS) $(INCLUDE) $(SRC) $(ASRC) >> $(MAKEFILE)
 
 .PHONY:	all build elf hex eep lss sym program coff extcoff clean depend
+
+# for emacs
+etags:
+	make etags_`uname -s`
+	etags applet/*.cpp \
+		$(ARDUINO_SRC)/*.[ch] \
+		$(ARDUINO_SRC)/*.cpp \
+		$(ARDUINO)/lib/targets/libraries/*/*.[ch] \
+		$(ARDUINO)/lib/targets/libraries/*/*.cpp \
+		$(ARDUINO)/tools/avr/avr/include/avr/*.[ch] \
+		$(ARDUINO)/tools/avr/avr/include/*.[ch]
+
+etags_Darwin:
+#	etags -a 
+
+etags_Linux:
+#	etags -a /usr/include/*.h linux/input.h /usr/include/sys/*.h
+
+etags_MINGW:
+#	etags -a /usr/include/*.h /usr/include/sys/*.h 
+
+
+
