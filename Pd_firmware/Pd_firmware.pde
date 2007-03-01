@@ -42,8 +42,6 @@
 
 /* 
  * TODO: debug hardware PWM
- * TODO: convert all non-frequent messages to SysEx (version, pinMode, report enable, etc)
- * TODO: convert to MIDI protocol using SysEx for longer messages
  * TODO: add pulseOut functionality for servos
  * TODO: add software PWM for servos, etc (servo.h or pulse.h)
  * TODO: redesign protocol to accomodate boards with more I/Os
@@ -52,22 +50,25 @@
  *       protocol, but will only support specific devices, like ultrasound 
  *       rangefinders or servos)
  * TODO: add "pinMode all 0/1" command
+ * TODO: try using PIND to get all digitalIns at once
  * TODO: add cycle markers to mark start of analog, digital, pulseIn, and PWM
  * TODO: use Program Control to load stored profiles from EEPROM
  */
 
-/* cvs version: $Id: Pd_firmware.pde,v 1.24 2007-02-22 06:16:43 eighthave Exp $ */
+/* cvs version: $Id: Pd_firmware.pde,v 1.25 2007-03-01 05:39:49 eighthave Exp $ */
 
-/*==========================================================================
+/*==============================================================================
  * MESSAGE FORMATS
- *==========================================================================*/
+ *============================================================================*/
 
-/*----------------------------------------------------------------------------
+/* -----------------------------------------------------------------------------
  * MAPPING DATA TO MIDI
  *
  * This protocol uses the MIDI message format, but does not use the whole
- * protocol.  Most of the command mappings here will not make sense in terms
- * of MIDI controllers and synths.
+ * protocol.  Most of the command mappings here will not be directly usable in
+ * terms of MIDI controllers and synths.  It should co-exist with MIDI without
+ * trouble and can be parsed by standard MIDI interpreters.  Just some of the
+ * message data is used differently.
  *
  * MIDI format: http://www.harmony-central.com/MIDI/Doc/table1.html
  * 
@@ -87,67 +88,78 @@
 
 /* proposed extensions using SysEx
  *
- * type       SysEx start   command    data bytes                   SysEx stop
- * ---------------------------------------------------------------------------
- * pulse I/O     0xF0        0xA0      five 7-bit chunks, LSB first    0xF7
- * shiftOut      0xF0        0xB0                        
+ * type      SysEx start  command  data bytes                         SysEx stop
+ * -----------------------------------------------------------------------------
+ * pulse I/O   0xF0        0xA0   five 7-bit chunks, LSB first             0xF7 
+ * shiftOut    0xF0        0xF5   dataPin; clockPin; 7-bit LSB; 7-bit MSB  0xF7
  */
 
-/*----------------------------------------------------------------------------
+/* -----------------------------------------------------------------------------
  * DATA MESSAGES */
 
 /* two byte digital data format
- * ----------------------
- * 0  digital data, 0x90-0x9F, (x & 0x0F) to get port base number
+ * ----------------------------
+ * 0  digital data, 0x90-0x9F, (MIDI NoteOn, but different data usage)
  * 1  digital pins 0-6 bitmask
  * 2  digital pins 7-13 bitmask 
  */
 
 /* analog 14-bit data format
- * ----------------------
- * 0  analog pin, 0xE0-0xEF, (x & 0x0F) for pin number
+ * -------------------------
+ * 0  analog pin, 0xE0-0xEF, (MIDI Pitch Wheel)
  * 1  analog least significant 7 bits
  * 2  analog most significant 7 bits
  */
 
-/* pulseIn/Out (uses 32-bit value)
- * ----------------------
- * 0  START_SYSEX (0xF0)
- * 1  pulseIn (0xFD)
- * 2  bits 0-6 (least significant byte)
- * 3  bits 7-13
- * 4  bits 14-20
- * 5  bits 21-27
- * 6  bits 28-34 (most significant byte)
- * 7  END_SYSEX (0xF7)
- */
-
 /* version report format
  * Send a single byte 0xF9, Arduino will reply with:
- * ----------------------
+ * -------------------------------------------------
  * 0  version report header (0xF9) (MIDI Undefined)
  * 1  minor version (0-127)
  * 2  major version (0-127)
  */
 
-/*----------------------------------------------------------------------------
+/* pulseIn/Out (uses 32-bit value)
+ * -------------------------------
+ * 0  START_SYSEX (0xF0) (MIDI System Exclusive)
+ * 1  pulseIn/Out (0xA0-0xAF)
+ * 2  bits 0-6 (least significant byte)
+ * 3  bits 7-13
+ * 4  bits 14-20
+ * 5  bits 21-27
+ * 6  bits 28-34 (most significant byte)
+ * 7  END_SYSEX (0xF7) (MIDI End of SysEx - EOX)
+ */
+
+/* shiftIn/Out (uses 8-bit value)
+ * ------------------------------
+ * 0  START_SYSEX (0xF0)
+ * 1  shiftOut (0xF5)
+ * 2  dataPin (0-127)
+ * 3  clockPin (0-127)
+ * 4  bits 0-6 (least significant byte)
+ * 5  bit 7 (most significant bit)
+ * 6  END_SYSEX (0xF7)
+ */
+
+/* -----------------------------------------------------------------------------
  * CONTROL MESSAGES */
 
 /* set digital pin mode
- * ----------------------
+ * --------------------
  * 1  set digital pin mode (0xF4) (MIDI Undefined)
  * 2  pin number (0-127)
  * 3  state (INPUT/OUTPUT, 0/1)
  */
 
 /* toggle analogIn reporting by pin
- * ----------------------
+ * --------------------------------
  * 0  toggle digitalIn reporting (0xC0-0xCF) (MIDI Program Change)
  * 1  disable(0)/enable(non-zero) 
  */
 
 /* toggle digitalIn reporting by port pairs
- * ----------------------
+ * ----------------------------------------
  * 0  toggle digitalIn reporting (0xD0-0xDF) (MIDI Aftertouch)
  * 1  disable(0)/enable(non-zero) 
  */
@@ -157,9 +169,9 @@
  * 0  request version report (0xF9) (MIDI Undefined)
  */
 
-/*==========================================================================
+/*==============================================================================
  * MACROS
- *==========================================================================*/
+ *============================================================================*/
 
 /* Version numbers for the protocol.  The protocol is still changing, so these
  * version numbers are important.  This number can be queried so that host
@@ -169,7 +181,7 @@
 #define MINOR_VERSION 0  // for backwards compatible changes
 
 /* total number of pins currently supported */  
-#define TOTAL_ANALOG_PINS 16
+#define TOTAL_ANALOG_PINS 6
 #define TOTAL_DIGITAL_PINS 14
 
 // for comparing along with INPUT and OUTPUT
@@ -187,9 +199,14 @@
 #define REPORT_VERSION          0xF9 // report firmware version
 #define SYSTEM_RESET            0xFF // reset from MIDI
 
-/*==========================================================================
+/*==============================================================================
  * GLOBAL VARIABLES
- *==========================================================================*/
+ *============================================================================*/
+
+// circular buffer for receiving bytes from the serial port
+#define RINGBUFFER_MAX 64 // must be a power of 2
+byte ringBuffer[RINGBUFFER_MAX];
+byte readPosition=0, writePosition=0;
 
 // maximum number of post-command data bytes (non-SysEx)
 #define MAX_DATA_BYTES 2
@@ -198,9 +215,12 @@ byte waitForData = 0;
 byte executeMultiByteCommand = 0; // command to execute after getting multi-byte data
 byte storedInputData[MAX_DATA_BYTES] = {0,0}; // multi-byte data
 
-/* this int serves as a bit-wise array to store pin status
- * 0 = INPUT, 1 = OUTPUT  */
-int digitalPinStatus = 0;
+byte previousDigitalInputHighByte = 0;
+byte previousDigitalInputLowByte = 0;
+byte digitalInputHighByte = 0;
+byte digitalInputLowByte = 0;
+unsigned int digitalPinStatus = 65535;// bit-wise array to store pin status 0=INPUT, 1=OUTPUT
+
 
 /* this byte stores the status off whether PWM is on or not
  * bit 9 = PWM0, bit 10 = PWM1, bit 11 = PWM2
@@ -208,14 +228,27 @@ int digitalPinStatus = 0;
 int pwmStatus = 0;
 
 /* bit-wise array to store pin reporting */
-unsigned int analogPinsToReport = 65536;
+unsigned int analogPinsToReport = 65535;
 
+/* for reading analogIns */
+byte analogPin = 0;
+int analogData;
+/* interrupt variables */
+volatile int int_counter = 0; // ms counter for scheduling
 
-/*==========================================================================
+/*==============================================================================
  * FUNCTIONS                                                                
- *==========================================================================*/
+ *============================================================================*/
+/* -----------------------------------------------------------------------------
+ * output the version message to the serial port
+ */
+void printVersion() {
+  Serial.print(REPORT_VERSION, BYTE);
+  Serial.print(MINOR_VERSION, BYTE);
+  Serial.print(MAJOR_VERSION, BYTE);
+}
 
-/* -------------------------------------------------------------------------
+/* -----------------------------------------------------------------------------
  * output digital bytes received from the serial port
  */
 void outputDigitalBytes(byte pin0_6, byte pin7_13) {
@@ -223,6 +256,7 @@ void outputDigitalBytes(byte pin0_6, byte pin7_13) {
   int mask;
   int twoBytesForPorts;
     
+// this should be converted to use PORTs
   twoBytesForPorts = pin0_6 + (pin7_13 << 7);
   for(i=0; i<14; ++i) {
     mask = 1 << i;
@@ -232,13 +266,13 @@ void outputDigitalBytes(byte pin0_6, byte pin7_13) {
   }
 }
 
-/* -------------------------------------------------------------------------
+/* -----------------------------------------------------------------------------
  * processInput() is called whenever a byte is available on the
  * Arduino's serial port.  This is where the commands are handled.
  */
 void processInput(int inputData) {
   int command, channel;
-
+  
   // a few commands have byte(s) of data following the command
   if( (waitForData > 0) && (inputData < 128) ) {  
     waitForData--;
@@ -250,10 +284,12 @@ void processInput(int inputData) {
         channel = inputData & 0x0F; // get channel from command byte
         break;
       case DIGITAL_MESSAGE:
-        outputDigitalBytes(storedInputData[1], storedInputData[0]);
-        break;
+		outputDigitalBytes(storedInputData[1], storedInputData[0]); // (LSB, MSB)
+		break;
       case SET_DIGITAL_PIN_MODE:
-        setPinMode(storedInputData[1], storedInputData[0]);
+		setPinMode(storedInputData[1], storedInputData[0]); // (pin#, mode)
+		//if(storedInputData[0] == INPUT) // enable input if set to INPUT
+		  // TODO: enable REPORT_DIGITAL_PORTS
         break;
       case REPORT_ANALOG_PIN:
         break;
@@ -261,7 +297,7 @@ void processInput(int inputData) {
         break;
       }
       executeMultiByteCommand = 0;
-    }
+    }	
   } else {
     // remove channel info from command byte if less than 0xF0
     if(inputData < 0xF0) {
@@ -285,16 +321,14 @@ void processInput(int inputData) {
       // this doesn't do anything yet
       break;
     case REPORT_VERSION:
-      Serial.print(REPORT_VERSION, BYTE);
-      Serial.print(MINOR_VERSION, BYTE);
-      Serial.print(MAJOR_VERSION, BYTE);
+	  printVersion();
       break;
     }
   }
 }
 
 
-/* -------------------------------------------------------------------------
+/* -----------------------------------------------------------------------------
  * this function checks to see if there is data waiting on the serial port 
  * then processes all of the stored data
  */
@@ -304,11 +338,11 @@ void processInput(int inputData) {
  * Therefore, it only checks for input once per cycle of the serial port.
  */
 void checkForInput() {
-  if(Serial.available())
-    processInput( Serial.read() );
+  while(Serial.available())
+	processInput( Serial.read() );
 }
 
-// -------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 /* this function sets the pin mode to the correct state and sets the relevant
  * bits in the two bit-arrays that track Digital I/O and PWM status
  */
@@ -316,6 +350,7 @@ void setPinMode(byte pin, byte mode) {
   if(mode == INPUT) {
     digitalPinStatus = digitalPinStatus &~ (1 << pin);
     pwmStatus = pwmStatus &~ (1 << pin);
+	digitalWrite(pin,LOW); // turn off pin before switching to INPUT
     pinMode(pin,INPUT);
   }
   else if(mode == OUTPUT) {
@@ -331,27 +366,49 @@ void setPinMode(byte pin, byte mode) {
   // TODO: save status to EEPROM here, if changed
 }
 
-// =========================================================================
+// =============================================================================
 
 // used for flashing the pin for the version number
 void pin13strobe(int count, int onInterval, int offInterval) {
   byte i;
+  pinMode(13, OUTPUT);
   for(i=0; i<count; i++) {
+    delay(offInterval);
     digitalWrite(13,1);
     delay(onInterval);
     digitalWrite(13,0);
-    delay(offInterval);
   }
 }
 
-/*==========================================================================
+// -----------------------------------------------------------------------------
+/* handle timer interrupts - Arduino runs at 16 Mhz, so we have 1000 Overflows
+ * per second...  1/ ((16000000 / 64) / 256) = 1 / 1000  */
+ISR(TIMER2_OVF_vect) {  
+	int_counter++;
+};  
+
+/*==============================================================================
  * SETUP()
- *==========================================================================*/
+ *============================================================================*/
 void setup() {
   byte i;
 
   // TODO: load state from EEPROM here
-  Serial.begin(115200); // 9600, 14400, 38400, 57600, 115200
+  Serial.begin(57600); // 9600, 14400, 38400, 57600, 115200
+
+  /* set up timer interrupt */
+  //Timer2 Settings: Timer Prescaler /64,   
+  TCCR2 |= (1<<CS22);      
+  TCCR2 &= ~((1<<CS21) | (1<<CS20));       
+  // Use normal mode  
+  TCCR2 &= ~((1<<WGM21) | (1<<WGM20));    
+  // Use internal clock - external clock not used in Arduino  
+  ASSR |= (0<<AS2);  
+  //Timer2 Overflow Interrupt Enable  
+  TIMSK |= (1<<TOIE2) | (0<<OCIE2);    
+//  RESET_TIMER2;                 
+  sei();  
+
 
   /* TODO: send digital inputs here, if enabled, to set the initial state on the
    * host computer, since once in the loop(), the Arduino will only send data on
@@ -369,31 +426,47 @@ void setup() {
   delay(500);
   pin13strobe(10,5,20); // separator, a quick burst
   delay(1000);
+  printVersion();
+
   for(i=0; i<TOTAL_DIGITAL_PINS; ++i) {
     setPinMode(i,OUTPUT);
   }
 }
 
-/*==========================================================================
+/*==============================================================================
  * LOOP()
- *==========================================================================*/
+ *============================================================================*/
 void loop() {
-  int i; // counter for analog pins
-  int analogData;
-    
-  checkForInput();
-  /* get analog in, for the number enabled */
-  for(i=0; i<TOTAL_ANALOG_PINS; ++i) {
-    checkForInput();
-    //if( analogPinsToReport & (1 << i) ) {
-      analogData = analogRead(i);
-      /* These two bytes get converted back into the whole number on host.
-         Highest bits should be zeroed so the 8th bit doesn't get set */
-      checkForInput();
-      Serial.print(ANALOG_MESSAGE + i, BYTE);
-      Serial.print(analogData % 128, BYTE); // mod by 32 for the small byte
-      Serial.print(analogData >> 7, BYTE); // shift high bits into output byte
+
+/* DIGITALREAD - as fast as possible, check for changes and output them to the
+ * FTDI buffer using serialWrite)  */
+
+// this should use _SFR_IO8()
+
+  if(int_counter > 3) {
+
+
+/* SERIALREAD - Serial.read() uses a 128 byte circular buffer, so handle all
+ * serialReads at once, i.e. empty the buffer */
+	checkForInput();
+		
+/* SEND FTDI WRITE BUFFER - make sure that the FTDI buffer doesn't go over 60
+ * bytes. use a timer to sending an event character every 4 ms to trigger the
+ * buffer to dump. */
+		
+/* ANALOGREAD - right after the event character, do all of the analogReads().
+ * These only need to be done every 4ms. */
+//		for(analogPin=0;analogPin<TOTAL_ANALOG_PINS;analogPin++) {
+	for(analogPin=0;analogPin<2;analogPin++) {
+	  //if( analogPinsToReport & (1 << analogPin) ) {
+	  analogData = analogRead(analogPin);
+	  Serial.print(ANALOG_MESSAGE + analogPin, BYTE);
+	  // These two bytes converted back into the 10-bit value on host
+	  Serial.print(analogData & 127, BYTE); // same as analogData % 128
+	  Serial.print(analogData >> 7, BYTE); 
+	  analogPin = (analogPin++) % TOTAL_ANALOG_PINS;
 	  //}
-    checkForInput();
+	}
+	int_counter = 0; // reset ms counter
   }
 }

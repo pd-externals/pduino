@@ -43,7 +43,7 @@
 #  7. Type "make upload", reset your Arduino board, and press enter  to
 #     upload your program to the Arduino board.
 #
-# $Id: Makefile,v 1.3 2007-02-28 04:10:41 eighthave Exp $
+# $Id: Makefile,v 1.4 2007-03-01 05:39:49 eighthave Exp $
 
 PORT = /dev/tty.usbserial-1*
 TARGET = Pd_firmware
@@ -95,7 +95,7 @@ AVRDUDE_PROGRAMMER = stk500
 AVRDUDE_PORT = $(PORT)
 AVRDUDE_WRITE_FLASH = -U flash:w:applet/$(TARGET).hex
 AVRDUDE_FLAGS = -F -p $(MCU) -P $(AVRDUDE_PORT) -c $(AVRDUDE_PROGRAMMER) \
-  -b $(UPLOAD_RATE)
+  -b $(UPLOAD_RATE) -q -V
 
 # Program settings
 CC = avr-gcc
@@ -123,7 +123,7 @@ ALL_ASFLAGS = -mmcu=$(MCU) -I. -x assembler-with-cpp $(ASFLAGS)
 
 # Default target.
 all: build
-	qtplay press.wav
+	say "press the button"
 	make upload
 
 build: applet_files elf hex
@@ -231,7 +231,7 @@ depend:
 # for emacs
 etags:
 	make etags_`uname -s`
-	etags applet/*.cpp \
+	etags *.pde \
 		$(ARDUINO_SRC)/*.[ch] \
 		$(ARDUINO_SRC)/*.cpp \
 		$(ARDUINO)/lib/targets/libraries/*/*.[ch] \
