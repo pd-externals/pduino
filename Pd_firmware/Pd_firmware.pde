@@ -51,7 +51,7 @@
  * TODO: use Program Control to load stored profiles from EEPROM
  */
 
-/* cvs version: $Id: Pd_firmware.pde,v 1.26 2007-03-05 04:34:32 eighthave Exp $ */
+/* cvs version: $Id: Pd_firmware.pde,v 1.27 2007-03-05 17:08:51 eighthave Exp $ */
 
 /*==============================================================================
  * MESSAGE FORMATS
@@ -173,16 +173,18 @@
  * version numbers are important.  This number can be queried so that host
  * software can test whether it will be compatible with the currently
  * installed firmware. */
-#define MAJOR_VERSION 1  // for non-compatible changes
-#define MINOR_VERSION 0  // for backwards compatible changes
+#define FIRMATA_MAJOR_VERSION   1 // for non-compatible changes
+#define FIRMATA_MINOR_VERSION   0 // for backwards compatible changes
 
 /* total number of pins currently supported */  
-#define TOTAL_ANALOG_PINS 6
-#define TOTAL_DIGITAL_PINS 14
+#define TOTAL_ANALOG_PINS       6
+#define TOTAL_DIGITAL_PINS      14
 
 // for comparing along with INPUT and OUTPUT
-#define PWM 2
+#define PWM                     2
 
+#define MAX_DATA_BYTES 2 // max number of data bytes in non-SysEx messages
+/* message command bytes */
 #define DIGITAL_MESSAGE         0x90 // send data for a digital pin
 #define ANALOG_MESSAGE          0xE0 // send data for an analog pin (or PWM)
 //#define PULSE_MESSAGE           0xA0 // proposed pulseIn/Out message (SysEx)
@@ -199,51 +201,41 @@
  * GLOBAL VARIABLES
  *============================================================================*/
 
-// circular buffer for receiving bytes from the serial port
-#define RINGBUFFER_MAX 64 // must be a power of 2
-byte ringBuffer[RINGBUFFER_MAX];
-byte readPosition=0, writePosition=0;
-
-// maximum number of post-command data bytes (non-SysEx)
-#define MAX_DATA_BYTES 2
-// this flag says the next serial input will be data
-byte waitForData = 0;
+/* input message handling */
+byte waitForData = 0; // this flag says the next serial input will be data
 byte executeMultiByteCommand = 0; // command to execute after getting multi-byte data
 byte multiByteChannel = 0; // channel data for multiByteCommands
 byte storedInputData[MAX_DATA_BYTES] = {0,0}; // multi-byte data
-
-byte previousDigitalInputHighByte = 0;
-byte previousDigitalInputLowByte = 0;
+/* digital pins */
+boolean digitalInputsEnabled = false; // output digital inputs or not
 byte digitalInputHighByte = 0;
 byte digitalInputLowByte = 0;
-unsigned int digitalPinStatus = 65535;// bit-wise array to store pin status 0=INPUT, 1=OUTPUT
-/* this byte stores the status off whether PWM is on or not
- * bit 9 = PWM0, bit 10 = PWM1, bit 11 = PWM2
- * the rest of the bits are unused and should remain 0  */
-int pwmStatus = 0;
-
+byte previousDigitalInputHighByte = 0; // previous output to test for change
+byte previousDigitalInputLowByte = 0; // previous output to test for change
+int digitalPinStatus = 0; // bitwise array to store pin status 0=INPUT,1=OUTPUT
+/* PWM/analog outputs */
+int pwmStatus = 0; // bitwise array to store PWM status
 /* analog inputs */
-unsigned int analogPinsToReport = 0; // bit-wise array to store pin reporting
+unsigned int analogPinsToReport = 0; // bitwise array to store pin reporting
 int analogPin = 0; // counter for reading analog pins
 int analogData; // storage variable for data from analogRead()
-/* interrupt variables */
-volatile int int_counter = 0; // ms counter for scheduling
+/* timer variables */
+extern volatile unsigned long timer0_overflow_count; // timer0 from wiring.c
+unsigned long nextExecuteTime; // for comparison with timer0_overflow_count
 
 /*==============================================================================
  * FUNCTIONS                                                                
  *============================================================================*/
 /* -----------------------------------------------------------------------------
- * output the version message to the serial port
- */
+ * output the version message to the serial port  */
 void printVersion() {
   Serial.print(REPORT_VERSION, BYTE);
-  Serial.print(MINOR_VERSION, BYTE);
-  Serial.print(MAJOR_VERSION, BYTE);
+  Serial.print(FIRMATA_MINOR_VERSION, BYTE);
+  Serial.print(FIRMATA_MAJOR_VERSION, BYTE);
 }
 
 /* -----------------------------------------------------------------------------
- * output digital bytes received from the serial port
- */
+ * output digital bytes received from the serial port  */
 void outputDigitalBytes(byte pin0_6, byte pin7_13) {
   int i;
   int mask;
@@ -260,85 +252,12 @@ void outputDigitalBytes(byte pin0_6, byte pin7_13) {
 }
 
 /* -----------------------------------------------------------------------------
- * processInput() is called whenever a byte is available on the
- * Arduino's serial port.  This is where the commands are handled.
- */
-void processInput(int inputData) {
-  int command;
-  
-  // a few commands have byte(s) of data following the command
-  if( (waitForData > 0) && (inputData < 128) ) {  
-    waitForData--;
-    storedInputData[waitForData] = inputData;
-    if( (waitForData==0) && executeMultiByteCommand ) {
-      //we got everything
-      switch(executeMultiByteCommand) {
-      case ANALOG_MESSAGE:
-        break;
-      case DIGITAL_MESSAGE:
-		outputDigitalBytes(storedInputData[1], storedInputData[0]); //(LSB, MSB)
-		break;
-      case SET_DIGITAL_PIN_MODE:
-		setPinMode(storedInputData[1], storedInputData[0]); // (pin#, mode)
-		//if(storedInputData[0] == INPUT) // enable input if set to INPUT
-		  // TODO: enable REPORT_DIGITAL_PORTS
-        break;
-      case REPORT_ANALOG_PIN:
-		setAnalogPinReporting(multiByteChannel,storedInputData[0]);
-		//Serial.print(multiByteChannel,BYTE);
-		//Serial.print(storedInputData[0],BYTE);
-		//Serial.print(analogPinsToReport,BYTE);
-		//Serial.print(analogPinsToReport & (1 << multiByteChannel),BYTE);
-        break;
-      case REPORT_DIGITAL_PORTS:
-        break;
-      }
-      executeMultiByteCommand = 0;
-    }	
-  } else {
-    // remove channel info from command byte if less than 0xF0
-    if(inputData < 0xF0) {
-      command = inputData & 0xF0;
-	  multiByteChannel = inputData & 0x0F;
-    } else {
-      command = inputData;
-	  // commands in the 0xF* range don't use channel data
-    }
-    switch (command) { // TODO: these needs to be switched to command
-    case ANALOG_MESSAGE:
-    case DIGITAL_MESSAGE:
-    case SET_DIGITAL_PIN_MODE:
-      waitForData = 2; // two data bytes needed
-      executeMultiByteCommand = command;
-      break;
-    case REPORT_ANALOG_PIN:
-    case REPORT_DIGITAL_PORTS:
-      waitForData = 1; // two data bytes needed
-      executeMultiByteCommand = command;
-      break;
-    case SYSTEM_RESET:
-      // this doesn't do anything yet
-      break;
-    case REPORT_VERSION:
-	  printVersion();
-      break;
-    }
+ * check all the active digital inputs for change of state, then add any events
+ * to the Serial output queue using Serial.print() */
+void checkDigitalInputs(void) {
+  if(digitalInputsEnabled) {
+	// this should use _SFR_IO8()
   }
-}
-
-
-/* -----------------------------------------------------------------------------
- * this function checks to see if there is data waiting on the serial port 
- * then processes all of the stored data
- */
-
-/* TODO: switch this to a timer interrupt.  The timer is set in relation to
- * the bitrate, when the interrupt is triggered, then it runs checkForInput().
- * Therefore, it only checks for input once per cycle of the serial port.
- */
-void checkForInput() {
-  while(Serial.available())
-	processInput( Serial.read() );
 }
 
 // -----------------------------------------------------------------------------
@@ -375,10 +294,88 @@ void setAnalogPinReporting(byte pin, byte state) {
   else { // everything but 0 enables reporting of that pin
     analogPinsToReport = analogPinsToReport | (1 << pin);
   }
+  // TODO: save status to EEPROM here, if changed
+}
+
+/* -----------------------------------------------------------------------------
+ * processInput() is called whenever a byte is available on the
+ * Arduino's serial port.  This is where the commands are handled. */
+void processInput(int inputData) {
+  int command;
+  
+  // a few commands have byte(s) of data following the command
+  if( (waitForData > 0) && (inputData < 128) ) {  
+    waitForData--;
+    storedInputData[waitForData] = inputData;
+    if( (waitForData==0) && executeMultiByteCommand ) { // got the whole message
+      switch(executeMultiByteCommand) {
+      case ANALOG_MESSAGE:
+		setPinMode(multiByteChannel,PWM);
+		analogWrite(multiByteChannel, 
+		(storedInputData[0] << 7) + storedInputData[1] );
+        break;
+      case DIGITAL_MESSAGE:
+		outputDigitalBytes(storedInputData[1], storedInputData[0]); //(LSB, MSB)
+		break;
+      case SET_DIGITAL_PIN_MODE:
+		setPinMode(storedInputData[1], storedInputData[0]); // (pin#, mode)
+		if(storedInputData[0] == INPUT) 
+		  digitalInputsEnabled = true; // enable reporting of digital inputs
+        break;
+      case REPORT_ANALOG_PIN:
+		setAnalogPinReporting(multiByteChannel,storedInputData[0]);
+        break;
+      case REPORT_DIGITAL_PORTS:
+		// TODO: implement MIDI channel as port base for more than 16 digital inputs
+		if(storedInputData[0] == 0)
+		  digitalInputsEnabled = false;
+		else
+		  digitalInputsEnabled = true;
+        break;
+      }
+      executeMultiByteCommand = 0;
+    }	
+  } else {
+    // remove channel info from command byte if less than 0xF0
+    if(inputData < 0xF0) {
+      command = inputData & 0xF0;
+	  multiByteChannel = inputData & 0x0F;
+    } else {
+      command = inputData;
+	  // commands in the 0xF* range don't use channel data
+    }
+    switch (command) { // TODO: these needs to be switched to command
+    case ANALOG_MESSAGE:
+    case DIGITAL_MESSAGE:
+    case SET_DIGITAL_PIN_MODE:
+      waitForData = 2; // two data bytes needed
+      executeMultiByteCommand = command;
+      break;
+    case REPORT_ANALOG_PIN:
+    case REPORT_DIGITAL_PORTS:
+      waitForData = 1; // two data bytes needed
+      executeMultiByteCommand = command;
+      break;
+    case SYSTEM_RESET:
+      // this doesn't do anything yet
+      break;
+    case REPORT_VERSION:
+	  printVersion();
+      break;
+    }
+  }
+}
+
+/* -----------------------------------------------------------------------------
+ * this function checks to see if there is data waiting on the serial port 
+ * then processes all of the stored data
+ */
+void checkForSerialReceive() {
+  while(Serial.available())
+	processInput(Serial.read());
 }
 
 // =============================================================================
-
 // used for flashing the pin for the version number
 void pin13strobe(int count, int onInterval, int offInterval) {
   byte i;
@@ -391,80 +388,57 @@ void pin13strobe(int count, int onInterval, int offInterval) {
   }
 }
 
-// -----------------------------------------------------------------------------
-/* handle timer interrupts - Arduino runs at 16 Mhz, so we have 1000 Overflows
- * per second...  1/ ((16000000 / 64) / 256) = 1 / 1000  */
-ISR(TIMER2_OVF_vect) {  
-	int_counter++;
-};  
-
 /*==============================================================================
  * SETUP()
  *============================================================================*/
 void setup() {
   byte i;
 
-  // TODO: load state from EEPROM here
   Serial.begin(57600); // 9600, 14400, 38400, 57600, 115200
 
-  /* set up timer interrupt */
-  //Timer2 Settings: Timer Prescaler /64,   
-  TCCR2 |= (1<<CS22);      
-  TCCR2 &= ~((1<<CS21) | (1<<CS20));       
-  // Use normal mode  
-  TCCR2 &= ~((1<<WGM21) | (1<<WGM20));    
-  // Use internal clock - external clock not used in Arduino  
-  ASSR |= (0<<AS2);  
-  //Timer2 Overflow Interrupt Enable  
-  TIMSK |= (1<<TOIE2) | (0<<OCIE2);    
-//  RESET_TIMER2;                 
-  sei();  
+  // flash the pin 13 with the protocol version
+  pinMode(13,OUTPUT);
+  pin13strobe(2,1,4); // separator, a quick burst
+  delay(500);
+  pin13strobe(FIRMATA_MAJOR_VERSION, 200, 400);
+  delay(500);
+  pin13strobe(2,1,4); // separator, a quick burst
+  delay(500);
+  pin13strobe(FIRMATA_MINOR_VERSION, 200, 400);
+  delay(500);
+  pin13strobe(2,1,4); // separator, a quick burst
 
+  for(i=0; i<TOTAL_DIGITAL_PINS; ++i) {
+    setPinMode(i,INPUT);
+  }
+  // TODO: load state from EEPROM here
+
+  printVersion();
 
   /* TODO: send digital inputs here, if enabled, to set the initial state on the
    * host computer, since once in the loop(), the Arduino will only send data on
    * change. */
-
-  // flash the pin 13 with the protocol minor version (add major once > 0)
-  pinMode(13,OUTPUT);
-  pin13strobe(2,1,4); // separator, a quick burst
-  delay(500);
-  pin13strobe(MAJOR_VERSION, 200, 400);
-  delay(500);
-  pin13strobe(2,1,4); // separator, a quick burst
-  delay(500);
-  pin13strobe(MINOR_VERSION, 200, 400);
-  delay(500);
-  pin13strobe(2,1,4); // separator, a quick burst
-  printVersion();
-
-  for(i=0; i<TOTAL_DIGITAL_PINS; ++i) {
-    setPinMode(i,OUTPUT);
-  }
 }
 
 /*==============================================================================
  * LOOP()
  *============================================================================*/
 void loop() {
-
+  ///analogWrite(11, tmp);++tmp;delay(2);
 /* DIGITALREAD - as fast as possible, check for changes and output them to the
- * FTDI buffer using serialWrite)  */
-// this should use _SFR_IO8()
-
-  if(int_counter > 3) {  // run this every 4ms
-
-
-/* SERIALREAD - Serial.read() uses a 128 byte circular buffer, so handle all
- * serialReads at once, i.e. empty the buffer */
-	checkForInput();
-		
-/* SEND FTDI WRITE BUFFER - make sure that the FTDI buffer doesn't go over 60
- * bytes. use a timer to sending an event character every 4 ms to trigger the
- * buffer to dump. */
-		
-/* ANALOGREAD - right after the event character, do all of the analogReads().
- * These only need to be done every 4ms. */
+ * FTDI buffer using Serial.print()  */
+  checkDigitalInputs();  
+  if(timer0_overflow_count > nextExecuteTime) {  
+	nextExecuteTime = timer0_overflow_count + 4; // run this every 4ms
+	/* SERIALREAD - Serial.read() uses a 128 byte circular buffer, so handle
+	 * all serialReads at once, i.e. empty the buffer */
+	checkForSerialReceive();
+	/* SEND FTDI WRITE BUFFER - make sure that the FTDI buffer doesn't go over
+	 * 60 bytes. use a timer to sending an event character every 4 ms to
+	 * trigger the buffer to dump. */
+	
+	/* ANALOGREAD - right after the event character, do all of the
+	 * analogReads().  These only need to be done every 4ms. */
 	for(analogPin=0;analogPin<TOTAL_ANALOG_PINS;analogPin++) {
 	  if( analogPinsToReport & (1 << analogPin) ) {
 		analogData = analogRead(analogPin);
@@ -474,6 +448,5 @@ void loop() {
 		Serial.print(analogData >> 7, BYTE); 
 	  }
 	}
-	int_counter = 0; // reset ms counter
   }
 }
