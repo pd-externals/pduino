@@ -43,7 +43,7 @@
 #  7. Type "make upload", reset your Arduino board, and press enter  to
 #     upload your program to the Arduino board.
 #
-# $Id: Makefile,v 1.4 2007-03-01 05:39:49 eighthave Exp $
+# $Id: Makefile,v 1.5 2007-03-05 04:34:32 eighthave Exp $
 
 PORT = /dev/tty.usbserial-1*
 TARGET = Pd_firmware
@@ -123,6 +123,7 @@ ALL_ASFLAGS = -mmcu=$(MCU) -I. -x assembler-with-cpp $(ASFLAGS)
 
 # Default target.
 all: build
+	echo 'close;' | /Applications/Pd-0.39.2-extended-RC1.app/Contents/Resources/bin/pdsend 34567 || true
 	say "press the button"
 	make upload
 

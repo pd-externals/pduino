@@ -41,21 +41,17 @@
  */
 
 /* 
- * TODO: debug hardware PWM
  * TODO: add pulseOut functionality for servos
  * TODO: add software PWM for servos, etc (servo.h or pulse.h)
- * TODO: redesign protocol to accomodate boards with more I/Os
- * TODO: add protocol version reporting
  * TODO: add device type reporting (i.e. some firmwares will use the Firmata
  *       protocol, but will only support specific devices, like ultrasound 
  *       rangefinders or servos)
  * TODO: add "pinMode all 0/1" command
  * TODO: try using PIND to get all digitalIns at once
- * TODO: add cycle markers to mark start of analog, digital, pulseIn, and PWM
  * TODO: use Program Control to load stored profiles from EEPROM
  */
 
-/* cvs version: $Id: Pd_firmware.pde,v 1.25 2007-03-01 05:39:49 eighthave Exp $ */
+/* cvs version: $Id: Pd_firmware.pde,v 1.26 2007-03-05 04:34:32 eighthave Exp $ */
 
 /*==============================================================================
  * MESSAGE FORMATS
@@ -95,7 +91,7 @@
  */
 
 /* -----------------------------------------------------------------------------
- * DATA MESSAGES */
+ * DATA MESSAGE FORMAT */
 
 /* two byte digital data format
  * ----------------------------
@@ -213,6 +209,7 @@ byte readPosition=0, writePosition=0;
 // this flag says the next serial input will be data
 byte waitForData = 0;
 byte executeMultiByteCommand = 0; // command to execute after getting multi-byte data
+byte multiByteChannel = 0; // channel data for multiByteCommands
 byte storedInputData[MAX_DATA_BYTES] = {0,0}; // multi-byte data
 
 byte previousDigitalInputHighByte = 0;
@@ -220,19 +217,15 @@ byte previousDigitalInputLowByte = 0;
 byte digitalInputHighByte = 0;
 byte digitalInputLowByte = 0;
 unsigned int digitalPinStatus = 65535;// bit-wise array to store pin status 0=INPUT, 1=OUTPUT
-
-
 /* this byte stores the status off whether PWM is on or not
  * bit 9 = PWM0, bit 10 = PWM1, bit 11 = PWM2
  * the rest of the bits are unused and should remain 0  */
 int pwmStatus = 0;
 
-/* bit-wise array to store pin reporting */
-unsigned int analogPinsToReport = 65535;
-
-/* for reading analogIns */
-byte analogPin = 0;
-int analogData;
+/* analog inputs */
+unsigned int analogPinsToReport = 0; // bit-wise array to store pin reporting
+int analogPin = 0; // counter for reading analog pins
+int analogData; // storage variable for data from analogRead()
 /* interrupt variables */
 volatile int int_counter = 0; // ms counter for scheduling
 
@@ -271,7 +264,7 @@ void outputDigitalBytes(byte pin0_6, byte pin7_13) {
  * Arduino's serial port.  This is where the commands are handled.
  */
 void processInput(int inputData) {
-  int command, channel;
+  int command;
   
   // a few commands have byte(s) of data following the command
   if( (waitForData > 0) && (inputData < 128) ) {  
@@ -281,10 +274,9 @@ void processInput(int inputData) {
       //we got everything
       switch(executeMultiByteCommand) {
       case ANALOG_MESSAGE:
-        channel = inputData & 0x0F; // get channel from command byte
         break;
       case DIGITAL_MESSAGE:
-		outputDigitalBytes(storedInputData[1], storedInputData[0]); // (LSB, MSB)
+		outputDigitalBytes(storedInputData[1], storedInputData[0]); //(LSB, MSB)
 		break;
       case SET_DIGITAL_PIN_MODE:
 		setPinMode(storedInputData[1], storedInputData[0]); // (pin#, mode)
@@ -292,6 +284,11 @@ void processInput(int inputData) {
 		  // TODO: enable REPORT_DIGITAL_PORTS
         break;
       case REPORT_ANALOG_PIN:
+		setAnalogPinReporting(multiByteChannel,storedInputData[0]);
+		//Serial.print(multiByteChannel,BYTE);
+		//Serial.print(storedInputData[0],BYTE);
+		//Serial.print(analogPinsToReport,BYTE);
+		//Serial.print(analogPinsToReport & (1 << multiByteChannel),BYTE);
         break;
       case REPORT_DIGITAL_PORTS:
         break;
@@ -302,20 +299,22 @@ void processInput(int inputData) {
     // remove channel info from command byte if less than 0xF0
     if(inputData < 0xF0) {
       command = inputData & 0xF0;
+	  multiByteChannel = inputData & 0x0F;
     } else {
       command = inputData;
+	  // commands in the 0xF* range don't use channel data
     }
-    switch (inputData) {
+    switch (command) { // TODO: these needs to be switched to command
     case ANALOG_MESSAGE:
     case DIGITAL_MESSAGE:
     case SET_DIGITAL_PIN_MODE:
       waitForData = 2; // two data bytes needed
-      executeMultiByteCommand = inputData;
+      executeMultiByteCommand = command;
       break;
     case REPORT_ANALOG_PIN:
     case REPORT_DIGITAL_PORTS:
       waitForData = 1; // two data bytes needed
-      executeMultiByteCommand = inputData;
+      executeMultiByteCommand = command;
       break;
     case SYSTEM_RESET:
       // this doesn't do anything yet
@@ -343,8 +342,8 @@ void checkForInput() {
 }
 
 // -----------------------------------------------------------------------------
-/* this function sets the pin mode to the correct state and sets the relevant
- * bits in the two bit-arrays that track Digital I/O and PWM status
+/* sets the pin mode to the correct state and sets the relevant bits in the
+ * two bit-arrays that track Digital I/O and PWM status
  */
 void setPinMode(byte pin, byte mode) {
   if(mode == INPUT) {
@@ -364,6 +363,18 @@ void setPinMode(byte pin, byte mode) {
     pinMode(pin,OUTPUT);
   }
   // TODO: save status to EEPROM here, if changed
+}
+
+// -----------------------------------------------------------------------------
+/* sets bits in a bit array (int) to toggle the reporting of the analogIns
+ */
+void setAnalogPinReporting(byte pin, byte state) {
+  if(state == 0) {
+    analogPinsToReport = analogPinsToReport &~ (1 << pin);
+  }
+  else { // everything but 0 enables reporting of that pin
+    analogPinsToReport = analogPinsToReport | (1 << pin);
+  }
 }
 
 // =============================================================================
@@ -416,16 +427,15 @@ void setup() {
 
   // flash the pin 13 with the protocol minor version (add major once > 0)
   pinMode(13,OUTPUT);
-  pin13strobe(10,5,20); // separator, a quick burst
+  pin13strobe(2,1,4); // separator, a quick burst
   delay(500);
   pin13strobe(MAJOR_VERSION, 200, 400);
   delay(500);
-  pin13strobe(10,5,20); // separator, a quick burst
+  pin13strobe(2,1,4); // separator, a quick burst
   delay(500);
   pin13strobe(MINOR_VERSION, 200, 400);
   delay(500);
-  pin13strobe(10,5,20); // separator, a quick burst
-  delay(1000);
+  pin13strobe(2,1,4); // separator, a quick burst
   printVersion();
 
   for(i=0; i<TOTAL_DIGITAL_PINS; ++i) {
@@ -440,10 +450,9 @@ void loop() {
 
 /* DIGITALREAD - as fast as possible, check for changes and output them to the
  * FTDI buffer using serialWrite)  */
-
 // this should use _SFR_IO8()
 
-  if(int_counter > 3) {
+  if(int_counter > 3) {  // run this every 4ms
 
 
 /* SERIALREAD - Serial.read() uses a 128 byte circular buffer, so handle all
@@ -456,16 +465,14 @@ void loop() {
 		
 /* ANALOGREAD - right after the event character, do all of the analogReads().
  * These only need to be done every 4ms. */
-//		for(analogPin=0;analogPin<TOTAL_ANALOG_PINS;analogPin++) {
-	for(analogPin=0;analogPin<2;analogPin++) {
-	  //if( analogPinsToReport & (1 << analogPin) ) {
-	  analogData = analogRead(analogPin);
-	  Serial.print(ANALOG_MESSAGE + analogPin, BYTE);
-	  // These two bytes converted back into the 10-bit value on host
-	  Serial.print(analogData & 127, BYTE); // same as analogData % 128
-	  Serial.print(analogData >> 7, BYTE); 
-	  analogPin = (analogPin++) % TOTAL_ANALOG_PINS;
-	  //}
+	for(analogPin=0;analogPin<TOTAL_ANALOG_PINS;analogPin++) {
+	  if( analogPinsToReport & (1 << analogPin) ) {
+		analogData = analogRead(analogPin);
+		Serial.print(ANALOG_MESSAGE + analogPin, BYTE);
+		// These two bytes converted back into the 10-bit value on host
+		Serial.print(analogData % 128, BYTE);
+		Serial.print(analogData >> 7, BYTE); 
+	  }
 	}
 	int_counter = 0; // reset ms counter
   }
