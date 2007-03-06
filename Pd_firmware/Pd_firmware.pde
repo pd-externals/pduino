@@ -51,7 +51,7 @@
  * TODO: use Program Control to load stored profiles from EEPROM
  */
 
-/* cvs version: $Id: Pd_firmware.pde,v 1.27 2007-03-05 17:08:51 eighthave Exp $ */
+/* cvs version: $Id: Pd_firmware.pde,v 1.28 2007-03-06 06:59:43 eighthave Exp $ */
 
 /*==============================================================================
  * MESSAGE FORMATS
@@ -183,6 +183,11 @@
 // for comparing along with INPUT and OUTPUT
 #define PWM                     2
 
+// for selecting digital inputs
+#define PB  2  // digital input, pins 8-13
+#define PC  3  // analog input port
+#define PD  4  // digital input, pins 0-7
+
 #define MAX_DATA_BYTES 2 // max number of data bytes in non-SysEx messages
 /* message command bytes */
 #define DIGITAL_MESSAGE         0x90 // send data for a digital pin
@@ -203,16 +208,14 @@
 
 /* input message handling */
 byte waitForData = 0; // this flag says the next serial input will be data
-byte executeMultiByteCommand = 0; // command to execute after getting multi-byte data
+byte executeMultiByteCommand = 0; // execute this after getting multi-byte data
 byte multiByteChannel = 0; // channel data for multiByteCommands
 byte storedInputData[MAX_DATA_BYTES] = {0,0}; // multi-byte data
 /* digital pins */
 boolean digitalInputsEnabled = false; // output digital inputs or not
-byte digitalInputHighByte = 0;
-byte digitalInputLowByte = 0;
-byte previousDigitalInputHighByte = 0; // previous output to test for change
-byte previousDigitalInputLowByte = 0; // previous output to test for change
-int digitalPinStatus = 0; // bitwise array to store pin status 0=INPUT,1=OUTPUT
+int digitalInputs;
+int previousDigitalInputs; // previous output to test for change
+int digitalPinStatus = 3; // bitwise array to store pin status, ignore RxTx pins
 /* PWM/analog outputs */
 int pwmStatus = 0; // bitwise array to store PWM status
 /* analog inputs */
@@ -243,7 +246,7 @@ void outputDigitalBytes(byte pin0_6, byte pin7_13) {
     
 // this should be converted to use PORTs
   twoBytesForPorts = pin0_6 + (pin7_13 << 7);
-  for(i=0; i<14; ++i) {
+  for(i=2; i<TOTAL_DIGITAL_PINS; ++i) { // ignore Rx,Tx pins (0 and 1)
     mask = 1 << i;
     if( (digitalPinStatus & mask) && !(pwmStatus & mask) ) {
       digitalWrite(i, twoBytesForPorts & mask);
@@ -256,7 +259,16 @@ void outputDigitalBytes(byte pin0_6, byte pin7_13) {
  * to the Serial output queue using Serial.print() */
 void checkDigitalInputs(void) {
   if(digitalInputsEnabled) {
-	// this should use _SFR_IO8()
+	previousDigitalInputs = digitalInputs;
+	digitalInputs = _SFR_IO8(port_to_input[PB]) << 8;  // get pins 8-13
+	digitalInputs += _SFR_IO8(port_to_input[PD]);      // get pins 0-7
+	digitalInputs = digitalInputs &~ digitalPinStatus; // ignore pins set OUTPUT
+	if(digitalInputs != previousDigitalInputs) {
+	  // TODO: implement more ports as channels for more than 16 digital pins
+	  Serial.print(DIGITAL_MESSAGE,BYTE);
+	  Serial.print(digitalInputs % 128, BYTE); // Tx pins 0-6
+	  Serial.print(digitalInputs >> 7, BYTE);  // Tx pins 7-13
+	}
   }
 }
 
@@ -265,23 +277,25 @@ void checkDigitalInputs(void) {
  * two bit-arrays that track Digital I/O and PWM status
  */
 void setPinMode(byte pin, byte mode) {
-  if(mode == INPUT) {
-    digitalPinStatus = digitalPinStatus &~ (1 << pin);
-    pwmStatus = pwmStatus &~ (1 << pin);
-	digitalWrite(pin,LOW); // turn off pin before switching to INPUT
-    pinMode(pin,INPUT);
-  }
-  else if(mode == OUTPUT) {
-    digitalPinStatus = digitalPinStatus | (1 << pin);
-    pwmStatus = pwmStatus &~ (1 << pin);
-    pinMode(pin,OUTPUT);
-  }
-  else if( mode == PWM ) {
-    digitalPinStatus = digitalPinStatus | (1 << pin);
-    pwmStatus = pwmStatus | (1 << pin);
-    pinMode(pin,OUTPUT);
-  }
+  if(pin > 1) { // ignore RxTx pins (0,1)
+	if(mode == INPUT) {
+	  digitalPinStatus = digitalPinStatus &~ (1 << pin);
+	  pwmStatus = pwmStatus &~ (1 << pin);
+	  digitalWrite(pin,LOW); // turn off pin before switching to INPUT
+	  pinMode(pin,INPUT);
+	}
+	else if(mode == OUTPUT) {
+	  digitalPinStatus = digitalPinStatus | (1 << pin);
+	  pwmStatus = pwmStatus &~ (1 << pin);
+	  pinMode(pin,OUTPUT);
+	}
+	else if( mode == PWM ) {
+	  digitalPinStatus = digitalPinStatus | (1 << pin);
+	  pwmStatus = pwmStatus | (1 << pin);
+	  pinMode(pin,OUTPUT);
+	}
   // TODO: save status to EEPROM here, if changed
+  }
 }
 
 // -----------------------------------------------------------------------------
@@ -424,12 +438,11 @@ void setup() {
  * LOOP()
  *============================================================================*/
 void loop() {
-  ///analogWrite(11, tmp);++tmp;delay(2);
 /* DIGITALREAD - as fast as possible, check for changes and output them to the
  * FTDI buffer using Serial.print()  */
   checkDigitalInputs();  
   if(timer0_overflow_count > nextExecuteTime) {  
-	nextExecuteTime = timer0_overflow_count + 4; // run this every 4ms
+	nextExecuteTime = timer0_overflow_count + 19; // run this every 20ms
 	/* SERIALREAD - Serial.read() uses a 128 byte circular buffer, so handle
 	 * all serialReads at once, i.e. empty the buffer */
 	checkForSerialReceive();
