@@ -32,6 +32,7 @@
  *
  * @author: Hans-Christoph Steiner <hans@at.or.at>
  *   help with initial protocol redesign: Jamie Allen <jamie@heavyside.net>
+ *   much protocol discussion: the Arduino developers mailing list
  *   key bugfixes: Georg Holzmann <grh@mur.at>
  *                 Gerda Strobl <gerda.strobl@student.tugraz.at>
  * @date: 2006-05-19
@@ -46,12 +47,10 @@
  * TODO: add device type reporting (i.e. some firmwares will use the Firmata
  *       protocol, but will only support specific devices, like ultrasound 
  *       rangefinders or servos)
- * TODO: add "pinMode all 0/1" command
- * TODO: try using PIND to get all digitalIns at once
  * TODO: use Program Control to load stored profiles from EEPROM
  */
 
-/* cvs version: $Id: Pd_firmware.pde,v 1.28 2007-03-06 06:59:43 eighthave Exp $ */
+/* cvs version: $Id: Pd_firmware.pde,v 1.29 2007-03-08 05:37:22 eighthave Exp $ */
 
 /*==============================================================================
  * MESSAGE FORMATS
