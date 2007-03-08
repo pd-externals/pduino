@@ -8,4 +8,8 @@ arduino-test.pd in Pd, then choose your serial port with the [open( message.
 
 For more on Arduino, go to http://arduino.cc
 
+You can get more information about this firmware here:
 
+http://www.arduino.cc/playground/Interfacing/Sensorbox
+
+Hans-Christoph Steiner <hans@at.or.at>
