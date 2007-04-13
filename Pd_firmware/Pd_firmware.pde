@@ -52,55 +52,10 @@
  * TODO: use Program Control to load stored profiles from EEPROM
  */
 
-/* cvs version: $Id: Pd_firmware.pde,v 1.30 2007-04-13 03:55:16 eighthave Exp $ */
+/* cvs version: $Id: Pd_firmware.pde,v 1.31 2007-04-13 05:28:23 eighthave Exp $ */
 
 #include <EEPROM.h>
-
-/*==============================================================================
- * MACROS
- *============================================================================*/
-
-/* Version numbers for the protocol.  The protocol is still changing, so these
- * version numbers are important.  This number can be queried so that host
- * software can test whether it will be compatible with the currently
- * installed firmware. */
-#define FIRMATA_MAJOR_VERSION   1 // for non-compatible changes
-#define FIRMATA_MINOR_VERSION   0 // for backwards compatible changes
-
-// total number of pins currently supported
-#define TOTAL_ANALOG_PINS       6
-#define TOTAL_DIGITAL_PINS      14
-
-// for comparing along with INPUT and OUTPUT
-#define PWM                     2
-
-// for selecting digital inputs
-#define PB  2  // digital input, pins 8-13
-#define PC  3  // analog input port
-#define PD  4  // digital input, pins 0-7
-
-#define MAX_DATA_BYTES 2 // max number of data bytes in non-SysEx messages
-// message command bytes
-#define DIGITAL_MESSAGE         0x90 // send data for a digital pin
-#define ANALOG_MESSAGE          0xE0 // send data for an analog pin (or PWM)
-//#define PULSE_MESSAGE           0xA0 // proposed pulseIn/Out message (SysEx)
-//#define SHIFTOUT_MESSAGE        0xB0 // proposed shiftOut message (SysEx)
-#define REPORT_ANALOG_PIN       0xC0 // enable analog input by pin #
-#define REPORT_DIGITAL_PORTS    0xD0 // enable digital input by port pair
-#define START_SYSEX             0xF0 // start a MIDI SysEx message
-#define SET_DIGITAL_PIN_MODE    0xF4 // set a digital pin to INPUT or OUTPUT 
-#define END_SYSEX               0xF7 // end a MIDI SysEx message
-#define REPORT_VERSION          0xF9 // report firmware version
-#define SYSTEM_RESET            0xFF // reset from MIDI
-
-// these are used for EEPROM reading and writing
-#define ANALOGINPUTSTOREPORT_LOW_BYTE   0x1F0 // analogInputsToReport is an int
-#define ANALOGINPUTSTOREPORT_HIGH_BYTE  0x1F1 // analogInputsToReport is an int
-#define REPORTDIGITALINPUTS_BYTE        0x1F2 // 
-#define DIGITALPINSTATUS_LOW_BYTE       0x1F3 // digitalPinStatus is an int
-#define DIGITALPINSTATUS_HIGH_BYTE      0x1F4 // digitalPinStatus is an int
-#define PWMSTATUS_LOW_BYTE              0x1F5 // pwmStatus is an int
-#define PWMSTATUS_HIGH_BYTE             0x1F6 // pwmStatus is an int
+#include <Firmata.h>
 
 /*==============================================================================
  * GLOBAL VARIABLES
@@ -121,7 +76,6 @@ int pwmStatus = 0; // bitwise array to store PWM status
 /* analog inputs */
 int analogInputsToReport = 0; // bitwise array to store pin reporting
 int analogPin = 0; // counter for reading analog pins
-int analogData; // storage variable for data from analogRead()
 /* timer variables */
 extern volatile unsigned long timer0_overflow_count; // timer0 from wiring.c
 unsigned long nextExecuteTime; // for comparison with timer0_overflow_count
@@ -129,13 +83,6 @@ unsigned long nextExecuteTime; // for comparison with timer0_overflow_count
 /*==============================================================================
  * FUNCTIONS                                                                
  *============================================================================*/
-/* -----------------------------------------------------------------------------
- * output the protocol version message to the serial port  */
-void printVersion() {
-  Serial.print(REPORT_VERSION, BYTE);
-  Serial.print(FIRMATA_MINOR_VERSION, BYTE);
-  Serial.print(FIRMATA_MAJOR_VERSION, BYTE);
-}
 
 /* -----------------------------------------------------------------------------
  * output digital bytes received from the serial port  */
@@ -159,16 +106,17 @@ void outputDigitalBytes(byte pin0_6, byte pin7_13) {
  * to the Serial output queue using Serial.print() */
 void checkDigitalInputs(void) {
   if(reportDigitalInputs) {
-	previousDigitalInputs = digitalInputs;
-	digitalInputs = _SFR_IO8(port_to_input[PB]) << 8;  // get pins 8-13
-	digitalInputs += _SFR_IO8(port_to_input[PD]);      // get pins 0-7
-	digitalInputs = digitalInputs &~ digitalPinStatus; // ignore pins set OUTPUT
-	if(digitalInputs != previousDigitalInputs) {
-	  // TODO: implement more ports as channels for more than 16 digital pins
-	  Serial.print(DIGITAL_MESSAGE,BYTE);
-	  Serial.print(digitalInputs % 128, BYTE); // Tx pins 0-6
-	  Serial.print(digitalInputs >> 7, BYTE);  // Tx pins 7-13
-	}
+	 previousDigitalInputs = digitalInputs;
+	 digitalInputs = _SFR_IO8(port_to_input[PB]) << 8;  // get pins 8-13
+	 digitalInputs += _SFR_IO8(port_to_input[PD]);      // get pins 0-7
+	 digitalInputs = digitalInputs &~ digitalPinStatus; // ignore pins set OUTPUT
+	 if(digitalInputs != previousDigitalInputs) {
+		// TODO: implement more ports as channels for more than 16 digital pins
+		Firmata.sendDigital(0, digitalInputs); // port 0 till more are implemented
+		/*		Serial.print(DIGITAL_MESSAGE,BYTE);
+		Serial.print(digitalInputs % 128, BYTE); // Tx pins 0-6
+		Serial.print(digitalInputs >> 7, BYTE);  // Tx pins 7-13*/
+	 }
   }
 }
 
@@ -274,7 +222,7 @@ void processInput(int inputData) {
       // this doesn't do anything yet
       break;
     case REPORT_VERSION:
-	  printVersion();
+	  Firmata.printVersion();
       break;
     }
   }
@@ -346,7 +294,7 @@ void setup() {
   }
   // TODO: load state from EEPROM here
 
-  printVersion();
+  Firmata.printVersion();
 
   /* TODO: send digital inputs here, if enabled, to set the initial state on the
    * host computer, since once in the loop(), the Arduino will only send data on
@@ -372,13 +320,8 @@ void loop() {
 	/* ANALOGREAD - right after the event character, do all of the
 	 * analogReads().  These only need to be done every 4ms. */
 	for(analogPin=0;analogPin<TOTAL_ANALOG_PINS;analogPin++) {
-	  if( analogInputsToReport & (1 << analogPin) ) {
-		analogData = analogRead(analogPin);
-		Serial.print(ANALOG_MESSAGE + analogPin, BYTE);
-		// These two bytes converted back into the 10-bit value on host
-		Serial.print(analogData % 128, BYTE);
-		Serial.print(analogData >> 7, BYTE); 
-	  }
+	  if( analogInputsToReport & (1 << analogPin) ) 
+		  Firmata.sendAnalog(analogPin, analogRead(analogPin));
 	}
   }
 }

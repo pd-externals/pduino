@@ -43,7 +43,7 @@
 #  7. Type "make upload", reset your Arduino board, and press enter  to
 #     upload your program to the Arduino board.
 #
-# $Id: Makefile,v 1.6 2007-04-13 03:55:16 eighthave Exp $
+# $Id: Makefile,v 1.7 2007-04-13 05:28:23 eighthave Exp $
 
 PORT = /dev/tty.usbserial-*
 TARGET = Pd_firmware
@@ -52,11 +52,13 @@ ARDUINO_SRC = $(ARDUINO)/lib/targets/arduino
 ARDUINO_LIB_SRC = $(ARDUINO)/lib/targets/libraries
 INCLUDE = -I$(ARDUINO_SRC) -I$(ARDUINO)/tools/avr/avr/include \
 	-I$(ARDUINO)/lib/targets/libraries/EEPROM \
+	-I$(ARDUINO)/lib/targets/libraries/Firmata \
 	-I$(ARDUINO)/lib/targets/libraries
 SRC = $(ARDUINO_SRC)/pins_arduino.c $(ARDUINO_SRC)/wiring.c \
 	$(ARDUINO_SRC)/WInterrupts.c
 CXXSRC = applet/$(TARGET).cpp $(ARDUINO_SRC)/HardwareSerial.cpp \
 	$(ARDUINO_LIB_SRC)/EEPROM/EEPROM.cpp \
+	$(ARDUINO_LIB_SRC)/Firmata/Firmata.cpp \
 	$(ARDUINO_SRC)/WRandom.cpp
 MCU = atmega8
 F_CPU = 16000000
