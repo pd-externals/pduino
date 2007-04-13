@@ -43,16 +43,20 @@
 #  7. Type "make upload", reset your Arduino board, and press enter  to
 #     upload your program to the Arduino board.
 #
-# $Id: Makefile,v 1.5 2007-03-05 04:34:32 eighthave Exp $
+# $Id: Makefile,v 1.6 2007-04-13 03:55:16 eighthave Exp $
 
-PORT = /dev/tty.usbserial-1*
+PORT = /dev/tty.usbserial-*
 TARGET = Pd_firmware
 ARDUINO = /Applications/arduino-0007
 ARDUINO_SRC = $(ARDUINO)/lib/targets/arduino
-INCLUDE = -I$(ARDUINO_SRC) -I$(ARDUINO)/tools/avr/avr/include
+ARDUINO_LIB_SRC = $(ARDUINO)/lib/targets/libraries
+INCLUDE = -I$(ARDUINO_SRC) -I$(ARDUINO)/tools/avr/avr/include \
+	-I$(ARDUINO)/lib/targets/libraries/EEPROM \
+	-I$(ARDUINO)/lib/targets/libraries
 SRC = $(ARDUINO_SRC)/pins_arduino.c $(ARDUINO_SRC)/wiring.c \
 	$(ARDUINO_SRC)/WInterrupts.c
 CXXSRC = applet/$(TARGET).cpp $(ARDUINO_SRC)/HardwareSerial.cpp \
+	$(ARDUINO_LIB_SRC)/EEPROM/EEPROM.cpp \
 	$(ARDUINO_SRC)/WRandom.cpp
 MCU = atmega8
 F_CPU = 16000000
@@ -215,6 +219,7 @@ clean:
 	$(REMOVE) applet/$(TARGET).hex applet/$(TARGET).eep applet/$(TARGET).cof applet/$(TARGET).elf \
 	$(TARGET).map applet/$(TARGET).sym applet/$(TARGET).lss \
 	$(OBJ) $(LST) $(SRC:.c=.s) $(SRC:.c=.d) $(CXXSRC:.cpp=.s) $(CXXSRC:.cpp=.d)
+	find $(ARDUINO)/lib/ -name '*.o' -delete
 
 depend:
 	if grep '^# DO NOT DELETE' $(MAKEFILE) >/dev/null; \
