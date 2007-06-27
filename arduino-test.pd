@@ -1,4 +1,4 @@
-#N canvas 71 41 670 525 10;
+#N canvas 458 53 674 529 10;
 #X obj 512 7 import hardware mapping;
 #X obj 323 126 cnv 15 100 22 empty empty empty 20 12 0 14 -253938 -66577
 0;
@@ -80,7 +80,7 @@
 #X obj 120 61 tgl 15 0 junk_to_hide_inlet junk_to_hide_outlet 4 5 9
 1 12 -262130 -1 -1 0 1;
 #X obj 135 61 tgl 15 0 junk_to_hide_inlet junk_to_hide_outlet 5 5 9
-1 12 -262130 -1 -1 1 1;
+1 12 -262130 -1 -1 0 1;
 #X obj 150 61 tgl 15 0 junk_to_hide_inlet junk_to_hide_outlet 6 5 9
 1 12 -262130 -1 -1 0 1;
 #X obj 165 61 tgl 15 0 junk_to_hide_inlet junk_to_hide_outlet 7 5 9
@@ -181,7 +181,7 @@
 #X text 300 301 <- argument sets port #;
 #X msg 62 109 off;
 #X obj 40 81 hradio 15 1 0 14 empty empty empty 0 -6 0 8 -176124 -1
--1 11;
+-1 0;
 #X text 148 67 7;
 #X text 42 67 0;
 #X text 189 67 10;
@@ -238,8 +238,8 @@
 #X connect 17 0 14 0;
 #X restore 41 135 pd pwm;
 #X msg 41 157 pwm 11 0;
-#X msg 328 185 info;
-#X msg 367 185 version;
+#X msg 319 175 info;
+#X msg 358 175 version;
 #X obj 230 322 spigot;
 #X text 13 6 The [arduino] object works with the Firmata firmware for
 Arduino (previously known as Pduino firmware).;
@@ -254,7 +254,7 @@ Arduino (previously known as Pduino firmware).;
 #X obj 499 87 tgl 15 0 empty empty 10 0 -6 1 12 -260818 -1 -1 0 1;
 #X obj 516 87 tgl 15 0 empty empty 11 0 -6 1 12 -260818 -1 -1 0 1;
 #X obj 533 87 tgl 15 0 empty empty 12 0 -6 1 12 -260818 -1 -1 0 1;
-#X obj 550 87 tgl 15 0 empty empty 13 0 -6 1 12 -260818 -1 -1 1 1;
+#X obj 550 87 tgl 15 0 empty empty 13 0 -6 1 12 -260818 -1 -1 0 1;
 #X text 328 54 turn on output mode for each pin (off=input);
 #X msg 329 128 pinMode 13 1;
 #N canvas 101 54 475 352 sending 0;
@@ -460,8 +460,8 @@ Arduino (previously known as Pduino firmware).;
 #X text 2 494 (C) Copyright 2006 Free Software Foundation;
 #N canvas 0 22 451 224 ver 0;
 #X obj 23 7 inlet;
-#X obj 250 100 cnv 15 145 17 empty \$0-version_cnv firmata_version_1.0
-4 10 0 12 -203904 -1 0;
+#X obj 250 100 cnv 15 145 17 empty \$0-version_cnv empty 4 10 0 12
+-203904 -1 0;
 #X obj 23 157 send \$0-version_cnv;
 #X msg 23 132 label \$1;
 #X obj 23 52 zexy/makesymbol firmata_version_%s.%s;
@@ -561,6 +561,7 @@ Arduino (previously known as Pduino firmware).;
 0;
 #X text 454 146 which analogIns to enable:;
 #X obj 230 302 arduino 1;
+#X msg 359 198 devices;
 #X connect 4 0 100 0;
 #X connect 5 0 4 0;
 #X connect 5 1 8 0;
@@ -634,3 +635,4 @@ Arduino (previously known as Pduino firmware).;
 #X connect 100 0 46 0;
 #X connect 100 0 86 0;
 #X connect 100 1 18 0;
+#X connect 101 0 100 0;

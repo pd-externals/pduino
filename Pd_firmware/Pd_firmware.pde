@@ -52,7 +52,7 @@
  * TODO: use Program Control to load stored profiles from EEPROM
  */
 
-/* cvs version: $Id: Pd_firmware.pde,v 1.31 2007-04-13 05:28:23 eighthave Exp $ */
+/* cvs version: $Id: Pd_firmware.pde,v 1.32 2007-06-27 20:59:24 eighthave Exp $ */
 
 #include <EEPROM.h>
 #include <Firmata.h>
@@ -96,7 +96,7 @@ void outputDigitalBytes(byte pin0_6, byte pin7_13) {
   for(i=2; i<TOTAL_DIGITAL_PINS; ++i) { // ignore Rx,Tx pins (0 and 1)
     mask = 1 << i;
     if( (digitalPinStatus & mask) && !(pwmStatus & mask) ) {
-      digitalWrite(i, twoBytesForPorts & mask);
+      digitalWrite(i, twoBytesForPorts & mask ? HIGH : LOW);
     } 
   }
 }
@@ -107,12 +107,12 @@ void outputDigitalBytes(byte pin0_6, byte pin7_13) {
 void checkDigitalInputs(void) {
   if(reportDigitalInputs) {
 	 previousDigitalInputs = digitalInputs;
-	 digitalInputs = _SFR_IO8(port_to_input[PB]) << 8;  // get pins 8-13
-	 digitalInputs += _SFR_IO8(port_to_input[PD]);      // get pins 0-7
+	 digitalInputs = PINB << 8;  // get pins 8-13
+	 digitalInputs += PIND;      // get pins 0-7
 	 digitalInputs = digitalInputs &~ digitalPinStatus; // ignore pins set OUTPUT
 	 if(digitalInputs != previousDigitalInputs) {
 		// TODO: implement more ports as channels for more than 16 digital pins
-		Firmata.sendDigital(0, digitalInputs); // port 0 till more are implemented
+		Firmata.sendDigitalPortPair(0, digitalInputs); // port 0 till more are implemented
 		/*		Serial.print(DIGITAL_MESSAGE,BYTE);
 		Serial.print(digitalInputs % 128, BYTE); // Tx pins 0-6
 		Serial.print(digitalInputs >> 7, BYTE);  // Tx pins 7-13*/
@@ -275,8 +275,6 @@ void pin13strobe(int count, int onInterval, int offInterval) {
 void setup() {
   byte i;
 
-  Serial.begin(57600); // 9600, 14400, 38400, 57600, 115200
-
   // flash the pin 13 with the protocol version
   pinMode(13,OUTPUT);
   pin13strobe(2,1,4); // separator, a quick burst
@@ -293,8 +291,6 @@ void setup() {
     setPinMode(i,OUTPUT);
   }
   // TODO: load state from EEPROM here
-
-  Firmata.printVersion();
 
   /* TODO: send digital inputs here, if enabled, to set the initial state on the
    * host computer, since once in the loop(), the Arduino will only send data on
