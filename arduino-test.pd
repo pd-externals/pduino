@@ -1,4 +1,4 @@
-#N canvas 41 22 647 505 10;
+#N canvas 62 22 647 505 10;
 #X obj 323 116 cnv 15 100 22 empty empty empty 20 12 0 14 -253938 -66577
 0;
 #X obj 33 145 cnv 15 70 22 empty empty empty 20 12 0 14 -253938 -66577
@@ -51,8 +51,8 @@
 #X text 158 131 serial port #;
 #X msg 221 172 close;
 #X obj 98 99 hsl 150 17 0 1 0 0 empty empty PWM_control_(0-1) -2 -6
-1 10 -225271 -1 -1 1200 0;
-#X obj 277 312 tgl 15 1 empty empty empty 0 -6 0 8 -225271 -1 -1 1
+1 10 -225271 -1 -1 0 0;
+#X obj 267 302 tgl 15 1 empty empty empty 0 -6 0 8 -225271 -1 -1 1
 1;
 #X msg 437 220 digitalIns 0 0;
 #X msg 437 165 analogIns 0 0;
@@ -115,9 +115,9 @@
 #X floatatom 160 426 5 0 0 3 a3 - -;
 #X floatatom 206 426 5 0 0 3 a4 - -;
 #X floatatom 252 426 5 0 0 3 a5 - -;
-#X text 300 291 <- argument sets port #;
+#X text 290 271 <- argument sets port #;
 #X obj 40 71 hradio 15 1 0 14 empty empty empty 0 -6 0 8 -176124 -1
--1 6;
+-1 0;
 #X text 148 57 7;
 #X text 42 57 0;
 #X text 189 57 10;
@@ -176,7 +176,7 @@
 #X msg 41 147 pwm 6 0.0805369;
 #X msg 319 155 info;
 #X msg 358 155 version;
-#X obj 230 312 spigot;
+#X obj 220 302 spigot;
 #X obj 363 77 tgl 15 1 empty empty 2 3 -6 1 12 -260818 -1 -1 1 1;
 #X obj 380 77 tgl 15 1 empty empty 3 3 -6 1 12 -260818 -1 -1 1 1;
 #X obj 397 77 tgl 15 1 empty empty 4 3 -6 1 12 -260818 -1 -1 1 1;
@@ -190,7 +190,7 @@
 #X obj 533 77 tgl 15 1 empty empty 12 0 -6 1 12 -260818 -1 -1 1 1;
 #X obj 550 77 tgl 15 1 empty empty 13 0 -6 1 12 -260818 -1 -1 1 1;
 #X text 328 44 turn on output mode for each pin (off=input);
-#X msg 329 118 pinMode 6 1;
+#X msg 329 118 pinMode 13 1;
 #N canvas 69 607 475 352 sending 0;
 #X obj 69 208 cnv 15 100 22 empty empty empty 20 12 0 14 -253938 -66577
 0;
@@ -332,7 +332,7 @@
 #X text 32 224 pulse all outputs;
 #X floatatom 298 426 5 0 0 3 a6 - -;
 #X floatatom 344 426 5 0 0 3 a7 - -;
-#X obj 230 334 route analog;
+#X obj 220 324 route analog;
 #X obj 121 369 route 0 1 2 3 4 5 6 7;
 #N canvas 0 22 499 396 display 0;
 #X obj 6 7 inlet;
@@ -417,7 +417,7 @@
 #X connect 9 1 6 0;
 #X connect 9 2 7 0;
 #X coords 0 -1 1 1 145 17 1 250 100;
-#X restore 30 311 pd ver;
+#X restore 432 325 pd ver;
 #X obj 414 393 unpack 0 0;
 #X floatatom 414 413 5 0 0 0 - - -;
 #X floatatom 471 413 5 0 0 0 - - -;
@@ -500,7 +500,7 @@
 #X obj 346 77 cnv 15 15 15 empty empty Tx 1 10 0 11 -128992 -13381
 0;
 #X text 436 128 which analogIns to enable:;
-#X obj 230 292 arduino 1;
+#X obj 220 272 arduino 1;
 #N canvas 649 518 411 212 firmware 0;
 #X obj 123 2 inlet;
 #X obj 250 100 cnv 15 145 17 empty \$0-firmware_cnv empty 4 10 0 12
@@ -529,7 +529,7 @@
 #X connect 11 0 8 0;
 #X connect 12 0 5 0;
 #X coords 0 -1 1 1 145 17 1 250 100;
-#X restore 30 331 pd firmware;
+#X restore 432 345 pd firmware;
 #X msg 358 195 devices;
 #X msg 358 175 firmware;
 #N canvas 0 22 450 300 STRING 0;
@@ -539,19 +539,6 @@
 #X connect 0 0 1 0;
 #X connect 1 0 2 0;
 #X restore 482 393 pd STRING;
-#N canvas 0 22 450 300 Marg 0;
-#X obj 139 19 inlet;
-#X obj 127 109 moocow/string2any 32 -1;
-#X obj 127 170 print STRING;
-#X obj 97 55 list split 1;
-#X obj 40 109 print COMMAND;
-#X obj 210 54 print sysex;
-#X connect 0 0 3 0;
-#X connect 0 0 5 0;
-#X connect 1 0 2 0;
-#X connect 3 0 4 0;
-#X connect 3 1 1 0;
-#X restore 547 393 pd Marg;
 #N canvas 284 22 487 372 strings 0;
 #X obj -178 287 outlet;
 #X obj -142 101 moocow/any2string;
@@ -618,20 +605,35 @@
 #X restore 437 200 pd seri;
 #X text 13 6 The [arduino] object works with the Firmata firmware for
 Arduino (also known as Pduino firmware).;
-#X obj 12 320 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
--1;
-#N canvas 77 268 404 287 device 0;
+#X obj 415 305 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#N canvas 623 75 404 287 device 0;
 #X obj 102 61 inlet;
 #X obj 102 119 route open port ports;
 #X obj 102 170 tgl 15 0 empty empty open -3 20 0 10 -262144 -1 -1 1
 1;
 #X floatatom 143 171 5 0 0 3 port - -;
 #X obj 184 171 print comport_ports;
+#X obj 319 171 outlet;
 #X connect 0 0 1 0;
 #X connect 1 0 2 0;
 #X connect 1 1 3 0;
 #X connect 1 2 4 0;
-#X restore 387 323 pd device info;
+#X connect 1 3 5 0;
+#X restore 432 303 pd device info;
+#N canvas 0 22 450 300 sysex 0;
+#X obj 139 19 inlet;
+#X obj 127 109 moocow/string2any 32 -1;
+#X obj 127 170 print STRING;
+#X obj 97 55 list split 1;
+#X obj 40 109 print COMMAND;
+#X obj 210 54 print sysex;
+#X connect 0 0 3 0;
+#X connect 0 0 5 0;
+#X connect 1 0 2 0;
+#X connect 3 0 4 0;
+#X connect 3 1 1 0;
+#X restore 547 393 pd sysex;
 #X connect 3 0 89 0;
 #X connect 4 0 3 0;
 #X connect 4 1 6 0;
@@ -663,7 +665,7 @@ Arduino (also known as Pduino firmware).;
 #X connect 53 0 89 0;
 #X connect 54 0 53 0;
 #X connect 58 0 59 0;
-#X connect 58 1 96 0;
+#X connect 58 1 95 0;
 #X connect 59 0 60 0;
 #X connect 59 1 60 1;
 #X connect 59 2 60 2;
@@ -697,14 +699,14 @@ Arduino (also known as Pduino firmware).;
 #X connect 76 1 78 0;
 #X connect 79 0 52 0;
 #X connect 89 0 38 0;
-#X connect 89 0 75 0;
-#X connect 89 1 102 0;
+#X connect 89 1 101 0;
 #X connect 91 0 89 0;
 #X connect 92 0 89 0;
-#X connect 95 0 89 0;
-#X connect 96 0 61 0;
-#X connect 96 1 76 0;
-#X connect 96 2 93 0;
-#X connect 96 3 94 0;
-#X connect 99 0 9 0;
+#X connect 94 0 89 0;
+#X connect 95 0 61 0;
+#X connect 95 1 76 0;
+#X connect 95 2 93 0;
+#X connect 95 3 102 0;
+#X connect 98 0 9 0;
+#X connect 100 0 75 0;
 #X connect 101 0 75 0;
