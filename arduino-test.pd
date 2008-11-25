@@ -131,7 +131,7 @@
 #X floatatom 252 426 5 0 0 3 a5 - -;
 #X text 290 271 <- argument sets port #;
 #X obj 40 71 hradio 15 1 0 14 empty empty empty 0 -6 0 8 -176124 -1
--1 6;
+-1 0;
 #X text 148 57 7;
 #X text 42 57 0;
 #X text 189 57 10;
@@ -187,7 +187,7 @@
 #X connect 16 0 17 0;
 #X connect 17 0 14 0;
 #X restore 41 125 pd pwm;
-#X msg 41 147 pwm 6 0;
+#X msg 41 147 pwm 0 0;
 #X msg 319 155 info;
 #X msg 358 155 version;
 #X obj 220 302 spigot;
@@ -216,11 +216,11 @@
 #X obj 550 77 tgl 15 1 empty ARDUINO_PINMODE_RESET 13 0 -6 1 12 -260818
 -1 -1 1 1;
 #X text 328 44 turn on output mode for each pin (off=input);
-#X msg 329 118 pinMode 2 1;
-#N canvas 69 607 475 352 sending 0;
+#X msg 329 118 pinMode 13 1;
+#N canvas 108 55 475 478 sending 0;
 #X obj 69 208 cnv 15 100 22 empty empty empty 20 12 0 14 -253938 -66577
 0;
-#X obj 78 264 outlet;
+#X obj 78 434 outlet;
 #X msg 78 211 digital 2 0;
 #X obj 197 148 tgl 15 0 empty empty 7 4 -6 1 12 -233017 -1 -1 0 1;
 #X obj 214 148 tgl 15 0 empty empty 8 4 -6 1 12 -233017 -1 -1 0 1;
@@ -319,6 +319,20 @@
 #X obj 261 43 trigger 0 float;
 #X obj 261 64 select 0;
 #X msg 261 84 0;
+#X msg 405 389 port 1 0;
+#X msg 263 389 port 0 0;
+#X msg 189 389 port 0 255;
+#X msg 331 389 port 1 255;
+#X text 95 291 or send 8-bit ports in one message:;
+#X msg 159 338 port 1 \$1;
+#X msg 91 338 port 0 \$1;
+#X msg 230 338 port 2 \$1;
+#X obj 362 297 tgl 25 0 empty ARDUINO_TEST_RESET ALL 2 12 0 12 -262144
+-1 -1 255 255;
+#X obj 362 246 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0
+16383;
+#X obj 362 266 metro 100;
+#X floatatom 362 329 5 0 0 0 - - -;
 #X connect 2 0 1 0;
 #X connect 3 0 15 7;
 #X connect 4 0 15 8;
@@ -352,6 +366,19 @@
 #X connect 24 1 17 0;
 #X connect 25 0 26 0;
 #X connect 26 0 16 0;
+#X connect 27 0 1 0;
+#X connect 28 0 1 0;
+#X connect 29 0 1 0;
+#X connect 30 0 1 0;
+#X connect 32 0 1 0;
+#X connect 33 0 1 0;
+#X connect 34 0 1 0;
+#X connect 35 0 38 0;
+#X connect 35 0 34 0;
+#X connect 35 0 32 0;
+#X connect 35 0 33 0;
+#X connect 36 0 37 0;
+#X connect 37 0 35 0;
 #X restore 14 244 pd sending digital outs;
 #X obj 14 225 tgl 15 0 empty empty empty 0 -6 0 8 -225271 -1 -1 0 16383
 ;

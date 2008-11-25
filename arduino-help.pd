@@ -1,4 +1,5 @@
-#N canvas 80 22 674 563 10;
+#N canvas 89 22 674 563 10;
+#X declare -lib flatspace;
 #X obj 558 10 import flatspace;
 #N canvas 233 472 466 316 INSTALL-NOTES 0;
 #X text 39 201 [comport] \, from pd-cvs/externals/iem/comport;
@@ -21,7 +22,7 @@ board !;
 #X msg 58 189 close;
 #X msg 58 234 info;
 #X text 11 149 select/close the serial port:;
-#N canvas 248 49 442 351 DIGITAL-OUTPUT 0;
+#N canvas 248 49 447 555 DIGITAL-OUTPUT 0;
 #X text 72 97 I/O the individual pins:;
 #X text 20 22 NOTE: don't forget to set pins to output mode first!
 ;
@@ -122,6 +123,15 @@ board !;
 0;
 #X obj 66 134 cnv 15 15 15 empty empty Tx 1 10 0 11 -128992 -13381
 0;
+#X obj 49 510 send \$0-arduino;
+#X text 38 311 You can also send digital messages 8-bits at a time
+\, called a "port". Microcontrollers like the Arduino are organized
+around 8-bit ports. This allows you to set 8 pins at the same time
+with one message;
+#X msg 267 392 port 1 0;
+#X msg 123 391 port 0 0;
+#X msg 49 391 port 0 255;
+#X msg 193 392 port 1 255;
 #X connect 3 0 20 0;
 #X connect 4 0 16 7;
 #X connect 5 0 16 8;
@@ -150,6 +160,10 @@ board !;
 #X connect 17 0 11 0;
 #X connect 18 0 19 0;
 #X connect 19 0 17 0;
+#X connect 29 0 27 0;
+#X connect 30 0 27 0;
+#X connect 31 0 27 0;
+#X connect 32 0 27 0;
 #X restore 61 428 pd DIGITAL-OUTPUT;
 #N canvas 494 94 578 280 DIGITAL-INPUT 0;
 #X obj 114 67 r \$0-arduino-out;
@@ -448,7 +462,7 @@ Holzmann;
 ;
 #X obj 499 185 tgl 15 0 empty empty 12 0 -6 1 12 -260818 -1 -1 0 1
 ;
-#X obj 516 185 tgl 15 0 empty empty 13 0 -6 1 12 -260818 -1 -1 1 1
+#X obj 516 185 tgl 15 0 empty empty 13 0 -6 1 12 -260818 -1 -1 0 1
 ;
 #X msg 295 226 pinMode 13 1;
 #N canvas 163 104 696 323 send-to-arduino------------------- 0;
