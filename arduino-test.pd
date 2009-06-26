@@ -1,4 +1,4 @@
-#N canvas 59 22 647 505 10;
+#N canvas 201 41 647 505 10;
 #X obj 323 116 cnv 15 100 22 empty empty empty 20 12 0 14 -253938 -66577
 0;
 #X obj 33 145 cnv 15 70 22 empty empty empty 20 12 0 14 -253938 -66577
@@ -69,13 +69,13 @@
 #X obj 267 302 tgl 15 1 empty empty empty 0 -6 0 8 -225271 -1 -1 1
 1;
 #X msg 437 220 digitalIns 0 0;
-#X msg 437 165 analogIns 0 0;
+#X msg 437 165 analogIns 0 1;
 #N canvas 162 133 610 460 serin 0;
 #X obj 59 337 outlet;
 #X obj 59 266 trigger bang anything;
 #X obj 201 286 list;
 #X obj 60 61 tgl 15 0 junk_to_hide_inlet ARDUINO_TEST_RESET 0 5 9 1
-12 -262130 -1 -1 0 1;
+12 -262130 -1 -1 1 1;
 #X obj 75 61 tgl 15 0 junk_to_hide_inlet ARDUINO_TEST_RESET 1 5 9 1
 12 -262130 -1 -1 0 1;
 #X obj 90 61 tgl 15 0 junk_to_hide_inlet ARDUINO_TEST_RESET 2 5 9 1
@@ -328,7 +328,7 @@
 #X msg 91 338 port 0 \$1;
 #X msg 230 338 port 2 \$1;
 #X obj 362 297 tgl 25 0 empty ARDUINO_TEST_RESET ALL 2 12 0 12 -262144
--1 -1 255 255;
+-1 -1 0 255;
 #X obj 362 246 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0
 16383;
 #X obj 362 266 metro 100;
@@ -466,8 +466,8 @@
 #X text 2 484 (C) Copyright 2006 Free Software Foundation;
 #N canvas 0 22 451 224 ver 0;
 #X obj 23 7 inlet;
-#X obj 250 100 cnv 15 145 17 empty \$0-version_cnv empty 4 10 0 12
--203904 -1 0;
+#X obj 250 100 cnv 15 145 17 empty \$0-version_cnv Firmata-2.1 4 10
+0 12 -203904 -1 0;
 #X obj 23 157 send \$0-version_cnv;
 #X msg 23 132 label \$1;
 #X obj 48 103 symbol;
@@ -609,7 +609,7 @@
 #X connect 0 0 1 0;
 #X connect 1 0 2 0;
 #X restore 482 393 pd STRING;
-#N canvas 284 22 487 372 strings 0;
+#N canvas 205 22 593 390 strings 0;
 #X obj -178 287 outlet;
 #X obj -142 101 moocow/any2string;
 #X symbolatom -92 48 10 0 0 0 - - -;
@@ -626,6 +626,10 @@
 #X msg -310 41 TEST;
 #X obj -313 153 cyclone/prepend sysex;
 #X obj -313 131 cyclone/prepend 40;
+#X msg 66 117 samplingInterval \$1;
+#X obj 69 93 hsl 128 15 0 127 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 2000 1;
+#X floatatom 27 117 5 0 0 0 - - -;
 #X connect 1 0 7 0;
 #X connect 2 0 4 0;
 #X connect 4 0 1 0;
@@ -641,6 +645,9 @@
 #X connect 14 0 0 0;
 #X connect 14 0 10 0;
 #X connect 15 0 14 0;
+#X connect 16 0 0 0;
+#X connect 17 0 16 0;
+#X connect 17 0 18 0;
 #X restore 437 242 pd strings and special messages;
 #X obj 397 369 route digital version string sysex;
 #X text 397 483 released under the GNU GPL v2 or later;
