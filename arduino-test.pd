@@ -1,7 +1,7 @@
-#N canvas 168 22 647 505 10;
+#N canvas 108 22 647 505 10;
 #X obj 313 116 cnv 15 100 22 empty empty empty 20 12 0 14 -253938 -66577
 0;
-#X obj 33 145 cnv 15 70 22 empty empty empty 20 12 0 14 -253938 -66577
+#X obj 23 145 cnv 15 85 22 empty empty empty 20 12 0 14 -253938 -66577
 0;
 #X obj 155 170 cnv 15 60 22 empty empty empty 20 12 0 14 -253938 -66577
 0;
@@ -64,18 +64,18 @@
 #X restore 161 149 pd serin;
 #X text 158 131 serial port #;
 #X msg 221 172 close;
-#X obj 98 99 hsl 150 17 0 1 0 0 empty ARDUINO_TEST_RESET analog_output_(0-1)
--2 -5 1 10 -225271 -1 -1 0 0;
+#X obj 85 104 hsl 150 17 0 1 0 0 empty ARDUINO_TEST_RESET analog_output_(0-1)
+20 9 1 10 -225271 -1 -1 0 0;
 #X obj 267 302 tgl 15 1 empty empty empty 0 -6 0 8 -225271 -1 -1 1
 1;
-#X msg 437 220 digitalIns 2 0;
-#X msg 437 165 analogIns 0 1;
+#X msg 437 220 digitalIns 0 0;
+#X msg 437 165 analogIns 0 0;
 #N canvas 162 133 610 460 serin 0;
 #X obj 59 337 outlet;
 #X obj 59 266 trigger bang anything;
 #X obj 201 286 list;
 #X obj 60 61 tgl 15 0 junk_to_hide_inlet ARDUINO_TEST_RESET 0 5 9 1
-12 -262130 -1 -1 1 1;
+12 -262130 -1 -1 0 1;
 #X obj 75 61 tgl 15 0 junk_to_hide_inlet ARDUINO_TEST_RESET 1 5 9 1
 12 -262130 -1 -1 0 1;
 #X obj 90 61 tgl 15 0 junk_to_hide_inlet ARDUINO_TEST_RESET 2 5 9 1
@@ -130,27 +130,27 @@
 #X floatatom 206 426 5 0 0 3 a4 - -;
 #X floatatom 252 426 5 0 0 3 a5 - -;
 #X text 290 271 <- argument sets port #;
-#X obj 40 71 hradio 15 1 0 14 empty empty empty 0 -6 0 8 -176124 -1
+#X obj 30 66 hradio 15 1 0 14 empty empty empty 0 -6 0 8 -176124 -1
 -1 0;
-#X text 148 57 7;
-#X text 42 57 0;
-#X text 189 57 10;
-#X text 235 57 13;
-#X text 102 57 4;
-#X text 71 57 2;
-#X text 116 57 5;
-#X text 131 57 6;
-#X text 87 57 3;
-#X text 162 57 8;
-#X text 179 57 9;
-#X text 205 57 11;
-#X text 220 57 12;
-#X text 57 57 1;
-#X msg 41 147 analog 0 0;
+#X text 139 52 7;
+#X text 32 52 0;
+#X text 180 52 10;
+#X text 226 52 13;
+#X text 91 52 4;
+#X text 61 52 2;
+#X text 107 52 5;
+#X text 122 52 6;
+#X text 77 52 3;
+#X text 153 52 8;
+#X text 170 52 9;
+#X text 196 52 11;
+#X text 211 52 12;
+#X text 47 52 1;
+#X msg 31 147 analog 0 0;
 #X msg 319 155 info;
 #X msg 358 155 version;
 #X obj 220 302 spigot;
-#X msg 319 118 pinMode 14 0;
+#X msg 319 118 pinMode 10 3;
 #N canvas 67 22 475 478 sending 0;
 #X obj 69 228 cnv 15 100 22 empty empty empty 20 12 0 14 -253938 -66577
 0;
@@ -481,8 +481,8 @@
 #X text 2 484 (C) Copyright 2006 Free Software Foundation;
 #N canvas 0 22 451 224 ver 0;
 #X obj 23 7 inlet;
-#X obj 250 100 cnv 15 145 17 empty \$0-version_cnv Firmata-2.1 4 10
-0 12 -203904 -1 0;
+#X obj 250 100 cnv 15 145 17 empty \$0-version_cnv empty 4 10 0 12
+-203904 -1 0;
 #X obj 23 157 send \$0-version_cnv;
 #X msg 23 132 label \$1;
 #X obj 48 103 symbol;
@@ -687,9 +687,9 @@ Arduino (also known as Pduino firmware).;
 #X obj 242 100 vradio 10 1 0 5 THIS_HIDES_THE_OUTLET THIS_HIDES_THE_INLET
 14 0 -8 0 8 -261682 -1 -1 0;
 #X obj 252 100 vradio 10 1 0 5 THIS_HIDES_THE_OUTLET THIS_HIDES_THE_INLET
-15 0 -8 0 8 -261682 -1 -1 1;
+15 0 -8 0 8 -261682 -1 -1 0;
 #X obj 262 100 vradio 10 1 0 5 THIS_HIDES_THE_OUTLET THIS_HIDES_THE_INLET
-16 0 -8 0 8 -261682 -1 -1 1;
+16 0 -8 0 8 -261682 -1 -1 0;
 #X obj 272 100 vradio 10 1 0 5 THIS_HIDES_THE_OUTLET THIS_HIDES_THE_INLET
 17 0 -8 0 8 -261682 -1 -1 0;
 #X obj 282 100 vradio 10 1 0 5 THIS_HIDES_THE_OUTLET THIS_HIDES_THE_INLET
@@ -884,7 +884,8 @@ Arduino (also known as Pduino firmware).;
 #X connect 15 0 16 0;
 #X connect 16 0 13 0;
 #X connect 17 0 14 0;
-#X restore 41 125 pd analog;
+#X restore 31 125 pd analog;
+#X text 34 84 (switch pin to PWM or servo first);
 #X connect 3 0 70 0;
 #X connect 4 0 3 0;
 #X connect 4 1 6 0;
