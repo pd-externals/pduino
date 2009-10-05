@@ -28,6 +28,9 @@ cp -a ${FIRMATA_DIR}.zip ${PDUINO_DIR}.zip ~/code/works/pd/
 cd ~/code/works/pd
 cvs add ${FIRMATA_DIR}.zip ${PDUINO_DIR}.zip
 
+# change the versions in the HTML
+sed -i "s|Firmata-[0-9][.0-9A-Za-z_-]*\.zip|${FIRMATA_DIR}.zip|g" objects.html
+sed -i "s|Pduino-[0-9][.0-9A-Za-z_-]*\.zip|${PDUINO_DIR}.zip|g" objects.html
 
 
 
