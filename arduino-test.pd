@@ -1,4 +1,4 @@
-#N canvas 108 22 647 505 10;
+#N canvas 330 22 647 505 10;
 #X obj 313 116 cnv 15 100 22 empty empty empty 20 12 0 14 -253938 -66577
 0;
 #X obj 23 145 cnv 15 85 22 empty empty empty 20 12 0 14 -253938 -66577
@@ -150,7 +150,7 @@
 #X msg 319 155 info;
 #X msg 358 155 version;
 #X obj 220 302 spigot;
-#X msg 319 118 pinMode 10 3;
+#X msg 319 118 pinMode 23 2;
 #N canvas 67 22 475 478 sending 0;
 #X obj 69 228 cnv 15 100 22 empty empty empty 20 12 0 14 -253938 -66577
 0;
@@ -481,8 +481,8 @@
 #X text 2 484 (C) Copyright 2006 Free Software Foundation;
 #N canvas 0 22 451 224 ver 0;
 #X obj 23 7 inlet;
-#X obj 250 100 cnv 15 145 17 empty \$0-version_cnv empty 4 10 0 12
--203904 -1 0;
+#X obj 250 100 cnv 15 145 17 empty \$0-version_cnv Firmata-2.1 4 10
+0 12 -203904 -1 0;
 #X obj 23 157 send \$0-version_cnv;
 #X msg 23 132 label \$1;
 #X obj 48 103 symbol;
@@ -516,8 +516,8 @@
 #X obj 220 272 arduino 1;
 #N canvas 649 518 411 212 firmware 0;
 #X obj 123 2 inlet;
-#X obj 250 100 cnv 15 145 17 empty \$0-firmware_cnv empty 4 10 0 12
--232576 -66577 0;
+#X obj 250 100 cnv 15 145 17 empty \$0-firmware_cnv StandardFirmata-2.1
+4 10 0 12 -232576 -66577 0;
 #X msg 123 156 label \$1;
 #X obj 148 127 symbol;
 #X obj 138 101 loadbang;
@@ -658,7 +658,7 @@ Arduino (also known as Pduino firmware).;
 #X restore 547 393 pd sysex;
 #X text 489 295 <- open to see info;
 #X text 371 13 turn on output mode for each pin:;
-#N canvas 227 262 446 317 pinMode 0;
+#N canvas 395 421 446 317 pinMode 0;
 #X obj 92 267 outlet;
 #X obj 122 100 vradio 10 1 0 5 THIS_HIDES_THE_OUTLET THIS_HIDES_THE_INLET
 2 2 -8 0 10 -261682 -1 -1 0;
@@ -684,22 +684,22 @@ Arduino (also known as Pduino firmware).;
 12 0 -8 0 8 -261682 -1 -1 0;
 #X obj 232 100 vradio 10 1 0 5 THIS_HIDES_THE_OUTLET THIS_HIDES_THE_INLET
 13 0 -8 0 8 -261682 -1 -1 0;
-#X obj 242 100 vradio 10 1 0 5 THIS_HIDES_THE_OUTLET THIS_HIDES_THE_INLET
-14 0 -8 0 8 -261682 -1 -1 0;
-#X obj 252 100 vradio 10 1 0 5 THIS_HIDES_THE_OUTLET THIS_HIDES_THE_INLET
-15 0 -8 0 8 -261682 -1 -1 0;
-#X obj 262 100 vradio 10 1 0 5 THIS_HIDES_THE_OUTLET THIS_HIDES_THE_INLET
-16 0 -8 0 8 -261682 -1 -1 0;
-#X obj 272 100 vradio 10 1 0 5 THIS_HIDES_THE_OUTLET THIS_HIDES_THE_INLET
-17 0 -8 0 8 -261682 -1 -1 0;
-#X obj 282 100 vradio 10 1 0 5 THIS_HIDES_THE_OUTLET THIS_HIDES_THE_INLET
-18 0 -8 0 8 -261682 -1 -1 0;
-#X obj 292 100 vradio 10 1 0 5 THIS_HIDES_THE_OUTLET THIS_HIDES_THE_INLET
-19 0 -8 0 8 -261682 -1 -1 0;
-#X obj 302 100 vradio 10 1 0 5 THIS_HIDES_THE_OUTLET THIS_HIDES_THE_INLET
-20 0 -8 0 8 -261682 -1 -1 0;
-#X obj 312 100 vradio 10 1 0 5 THIS_HIDES_THE_OUTLET THIS_HIDES_THE_INLET
-21 0 -8 0 8 -261682 -1 -1 0;
+#X obj 242 100 vradio 10 1 1 5 THIS_HIDES_THE_OUTLET THIS_HIDES_THE_INLET
+14 0 -8 0 8 -261682 -1 -1 2;
+#X obj 252 100 vradio 10 1 1 5 THIS_HIDES_THE_OUTLET THIS_HIDES_THE_INLET
+15 0 -8 0 8 -261682 -1 -1 2;
+#X obj 262 100 vradio 10 1 1 5 THIS_HIDES_THE_OUTLET THIS_HIDES_THE_INLET
+16 0 -8 0 8 -261682 -1 -1 2;
+#X obj 272 100 vradio 10 1 1 5 THIS_HIDES_THE_OUTLET THIS_HIDES_THE_INLET
+17 0 -8 0 8 -261682 -1 -1 2;
+#X obj 282 100 vradio 10 1 1 5 THIS_HIDES_THE_OUTLET THIS_HIDES_THE_INLET
+18 0 -8 0 8 -261682 -1 -1 2;
+#X obj 292 100 vradio 10 1 1 5 THIS_HIDES_THE_OUTLET THIS_HIDES_THE_INLET
+19 0 -8 0 8 -261682 -1 -1 2;
+#X obj 302 100 vradio 10 1 1 5 THIS_HIDES_THE_OUTLET THIS_HIDES_THE_INLET
+20 0 -8 0 8 -261682 -1 -1 2;
+#X obj 312 100 vradio 10 1 1 5 THIS_HIDES_THE_OUTLET THIS_HIDES_THE_INLET
+21 0 -8 0 8 -261682 -1 -1 2;
 #N canvas 59 587 1064 355 send-to-arduino---------------------- 0;
 #X obj 49 24 inlet;
 #X obj 89 24 inlet;
@@ -806,10 +806,10 @@ Arduino (also known as Pduino firmware).;
 #X connect 50 0 30 0;
 #X connect 51 0 30 0;
 #X restore 94 179 pd send-to-arduino----------------------;
-#X obj 322 100 vradio 10 1 0 5 THIS_HIDES_THE_OUTLET THIS_HIDES_THE_INLET
-22 0 -8 0 8 -261682 -1 -1 0;
-#X obj 332 100 vradio 10 1 0 5 THIS_HIDES_THE_OUTLET THIS_HIDES_THE_INLET
-23 0 -8 0 8 -261682 -1 -1 0;
+#X obj 322 100 vradio 10 1 1 5 THIS_HIDES_THE_OUTLET THIS_HIDES_THE_INLET
+22 0 -8 0 8 -261682 -1 -1 2;
+#X obj 332 100 vradio 10 1 1 5 THIS_HIDES_THE_OUTLET THIS_HIDES_THE_INLET
+23 0 -8 0 8 -261682 -1 -1 2;
 #X obj 100 100 cnv 10 10 50 empty empty Rx 0 23 0 10 -191407 -86277
 0;
 #X obj 111 100 cnv 10 10 50 empty empty Tx 0 23 0 10 -191407 -13381
