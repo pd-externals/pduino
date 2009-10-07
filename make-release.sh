@@ -6,13 +6,17 @@ FIRMATA_VERSION=$2
 PDUINO_DIR=Pduino-${PDUINO_VERSION}
 FIRMATA_DIR=Firmata-${FIRMATA_VERSION}
 
-cd /tmp
-mkdir pduino-release
-cd pduino-release
+mkdir /tmp/pduino-release
+cd /tmp/pduino-release
 svn co https://pure-data.svn.sourceforge.net/svnroot/pure-data/trunk/externals/hardware/arduino $PDUINO_DIR
 
 cd $PDUINO_DIR
+/sw/bin/svn2cl
 svn co https://firmata.svn.sourceforge.net/svnroot/firmata/arduino/trunk $FIRMATA_DIR
+
+cd $FIRMATA_DIR
+/sw/bin/svn2cl
+cd ..
 
 #remove cruft
 find . -name .DS_Store -delete
