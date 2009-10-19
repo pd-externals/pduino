@@ -1,5 +1,10 @@
 #!/bin/sh
 
+if [ $# -ne 2 ]; then
+    echo "Usage: $0 PDUINO_VERSION FIRMATA_VERSION"
+    exit
+fi
+
 PDUINO_VERSION=$1
 FIRMATA_VERSION=$2
 
