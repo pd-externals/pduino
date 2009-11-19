@@ -374,13 +374,9 @@ Holzmann;
 #X connect 7 1 4 0;
 #X restore 73 501 pd GETTING-INFO;
 #X text 191 502 <- example of getting status data;
-#N canvas 406 137 471 273 SWITCHING-INPUTS 0;
-#X obj 140 155 send \$0-arduino;
-#X obj 265 60 tgl 15 1 empty empty empty 0 -6 0 8 -257472 -1 -1 0 1
-;
-#X text 288 59 enable/disable digitalIns;
-#X msg 265 78 digitalIns \$1;
-#X msg 25 83 analogIns 0 0;
+#N canvas 477 400 471 273 SWITCHING-INPUTS 0;
+#X obj 140 195 send \$0-arduino;
+#X msg 25 123 analogIns 0 0;
 #N canvas 162 133 610 460 serin 0;
 #X obj 59 337 outlet;
 #X obj 59 266 trigger bang anything;
@@ -433,12 +429,45 @@ Holzmann;
 #X connect 19 0 11 0;
 #X connect 20 0 0 0;
 #X coords 0 -1 1 1 120 16 1 60 60;
-#X restore 25 63 pd serin;
-#X text 24 46 which analogIns to enable:;
-#X connect 1 0 3 0;
-#X connect 3 0 0 0;
+#X restore 25 103 pd serin;
+#X text 24 86 which analogIns to enable:;
+#X msg 234 128 digitalIns 0 0;
+#X text 233 91 which digital ports to enable:;
+#N canvas 162 133 610 460 seri 0;
+#X obj 59 337 outlet;
+#X obj 59 266 trigger bang anything;
+#X obj 201 286 list;
+#X obj 60 61 tgl 15 0 junk_to_hide_inlet ARDUINO_TEST_RESET 0 5 9 1
+12 -260736 -1 -1 0 1;
+#X obj 75 61 tgl 15 0 junk_to_hide_inlet ARDUINO_TEST_RESET 1 5 9 1
+12 -260736 -1 -1 0 1;
+#X obj 90 61 tgl 15 0 junk_to_hide_inlet ARDUINO_TEST_RESET 2 5 9 1
+12 -260736 -1 -1 0 1;
+#X msg 35 106 0 \$1;
+#X msg 70 106 1 \$1;
+#X msg 105 106 2 \$1;
+#X msg 202 307 set \$1 \$2 \$3;
+#X msg 59 210 digitalIns \$1 \$2;
+#X connect 1 0 0 0;
+#X connect 1 1 2 0;
+#X connect 2 0 9 0;
+#X connect 3 0 6 0;
+#X connect 4 0 7 0;
+#X connect 5 0 8 0;
+#X connect 6 0 10 0;
+#X connect 7 0 10 0;
+#X connect 8 0 10 0;
+#X connect 9 0 0 0;
+#X connect 10 0 1 0;
+#X coords 0 -1 1 1 45 16 1 60 60;
+#X restore 234 108 pd seri;
+#X text 23 15 Currently \, you have to tell StandardFirmata to send
+you data from the inputs. For analog \, its controlled per-pin. For
+digital it is controller per 8-pin "port".;
+#X connect 1 0 0 0;
+#X connect 2 0 1 0;
 #X connect 4 0 0 0;
-#X connect 5 0 4 0;
+#X connect 6 0 4 0;
 #X restore 49 526 pd SWITCHING-INPUTS;
 #X text 191 526 <- example of switching inputs on and off;
 #X msg 394 283 digital 13 \$1;
