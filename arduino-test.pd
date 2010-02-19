@@ -1,4 +1,4 @@
-#N canvas 330 22 647 505 10;
+#N canvas 152 22 647 505 10;
 #X obj 313 116 cnv 15 100 22 empty empty empty 20 12 0 14 -253938 -66577
 0;
 #X obj 23 145 cnv 15 85 22 empty empty empty 20 12 0 14 -253938 -66577
@@ -150,12 +150,12 @@
 #X msg 319 155 info;
 #X msg 358 155 version;
 #X obj 220 302 spigot;
-#X msg 319 118 pinMode 23 2;
+#X msg 319 118 pinMode 23 1;
 #N canvas 67 22 475 478 sending 0;
 #X obj 69 228 cnv 15 100 22 empty empty empty 20 12 0 14 -253938 -66577
 0;
 #X obj 78 434 outlet;
-#X msg 78 231 digital 22 0;
+#X msg 78 231 digital 0 0;
 #X obj 127 148 tgl 15 0 empty empty 7 4 -6 1 12 -233017 -1 -1 0 1;
 #X obj 144 148 tgl 15 0 empty empty 8 4 -6 1 12 -233017 -1 -1 0 1;
 #X obj 161 148 tgl 15 0 empty empty 9 4 -6 1 12 -233017 -1 -1 0 1;
@@ -178,12 +178,6 @@
 ;
 #X obj 388 92 metro 100;
 #X obj 301 9 inlet;
-#X obj 8 148 tgl 15 0 empty empty 0 3 -6 1 12 -260818 -1 -1 0 1;
-#X obj 25 148 tgl 15 0 empty empty 1 3 -6 1 12 -260818 -1 -1 0 1;
-#X obj 8 148 cnv 15 15 15 empty empty Rx 1 10 0 11 -128992 -86277 0
-;
-#X obj 25 148 cnv 15 15 15 empty empty Tx 1 10 0 11 -128992 -13381
-0;
 #X obj 301 43 trigger 0 float;
 #X obj 301 64 select 0;
 #X msg 301 84 0;
@@ -196,7 +190,7 @@
 #X msg 91 338 port 0 \$1;
 #X msg 230 338 port 2 \$1;
 #X obj 362 297 tgl 25 0 empty ARDUINO_TEST_RESET ALL 2 12 0 12 -262144
--1 -1 0 255;
+-1 -1 255 255;
 #X obj 362 246 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0
 16383;
 #X obj 362 266 metro 100;
@@ -328,19 +322,21 @@
 ;
 #X obj 399 148 tgl 15 0 empty empty 23 0 -6 1 12 -233017 -1 -1 0 1
 ;
+#X obj 8 148 tgl 15 0 empty empty 0 4 -6 1 12 -233017 -1 -1 0 1;
+#X obj 25 148 tgl 15 0 empty empty 1 4 -6 1 12 -233017 -1 -1 0 1;
 #X connect 2 0 1 0;
-#X connect 3 0 46 7;
-#X connect 4 0 46 8;
-#X connect 5 0 46 9;
-#X connect 6 0 46 10;
-#X connect 7 0 46 11;
-#X connect 8 0 46 12;
-#X connect 9 0 46 13;
-#X connect 10 0 46 2;
-#X connect 11 0 46 3;
-#X connect 12 0 46 4;
-#X connect 13 0 46 5;
-#X connect 14 0 46 6;
+#X connect 3 0 42 7;
+#X connect 4 0 42 8;
+#X connect 5 0 42 9;
+#X connect 6 0 42 10;
+#X connect 7 0 42 11;
+#X connect 8 0 42 12;
+#X connect 9 0 42 13;
+#X connect 10 0 42 2;
+#X connect 11 0 42 3;
+#X connect 12 0 42 4;
+#X connect 13 0 42 5;
+#X connect 14 0 42 6;
 #X connect 15 0 9 0;
 #X connect 15 0 8 0;
 #X connect 15 0 7 0;
@@ -353,47 +349,51 @@
 #X connect 15 0 12 0;
 #X connect 15 0 11 0;
 #X connect 15 0 10 0;
-#X connect 15 0 43 0;
-#X connect 15 0 44 0;
-#X connect 15 0 45 0;
-#X connect 15 0 42 0;
-#X connect 15 0 41 0;
-#X connect 15 0 40 0;
 #X connect 15 0 39 0;
+#X connect 15 0 40 0;
+#X connect 15 0 41 0;
 #X connect 15 0 38 0;
-#X connect 15 0 48 0;
-#X connect 15 0 47 0;
+#X connect 15 0 37 0;
+#X connect 15 0 36 0;
+#X connect 15 0 35 0;
+#X connect 15 0 34 0;
+#X connect 15 0 44 0;
+#X connect 15 0 43 0;
+#X connect 15 0 46 0;
+#X connect 15 0 45 0;
 #X connect 16 0 17 0;
 #X connect 17 0 15 0;
-#X connect 18 0 23 0;
-#X connect 23 0 24 0;
-#X connect 23 1 16 0;
-#X connect 24 0 25 0;
-#X connect 25 0 15 0;
-#X connect 26 0 1 0;
+#X connect 18 0 19 0;
+#X connect 19 0 20 0;
+#X connect 19 1 16 0;
+#X connect 20 0 21 0;
+#X connect 21 0 15 0;
+#X connect 22 0 1 0;
+#X connect 23 0 1 0;
+#X connect 24 0 1 0;
+#X connect 25 0 1 0;
 #X connect 27 0 1 0;
 #X connect 28 0 1 0;
 #X connect 29 0 1 0;
-#X connect 31 0 1 0;
-#X connect 32 0 1 0;
-#X connect 33 0 1 0;
-#X connect 34 0 37 0;
-#X connect 34 0 33 0;
-#X connect 34 0 31 0;
-#X connect 34 0 32 0;
-#X connect 35 0 36 0;
-#X connect 36 0 34 0;
-#X connect 38 0 46 14;
-#X connect 39 0 46 15;
-#X connect 40 0 46 16;
-#X connect 41 0 46 17;
-#X connect 42 0 46 18;
-#X connect 43 0 46 19;
-#X connect 44 0 46 20;
-#X connect 45 0 46 21;
-#X connect 46 0 2 0;
-#X connect 47 0 46 22;
-#X connect 48 0 46 23;
+#X connect 30 0 33 0;
+#X connect 30 0 29 0;
+#X connect 30 0 27 0;
+#X connect 30 0 28 0;
+#X connect 31 0 32 0;
+#X connect 32 0 30 0;
+#X connect 34 0 42 14;
+#X connect 35 0 42 15;
+#X connect 36 0 42 16;
+#X connect 37 0 42 17;
+#X connect 38 0 42 18;
+#X connect 39 0 42 19;
+#X connect 40 0 42 20;
+#X connect 41 0 42 21;
+#X connect 42 0 2 0;
+#X connect 43 0 42 22;
+#X connect 44 0 42 23;
+#X connect 45 0 42 0;
+#X connect 46 0 42 1;
 #X restore 14 244 pd sending digital outs;
 #X obj 14 225 tgl 15 0 empty empty empty 0 -6 0 8 -225271 -1 -1 0 16383
 ;
@@ -481,8 +481,8 @@
 #X text 2 484 (C) Copyright 2006 Free Software Foundation;
 #N canvas 0 22 451 224 ver 0;
 #X obj 23 7 inlet;
-#X obj 250 100 cnv 15 145 17 empty \$0-version_cnv Firmata-2.1 4 10
-0 12 -203904 -1 0;
+#X obj 250 100 cnv 15 145 17 empty \$0-version_cnv empty 4 10 0 12
+-203904 -1 0;
 #X obj 23 157 send \$0-version_cnv;
 #X msg 23 132 label \$1;
 #X obj 48 103 symbol;
@@ -506,18 +506,12 @@
 #X obj 414 393 unpack 0 0;
 #X floatatom 414 413 5 0 0 0 - - -;
 #X floatatom 471 413 5 0 0 0 - - -;
-#X obj 394 455 tgl 15 0 empty empty 0 4 23 1 12 -232448 -1 -1 0 1;
-#X obj 411 455 tgl 15 0 empty empty 1 4 23 1 12 -232448 -1 -1 0 1;
-#X obj 394 455 cnv 15 15 15 empty empty Rx 1 10 0 11 -128992 -86277
-0;
-#X obj 411 455 cnv 15 15 15 empty empty Tx 1 10 0 11 -128992 -13381
-0;
 #X text 436 128 which analogIns to enable:;
 #X obj 220 272 arduino 1;
 #N canvas 649 518 411 212 firmware 0;
 #X obj 123 2 inlet;
-#X obj 250 100 cnv 15 145 17 empty \$0-firmware_cnv StandardFirmata-2.1
-4 10 0 12 -232576 -66577 0;
+#X obj 250 100 cnv 15 145 17 empty \$0-firmware_cnv empty 4 10 0 12
+-232576 -66577 0;
 #X msg 123 156 label \$1;
 #X obj 148 127 symbol;
 #X obj 138 101 loadbang;
@@ -685,21 +679,21 @@ Arduino (also known as Pduino firmware).;
 #X obj 232 100 vradio 10 1 0 5 THIS_HIDES_THE_OUTLET THIS_HIDES_THE_INLET
 13 0 -8 0 8 -261682 -1 -1 0;
 #X obj 242 100 vradio 10 1 1 5 THIS_HIDES_THE_OUTLET THIS_HIDES_THE_INLET
-14 0 -8 0 8 -261682 -1 -1 2;
+14 0 -8 0 8 -261682 -1 -1 1;
 #X obj 252 100 vradio 10 1 1 5 THIS_HIDES_THE_OUTLET THIS_HIDES_THE_INLET
-15 0 -8 0 8 -261682 -1 -1 2;
+15 0 -8 0 8 -261682 -1 -1 1;
 #X obj 262 100 vradio 10 1 1 5 THIS_HIDES_THE_OUTLET THIS_HIDES_THE_INLET
-16 0 -8 0 8 -261682 -1 -1 2;
+16 0 -8 0 8 -261682 -1 -1 1;
 #X obj 272 100 vradio 10 1 1 5 THIS_HIDES_THE_OUTLET THIS_HIDES_THE_INLET
-17 0 -8 0 8 -261682 -1 -1 2;
+17 0 -8 0 8 -261682 -1 -1 1;
 #X obj 282 100 vradio 10 1 1 5 THIS_HIDES_THE_OUTLET THIS_HIDES_THE_INLET
-18 0 -8 0 8 -261682 -1 -1 2;
+18 0 -8 0 8 -261682 -1 -1 1;
 #X obj 292 100 vradio 10 1 1 5 THIS_HIDES_THE_OUTLET THIS_HIDES_THE_INLET
-19 0 -8 0 8 -261682 -1 -1 2;
+19 0 -8 0 8 -261682 -1 -1 1;
 #X obj 302 100 vradio 10 1 1 5 THIS_HIDES_THE_OUTLET THIS_HIDES_THE_INLET
-20 0 -8 0 8 -261682 -1 -1 2;
+20 0 -8 0 8 -261682 -1 -1 1;
 #X obj 312 100 vradio 10 1 1 5 THIS_HIDES_THE_OUTLET THIS_HIDES_THE_INLET
-21 0 -8 0 8 -261682 -1 -1 2;
+21 0 -8 0 8 -261682 -1 -1 1;
 #N canvas 59 587 1064 355 send-to-arduino---------------------- 0;
 #X obj 49 24 inlet;
 #X obj 89 24 inlet;
@@ -807,9 +801,9 @@ Arduino (also known as Pduino firmware).;
 #X connect 51 0 30 0;
 #X restore 94 179 pd send-to-arduino----------------------;
 #X obj 322 100 vradio 10 1 1 5 THIS_HIDES_THE_OUTLET THIS_HIDES_THE_INLET
-22 0 -8 0 8 -261682 -1 -1 2;
+22 0 -8 0 8 -261682 -1 -1 1;
 #X obj 332 100 vradio 10 1 1 5 THIS_HIDES_THE_OUTLET THIS_HIDES_THE_INLET
-23 0 -8 0 8 -261682 -1 -1 2;
+23 0 -8 0 8 -261682 -1 -1 1;
 #X obj 100 100 cnv 10 10 50 empty empty Rx 0 23 0 10 -191407 -86277
 0;
 #X obj 111 100 cnv 10 10 50 empty empty Tx 0 23 0 10 -191407 -13381
@@ -886,25 +880,29 @@ Arduino (also known as Pduino firmware).;
 #X connect 17 0 14 0;
 #X restore 31 125 pd analog;
 #X text 34 84 (switch pin to PWM or servo first);
-#X connect 3 0 70 0;
+#X obj 394 455 tgl 15 0 empty ARDUINO_TEST_RESET 0 4 23 1 12 -232448
+-1 -1 0 1;
+#X obj 411 455 tgl 15 0 empty ARDUINO_TEST_RESET 1 4 23 1 12 -232448
+-1 -1 0 1;
+#X connect 3 0 66 0;
 #X connect 4 0 3 0;
 #X connect 4 1 6 0;
-#X connect 6 0 70 0;
-#X connect 7 0 91 1;
+#X connect 6 0 66 0;
+#X connect 7 0 87 1;
 #X connect 8 0 37 1;
-#X connect 9 0 70 0;
-#X connect 10 0 70 0;
+#X connect 9 0 66 0;
+#X connect 10 0 66 0;
 #X connect 11 0 10 0;
-#X connect 19 0 91 0;
-#X connect 34 0 70 0;
-#X connect 35 0 70 0;
-#X connect 36 0 70 0;
+#X connect 19 0 87 0;
+#X connect 34 0 66 0;
+#X connect 35 0 66 0;
+#X connect 36 0 66 0;
 #X connect 37 0 44 0;
-#X connect 38 0 70 0;
-#X connect 39 0 70 0;
+#X connect 38 0 66 0;
+#X connect 39 0 66 0;
 #X connect 40 0 39 0;
 #X connect 44 0 45 0;
-#X connect 44 1 76 0;
+#X connect 44 1 72 0;
 #X connect 45 0 46 0;
 #X connect 45 1 46 1;
 #X connect 45 2 46 2;
@@ -921,6 +919,8 @@ Arduino (also known as Pduino firmware).;
 #X connect 46 5 17 0;
 #X connect 46 6 42 0;
 #X connect 46 7 43 0;
+#X connect 47 0 89 0;
+#X connect 47 1 90 0;
 #X connect 47 2 48 0;
 #X connect 47 3 49 0;
 #X connect 47 4 50 0;
@@ -933,19 +933,19 @@ Arduino (also known as Pduino firmware).;
 #X connect 47 11 57 0;
 #X connect 47 12 58 0;
 #X connect 47 13 59 0;
-#X connect 61 0 71 0;
+#X connect 61 0 67 0;
 #X connect 62 0 63 0;
 #X connect 62 1 64 0;
-#X connect 70 0 37 0;
-#X connect 70 1 81 0;
-#X connect 72 0 70 0;
-#X connect 73 0 70 0;
-#X connect 75 0 70 0;
-#X connect 76 0 47 0;
-#X connect 76 1 62 0;
-#X connect 76 2 74 0;
-#X connect 76 3 82 0;
-#X connect 79 0 9 0;
-#X connect 81 0 61 0;
-#X connect 85 0 38 0;
-#X connect 91 0 34 0;
+#X connect 66 0 37 0;
+#X connect 66 1 77 0;
+#X connect 68 0 66 0;
+#X connect 69 0 66 0;
+#X connect 71 0 66 0;
+#X connect 72 0 47 0;
+#X connect 72 1 62 0;
+#X connect 72 2 70 0;
+#X connect 72 3 78 0;
+#X connect 75 0 9 0;
+#X connect 77 0 61 0;
+#X connect 81 0 38 0;
+#X connect 87 0 34 0;
