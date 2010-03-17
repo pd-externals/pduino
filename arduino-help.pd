@@ -1,6 +1,4 @@
 #N canvas 89 22 674 563 10;
-#X declare -lib flatspace;
-#X obj 558 10 import flatspace;
 #N canvas 233 472 466 316 INSTALL-NOTES 0;
 #X text 39 201 [comport] \, from pd-cvs/externals/iem/comport;
 #X text 39 185 [arduino] \, from pd-cvs/externals/hardware/arduino
@@ -9,19 +7,19 @@
 ;
 #X text 20 27 1 General information on arduino: http://www.arduino.cc
 ;
-#X text 20 61 2 You need the firmware for Pduino: http://at.or.at/hans/pd/objects.html
-;
-#X text 20 109 3 Don't forget to upload the firmware onto your arduino
-board !;
 #X text 21 159 4 Pduino needs the following externals and abstractions:
 ;
 #X text 22 257 5 If you still have troubles \, mail to the pd list
 !;
-#X restore 25 92 pd INSTALL-NOTES;
-#X text 150 93 <- read this first !;
-#X msg 58 189 close;
-#X msg 58 234 info;
-#X text 11 149 select/close the serial port:;
+#X text 20 61 2 You need to install a Firmata firmware. There are a
+bunch of Firmata firmwares included with Arduino. Use Arduino 18 or
+newer for best results.;
+#X text 20 108 3 The StandardFirmata firmware is the best place to
+start.;
+#X restore 25 72 pd INSTALL-NOTES;
+#X text 150 73 <- read this first !;
+#X msg 48 169 close;
+#X msg 58 194 info;
 #N canvas 248 49 447 555 DIGITAL-OUTPUT 0;
 #X text 72 97 I/O the individual pins:;
 #X text 20 22 NOTE: don't forget to set pins to output mode first!
@@ -164,7 +162,7 @@ with one message;
 #X connect 30 0 27 0;
 #X connect 31 0 27 0;
 #X connect 32 0 27 0;
-#X restore 61 428 pd DIGITAL-OUTPUT;
+#X restore 61 411 pd DIGITAL-OUTPUT;
 #N canvas 494 94 578 280 DIGITAL-INPUT 0;
 #X obj 114 67 r \$0-arduino-out;
 #X text 387 93 connect the Digital Input;
@@ -214,13 +212,8 @@ to the ground \, you will get random values (0 or 1) - to avoid that
 #X connect 7 11 17 0;
 #X connect 7 12 18 0;
 #X connect 7 13 19 0;
-#X restore 68 404 pd DIGITAL-INPUT;
-#X text 531 203 (0=input \, 1=output);
-#X obj 551 165 tgl 20 0 empty empty all 1 12 0 11 -261682 -1 -1 0 1
-;
-#X msg 394 244 pinMode 13 1;
-#X text 480 245 set pin 13 to output mode;
-#X text 290 149 Set input/output mode of the pins for digital IO:;
+#X restore 68 387 pd DIGITAL-INPUT;
+#X text 310 154 Set input/output mode of the pins for digital IO:;
 #N canvas 268 170 441 343 ANALOG-INPUT 0;
 #X obj 121 70 r \$0-arduino-out;
 #X obj 121 108 spigot 0;
@@ -302,13 +295,9 @@ the ground \, if you want to avoid flickering of the values !;
 #X connect 16 5 11 0;
 #X connect 16 6 12 0;
 #X connect 16 7 13 0;
-#X restore 73 452 pd ANALOG-INPUT;
+#X restore 73 435 pd ANALOG-INPUT;
 #N canvas 462 480 562 378 ANALOG-OUTPUT-PWM 0;
 #X text 16 17 Analog Output \, PWM (Pulse Width Modulation);
-#X text 16 53 With the help of PWM you can write analog values to the
-pins 9 \, 10 \, 11 of your Arduino board.;
-#X text 17 89 NOTE: don't forget to set the pins to output mode first
-!;
 #X msg 21 189 pwm 9 \$1;
 #X obj 24 168 hsl 150 17 0 1 0 0 empty empty PWM_control_(0-1) -2 -6
 1 10 -260818 -1 -1 0 1;
@@ -332,31 +321,35 @@ to send software-PWM signals (will come soon ...);
 #X msg 31 234 pwm 9 0;
 #X msg 199 234 pwm 10 0;
 #X msg 361 234 pwm 11 0;
-#X connect 3 0 5 0;
-#X connect 4 0 3 0;
-#X connect 7 0 16 0;
-#X connect 10 0 17 0;
-#X connect 16 0 8 0;
-#X connect 17 0 11 0;
-#X connect 19 0 5 0;
-#X connect 20 0 8 0;
-#X connect 21 0 11 0;
-#X restore 43 477 pd ANALOG-OUTPUT-PWM;
-#X text 25 357 With the Arduino-Board you can do digital and analog
+#X text 16 53 With the help of PWM you can write analog values to the
+PWM pins of your Arduino board.;
+#X text 17 89 NOTE: don't forget to set the pins to 'pwm' mode first
+!;
+#X connect 1 0 3 0;
+#X connect 2 0 1 0;
+#X connect 5 0 14 0;
+#X connect 8 0 15 0;
+#X connect 14 0 6 0;
+#X connect 15 0 9 0;
+#X connect 17 0 3 0;
+#X connect 18 0 6 0;
+#X connect 19 0 9 0;
+#X restore 43 460 pd ANALOG-OUTPUT-PWM;
+#X text 25 327 With the Arduino-Board you can do digital and analog
 input and output \, as descriped in the following sub-patches:;
-#X text 191 427 <- example of Digital Output;
-#X text 191 405 <- example of Digital Input;
-#X text 191 453 <- example of Analog Input;
-#X text 191 478 <- example of Analog Output;
+#X text 191 410 <- example of Digital Output;
+#X text 191 388 <- example of Digital Input;
+#X text 191 436 <- example of Analog Input;
+#X text 191 461 <- example of Analog Output;
 #X text 259 30 Arduino Interface For PD;
 #X text 286 4 ::::_PDUINO_::::;
-#X text 468 517 2006 \, released under GNU GPL \; Gerda Strobl \, Georg
+#X text 476 490 2006 \, released under GNU GPL \; Gerda Strobl \, Georg
 Holzmann;
-#X text 111 261 <- list devices;
-#X obj 295 318 send \$0-arduino;
-#X obj 476 111 send \$0-arduino-out;
-#X obj 476 67 receive \$0-arduino;
-#X obj 16 314 send \$0-arduino;
+#X text 111 221 <- list devices;
+#X obj 337 264 send \$0-arduino;
+#X obj 476 91 send \$0-arduino-out;
+#X obj 476 47 receive \$0-arduino;
+#X obj 16 294 send \$0-arduino;
 #N canvas 0 22 436 343 GETTING-INFO 0;
 #X msg 147 65 version;
 #X msg 207 65 info;
@@ -372,8 +365,8 @@ Holzmann;
 #X connect 5 0 2 0;
 #X connect 7 0 3 0;
 #X connect 7 1 4 0;
-#X restore 73 501 pd GETTING-INFO;
-#X text 191 502 <- example of getting status data;
+#X restore 73 508 pd GETTING-INFO;
+#X text 191 509 <- example of getting status data;
 #N canvas 477 400 471 273 SWITCHING-INPUTS 0;
 #X obj 140 195 send \$0-arduino;
 #X msg 25 123 analogIns 0 0;
@@ -468,136 +461,16 @@ digital it is controller per 8-pin "port".;
 #X connect 2 0 1 0;
 #X connect 4 0 0 0;
 #X connect 6 0 4 0;
-#X restore 49 526 pd SWITCHING-INPUTS;
-#X text 191 526 <- example of switching inputs on and off;
-#X msg 394 283 digital 13 \$1;
-#X obj 394 265 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0
+#X restore 49 533 pd SWITCHING-INPUTS;
+#X msg 358 241 digital 13 \$1;
+#X obj 358 223 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0
 1;
-#X text 480 283 toggle pin 13 on and off;
-#X obj 476 90 arduino 1;
-#X msg 58 260 devices;
-#X text 92 234 <- info for current connection;
-#X obj 329 185 tgl 15 0 empty empty 2 3 -6 1 12 -260818 -1 -1 0 1;
-#X obj 346 185 tgl 15 0 empty empty 3 3 -6 1 12 -260818 -1 -1 0 1;
-#X obj 363 185 tgl 15 0 empty empty 4 3 -6 1 12 -260818 -1 -1 0 1;
-#X obj 380 185 tgl 15 0 empty empty 5 3 -6 1 12 -260818 -1 -1 0 1;
-#X obj 397 185 tgl 15 0 empty empty 6 3 -6 1 12 -260818 -1 -1 0 1;
-#X obj 414 185 tgl 15 0 empty empty 7 3 -6 1 12 -260818 -1 -1 0 1;
-#X obj 431 185 tgl 15 0 empty empty 8 3 -6 1 12 -260818 -1 -1 0 1;
-#X obj 448 185 tgl 15 0 empty empty 9 3 -6 1 12 -260818 -1 -1 0 1;
-#X obj 465 185 tgl 15 0 empty empty 10 0 -6 1 12 -260818 -1 -1 0 1
-;
-#X obj 482 185 tgl 15 0 empty empty 11 0 -6 1 12 -260818 -1 -1 0 1
-;
-#X obj 499 185 tgl 15 0 empty empty 12 0 -6 1 12 -260818 -1 -1 0 1
-;
-#X obj 516 185 tgl 15 0 empty empty 13 0 -6 1 12 -260818 -1 -1 0 1
-;
-#X msg 295 226 pinMode 13 1;
-#N canvas 163 104 696 323 send-to-arduino------------------- 0;
-#X obj 49 24 inlet;
-#X obj 89 24 inlet;
-#X obj 128 24 inlet;
-#X obj 168 24 inlet;
-#X obj 208 24 inlet;
-#X obj 248 24 inlet;
-#X obj 287 24 inlet;
-#X obj 327 24 inlet;
-#X obj 368 23 inlet;
-#X obj 408 23 inlet;
-#X obj 447 23 inlet;
-#X obj 487 23 inlet;
-#X obj 527 23 inlet;
-#X msg 49 66 pinMode 0 \$1;
-#X msg 89 88 pinMode 1 \$1;
-#X msg 128 110 pinMode 2 \$1;
-#X msg 168 130 pinMode 3 \$1;
-#X msg 208 62 pinMode 4 \$1;
-#X msg 248 84 pinMode 5 \$1;
-#X msg 287 106 pinMode 6 \$1;
-#X msg 327 126 pinMode 7 \$1;
-#X msg 368 58 pinMode 8 \$1;
-#X msg 408 80 pinMode 9 \$1;
-#X msg 447 102 pinMode 10 \$1;
-#X msg 487 122 pinMode 11 \$1;
-#X msg 527 50 pinMode 12 \$1;
-#X obj 566 23 inlet;
-#X msg 566 70 pinMode 13 \$1;
-#X obj 305 282 outlet;
-#X obj 305 243 trigger bang anything;
-#X obj 305 196 list prepend set;
-#X obj 305 220 list trim;
-#X connect 0 0 13 0;
-#X connect 1 0 14 0;
-#X connect 2 0 15 0;
-#X connect 3 0 16 0;
-#X connect 4 0 17 0;
-#X connect 5 0 18 0;
-#X connect 6 0 19 0;
-#X connect 7 0 20 0;
-#X connect 8 0 21 0;
-#X connect 9 0 22 0;
-#X connect 10 0 23 0;
-#X connect 11 0 24 0;
-#X connect 12 0 25 0;
-#X connect 13 0 30 0;
-#X connect 14 0 30 0;
-#X connect 15 0 30 0;
-#X connect 16 0 30 0;
-#X connect 17 0 30 0;
-#X connect 18 0 30 0;
-#X connect 19 0 30 0;
-#X connect 20 0 30 0;
-#X connect 21 0 30 0;
-#X connect 22 0 30 0;
-#X connect 23 0 30 0;
-#X connect 24 0 30 0;
-#X connect 25 0 30 0;
-#X connect 26 0 27 0;
-#X connect 27 0 30 0;
-#X connect 29 0 28 0;
-#X connect 29 1 28 0;
-#X connect 30 0 31 0;
-#X connect 31 0 29 0;
-#X restore 295 204 pd send-to-arduino-------------------;
-#X obj 295 185 tgl 15 0 empty empty 0 3 -6 1 12 -260818 -1 -1 0 1;
-#X obj 312 185 tgl 15 0 empty empty 1 3 -6 1 12 -260818 -1 -1 0 1;
-#X obj 295 185 cnv 15 15 15 empty empty Rx 1 10 0 11 -128992 -86277
-0;
-#X obj 312 185 cnv 15 15 15 empty empty Tx 1 10 0 11 -128992 -13381
-0;
-#X text 291 91 here is our Arduino object -->;
-#X msg 58 286 version;
-#X text 110 286 <- get firmware version;
-#X msg 11 189 open 1;
-#N canvas 627 365 360 384 serin 0;
-#X obj 180 61 cnv 15 15 15 empty \$0-number-canvas 1 4 8 0 14 -233017
--1 0;
-#X obj 200 225 s \$0-number-canvas;
-#X obj 60 61 hradio 15 1 1 8 empty empty empty 0 -6 0 8 -225271 -1
--1 1;
-#X obj 60 13 inlet;
-#X msg 200 202 label \$1;
-#X obj 200 180 makefilename %d;
-#X obj 59 108 int;
-#X msg 59 206 open \$1;
-#X obj 59 337 outlet;
-#X msg 201 306 set \$1 \$2;
-#X obj 59 266 trigger bang anything;
-#X obj 201 286 list;
-#X connect 2 0 6 0;
-#X connect 3 0 2 0;
-#X connect 4 0 1 0;
-#X connect 5 0 4 0;
-#X connect 6 0 5 0;
-#X connect 6 0 7 0;
-#X connect 7 0 10 0;
-#X connect 9 0 8 0;
-#X connect 10 0 8 0;
-#X connect 10 1 11 0;
-#X connect 11 0 9 0;
-#X coords 0 -1 1 1 136 17 1 60 60;
-#X restore 11 166 pd serin;
+#X obj 476 70 arduino 1;
+#X msg 58 220 devices;
+#X text 92 194 <- info for current connection;
+#X text 291 71 here is our Arduino object -->;
+#X msg 58 246 version;
+#X msg 31 149 open 1;
 #N canvas 0 22 467 240 ver 0;
 #X obj 250 100 cnv 15 145 17 empty \$0-version_cnv empty 4 10 0 12
 -203904 -1 0;
@@ -617,42 +490,75 @@ digital it is controller per 8-pin "port".;
 #X connect 7 0 3 0;
 #X connect 8 0 7 0;
 #X coords 0 -1 1 1 145 17 1 250 100;
-#X restore 125 314 pd ver;
-#X text 201 185 (serial port)->;
-#X connect 3 0 27 0;
-#X connect 4 0 27 0;
-#X connect 9 0 49 0;
-#X connect 9 0 48 0;
-#X connect 9 0 47 0;
-#X connect 9 0 46 0;
-#X connect 9 0 45 0;
-#X connect 9 0 44 0;
-#X connect 9 0 43 0;
-#X connect 9 0 42 0;
-#X connect 9 0 41 0;
-#X connect 9 0 40 0;
-#X connect 9 0 39 0;
-#X connect 9 0 38 0;
-#X connect 10 0 24 0;
-#X connect 26 0 35 0;
-#X connect 32 0 24 0;
-#X connect 33 0 32 0;
-#X connect 35 0 25 0;
-#X connect 36 0 27 0;
-#X connect 38 0 51 2;
-#X connect 39 0 51 3;
-#X connect 40 0 51 4;
-#X connect 41 0 51 5;
-#X connect 42 0 51 6;
-#X connect 43 0 51 7;
-#X connect 44 0 51 8;
-#X connect 45 0 51 9;
-#X connect 46 0 51 10;
-#X connect 47 0 51 11;
-#X connect 48 0 51 12;
-#X connect 49 0 51 13;
-#X connect 50 0 24 0;
-#X connect 51 0 50 0;
-#X connect 57 0 27 0;
-#X connect 59 0 27 0;
-#X connect 60 0 59 0;
+#X restore 125 294 pd ver;
+#X text 110 246 <- get protocol version;
+#X text 110 271 <- get firmware version;
+#X msg 58 271 firmware;
+#X text 79 147 select the serial port;
+#X text 99 169 close the serial port;
+#X msg 357 189 pinMode 13 output;
+#N canvas 213 217 432 341 SERVO 0;
+#X obj 52 224 hsl 150 17 0 1 0 0 empty empty Servo_control_(0-1) -2
+-6 1 10 -260818 -1 -1 0 1;
+#X obj 49 274 s \$0-arduino;
+#X text 27 141 disable PWM:;
+#X obj 260 224 hsl 150 17 0 1 0 0 empty empty Servo_control_(0-1) -2
+-6 1 10 -260818 -1 -1 0 1;
+#X obj 257 274 s \$0-arduino;
+#X text 235 141 disable PWM:;
+#X text 19 119 PIN9:;
+#X text 227 121 PIN10:;
+#X text 14 13 Servo control;
+#X msg 49 245 analog 9 \$1;
+#X msg 257 245 analog 10 \$1;
+#X msg 29 160 pinMode 9 servo;
+#X msg 237 160 pinMode 10 servo;
+#X text 15 40 You can control servo motors using Pd. First \, set the
+pin to servo mode using the pinMode message \, then send analog values
+to that pin with a range between 0 and 1 0 will set the position to
+one extreme \, and 1 to the other.;
+#X connect 0 0 9 0;
+#X connect 3 0 10 0;
+#X connect 9 0 1 0;
+#X connect 10 0 4 0;
+#X connect 11 0 1 0;
+#X connect 12 0 4 0;
+#X restore 115 484 pd SERVO;
+#X text 191 485 <- example of Servo control;
+#X text 191 533 <- example of switching inputs on and off (optional)
+;
+#X text 191 364 <- first \, you need to config the pinMode;
+#N canvas 41 177 444 293 PINMODE 0;
+#X text 45 14 Before you can send or receive any data from the Arduino
+\, you need to configure the pins using the pinMode message. The message
+has the format [pinMode pin# mode(. You can use either numbers or names
+for the pin modes:;
+#X msg 58 171 pinMode 10 3;
+#X msg 58 151 pinMode 10 2;
+#X msg 58 131 pinMode 10 1;
+#X msg 58 111 pinMode 10 0;
+#X msg 58 191 pinMode 10 4;
+#X text 169 111 ==;
+#X text 169 131 ==;
+#X text 169 151 ==;
+#X text 169 171 ==;
+#X text 169 191 ==;
+#X msg 218 111 pinMode 10 input;
+#X msg 218 131 pinMode 10 output;
+#X msg 218 151 pinMode 10 analog;
+#X msg 218 171 pinMode 10 pwm;
+#X msg 218 191 pinMode 10 servo;
+#X restore 104 363 pd PINMODE;
+#X text 470 189 <-- set pin 13 to output mode;
+#X text 381 222 <-- toggle pin 13 on and off;
+#X connect 2 0 21 0;
+#X connect 3 0 21 0;
+#X connect 20 0 27 0;
+#X connect 25 0 18 0;
+#X connect 26 0 25 0;
+#X connect 27 0 19 0;
+#X connect 28 0 21 0;
+#X connect 31 0 21 0;
+#X connect 32 0 21 0;
+#X connect 36 0 21 0;
+#X connect 39 0 18 0;
