@@ -1,11 +1,11 @@
 #!/bin/sh
 
-if [ $# -ne 2 ]; then
-    echo "Usage: $0 PDUINO_VERSION FIRMATA_VERSION"
+if [ $# -ne 1 ]; then
+    echo "Usage: $0 FIRMATA_VERSION"
     exit
 fi
 
-PDUINO_VERSION=$1
+PDUINO_VERSION=`grep version_ arduino.pd | sed 's|.*version_\(.*\);|\1|'`
 FIRMATA_VERSION=$2
 
 PDUINO_DIR=Pduino-${PDUINO_VERSION}
