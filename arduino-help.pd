@@ -1,4 +1,4 @@
-#N canvas 354 88 683 568 10;
+#N canvas 701 127 683 568 10;
 #X msg 45 155 close;
 #X msg 55 180 info;
 #N canvas 46 83 447 555 DIGITAL-OUTPUT 0;
@@ -482,10 +482,10 @@ digital it is controller per 8-pin "port".;
 #X msg 474 437 digital 13 \$1;
 #X obj 474 419 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0
 1;
-#X obj 490 182 arduino 1;
+#X obj 490 180 arduino 1;
 #X msg 16 75 devices;
 #X text 89 180 <- info for current connection;
-#X text 305 183 here is our Arduino object -->;
+#X text 305 181 here is our Arduino object -->;
 #X msg 58 203 version;
 #N canvas 0 76 467 240 ver 0;
 #X obj 250 100 cnv 15 145 17 empty \$0-version_cnv empty 4 10 0 12
@@ -569,8 +569,8 @@ for the pin modes:;
 #X msg 218 171 pinMode 10 pwm;
 #X msg 218 191 pinMode 10 servo;
 #X restore 80 325 pd PINMODE;
-#X obj 541 205 send \$0-arduino-info;
-#X obj 564 184 print INFO;
+#X obj 541 203 send \$0-arduino-info;
+#X obj 564 182 print INFO;
 #X msg 28 135 open \$1;
 #X floatatom 28 99 5 0 0 0 - - -;
 #X text 63 98 <- enter the number of your serial device;
@@ -578,63 +578,36 @@ for the pin modes:;
 #X obj 13 253 cnv 15 100 26 empty empty empty 20 12 0 14 -257985 -66577
 0;
 #X obj 16 257 send \$0-arduino;
-#X obj 486 153 cnv 15 120 26 empty empty empty 20 12 0 14 -257985 -66577
+#X obj 486 151 cnv 15 120 26 empty empty empty 20 12 0 14 -257985 -66577
 0;
-#X obj 490 159 receive \$0-arduino;
+#X obj 490 157 receive \$0-arduino;
 #X obj 450 457 cnv 15 100 26 empty empty empty 20 12 0 14 -257985 -66577
 0;
 #X obj 453 460 send \$0-arduino;
-#X obj 486 225 cnv 15 125 26 empty empty empty 20 12 0 14 -159808 -66577
+#X obj 486 223 cnv 15 125 26 empty empty empty 20 12 0 14 -159808 -66577
 0;
-#X obj 490 229 send \$0-arduino-out;
-<<<<<<< HEAD
+#X obj 490 227 send \$0-arduino-out;
 #X obj 15 24 cnv 15 230 30 empty empty empty 20 12 0 14 -261234 -66577
 0;
-#N canvas 75 454 421 344 INSTALL-NOTES 0;
+#N canvas 706 129 445 342 INSTALL-NOTES 0;
 #X text 20 27 1 General information on arduino: http://www.arduino.cc
 ;
-#X text 20 126 3 The StandardFirmata firmware is the best place to
+#X text 20 113 3 The StandardFirmata firmware is the best place to
 start.;
-#X text 21 159 4 Pduino needs the following abstraction:;
-#X text 21 206 5 Pduino needs the following externals:;
-#X text 23 261 6 If you still have troubles \, mail to the pd list
+#X text 21 146 4 Pduino needs the following abstraction:;
+#X text 21 193 5 Pduino needs the following externals:;
+#X text 23 248 6 If you still have troubles \, mail to the pd list
 !;
-#X text 39 177 [arduino] \, from pd-svn/externals/hardware/arduino
+#X text 39 164 [arduino] \, from pd-svn/externals/hardware/arduino
 ;
-#X text 39 223 [comport] \, from pd-svn/externals/iem/comport;
-#X text 39 237 [moocow] \, from pd-svn/externals/moocow;
-#X text 20 61 2 You need to install a Firmata firmware. There are a
+#X text 39 210 [comport] \, from pd-svn/externals/iem/comport;
+#X text 39 224 [moocow] \, from pd-svn/externals/moocow;
+#X text 20 48 2 You need to install a Firmata firmware. There are a
 ;
-#X text 38 75 bunch of Firmata firmwares included with Arduino. Use
+#X text 38 62 bunch of Firmata firmwares included with Arduino. Use
 Firmata >=2.1 (included in Arduino 18 or newer) for best results.;
-#X text 21 286 pd-svn: https://pure-data.svn.sourceforge.net/svnroot/pure-data/trunk/
+#X text 21 273 pd-svn: https://pure-data.svn.sourceforge.net/svnroot/pure-data/trunk/
 ;
-=======
-#X obj 429 72 cnv 15 200 60 empty empty empty 20 12 0 14 -261234 -66577
-0;
-#X text 462 73 2do;
-#X text 430 88 analogIn enable more prominent;
-#X obj 15 24 cnv 15 230 30 empty empty empty 20 12 0 14 -261234 -66577
-0;
-#X text 430 105 moocow source in INSTALL-NOTES;
-#N canvas 259 309 466 316 INSTALL-NOTES 0;
-#X text 38 227 [comport] \, from pd-cvs/externals/iem/comport;
-#X text 39 185 [arduino] \, from pd-cvs/externals/hardware/arduino
-;
-#X text 161 240 pdstring library from moocow;
-#X text 20 27 1 General information on arduino: http://www.arduino.cc
-;
-#X text 20 61 2 You need to install a Firmata firmware. There are a
-bunch of Firmata firmwares included with Arduino. Use Arduino 18 or
-newer for best results.;
-#X text 20 108 3 The StandardFirmata firmware is the best place to
-start.;
-#X text 20 210 5 Pduino needs the following externals:;
-#X text 22 276 6 If you still have troubles \, mail to the pd list
-!;
-#X text 38 241 [moocow] \, from ????;
-#X text 21 159 4 Pduino needs the following abstraction:;
->>>>>>> c6cd5a8085bb89ad2d4f9a2ffd63ee26e7b67c5e
 #X restore 20 30 pd INSTALL-NOTES;
 #X text 125 29 <- read this first!;
 #X text 168 358 <- example of switching inputs on and off;
