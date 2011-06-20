@@ -1,0 +1,95 @@
+#N canvas 11 0 632 769 10;
+#X declare -stdpath extra/iemguts;
+#X declare -stdpath extra/iemguts;
+#X declare -stdpath extra/iemguts;
+#X declare -stdpath extra/iemguts;
+#X declare -stdpath extra/iemguts;
+#X declare -stdpath extra/iemguts;
+#X obj 22 70 list.selector \$0.bla;
+#X text 113 70 [list.selector \$0.bla];
+#X obj 152 658 route symbol float;
+#X symbolatom 152 687 10 0 0 0 - - -;
+#X floatatom 227 689 5 0 0 0 - - -;
+#X text 23 11 l i s t . s e l e c t o r;
+#X text 23 23 -------------------------;
+#X text 24 100 Arg 1: send/receive symbol for bidirectional communication
+;
+#X msg 137 179 set.list null eins zwei drei vier fuenf;
+#X text 26 178 set.list;
+#X obj 137 202 s \$0.bla;
+#X text 134 223 does not trigger any output \, but updates the list
+internally;
+#X text 29 262 set.default;
+#X msg 135 262 set.default;
+#X obj 135 284 s \$0.bla;
+#X text 28 336 set.current;
+#X msg 136 337 set.current sechs;
+#X obj 136 359 s \$0.bla;
+#X text 134 380 set to value that isn't necessarily part of the current
+list. This might be practical for loading presets \, that have only
+a single value stored \, but not the whole list of values.;
+#X text 134 304 set to first element of list.;
+#X text 27 452 get.current;
+#X msg 138 452 get.current;
+#X obj 138 474 s \$0.bla;
+#X text 137 494 Retrieve the currently set element.;
+#X obj 136 587 r \$0.bla;
+#X obj 136 609 route return;
+#X obj 136 630 list;
+#X text 26 579 return;
+#X obj 136 706 print \$0.bla;
+#X obj 14 134 cnv 15 600 30 empty empty empty 20 12 0 14 -204786 -66577
+0;
+#X text 20 138 Supported methods:;
+#X text 19 149 ------------------;
+#X obj 20 526 cnv 15 600 30 empty empty empty 20 12 0 14 -204786 -66577
+0;
+#X text 26 530 Output:;
+#X text 27 539 -------;
+#N canvas 275 120 590 388 EXAMPLES 0;
+#X obj 131 163 s \$0.blu;
+#X msg 141 250 set.list empty \, set.default;
+#X obj 141 324 s \$0.bli;
+#X obj 23 41 list.selector \$0.blu;
+#X obj 23 55 list.selector \$0.blu;
+#X obj 23 69 list.selector \$0.blu;
+#X obj 23 83 list.selector \$0.blu;
+#X text 20 21 * Creation order does not matter for visibility;
+#X obj 131 41 loadbang;
+#X text 25 207 how to make it display nothing;
+#X obj 24 237 list.selector \$0.bli;
+#X obj 175 282 loadbang;
+#X text 139 232 click here:;
+#X msg 175 302 set.list something anything this that \, set.default
+;
+#X text 21 6 * No unwanted masking;
+#X msg 131 63 set.list <none> player1 player2 player3 player4 player5
+player6 player7 player8 player9 player10 player11 player12 ser.seq1
+ser.seq2 ser.seq3 ser.seq4 ser.seq5 ser.seq6 ser.seq7 ser.seq8 ser.seq9
+ser.seq10 ser.seq11 ser.seq12 par.seq1 par.sew2 par.seq3 par.seq4 par.seq5
+par.seq6 par.seq7 par.seq8 par.seq9 par.seq10 par.seq11 par.seq12 \,
+set.default;
+#X connect 1 0 2 0;
+#X connect 8 0 15 0;
+#X connect 11 0 13 0;
+#X connect 13 0 2 0;
+#X connect 15 0 0 0;
+#X restore 339 738 pd EXAMPLES;
+#X text 469 734 Author: Roman Haefeli;
+#X text 470 749 Version: 2010-04-02;
+#X obj 346 21 loadbang;
+#X obj 346 76 s \$0.bla;
+#X msg 346 42 set.list click&drag ein anfänger der gitarre hatte \,
+set.default;
+#X connect 2 0 3 0;
+#X connect 2 1 4 0;
+#X connect 8 0 10 0;
+#X connect 13 0 14 0;
+#X connect 16 0 17 0;
+#X connect 21 0 22 0;
+#X connect 24 0 25 0;
+#X connect 25 0 26 0;
+#X connect 26 0 2 0;
+#X connect 26 0 28 0;
+#X connect 38 0 40 0;
+#X connect 40 0 39 0;
