@@ -1,4 +1,4 @@
-#N canvas 274 220 846 574 10;
+#N canvas 191 137 868 646 10;
 #X obj 100 100 cnv 15 350 250 empty empty empty 20 12 0 14 -67964 -66577
 0;
 #X obj 264 273 cnv 15 150 35 empty empty empty 20 12 0 14 -33289 -66577
@@ -11,13 +11,13 @@
 1;
 #X obj 376 80 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj 359 82 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 359 82 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
-#X obj 342 81 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 342 81 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
-#X obj 325 81 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 325 81 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
-#X obj 308 80 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 308 80 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
 #X obj 290 80 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
@@ -27,50 +27,50 @@
 1;
 #X obj 239 78 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj 222 80 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 222 80 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
 #X obj 205 79 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
 #X obj 188 79 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj 171 79 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 171 79 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
 #X obj 101 165 cnv 15 70 40 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 104 176 bng 20 250 50 0 empty empty empty 17 7 0 10 -261234
+#X obj 103 180 bng 20 250 50 0 empty empty empty 17 7 0 10 -261234
 -1 -1;
 #X text 102 146 1 list devices;
 #X text 102 206 2 select devices;
 #X text 249 175 Arduino Interface For PD;
 #X text 276 149 ::::_PDUINO_::::;
-#N canvas 3 48 451 224 ver 0;
+#N canvas 276 274 451 224 ver 0;
 #X obj 23 7 inlet;
-#X obj 250 100 cnv 15 145 17 empty \$0-version_cnv empty 4 10 0 12
--203904 -1 0;
+#X obj 250 100 cnv 15 145 17 empty \$0-version_cnv Firmata-2.2 4 10
+0 12 -203904 -1 0;
 #X obj 23 157 send \$0-version_cnv;
 #X msg 23 132 label \$1;
 #X obj 48 103 symbol;
 #X obj 38 77 loadbang;
 #X msg 96 78 bang;
 #X obj 309 163 outlet;
-#X obj 23 52 zexy/makesymbol Firmata-%s.%s;
 #X obj 23 29 route version bang;
-#X connect 0 0 9 0;
+#X msg 23 53 symbol Firmata-\$1.\$2;
+#X connect 0 0 8 0;
 #X connect 3 0 2 0;
 #X connect 4 0 3 0;
 #X connect 5 0 4 0;
 #X connect 6 0 4 0;
-#X connect 8 0 3 0;
-#X connect 9 0 8 0;
-#X connect 9 1 7 0;
-#X connect 9 1 6 0;
-#X connect 9 2 7 0;
+#X connect 8 0 9 0;
+#X connect 8 1 7 0;
+#X connect 8 1 6 0;
+#X connect 8 2 7 0;
+#X connect 9 0 3 0;
 #X coords 0 -1 1 1 145 17 1 250 100;
 #X restore 110 289 pd ver;
-#N canvas 649 518 411 212 firmware 0;
+#N canvas 643 518 411 212 firmware 0;
 #X obj 123 2 inlet;
-#X obj 250 100 cnv 15 145 17 empty \$0-firmware_cnv empty 4 10 0 12
--232576 -66577 0;
+#X obj 250 100 cnv 15 145 17 empty \$0-firmware_cnv StandardFirmata-2.2
+4 10 0 12 -232576 -66577 0;
 #X msg 123 156 label \$1;
 #X obj 148 127 symbol;
 #X obj 138 101 loadbang;
@@ -79,24 +79,24 @@
 #X obj 123 24 route firmware;
 #X obj 18 181 print Firmware;
 #X obj 123 49 list;
-#X obj 123 80 zexy/makesymbol %s-%s.%s;
 #X obj 18 151 list trim;
 #X obj 204 45 route bang;
+#X msg 123 72 symbol \$1-\$2.\$3;
 #X connect 0 0 7 0;
 #X connect 2 0 6 0;
 #X connect 3 0 2 0;
 #X connect 4 0 3 0;
 #X connect 5 0 3 0;
 #X connect 7 0 9 0;
-#X connect 7 1 12 0;
-#X connect 9 0 10 0;
-#X connect 10 0 2 0;
-#X connect 10 0 11 0;
-#X connect 11 0 8 0;
-#X connect 12 0 5 0;
+#X connect 7 1 11 0;
+#X connect 9 0 12 0;
+#X connect 10 0 8 0;
+#X connect 11 0 5 0;
+#X connect 12 0 2 0;
+#X connect 12 0 10 0;
 #X coords 0 -1 1 1 145 17 1 250 100;
 #X restore 110 309 pd firmware;
-#N canvas 626 98 404 287 device 0;
+#N canvas 617 98 404 287 device 0;
 #X obj 35 60 inlet;
 #X obj 35 118 route open port ports;
 #X obj 35 169 tgl 15 0 empty empty open -3 20 0 10 -262144 -1 -1 0
@@ -116,12 +116,10 @@
 #X restore 111 267 pd device info;
 #X obj 885 112 t a;
 #X obj -5 386 route symbol float;
-#X symbolatom -5 415 10 0 0 0 - - -;
-#X floatatom 70 415 5 0 0 0 - - -;
 #X obj -5 315 route return;
 #X obj -5 336 list;
 #X obj 10 362 print \$0.device_list;
-#N canvas 112 42 413 393 list_ports 0;
+#N canvas 100 53 413 393 list_ports 0;
 #X obj -22 145 route ports;
 #X msg -22 169 \$2;
 #X msg -87 68 ports;
@@ -155,8 +153,8 @@
 #X connect 13 0 0 0;
 #X connect 14 0 9 0;
 #X restore -4 205 pd list_ports;
-#X obj -4 226 s \$0.device_list;
-#X obj 127 179 list.selector \$0.device_list;
+#X obj -4 224 s \$0.device_list;
+#X obj 125 182 list.selector \$0.device_list;
 #X obj -5 277 r \$0.device_list;
 #X obj -1 499 send \$0-to-arduino;
 #X obj 465 49 r \$0-to-arduino;
@@ -166,24 +164,80 @@
 #X msg 64 462 devicename \$1;
 #X obj 593 125 send \$0-arduino-outR;
 #X obj 465 125 send \$0-arduino-outL;
-#X obj 111 246 r \$0-arduino-outL;
 #X obj 211 437 print device_list;
-#X connect 19 0 34 0;
+#X obj 111 246 r \$0-arduino-outR;
+#X obj 542 213 hsl 128 15 0 127 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 4500 1;
+#X obj 630 370 bng 20 250 50 0 \$0.bang empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 394 394 r \$0.bang;
+#X obj 405 427 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+1;
+#X obj 413 473 sel 0 1;
+#X msg 413 520 color \$1 0;
+#X obj 413 544 s \$0.bg;
+#X msg 454 497 13;
+#X msg 413 495 0;
+#X obj 322 550 s \$0.fg;
+#X msg 319 520 color \$1 -1;
+#X obj 611 370 bng 20 250 50 0 \$0.bang empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 610 370 cnv 20 40 20 empty \$0.bg empty 20 12 0 14 -258699 -262144
+0;
+#X obj 611 371 cnv 10 38 18 empty \$0.fg P 10 7 0 14 -166441 -1 0;
+#X obj 587 418 cnv 15 200 80 empty empty panel 5 7 1 14 -233017 -66577
+0;
+#X obj 601 433 vradio 15 1 0 4 empty empty empty 0 -8 0 10 -262144
+-1 -1 0;
+#X text 619 434 IPNUT;
+#X text 620 449 OUTPUT;
+#X text 617 477 SERVO;
+#X text 621 462 PWM;
+#X obj 675 436 hsl 128 15 0 127 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 0 1;
+#X obj 599 623 s \$0.fg;
+#X obj 591 505 sel 0 1 2 3;
+#X msg 590 534 I;
+#X msg 628 536 O;
+#X msg 662 536 P;
+#X msg 687 534 S;
+#X obj 597 565 list;
+#X msg 602 596 label \$1;
+#X obj 672 454 hradio 15 1 0 2 empty empty empty 0 -8 0 10 -262144
+-1 -1 0;
+#X connect 19 0 32 0;
 #X connect 24 0 25 0;
 #X connect 26 0 24 0;
-#X connect 28 0 29 0;
-#X connect 28 1 30 0;
-#X connect 29 0 41 0;
-#X connect 31 0 32 0;
-#X connect 32 0 28 0;
-#X connect 34 0 35 0;
-#X connect 37 0 31 0;
+#X connect 28 0 39 0;
+#X connect 29 0 30 0;
+#X connect 30 0 28 0;
+#X connect 32 0 33 0;
+#X connect 35 0 29 0;
+#X connect 37 0 38 0;
+#X connect 38 0 43 0;
+#X connect 38 1 42 0;
 #X connect 39 0 40 0;
-#X connect 40 0 45 0;
-#X connect 40 1 44 0;
-#X connect 41 0 42 0;
-#X connect 41 1 43 0;
-#X connect 42 0 38 0;
-#X connect 43 0 38 0;
-#X connect 46 0 26 0;
+#X connect 39 1 41 0;
+#X connect 40 0 36 0;
+#X connect 41 0 36 0;
+#X connect 45 0 26 0;
+#X connect 48 0 49 0;
+#X connect 49 0 50 0;
+#X connect 50 0 54 0;
+#X connect 50 1 53 0;
+#X connect 51 0 52 0;
+#X connect 53 0 51 0;
+#X connect 54 0 51 0;
+#X connect 56 0 55 0;
+#X connect 61 0 68 0;
+#X connect 68 0 69 0;
+#X connect 68 1 70 0;
+#X connect 68 2 71 0;
+#X connect 68 3 72 0;
+#X connect 69 0 73 0;
+#X connect 70 0 73 0;
+#X connect 71 0 73 0;
+#X connect 72 0 73 0;
+#X connect 73 0 74 0;
+#X connect 74 0 67 0;
 #X coords 0 -1 1 1 350 250 1 100 100;
