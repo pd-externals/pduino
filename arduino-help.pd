@@ -1,6 +1,54 @@
-#N canvas 3 53 683 568 10;
-#X msg 45 155 close;
-#X msg 55 180 info;
+#N canvas 481 124 638 589 10;
+#X obj 2 47 cnv 15 400 230 empty empty serial_connection 12 12 0 10
+-233017 -66577 0;
+#X msg 46 143 close;
+#X msg 56 171 info;
+#X text 70 70 <- list devices;
+#X msg 17 69 devices;
+#X text 90 171 <- info for current connection;
+#X msg 59 192 version;
+#N canvas 165 527 470 222 ver 0;
+#X obj 250 100 cnv 15 145 17 empty \$0-version_cnv connection_closed
+4 10 0 12 -232576 -1 0;
+#X obj 23 202 send \$0-version_cnv;
+#X msg 23 177 label \$1;
+#X obj 48 148 symbol;
+#X obj 38 122 loadbang;
+#X msg 96 123 bang;
+#X msg 23 94 symbol firmata_version_\$1_\$2;
+#X obj 23 72 list;
+#X obj 23 6 receive \$0-arduino-info;
+#X msg 98 71 symbol connection_closed;
+#X obj 98 50 route -1;
+#X obj 23 29 route version;
+#X connect 2 0 1 0;
+#X connect 3 0 2 0;
+#X connect 4 0 3 0;
+#X connect 5 0 3 0;
+#X connect 6 0 2 0;
+#X connect 7 0 6 0;
+#X connect 8 0 11 0;
+#X connect 9 0 2 0;
+#X connect 10 0 9 0;
+#X connect 11 0 7 0;
+#X connect 11 1 10 0;
+#X coords 0 -1 1 1 145 17 1 250 100;
+#X restore 126 246 pd ver;
+#X text 111 192 <- get protocol version;
+#X text 111 215 <- get firmware version;
+#X msg 59 215 firmware;
+#X text 84 121 select the serial port;
+#X text 86 141 close the serial port;
+#X msg 29 123 open \$1;
+#X floatatom 29 96 5 0 0 0 - - -;
+#X text 85 103 listed by the 'device' message above;
+#X obj 14 243 cnv 15 100 26 empty empty empty 20 12 0 14 -257985 -66577
+0;
+#X obj 17 247 send \$0-arduino;
+#X text 84 88 enter the number of your serial device;
+#X text 67 94 <-;
+#X obj 2 280 cnv 15 400 300 empty empty pin_setup 12 12 0 10 -233017
+-66577 0;
 #N canvas 31 83 447 555 DIGITAL-OUTPUT 0;
 #X text 72 97 I/O the individual pins:;
 #X obj 40 194 cnv 15 100 22 empty empty empty 20 12 0 14 -203904 -66577
@@ -151,8 +199,8 @@ with one message;
 #X connect 27 0 33 0;
 #X connect 28 0 33 0;
 #X connect 29 0 33 0;
-#X restore 37 416 pd DIGITAL-OUTPUT;
-#N canvas 314 637 578 280 DIGITAL-INPUT 0;
+#X restore 32 418 pd DIGITAL-OUTPUT;
+#N canvas 14 501 578 280 DIGITAL-INPUT 0;
 #X text 387 93 connect the Digital Input;
 #X text 387 110 to the ground (=0) or to;
 #X text 387 127 the positive voltage (=1);
@@ -205,7 +253,7 @@ to the ground \, you will get random values (0 or 1) - to avoid that
 #X connect 5 12 16 0;
 #X connect 5 13 17 0;
 #X connect 24 0 4 0;
-#X restore 44 392 pd DIGITAL-INPUT;
+#X restore 38 399 pd DIGITAL-INPUT;
 #N canvas 730 162 441 343 ANALOG-INPUT 0;
 #X obj 121 108 spigot 0;
 #X obj 183 105 tgl 20 0 empty empty empty 0 -6 0 8 -258699 -1 -1 0
@@ -302,7 +350,7 @@ the ground \, if you want to avoid flickering of the values !;
 #X connect 15 6 11 0;
 #X connect 15 7 12 0;
 #X connect 17 0 0 0;
-#X restore 49 452 pd ANALOG-INPUT;
+#X restore 43 451 pd ANALOG-INPUT;
 #N canvas 99 372 562 378 ANALOG-OUTPUT-PWM 0;
 #X text 16 17 Analog Output \, PWM (Pulse Width Modulation);
 #X msg 21 189 pwm 9 \$1;
@@ -349,18 +397,13 @@ PWM pins of your Arduino board.;
 #X connect 14 0 19 0;
 #X connect 15 0 21 0;
 #X connect 16 0 23 0;
-#X restore 19 477 pd ANALOG-OUTPUT-PWM;
-#X text 25 289 With the Arduino-Board you can do digital and analog
+#X restore 13 470 pd ANALOG-OUTPUT-PWM;
+#X text 14 301 With the Arduino-Board you can do digital and analog
 input and output \, as descriped in the following sub-patches:;
-#X text 167 415 <- example of Digital Output;
-#X text 167 393 <- example of Digital Input;
-#X text 167 453 <- example of Analog Input;
-#X text 167 478 <- example of Analog Output;
-#X text 261 40 Arduino Interface For PD;
-#X text 288 14 ::::_PDUINO_::::;
-#X text 435 507 2006 \, released under GNU GPL \; Gerda Strobl \, Georg
-Holzmann;
-#X text 69 76 <- list devices;
+#X text 144 415 <- example of Digital Output;
+#X text 143 398 <- example of Digital Input;
+#X text 143 450 <- example of Analog Input;
+#X text 143 469 <- example of Analog Output;
 #N canvas 0 76 436 343 GETTING-INFO 0;
 #X msg 147 65 version;
 #X msg 207 65 info;
@@ -380,9 +423,9 @@ Holzmann;
 #X connect 5 0 3 0;
 #X connect 5 1 4 0;
 #X connect 9 0 2 0;
-#X restore 49 534 pd GETTING-INFO;
-#X text 167 535 <- example of getting status data;
-#N canvas 492 777 471 273 SWITCHING-INPUTS 0;
+#X restore 43 520 pd GETTING-INFO;
+#X text 143 519 <- example of getting status data;
+#N canvas 301 528 471 273 SWITCHING-INPUTS 0;
 #X msg 25 123 analogIns 0 1;
 #N canvas 162 133 610 460 serin 0;
 #X obj 59 337 outlet;
@@ -478,42 +521,7 @@ digital it is controller per 8-pin "port".;
 #X connect 1 0 0 0;
 #X connect 3 0 8 0;
 #X connect 5 0 3 0;
-#X restore 26 358 pd SWITCHING-INPUTS;
-#X msg 474 437 digital 13 \$1;
-#X obj 474 419 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0
-1;
-#X obj 490 180 arduino 1;
-#X msg 16 75 devices;
-#X text 89 180 <- info for current connection;
-#X msg 58 203 version;
-#N canvas 0 76 467 240 ver 0;
-#X obj 250 100 cnv 15 145 17 empty \$0-version_cnv empty 4 10 0 12
--232576 -1 0;
-#X obj 23 179 send \$0-version_cnv;
-#X msg 23 154 label \$1;
-#X obj 48 125 symbol;
-#X obj 38 99 loadbang;
-#X msg 96 100 bang;
-#X obj 23 29 route version;
-#X msg 23 73 symbol firmata_version_\$1_\$2;
-#X obj 23 51 list;
-#X obj 23 6 receive \$0-arduino-info;
-#X connect 2 0 1 0;
-#X connect 3 0 2 0;
-#X connect 4 0 3 0;
-#X connect 5 0 3 0;
-#X connect 6 0 8 0;
-#X connect 7 0 2 0;
-#X connect 8 0 7 0;
-#X connect 9 0 6 0;
-#X coords 0 -1 1 1 145 17 1 250 100;
-#X restore 125 256 pd ver;
-#X text 110 203 <- get protocol version;
-#X text 110 228 <- get firmware version;
-#X msg 58 228 firmware;
-#X text 83 133 select the serial port;
-#X text 85 153 close the serial port;
-#X msg 453 384 pinMode 13 output;
+#X restore 20 367 pd SWITCHING-INPUTS;
 #N canvas 23 251 432 341 SERVO 0;
 #X obj 52 224 hsl 150 17 0 1 0 0 empty empty Servo_control_(0-1) -2
 -6 1 10 -232576 -1 -1 0 1;
@@ -544,9 +552,9 @@ one extreme \, and 1 to the other.;
 #X connect 8 0 13 0;
 #X connect 9 0 15 0;
 #X connect 10 0 13 0;
-#X restore 91 501 pd SERVO;
-#X text 167 502 <- example of Servo control;
-#X text 167 326 <- first \, you need to config the pinMode;
+#X restore 85 489 pd SERVO;
+#X text 143 488 <- example of Servo control;
+#X text 143 336 <- first \, you need to config the pinMode;
 #N canvas 26 177 444 293 PINMODE 0;
 #X text 45 14 Before you can send or receive any data from the Arduino
 \, you need to configure the pins using the pinMode message. The message
@@ -567,26 +575,59 @@ for the pin modes:;
 #X msg 218 151 pinMode 10 analog;
 #X msg 218 171 pinMode 10 pwm;
 #X msg 218 191 pinMode 10 servo;
-#X restore 80 325 pd PINMODE;
-#X obj 541 203 send \$0-arduino-info;
-#X obj 564 182 print INFO;
-#X msg 28 135 open \$1;
-#X floatatom 28 99 5 0 0 0 - - -;
-#X text 63 98 <- enter the number of your serial device;
-#X text 83 113 listed by the 'device' message above;
-#X obj 13 253 cnv 15 100 26 empty empty empty 20 12 0 14 -257985 -66577
+#X restore 74 337 pd PINMODE;
+#X text 144 365 <- example of switching inputs on and off;
+#N canvas 448 515 332 194 PULLUP/DOWN 0;
+#X obj 25 89 cnv 15 100 26 empty empty empty 20 12 0 14 -257985 -66577
 0;
-#X obj 16 257 send \$0-arduino;
-#X obj 486 151 cnv 15 120 26 empty empty empty 20 12 0 14 -257985 -66577
+#X obj 28 92 send \$0-arduino;
+#X msg 28 25 digital 7 0;
+#X text 119 23 pulldown on pin7;
+#X msg 38 56 digital 7 1;
+#X text 120 53 pullup on pin7;
+#X connect 2 0 1 0;
+#X connect 4 0 1 0;
+#X restore 48 547 pd PULLUP/DOWN;
+#X obj 405 47 cnv 15 230 230 empty empty arduino_object 12 12 0 10
+-233017 -66577 0;
+#X obj 405 280 cnv 15 230 200 empty empty example 12 12 0 10 -233017
+-66577 0;
+#X text 423 497 2006 \, released under GNU GPL \; Gerda Strobl \, Georg
+Holzmann;
+#X text 424 529 slight cosmetics in 2011 by;
+#X text 424 543 Roman Haefeli \, Olsen Wolf;
+#X msg 440 413 digital 13 \$1;
+#X obj 440 395 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0
+1;
+#X msg 419 356 pinMode 13 output;
+#X obj 416 433 cnv 15 100 26 empty empty empty 20 12 0 14 -257985 -66577
 0;
-#X obj 490 157 receive \$0-arduino;
-#X obj 450 457 cnv 15 100 26 empty empty empty 20 12 0 14 -257985 -66577
+#X obj 419 436 send \$0-arduino;
+#X text 416 321 the pins for digital IO:;
+#X text 456 392 <- toggle pin 13 on and off;
+#X text 544 358 output mode;
+#X text 543 346 set pin 13 to;
+#X text 527 353 <-;
+#X text 415 305 Example to set input/output mode of;
+#X obj 423 148 arduino 1;
+#X obj 474 198 send \$0-arduino-info;
+#X obj 482 176 print INFO;
+#X obj 419 93 cnv 15 120 26 empty empty empty 20 12 0 14 -257985 -66577
 0;
-#X obj 453 460 send \$0-arduino;
-#X obj 486 223 cnv 15 125 26 empty empty empty 20 12 0 14 -159808 -66577
+#X obj 423 99 receive \$0-arduino;
+#X obj 419 218 cnv 15 125 26 empty empty empty 20 12 0 14 -159808 -66577
 0;
-#X obj 490 227 send \$0-arduino-out;
-#X obj 15 24 cnv 15 230 30 empty empty empty 20 12 0 14 -261234 -66577
+#X obj 423 222 send \$0-arduino-out;
+#X text 502 140 here's our;
+#X text 501 152 Arduino object;
+#X text 484 147 <-;
+#X text 143 544 <- example of setting pins into;
+#X text 161 558 pullup/down state;
+#X obj 2 -6 cnv 15 633 50 empty empty empty 20 12 0 14 -233017 -66577
+0;
+#X text 253 20 Arduino Interface For PD;
+#X text 280 5 ::::_PDUINO_::::;
+#X obj 16 4 cnv 15 230 30 empty empty empty 20 12 0 14 -261234 -66577
 0;
 #N canvas 706 129 445 342 INSTALL-NOTES 0;
 #X text 20 27 1 General information on arduino: http://www.arduino.cc
@@ -607,30 +648,20 @@ start.;
 Firmata >=2.1 (included in Arduino 18 or newer) for best results.;
 #X text 21 273 pd-svn: https://pure-data.svn.sourceforge.net/svnroot/pure-data/trunk/
 ;
-#X restore 20 30 pd INSTALL-NOTES;
-#X text 125 29 <- read this first!;
-#X text 168 358 <- example of switching inputs on and off;
-#X text 450 353 the pins for digital IO:;
-#X text 490 416 <- toggle pin 13 on and off;
-#X text 577 387 output mode;
-#X text 576 375 set pin 13 to;
-#X text 560 382 <-;
-#X text 449 337 Example to set input/output mode of;
-#X text 489 30 2 do: pullup in doku;
-#X text 313 180 here's our Arduino object ->;
-#X msg 448 305 pinMode 7 input;
-#X connect 0 0 42 0;
-#X connect 1 0 42 0;
-#X connect 18 0 46 0;
-#X connect 19 0 18 0;
-#X connect 20 0 48 0;
-#X connect 20 1 35 0;
-#X connect 20 1 36 0;
-#X connect 21 0 42 0;
-#X connect 23 0 42 0;
-#X connect 27 0 42 0;
-#X connect 30 0 46 0;
-#X connect 37 0 42 0;
-#X connect 38 0 37 0;
-#X connect 44 0 20 0;
-#X connect 61 0 46 0;
+#X restore 21 10 pd INSTALL-NOTES;
+#X text 126 9;
+#X text 125 9 <- read this first;
+#X connect 1 0 17 0;
+#X connect 2 0 17 0;
+#X connect 4 0 17 0;
+#X connect 6 0 17 0;
+#X connect 10 0 17 0;
+#X connect 13 0 17 0;
+#X connect 14 0 13 0;
+#X connect 44 0 48 0;
+#X connect 45 0 44 0;
+#X connect 46 0 48 0;
+#X connect 55 0 61 0;
+#X connect 55 1 56 0;
+#X connect 55 1 57 0;
+#X connect 59 0 55 0;
