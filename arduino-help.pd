@@ -1,4 +1,4 @@
-#N canvas 481 124 638 589 10;
+#N canvas 593 130 638 589 10;
 #X obj 2 47 cnv 15 400 230 empty empty serial_connection 12 12 0 10
 -233017 -66577 0;
 #X msg 46 143 close;
@@ -8,8 +8,8 @@
 #X text 90 171 <- info for current connection;
 #X msg 59 192 version;
 #N canvas 165 527 470 222 ver 0;
-#X obj 250 100 cnv 15 145 17 empty \$0-version_cnv connection_closed
-4 10 0 12 -232576 -1 0;
+#X obj 250 100 cnv 15 145 17 empty \$0-version_cnv empty 4 10 0 12
+-232576 -1 0;
 #X obj 23 202 send \$0-version_cnv;
 #X msg 23 177 label \$1;
 #X obj 48 148 symbol;
@@ -425,7 +425,7 @@ input and output \, as descriped in the following sub-patches:;
 #X connect 9 0 2 0;
 #X restore 43 520 pd GETTING-INFO;
 #X text 143 519 <- example of getting status data;
-#N canvas 301 528 471 273 SWITCHING-INPUTS 0;
+#N canvas 300 527 471 273 SWITCHING-INPUTS 0;
 #X msg 25 123 analogIns 0 1;
 #N canvas 162 133 610 460 serin 0;
 #X obj 59 337 outlet;
@@ -649,8 +649,28 @@ Firmata >=2.1 (included in Arduino 18 or newer) for best results.;
 #X text 21 273 pd-svn: https://pure-data.svn.sourceforge.net/svnroot/pure-data/trunk/
 ;
 #X restore 21 10 pd INSTALL-NOTES;
-#X text 126 9;
-#X text 125 9 <- read this first;
+#X text 126 8 <- read this first;
+#N canvas 147 357 559 381 ADDITIONAL-INFOS 0;
+#X text 58 326 http://answers.ros.org/answers/101/revisions/;
+#X text 68 170 $ udevadm control u2013reload-rules;
+#X text 72 90 $ echo 'SUBSYSTEMS=="usb" \, KERNEL=="ttyUSB[0-9]*" \,
+ATTRSidVendor=="0403" \, ATTRSidProduct=="6001" \, SYMLINK+="arduino/ftdi_%sserial"'
+> /etc/udev/rules.d/52-ftdi.rules;
+#X msg 73 254 open /dev/arduino/ftdi_A9005eBF;
+#X text 72 231 your open message then looks f.e. like this:;
+#X obj 73 285 arduino;
+#X text 54 155 2 reload your udev rules:;
+#X obj 47 25 cnv 15 430 45 empty empty empty 20 12 0 14 -261234 -66577
+0;
+#X text 51 72 1 execute this command as root:;
+#X text 53 196 3 you should get a unique symlink of your device in
+/dev/arduino/ftdi_yourserialddress.;
+#X text 58 313 info source:;
+#X text 52 26 how to make shure that various arduinos plugged into
+one Linux-system are always connected to the same arduino object after
+unplugging/reboot:;
+#X connect 3 0 5 0;
+#X restore 463 13 pd ADDITIONAL-INFOS;
 #X connect 1 0 17 0;
 #X connect 2 0 17 0;
 #X connect 4 0 17 0;
