@@ -608,18 +608,18 @@ Holzmann;
 #X text 543 346 set pin 13 to;
 #X text 527 353 <-;
 #X text 415 305 Example to set input/output mode of;
-#X obj 423 148 arduino 1;
-#X obj 474 198 send \$0-arduino-info;
-#X obj 482 176 print INFO;
-#X obj 419 93 cnv 15 120 26 empty empty empty 20 12 0 14 -257985 -66577
+#X obj 418 131 arduino 1;
+#X obj 469 181 send \$0-arduino-info;
+#X obj 477 159 print INFO;
+#X obj 414 76 cnv 15 120 26 empty empty empty 20 12 0 14 -257985 -66577
 0;
-#X obj 423 99 receive \$0-arduino;
-#X obj 419 218 cnv 15 125 26 empty empty empty 20 12 0 14 -159808 -66577
+#X obj 418 82 receive \$0-arduino;
+#X obj 414 201 cnv 15 125 26 empty empty empty 20 12 0 14 -159808 -66577
 0;
-#X obj 423 222 send \$0-arduino-out;
-#X text 502 140 here's our;
-#X text 501 152 Arduino object;
-#X text 484 147 <-;
+#X obj 418 205 send \$0-arduino-out;
+#X text 497 123 here's our;
+#X text 496 135 Arduino object;
+#X text 479 130 <-;
 #X text 143 544 <- example of setting pins into;
 #X text 161 558 pullup/down state;
 #X obj 2 -6 cnv 15 633 50 empty empty 1.Installation 12 10 0 10 -233017
@@ -671,6 +671,8 @@ unplugging/reboot:;
 #X connect 3 0 5 0;
 #X restore 463 13 pd ADDITIONAL-INFOS;
 #X text 425 543 Roman Haefeli and Olsen;
+#X text 407 252 an abstraction in your poject folder;
+#X text 407 238 NOTE:the [arduino]object is placed as;
 #X connect 1 0 17 0;
 #X connect 2 0 17 0;
 #X connect 4 0 17 0;
