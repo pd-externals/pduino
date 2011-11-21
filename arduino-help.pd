@@ -1,15 +1,14 @@
-#N canvas 593 130 638 589 10;
+#N canvas 623 55 638 589 10;
 #X obj 2 47 cnv 15 400 230 empty empty 2.serial_connection 12 12 0
 10 -233017 -66577 0;
 #X msg 46 143 close;
 #X msg 56 171 info;
-#X text 70 70 <- list devices;
 #X msg 17 69 devices;
 #X text 90 171 <- info for current connection;
 #X msg 59 192 version;
 #N canvas 165 527 470 222 ver 0;
-#X obj 250 100 cnv 15 145 17 empty \$0-version_cnv empty 4 10 0 12
--232576 -1 0;
+#X obj 250 100 cnv 15 145 17 empty \$0-version_cnv connection_closed
+4 10 0 12 -232576 -1 0;
 #X obj 23 202 send \$0-version_cnv;
 #X msg 23 177 label \$1;
 #X obj 48 148 symbol;
@@ -199,7 +198,7 @@ with one message;
 #X connect 27 0 33 0;
 #X connect 28 0 33 0;
 #X connect 29 0 33 0;
-#X restore 32 418 pd DIGITAL-OUTPUT;
+#X restore 32 397 pd DIGITAL-OUTPUT;
 #N canvas 14 501 578 280 DIGITAL-INPUT 0;
 #X text 387 93 connect the Digital Input;
 #X text 387 110 to the ground (=0) or to;
@@ -253,10 +252,10 @@ to the ground \, you will get random values (0 or 1) - to avoid that
 #X connect 5 12 16 0;
 #X connect 5 13 17 0;
 #X connect 24 0 4 0;
-#X restore 38 399 pd DIGITAL-INPUT;
-#N canvas 730 162 441 343 ANALOG-INPUT 0;
+#X restore 38 378 pd DIGITAL-INPUT;
+#N canvas 303 503 441 343 ANALOG-INPUT 0;
 #X obj 121 108 spigot 0;
-#X obj 183 105 tgl 20 0 empty empty empty 0 -6 0 8 -258699 -1 -1 0
+#X obj 183 105 tgl 20 0 empty empty empty 0 -6 0 8 -258699 -1 -1 1
 1;
 #X text 30 24 Analog Inputs of the Arduino-Board:;
 #X text 211 107 <- enable analog inputs;
@@ -350,7 +349,7 @@ the ground \, if you want to avoid flickering of the values !;
 #X connect 15 6 11 0;
 #X connect 15 7 12 0;
 #X connect 17 0 0 0;
-#X restore 43 451 pd ANALOG-INPUT;
+#X restore 43 436 pd ANALOG-INPUT;
 #N canvas 99 372 562 378 ANALOG-OUTPUT-PWM 0;
 #X text 16 17 Analog Output \, PWM (Pulse Width Modulation);
 #X msg 21 189 pwm 9 \$1;
@@ -397,13 +396,12 @@ PWM pins of your Arduino board.;
 #X connect 14 0 19 0;
 #X connect 15 0 21 0;
 #X connect 16 0 23 0;
-#X restore 13 470 pd ANALOG-OUTPUT-PWM;
+#X restore 13 455 pd ANALOG-OUTPUT-PWM;
 #X text 14 301 With the Arduino-Board you can do digital and analog
 input and output \, as descriped in the following sub-patches:;
-#X text 144 415 <- example of Digital Output;
-#X text 143 398 <- example of Digital Input;
-#X text 143 450 <- example of Analog Input;
-#X text 143 469 <- example of Analog Output;
+#X text 144 394 <- example of Digital Output;
+#X text 143 377 <- example of Digital Input;
+#X text 143 454 <- example of Analog Output;
 #N canvas 0 76 436 343 GETTING-INFO 0;
 #X msg 147 65 version;
 #X msg 207 65 info;
@@ -423,10 +421,119 @@ input and output \, as descriped in the following sub-patches:;
 #X connect 5 0 3 0;
 #X connect 5 1 4 0;
 #X connect 9 0 2 0;
-#X restore 43 520 pd GETTING-INFO;
-#X text 143 519 <- example of getting status data;
-#N canvas 300 527 471 273 SWITCHING-INPUTS 0;
-#X msg 25 123 analogIns 0 1;
+#X restore 43 514 pd GETTING-INFO;
+#X text 143 513 <- example of getting status data;
+#N canvas 23 251 432 341 SERVO 0;
+#X obj 52 224 hsl 150 17 0 1 0 0 empty empty Servo_control_(0-1) -2
+-6 1 10 -232576 -1 -1 0 1;
+#X text 27 141 disable PWM:;
+#X obj 260 224 hsl 150 17 0 1 0 0 empty empty Servo_control_(0-1) -2
+-6 1 10 -232576 -1 -1 0 1;
+#X text 235 141 disable PWM:;
+#X text 19 119 PIN9:;
+#X text 227 121 PIN10:;
+#X text 14 13 Servo control;
+#X msg 49 245 analog 9 \$1;
+#X msg 257 245 analog 10 \$1;
+#X msg 29 160 pinMode 9 servo;
+#X msg 237 160 pinMode 10 servo;
+#X text 15 40 You can control servo motors using Pd. First \, set the
+pin to servo mode using the pinMode message \, then send analog values
+to that pin with a range between 0 and 1 0 will set the position to
+one extreme \, and 1 to the other.;
+#X obj 252 270 cnv 15 85 26 empty empty empty 20 12 0 14 -257985 -66577
+0;
+#X obj 257 274 s \$0-arduino;
+#X obj 44 270 cnv 15 85 26 empty empty empty 20 12 0 14 -257985 -66577
+0;
+#X obj 49 274 s \$0-arduino;
+#X connect 0 0 7 0;
+#X connect 2 0 8 0;
+#X connect 7 0 15 0;
+#X connect 8 0 13 0;
+#X connect 9 0 15 0;
+#X connect 10 0 13 0;
+#X restore 85 474 pd SERVO;
+#X text 143 473 <- example of Servo control;
+#N canvas 146 28 444 642 PINMODE 0;
+#X text 19 5 Before you can send or receive any data from the Arduino
+\, you need to configure the pins using the pinMode message. The message
+has the format [pinMode pin# mode(. You can use either numbers or names
+for the pin modes:;
+#X msg 98 539 pinMode 10 3;
+#X msg 76 153 pinMode 10 1;
+#X msg 76 129 pinMode 10 0;
+#X msg 98 559 pinMode 10 4;
+#X text 184 127 ==;
+#X text 183 152 ==;
+#X text 188 373 ==;
+#X text 206 539 ==;
+#X text 206 559 ==;
+#X msg 227 129 pinMode 10 input;
+#X msg 226 154 pinMode 10 output;
+#X msg 247 539 pinMode 10 pwm;
+#X msg 247 559 pinMode 10 servo;
+#X obj 184 598 cnv 15 100 26 empty empty empty 20 12 0 14 -257985 -66577
+0;
+#X obj 187 601 send \$0-arduino;
+#X obj 9 70 cnv 15 380 30 empty empty empty 20 12 0 14 -233017 -66577
+0;
+#X text 14 76 PinMode for Digital Pins:;
+#X obj 10 255 cnv 15 380 30 empty empty empty 20 12 0 14 -233017 -66577
+0;
+#X text 15 261 PinMode for Analog Pins:;
+#X obj 11 483 cnv 15 380 30 empty empty empty 20 12 0 14 -233017 -66577
+0;
+#X text 16 489 PinMode for PWM & Servo Pins:;
+#X obj 176 187 cnv 15 100 26 empty empty empty 20 12 0 14 -257985 -66577
+0;
+#X obj 179 190 send \$0-arduino;
+#X msg 81 375 pinMode 16 2;
+#X obj 184 426 cnv 15 100 26 empty empty empty 20 12 0 14 -257985 -66577
+0;
+#X obj 187 429 send \$0-arduino;
+#X msg 227 376 pinMode 16 analog;
+#N canvas 432 166 450 241 old 0;
+#X msg 57 130 digitalIns 0 0;
+#X text 56 93 which digital ports to enable:;
+#N canvas 162 133 610 460 seri 0;
+#X obj 59 337 outlet;
+#X obj 59 266 trigger bang anything;
+#X obj 201 286 list;
+#X obj 60 61 tgl 15 0 junk_to_hide_inlet ARDUINO_TEST_RESET 0 5 9 1
+12 -260736 -1 -1 0 1;
+#X obj 75 61 tgl 15 0 junk_to_hide_inlet ARDUINO_TEST_RESET 1 5 9 1
+12 -260736 -1 -1 0 1;
+#X obj 90 61 tgl 15 0 junk_to_hide_inlet ARDUINO_TEST_RESET 2 5 9 1
+12 -260736 -1 -1 0 1;
+#X msg 35 106 0 \$1;
+#X msg 70 106 1 \$1;
+#X msg 105 106 2 \$1;
+#X msg 202 307 set \$1 \$2 \$3;
+#X msg 59 210 digitalIns \$1 \$2;
+#X connect 1 0 0 0;
+#X connect 1 1 2 0;
+#X connect 2 0 9 0;
+#X connect 3 0 6 0;
+#X connect 4 0 7 0;
+#X connect 5 0 8 0;
+#X connect 6 0 10 0;
+#X connect 7 0 10 0;
+#X connect 8 0 10 0;
+#X connect 9 0 0 0;
+#X connect 10 0 1 0;
+#X coords 0 -1 1 1 45 16 1 60 60;
+#X restore 57 110 pd seri;
+#X obj 54 168 cnv 15 100 26 empty empty empty 20 12 0 14 -257985 -66577
+0;
+#X obj 57 173 send \$0-arduino;
+#X text 54 31 You have to tell StandardFirmata to send you data from
+the inputs. For Digital it is controller per 8-pin "port".;
+#X connect 0 0 4 0;
+#X connect 2 0 0 0;
+#X restore 169 227 pd old digital controls(deprecated);
+#N canvas 517 261 426 208 old 0;
+#X msg 35 111 analogIns 0 0;
 #N canvas 162 133 610 460 serin 0;
 #X obj 59 337 outlet;
 #X obj 59 266 trigger bang anything;
@@ -479,104 +586,44 @@ input and output \, as descriped in the following sub-patches:;
 #X connect 19 0 11 0;
 #X connect 20 0 0 0;
 #X coords 0 -1 1 1 120 16 1 60 60;
-#X restore 25 103 pd serin;
-#X text 24 86 which analogIns to enable:;
-#X msg 234 128 digitalIns 0 0;
-#X text 233 91 which digital ports to enable:;
-#N canvas 162 133 610 460 seri 0;
-#X obj 59 337 outlet;
-#X obj 59 266 trigger bang anything;
-#X obj 201 286 list;
-#X obj 60 61 tgl 15 0 junk_to_hide_inlet ARDUINO_TEST_RESET 0 5 9 1
-12 -260736 -1 -1 0 1;
-#X obj 75 61 tgl 15 0 junk_to_hide_inlet ARDUINO_TEST_RESET 1 5 9 1
-12 -260736 -1 -1 0 1;
-#X obj 90 61 tgl 15 0 junk_to_hide_inlet ARDUINO_TEST_RESET 2 5 9 1
-12 -260736 -1 -1 0 1;
-#X msg 35 106 0 \$1;
-#X msg 70 106 1 \$1;
-#X msg 105 106 2 \$1;
-#X msg 202 307 set \$1 \$2 \$3;
-#X msg 59 210 digitalIns \$1 \$2;
+#X restore 35 91 pd serin;
+#X text 34 74 which analogIns to enable:;
+#X obj 32 154 cnv 15 100 26 empty empty empty 20 12 0 14 -257985 -66577
+0;
+#X obj 35 159 send \$0-arduino;
+#X text 33 25 You have to tell StandardFirmata to send you data from
+the inputs. For analog \, its controlled per-pin.;
+#X connect 0 0 4 0;
 #X connect 1 0 0 0;
-#X connect 1 1 2 0;
-#X connect 2 0 9 0;
-#X connect 3 0 6 0;
-#X connect 4 0 7 0;
-#X connect 5 0 8 0;
-#X connect 6 0 10 0;
-#X connect 7 0 10 0;
-#X connect 8 0 10 0;
-#X connect 9 0 0 0;
-#X connect 10 0 1 0;
-#X coords 0 -1 1 1 45 16 1 60 60;
-#X restore 234 108 pd seri;
-#X text 23 15 Currently \, you have to tell StandardFirmata to send
-you data from the inputs. For analog \, its controlled per-pin. For
-digital it is controller per 8-pin "port".;
-#X obj 136 189 cnv 15 100 26 empty empty empty 20 12 0 14 -257985 -66577
+#X restore 177 460 pd old analog controls(deprecated);
+#X obj 20 290 cnv 15 360 60 empty empty empty 20 12 0 14 -261234 -66577
 0;
-#X obj 139 194 send \$0-arduino;
-#X connect 0 0 8 0;
-#X connect 1 0 0 0;
-#X connect 3 0 8 0;
-#X connect 5 0 3 0;
-#X restore 20 367 pd SWITCHING-INPUTS;
-#N canvas 23 251 432 341 SERVO 0;
-#X obj 52 224 hsl 150 17 0 1 0 0 empty empty Servo_control_(0-1) -2
--6 1 10 -232576 -1 -1 0 1;
-#X text 27 141 disable PWM:;
-#X obj 260 224 hsl 150 17 0 1 0 0 empty empty Servo_control_(0-1) -2
--6 1 10 -232576 -1 -1 0 1;
-#X text 235 141 disable PWM:;
-#X text 19 119 PIN9:;
-#X text 227 121 PIN10:;
-#X text 14 13 Servo control;
-#X msg 49 245 analog 9 \$1;
-#X msg 257 245 analog 10 \$1;
-#X msg 29 160 pinMode 9 servo;
-#X msg 237 160 pinMode 10 servo;
-#X text 15 40 You can control servo motors using Pd. First \, set the
-pin to servo mode using the pinMode message \, then send analog values
-to that pin with a range between 0 and 1 0 will set the position to
-one extreme \, and 1 to the other.;
-#X obj 252 270 cnv 15 85 26 empty empty empty 20 12 0 14 -257985 -66577
-0;
-#X obj 257 274 s \$0-arduino;
-#X obj 44 270 cnv 15 85 26 empty empty empty 20 12 0 14 -257985 -66577
-0;
-#X obj 49 274 s \$0-arduino;
-#X connect 0 0 7 0;
-#X connect 2 0 8 0;
-#X connect 7 0 15 0;
-#X connect 8 0 13 0;
-#X connect 9 0 15 0;
-#X connect 10 0 13 0;
-#X restore 85 489 pd SERVO;
-#X text 143 488 <- example of Servo control;
-#X text 143 336 <- first \, you need to config the pinMode;
-#N canvas 26 177 444 293 PINMODE 0;
-#X text 45 14 Before you can send or receive any data from the Arduino
-\, you need to configure the pins using the pinMode message. The message
-has the format [pinMode pin# mode(. You can use either numbers or names
-for the pin modes:;
-#X msg 58 171 pinMode 10 3;
-#X msg 58 151 pinMode 10 2;
-#X msg 58 131 pinMode 10 1;
-#X msg 58 111 pinMode 10 0;
-#X msg 58 191 pinMode 10 4;
-#X text 169 111 ==;
-#X text 169 131 ==;
-#X text 169 151 ==;
-#X text 169 171 ==;
-#X text 169 191 ==;
-#X msg 218 111 pinMode 10 input;
-#X msg 218 131 pinMode 10 output;
-#X msg 218 151 pinMode 10 analog;
-#X msg 218 171 pinMode 10 pwm;
-#X msg 218 191 pinMode 10 servo;
+#X text 23 290 NOTE: the AnalogPins are adressed by numbers and not
+as A0-A7. Due to Arduinos naming scheme the AnalogPin f.e. A0 on a
+Diecimila is adressed by the pins number \, here 16 A1 is the pin 17
+and so on.;
+#X msg 81 400 pinMode 16 0;
+#X text 19 353 define AnalogPin A0;
+#X text 19 373 as input;
+#X text 20 399 disable;
+#X text 14 104 define DigitalPin 10 as;
+#X text 14 151 output;
+#X text 14 127 input;
+#X text 17 516 define DigitalPin 10 for;
+#X text 17 538 pwm output;
+#X text 15 557 servo output;
+#X connect 1 0 15 0;
+#X connect 2 0 23 0;
+#X connect 3 0 23 0;
+#X connect 4 0 15 0;
+#X connect 10 0 23 0;
+#X connect 11 0 23 0;
+#X connect 12 0 15 0;
+#X connect 13 0 15 0;
+#X connect 24 0 26 0;
+#X connect 27 0 26 0;
+#X connect 32 0 26 0;
 #X restore 74 337 pd PINMODE;
-#X text 144 365 <- example of switching inputs on and off;
 #N canvas 448 515 332 194 PULLUP/DOWN 0;
 #X obj 25 89 cnv 15 100 26 empty empty empty 20 12 0 14 -257985 -66577
 0;
@@ -587,7 +634,7 @@ for the pin modes:;
 #X text 120 53 pullup on pin7;
 #X connect 2 0 1 0;
 #X connect 4 0 1 0;
-#X restore 48 547 pd PULLUP/DOWN;
+#X restore 48 541 pd PULLUP/DOWN;
 #X obj 405 47 cnv 15 230 230 empty empty arduino_object 12 12 0 10
 -233017 -66577 0;
 #X obj 405 280 cnv 15 230 200 empty empty example 12 12 0 10 -233017
@@ -620,8 +667,8 @@ Holzmann;
 #X text 497 123 here's our;
 #X text 496 135 Arduino object;
 #X text 479 130 <-;
-#X text 143 544 <- example of setting pins into;
-#X text 161 558 pullup/down state;
+#X text 143 538 <- example of setting pins into;
+#X text 161 552 pullup/down state;
 #X obj 2 -6 cnv 15 633 50 empty empty 1.Installation 12 10 0 10 -233017
 -66577 0;
 #X text 253 20 Arduino Interface For PD;
@@ -673,17 +720,20 @@ unplugging/reboot:;
 #X text 425 543 Roman Haefeli and Olsen;
 #X text 407 238 NOTE:the [arduino]object is placed as;
 #X text 407 252 an abstraction in your project folder;
-#X connect 1 0 17 0;
-#X connect 2 0 17 0;
-#X connect 4 0 17 0;
-#X connect 6 0 17 0;
-#X connect 10 0 17 0;
-#X connect 13 0 17 0;
-#X connect 14 0 13 0;
-#X connect 43 0 47 0;
-#X connect 44 0 43 0;
-#X connect 45 0 47 0;
-#X connect 54 0 60 0;
-#X connect 54 1 55 0;
-#X connect 54 1 56 0;
-#X connect 58 0 54 0;
+#X text 70 70 <- list devices -> check the pd-console output!;
+#X text 142 436 <- example of Analog Input;
+#X text 143 336 <- first \, you need to set the pinMode;
+#X connect 1 0 16 0;
+#X connect 2 0 16 0;
+#X connect 3 0 16 0;
+#X connect 5 0 16 0;
+#X connect 9 0 16 0;
+#X connect 12 0 16 0;
+#X connect 13 0 12 0;
+#X connect 38 0 42 0;
+#X connect 39 0 38 0;
+#X connect 40 0 42 0;
+#X connect 49 0 55 0;
+#X connect 49 1 50 0;
+#X connect 49 1 51 0;
+#X connect 53 0 49 0;
