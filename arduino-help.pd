@@ -1,4 +1,4 @@
-#N canvas 623 55 638 589 10;
+#N canvas 201 155 638 589 10;
 #X obj 2 47 cnv 15 400 230 empty empty 2.serial_connection 12 12 0
 10 -233017 -66577 0;
 #X msg 46 143 close;
@@ -7,8 +7,8 @@
 #X text 90 171 <- info for current connection;
 #X msg 59 192 version;
 #N canvas 165 527 470 222 ver 0;
-#X obj 250 100 cnv 15 145 17 empty \$0-version_cnv connection_closed
-4 10 0 12 -232576 -1 0;
+#X obj 250 100 cnv 15 145 17 empty \$0-version_cnv empty 4 10 0 12
+-232576 -1 0;
 #X obj 23 202 send \$0-version_cnv;
 #X msg 23 177 label \$1;
 #X obj 48 148 symbol;
@@ -255,7 +255,7 @@ to the ground \, you will get random values (0 or 1) - to avoid that
 #X restore 38 378 pd DIGITAL-INPUT;
 #N canvas 303 503 441 343 ANALOG-INPUT 0;
 #X obj 121 108 spigot 0;
-#X obj 183 105 tgl 20 0 empty empty empty 0 -6 0 8 -258699 -1 -1 1
+#X obj 183 105 tgl 20 0 empty empty empty 0 -6 0 8 -258699 -1 -1 0
 1;
 #X text 30 24 Analog Inputs of the Arduino-Board:;
 #X text 211 107 <- enable analog inputs;
@@ -455,44 +455,144 @@ one extreme \, and 1 to the other.;
 #X connect 10 0 13 0;
 #X restore 85 474 pd SERVO;
 #X text 143 473 <- example of Servo control;
-#N canvas 146 28 444 642 PINMODE 0;
+#N canvas 448 515 332 194 PULLUP/DOWN 0;
+#X obj 25 89 cnv 15 100 26 empty empty empty 20 12 0 14 -257985 -66577
+0;
+#X obj 28 92 send \$0-arduino;
+#X msg 28 25 digital 7 0;
+#X text 119 23 pulldown on pin7;
+#X msg 38 56 digital 7 1;
+#X text 120 53 pullup on pin7;
+#X connect 2 0 1 0;
+#X connect 4 0 1 0;
+#X restore 48 541 pd PULLUP/DOWN;
+#X obj 405 47 cnv 15 230 230 empty empty arduino_object 12 12 0 10
+-233017 -66577 0;
+#X obj 405 280 cnv 15 230 200 empty empty example 12 12 0 10 -233017
+-66577 0;
+#X text 423 497 2006 \, released under GNU GPL \; Gerda Strobl \, Georg
+Holzmann;
+#X text 424 529 slight cosmetics in 2011 by;
+#X msg 440 413 digital 13 \$1;
+#X obj 440 395 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0
+1;
+#X msg 419 356 pinMode 13 output;
+#X obj 416 433 cnv 15 100 26 empty empty empty 20 12 0 14 -257985 -66577
+0;
+#X obj 419 436 send \$0-arduino;
+#X text 416 321 the pins for digital IO:;
+#X text 456 392 <- toggle pin 13 on and off;
+#X text 544 358 output mode;
+#X text 543 346 set pin 13 to;
+#X text 527 353 <-;
+#X text 415 305 Example to set input/output mode of;
+#X obj 418 131 arduino 1;
+#X obj 469 181 send \$0-arduino-info;
+#X obj 477 161 print INFO;
+#X obj 414 76 cnv 15 120 26 empty empty empty 20 12 0 14 -257985 -66577
+0;
+#X obj 418 82 receive \$0-arduino;
+#X obj 414 201 cnv 15 125 26 empty empty empty 20 12 0 14 -159808 -66577
+0;
+#X obj 418 205 send \$0-arduino-out;
+#X text 496 114 here's our;
+#X text 495 128 Arduino object;
+#X text 479 130 <-;
+#X text 143 538 <- example of setting pins into;
+#X text 161 552 pullup/down state;
+#X obj 2 -6 cnv 15 633 50 empty empty 1.Installation 12 10 0 10 -233017
+-66577 0;
+#X text 253 20 Arduino Interface For PD;
+#X text 280 5 ::::_PDUINO_::::;
+#X obj 9 12 cnv 15 230 30 empty empty empty 20 12 0 14 -261234 -66577
+0;
+#N canvas 706 129 445 342 INSTALL-NOTES 0;
+#X text 20 27 1 General information on arduino: http://www.arduino.cc
+;
+#X text 20 113 3 The StandardFirmata firmware is the best place to
+start.;
+#X text 21 146 4 Pduino needs the following abstraction:;
+#X text 21 193 5 Pduino needs the following externals:;
+#X text 23 248 6 If you still have troubles \, mail to the pd list
+!;
+#X text 39 164 [arduino] \, from pd-svn/externals/hardware/arduino
+;
+#X text 39 210 [comport] \, from pd-svn/externals/iem/comport;
+#X text 39 224 [moocow] \, from pd-svn/externals/moocow;
+#X text 20 48 2 You need to install a Firmata firmware. There are a
+;
+#X text 38 62 bunch of Firmata firmwares included with Arduino. Use
+Firmata >=2.1 (included in Arduino 18 or newer) for best results.;
+#X text 21 273 pd-svn: https://pure-data.svn.sourceforge.net/svnroot/pure-data/trunk/
+;
+#X restore 14 18 pd INSTALL-NOTES;
+#X text 119 16 <- read this first;
+#N canvas 147 357 559 381 ADDITIONAL-INFOS 0;
+#X text 58 326 http://answers.ros.org/answers/101/revisions/;
+#X text 68 170 $ udevadm control u2013reload-rules;
+#X text 72 90 $ echo 'SUBSYSTEMS=="usb" \, KERNEL=="ttyUSB[0-9]*" \,
+ATTRSidVendor=="0403" \, ATTRSidProduct=="6001" \, SYMLINK+="arduino/ftdi_%sserial"'
+> /etc/udev/rules.d/52-ftdi.rules;
+#X msg 73 254 open /dev/arduino/ftdi_A9005eBF;
+#X text 72 231 your open message then looks f.e. like this:;
+#X obj 73 285 arduino;
+#X text 54 155 2 reload your udev rules:;
+#X obj 47 25 cnv 15 430 45 empty empty empty 20 12 0 14 -261234 -66577
+0;
+#X text 51 72 1 execute this command as root:;
+#X text 53 196 3 you should get a unique symlink of your device in
+/dev/arduino/ftdi_yourserialddress.;
+#X text 58 313 info source:;
+#X text 52 26 how to make shure that various arduinos plugged into
+one Linux-system are always connected to the same arduino object after
+unplugging/reboot:;
+#X connect 3 0 5 0;
+#X restore 463 13 pd ADDITIONAL-INFOS;
+#X text 425 543 Roman Haefeli and Olsen;
+#X text 407 238 NOTE:the [arduino]object is placed as;
+#X text 407 252 an abstraction in your project folder;
+#X text 70 70 <- list devices -> check the pd-console output!;
+#X text 142 436 <- example of Analog Input;
+#X obj 68 333 cnv 15 100 26 empty empty empty 20 12 0 14 -257985 -66577
+0;
+#N canvas 146 28 397 665 PINMODE 0;
 #X text 19 5 Before you can send or receive any data from the Arduino
 \, you need to configure the pins using the pinMode message. The message
 has the format [pinMode pin# mode(. You can use either numbers or names
 for the pin modes:;
-#X msg 98 539 pinMode 10 3;
+#X msg 98 561 pinMode 10 3;
 #X msg 76 153 pinMode 10 1;
 #X msg 76 129 pinMode 10 0;
-#X msg 98 559 pinMode 10 4;
+#X msg 98 581 pinMode 10 4;
 #X text 184 127 ==;
 #X text 183 152 ==;
-#X text 188 373 ==;
-#X text 206 539 ==;
-#X text 206 559 ==;
+#X text 188 395 ==;
+#X text 206 561 ==;
+#X text 206 581 ==;
 #X msg 227 129 pinMode 10 input;
 #X msg 226 154 pinMode 10 output;
-#X msg 247 539 pinMode 10 pwm;
-#X msg 247 559 pinMode 10 servo;
-#X obj 184 598 cnv 15 100 26 empty empty empty 20 12 0 14 -257985 -66577
+#X msg 247 561 pinMode 10 pwm;
+#X msg 247 581 pinMode 10 servo;
+#X obj 184 620 cnv 15 100 26 empty empty empty 20 12 0 14 -257985 -66577
 0;
-#X obj 187 601 send \$0-arduino;
+#X obj 187 623 send \$0-arduino;
 #X obj 9 70 cnv 15 380 30 empty empty empty 20 12 0 14 -233017 -66577
 0;
 #X text 14 76 PinMode for Digital Pins:;
 #X obj 10 255 cnv 15 380 30 empty empty empty 20 12 0 14 -233017 -66577
 0;
 #X text 15 261 PinMode for Analog Pins:;
-#X obj 11 483 cnv 15 380 30 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 11 505 cnv 15 380 30 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X text 16 489 PinMode for PWM & Servo Pins:;
+#X text 16 511 PinMode for PWM & Servo Pins:;
 #X obj 176 187 cnv 15 100 26 empty empty empty 20 12 0 14 -257985 -66577
 0;
 #X obj 179 190 send \$0-arduino;
-#X msg 81 375 pinMode 16 2;
-#X obj 184 426 cnv 15 100 26 empty empty empty 20 12 0 14 -257985 -66577
+#X msg 81 397 pinMode 16 2;
+#X obj 184 448 cnv 15 100 26 empty empty empty 20 12 0 14 -257985 -66577
 0;
-#X obj 187 429 send \$0-arduino;
-#X msg 227 376 pinMode 16 analog;
+#X obj 187 451 send \$0-arduino;
+#X msg 227 398 pinMode 16 analog;
 #N canvas 432 166 450 241 old 0;
 #X msg 57 130 digitalIns 0 0;
 #X text 56 93 which digital ports to enable:;
@@ -595,23 +695,141 @@ the inputs. For Digital it is controller per 8-pin "port".;
 the inputs. For analog \, its controlled per-pin.;
 #X connect 0 0 4 0;
 #X connect 1 0 0 0;
-#X restore 177 460 pd old analog controls(deprecated);
-#X obj 20 290 cnv 15 360 60 empty empty empty 20 12 0 14 -261234 -66577
+#X restore 177 482 pd old analog controls(deprecated);
+#X obj 20 290 cnv 15 360 80 empty empty empty 20 12 0 14 -261234 -66577
 0;
-#X text 23 290 NOTE: the AnalogPins are adressed by numbers and not
-as A0-A7. Due to Arduinos naming scheme the AnalogPin f.e. A0 on a
-Diecimila is adressed by the pins number \, here 16 A1 is the pin 17
-and so on.;
-#X msg 81 400 pinMode 16 0;
-#X text 19 353 define AnalogPin A0;
-#X text 19 373 as input;
-#X text 20 399 disable;
+#X msg 81 422 pinMode 16 0;
+#X text 19 375 define AnalogPin A0;
+#X text 19 395 as input;
+#X text 20 421 disable;
 #X text 14 104 define DigitalPin 10 as;
 #X text 14 151 output;
 #X text 14 127 input;
-#X text 17 516 define DigitalPin 10 for;
-#X text 17 538 pwm output;
-#X text 15 557 servo output;
+#X text 17 538 define DigitalPin 10 for;
+#X text 17 560 pwm output;
+#X text 15 579 servo output;
+#X text 23 290 NOTE: the AnalogPins are adressed by numbers and not
+as A0-A7. Due to Arduinos naming scheme the AnalogPin f.e. A0 on a
+Diecimila is adressed by the pins number \, here 16 A1 is the pin 17
+\, A2 = 18 and so on.;
+#N canvas 862 291 436 306 Pin 0;
+#X obj 40 30 cnv 15 350 250 empty empty empty 20 12 0 14 -67964 -66577
+0;
+#X obj 118 32 tgl 15 0 empty empty 15 0 23 1 9 -162280 -1 -191407 0
+1;
+#X obj 152 32 tgl 15 0 empty empty 13 0 23 1 9 -262144 -262144 -262144
+0 1;
+#X obj 169 32 tgl 15 0 empty empty 12 0 23 1 9 -262144 -262144 -262144
+0 1;
+#X obj 203 32 tgl 15 0 empty empty 10 0 23 1 9 -262144 -262144 -262144
+0 1;
+#X obj 186 32 tgl 15 0 empty empty 11 0 23 1 9 -262144 -262144 -262144
+0 1;
+#X obj 220 32 tgl 15 0 empty empty 9 5 23 1 9 -262144 -262144 -262144
+0 1;
+#X obj 237 32 tgl 15 0 empty empty 8 5 23 1 9 -262144 -262144 -262144
+0 1;
+#X obj 254 32 tgl 15 0 empty empty 7 5 23 1 9 -262144 -262144 -262144
+0 1;
+#X obj 271 32 tgl 15 0 empty empty 6 5 23 1 9 -262144 -262144 -262144
+0 1;
+#X obj 288 32 tgl 15 0 empty empty 5 5 23 1 9 -262144 -262144 -262144
+0 1;
+#X obj 305 32 tgl 15 0 empty empty 4 5 23 1 9 -262144 -262144 -262144
+0 1;
+#X obj 322 32 tgl 15 0 empty empty 3 5 23 1 9 -262144 -262144 -262144
+0 1;
+#X obj 339 32 tgl 15 0 empty empty 2 5 23 1 9 -262144 -262144 -262144
+0 1;
+#X obj 356 32 tgl 15 0 empty empty 1 5 23 1 9 -162280 -262144 -191407
+0 1;
+#X obj 373 32 tgl 15 0 empty empty 0 5 23 1 9 -162280 -262144 -191407
+0 1;
+#X text 375 56 R;
+#X text 375 67 X;
+#X text 359 56 T;
+#X text 359 67 X;
+#X obj 135 32 tgl 15 0 empty empty 14 0 23 1 9 -162280 -1 -191407 0
+1;
+#X text 137 56 G;
+#X text 137 67 N;
+#X text 137 78 D;
+#X text 120 57 A;
+#X text 120 68 R;
+#X text 120 78 E;
+#X text 120 88 F;
+#X obj 288 263 tgl 15 0 empty empty 16 0 -6 1 9 -262144 -262144 -262144
+0 1;
+#X obj 305 263 tgl 15 0 empty empty 17 0 -6 1 9 -262144 -262144 -262144
+0 1;
+#X obj 322 263 tgl 15 0 empty empty 18 0 -6 1 9 -262144 -262144 -262144
+0 1;
+#X obj 339 263 tgl 15 0 empty empty 19 0 -6 1 9 -262144 -262144 -262144
+0 1;
+#X obj 356 263 tgl 15 0 empty empty 20 0 -6 1 9 -262144 -262144 -262144
+0 1;
+#X obj 373 263 tgl 15 0 empty empty 21 0 -6 1 9 -262144 -262144 -262144
+0 1;
+#X text 232 95 Digital;
+#X text 187 56 P;
+#X text 188 67 W;
+#X text 187 78 M;
+#X text 205 56 P;
+#X text 206 67 W;
+#X text 205 78 M;
+#X text 224 56 P;
+#X text 225 67 W;
+#X text 224 78 M;
+#X text 274 56 P;
+#X text 275 67 W;
+#X text 274 78 M;
+#X text 291 56 P;
+#X text 292 67 W;
+#X text 291 78 M;
+#X text 325 56 P;
+#X text 326 67 W;
+#X text 325 78 M;
+#X text 310 221 Analog in;
+#X obj 248 263 tgl 15 0 empty empty empty 0 -6 1 9 -261234 -262144
+-262144 0 1;
+#X text 249 229 V;
+#X text 250 239 i;
+#X text 250 247 n;
+#X obj 231 263 tgl 15 0 empty empty empty 0 23 1 9 -162280 -1 -191407
+0 1;
+#X text 232 225 G;
+#X text 232 236 N;
+#X text 232 247 D;
+#X obj 214 263 tgl 15 0 empty empty empty 0 23 1 9 -162280 -1 -191407
+0 1;
+#X text 215 225 G;
+#X text 215 236 N;
+#X text 215 247 D;
+#X obj 197 263 tgl 15 0 empty empty empty 0 -6 1 9 -261234 -262144
+-262144 0 1;
+#X text 198 236 5;
+#X text 198 246 V;
+#X obj 180 263 tgl 15 0 empty empty empty 0 -6 1 9 -261234 -262144
+-262144 0 1;
+#X text 181 246 V;
+#X text 181 236 3;
+#X text 181 226 3;
+#X obj 163 263 tgl 15 0 empty empty empty 0 23 1 9 -162280 -1 -191407
+0 1;
+#X text 164 247 T;
+#X text 164 225 R;
+#X text 164 236 S;
+#X text 286 236 A0;
+#X text 304 236 A1;
+#X text 321 236 A2;
+#X text 337 236 A3;
+#X text 354 236 A4;
+#X text 371 236 A5;
+#X text 52 142 White letters are showing the Pin Numbering Map for
+;
+#X text 51 157 Arduino UNO \, Duemilanove \, Nano \, Diecimila...;
+#X restore 140 349 pd Pin Numbering Map;
+#X text 23 348 take a look at the;
 #X connect 1 0 15 0;
 #X connect 2 0 23 0;
 #X connect 3 0 23 0;
@@ -622,107 +840,13 @@ and so on.;
 #X connect 13 0 15 0;
 #X connect 24 0 26 0;
 #X connect 27 0 26 0;
-#X connect 32 0 26 0;
+#X connect 31 0 26 0;
 #X restore 74 337 pd PINMODE;
-#N canvas 448 515 332 194 PULLUP/DOWN 0;
-#X obj 25 89 cnv 15 100 26 empty empty empty 20 12 0 14 -257985 -66577
-0;
-#X obj 28 92 send \$0-arduino;
-#X msg 28 25 digital 7 0;
-#X text 119 23 pulldown on pin7;
-#X msg 38 56 digital 7 1;
-#X text 120 53 pullup on pin7;
-#X connect 2 0 1 0;
-#X connect 4 0 1 0;
-#X restore 48 541 pd PULLUP/DOWN;
-#X obj 405 47 cnv 15 230 230 empty empty arduino_object 12 12 0 10
--233017 -66577 0;
-#X obj 405 280 cnv 15 230 200 empty empty example 12 12 0 10 -233017
--66577 0;
-#X text 423 497 2006 \, released under GNU GPL \; Gerda Strobl \, Georg
-Holzmann;
-#X text 424 529 slight cosmetics in 2011 by;
-#X msg 440 413 digital 13 \$1;
-#X obj 440 395 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0
-1;
-#X msg 419 356 pinMode 13 output;
-#X obj 416 433 cnv 15 100 26 empty empty empty 20 12 0 14 -257985 -66577
-0;
-#X obj 419 436 send \$0-arduino;
-#X text 416 321 the pins for digital IO:;
-#X text 456 392 <- toggle pin 13 on and off;
-#X text 544 358 output mode;
-#X text 543 346 set pin 13 to;
-#X text 527 353 <-;
-#X text 415 305 Example to set input/output mode of;
-#X obj 418 131 arduino 1;
-#X obj 469 181 send \$0-arduino-info;
-#X obj 477 159 print INFO;
-#X obj 414 76 cnv 15 120 26 empty empty empty 20 12 0 14 -257985 -66577
-0;
-#X obj 418 82 receive \$0-arduino;
-#X obj 414 201 cnv 15 125 26 empty empty empty 20 12 0 14 -159808 -66577
-0;
-#X obj 418 205 send \$0-arduino-out;
-#X text 497 123 here's our;
-#X text 496 135 Arduino object;
-#X text 479 130 <-;
-#X text 143 538 <- example of setting pins into;
-#X text 161 552 pullup/down state;
-#X obj 2 -6 cnv 15 633 50 empty empty 1.Installation 12 10 0 10 -233017
--66577 0;
-#X text 253 20 Arduino Interface For PD;
-#X text 280 5 ::::_PDUINO_::::;
-#X obj 9 12 cnv 15 230 30 empty empty empty 20 12 0 14 -261234 -66577
-0;
-#N canvas 706 129 445 342 INSTALL-NOTES 0;
-#X text 20 27 1 General information on arduino: http://www.arduino.cc
-;
-#X text 20 113 3 The StandardFirmata firmware is the best place to
-start.;
-#X text 21 146 4 Pduino needs the following abstraction:;
-#X text 21 193 5 Pduino needs the following externals:;
-#X text 23 248 6 If you still have troubles \, mail to the pd list
-!;
-#X text 39 164 [arduino] \, from pd-svn/externals/hardware/arduino
-;
-#X text 39 210 [comport] \, from pd-svn/externals/iem/comport;
-#X text 39 224 [moocow] \, from pd-svn/externals/moocow;
-#X text 20 48 2 You need to install a Firmata firmware. There are a
-;
-#X text 38 62 bunch of Firmata firmwares included with Arduino. Use
-Firmata >=2.1 (included in Arduino 18 or newer) for best results.;
-#X text 21 273 pd-svn: https://pure-data.svn.sourceforge.net/svnroot/pure-data/trunk/
-;
-#X restore 14 18 pd INSTALL-NOTES;
-#X text 119 16 <- read this first;
-#N canvas 147 357 559 381 ADDITIONAL-INFOS 0;
-#X text 58 326 http://answers.ros.org/answers/101/revisions/;
-#X text 68 170 $ udevadm control u2013reload-rules;
-#X text 72 90 $ echo 'SUBSYSTEMS=="usb" \, KERNEL=="ttyUSB[0-9]*" \,
-ATTRSidVendor=="0403" \, ATTRSidProduct=="6001" \, SYMLINK+="arduino/ftdi_%sserial"'
-> /etc/udev/rules.d/52-ftdi.rules;
-#X msg 73 254 open /dev/arduino/ftdi_A9005eBF;
-#X text 72 231 your open message then looks f.e. like this:;
-#X obj 73 285 arduino;
-#X text 54 155 2 reload your udev rules:;
-#X obj 47 25 cnv 15 430 45 empty empty empty 20 12 0 14 -261234 -66577
-0;
-#X text 51 72 1 execute this command as root:;
-#X text 53 196 3 you should get a unique symlink of your device in
-/dev/arduino/ftdi_yourserialddress.;
-#X text 58 313 info source:;
-#X text 52 26 how to make shure that various arduinos plugged into
-one Linux-system are always connected to the same arduino object after
-unplugging/reboot:;
-#X connect 3 0 5 0;
-#X restore 463 13 pd ADDITIONAL-INFOS;
-#X text 425 543 Roman Haefeli and Olsen;
-#X text 407 238 NOTE:the [arduino]object is placed as;
-#X text 407 252 an abstraction in your project folder;
-#X text 70 70 <- list devices -> check the pd-console output!;
-#X text 142 436 <- example of Analog Input;
 #X text 143 336 <- first \, you need to set the pinMode;
+#X text 482 142 argument sets serial port;
+#N canvas 0 0 450 300 2do 0;
+#X text 53 58 on osx port opens automatically;
+#X restore 349 198 pd 2do;
 #X connect 1 0 16 0;
 #X connect 2 0 16 0;
 #X connect 3 0 16 0;
@@ -730,10 +854,10 @@ unplugging/reboot:;
 #X connect 9 0 16 0;
 #X connect 12 0 16 0;
 #X connect 13 0 12 0;
-#X connect 38 0 42 0;
-#X connect 39 0 38 0;
-#X connect 40 0 42 0;
-#X connect 49 0 55 0;
-#X connect 49 1 50 0;
-#X connect 49 1 51 0;
-#X connect 53 0 49 0;
+#X connect 37 0 41 0;
+#X connect 38 0 37 0;
+#X connect 39 0 41 0;
+#X connect 48 0 54 0;
+#X connect 48 1 49 0;
+#X connect 48 1 50 0;
+#X connect 52 0 48 0;
