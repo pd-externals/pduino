@@ -1,4 +1,5 @@
 #N canvas 255 65 1127 800 10;
+#X declare -path includes;
 #X obj 560 249 cnv 15 350 250 empty empty empty 20 12 0 14 -67964 -66577
 0;
 #X obj 638 251 tgl 15 0 \$0-s-by-Pin_15 \$0-r-by-Pin_15 15 0 23 1 9
@@ -145,12 +146,8 @@
 #X connect 6 0 7 0;
 #X connect 7 0 5 0;
 #X restore 567 229 pd device info;
-#X obj 370 117 arduino;
 #X obj 763 501 cnv 15 148 140 empty empty empty 5 7 1 14 -233017 -66577
 0;
-#X obj 367 89 cnv 15 100 26 empty empty empty 20 12 0 14 -257985 -66577
-0;
-#X obj 370 94 r \$0-to-arduino;
 #X obj 842 251 tgl 15 0 \$0-s-by-Pin_3 \$0-r-by-Pin_3 N 4 8 1 9 -262144
 -262144 -166441 0 1;
 #X obj 825 251 tgl 15 0 \$0-s-by-Pin_4 \$0-r-by-Pin_4 N 4 8 1 9 -262144
@@ -198,10 +195,6 @@
 -262144 -166441 0 1;
 #X obj 893 482 tgl 15 0 \$0-s-by-Pin_21 \$0-r-by-Pin_21 N 4 8 1 9 -262144
 -262144 -166441 0 1;
-#X obj 367 166 cnv 15 129 26 empty empty empty 20 12 0 14 -159808 -66577
-0;
-#X obj 499 166 cnv 15 129 26 empty empty empty 20 12 0 14 -159808 -66577
-0;
 #X text 810 465 A0;
 #X text 828 465 A1;
 #X text 844 465 A2;
@@ -329,9 +322,7 @@
 #X connect 20 0 8 0;
 #X connect 21 0 20 0;
 #X coords 0 1 100 -1 102 136 1 0 0;
-#X restore 807 503 graph;
-#X obj 370 170 send \$0-arduino-out;
-#X obj 501 170 send \$0-arduino-info;
+#X restore 805 503 graph;
 #X obj 456 469 cnv 15 100 26 empty empty empty 20 12 0 14 -257985 -66577
 0;
 #X obj 461 473 s \$0-to-arduino;
@@ -343,7 +334,6 @@
 #X obj 425 275 bng 20 250 50 0 empty empty empty 17 7 0 10 -261234
 -1 -1;
 #X text 424 307 2 select devices;
-#X obj 447 283 list.selector \$0.device_list;
 #N canvas 150 314 413 393 list_ports 0;
 #X obj -22 149 route ports;
 #X msg -22 171 \$2;
@@ -391,12 +381,9 @@
 #X text 728 27 output mode;
 #X text 727 15 set pin 13 to;
 #X text 711 22 <-;
-#X msg 411 42 open 32;
 #X obj 599 102 cnv 15 100 26 empty empty empty 20 12 0 14 -257985 -66577
 0;
 #X obj 602 107 s \$0-to-arduino;
-#X msg 243 40 devicename /dev/ttyUSB0;
-#X msg 243 91 close;
 #N canvas 0 0 284 286 device_selection 0;
 #X obj 66 134 route symbol float;
 #X obj 66 63 route return;
@@ -417,32 +404,32 @@
 #X connect 8 0 1 0;
 #X restore 425 424 pd device_selection;
 #X obj 425 403 r \$0.device_list;
-#X text 73 494 device info message auf close bei schliessen;
-#X text 78 473 _____2Do__________;
+#X text 50 685 device info message auf close bei schliessen;
+#X text 55 664 _____2Do__________;
 #X obj 943 361 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
 #X text 437 318 by click & hovering;
 #X text 436 331 the mouse;
 #X obj 942 333 r \$0-s-Pin_13;
-#X text 75 512 Pin Numbering with white letters;
+#X text 52 703 Pin Numbering with white letters;
 #X text 764 560 values;
 #X text 763 539 incoming;
-#X text 75 526 are analog Pins default set to input?;
-#X obj 51 255 cnv 15 300 70 empty empty Setup 5 10 1 14 -228856 -66577
+#X text 52 717 are analog Pins default set to input?;
+#X obj 492 623 cnv 15 300 70 empty empty Setup 5 10 1 14 -228856 -66577
 0;
-#X obj 56 276 cnv 15 280 12 empty empty empty 5 10 1 14 -260097 -66577
+#X obj 497 644 cnv 15 280 12 empty empty empty 5 10 1 14 -260097 -66577
 0;
 #X obj 360 266 cnv 15 60 25 empty empty empty 5 10 1 14 -260097 -66577
 0;
 #X msg 367 269 devices;
-#X text 57 274 1 list the devices connected to your computer;
-#X obj 56 291 cnv 15 280 12 empty empty empty 5 10 1 14 -258113 -66577
+#X text 498 642 1 list the devices connected to your computer;
+#X obj 497 659 cnv 15 280 12 empty empty empty 5 10 1 14 -258113 -66577
 0;
-#X text 57 289 2 select a device;
-#X obj 56 306 cnv 15 280 12 empty empty empty 5 10 1 14 -4034 -66577
+#X text 498 657 2 select a device;
+#X obj 497 674 cnv 15 280 12 empty empty empty 5 10 1 14 -4034 -66577
 0;
-#X text 57 304 3 set the pins;
-#X text 50 235 follow this recipe to dress for success using pduino
+#X text 498 672 3 set the pins;
+#X text 491 603 follow this recipe to dress for success using pduino
 ;
 #X obj 668 328 cnv 15 205 25 empty empty empty 5 10 1 14 -4034 -66577
 0;
@@ -1356,7 +1343,7 @@ empty 2 68 1 10 -257985 -1 -1 0;
 #X restore 672 332 pd open here to set Digital Pins;
 #X obj 784 443 cnv 15 125 25 empty empty empty 5 10 1 14 -4034 -66577
 0;
-#N canvas 334 318 663 409 set 1;
+#N canvas 334 318 663 409 set 0;
 #N canvas 381 292 476 465 pinMode 0;
 #X obj 97 422 cnv 15 100 26 empty empty empty 20 12 0 14 -257985 -66577
 0;
@@ -1894,7 +1881,7 @@ empty 2 68 1 10 -257985 -1 -1 0;
 #X text 408 364 set your Analog Pins;
 #X text 408 376 on this panel;
 #X restore 791 447 pd set Analog Pins;
-#X obj 51 329 cnv 15 300 70 empty empty Use 5 10 1 14 -228856 -66577
+#X obj 492 697 cnv 15 300 70 empty empty Use 5 10 1 14 -228856 -66577
 0;
 #X obj 942 390 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
@@ -1902,23 +1889,36 @@ empty 2 68 1 10 -257985 -1 -1 0;
 #X obj 943 495 s \$0-r-by-Pin_16;
 #X obj 942 461 hsl 128 15 0 1 0 0 empty empty empty -2 -8 0 10 -262144
 -1 -1 0 1;
+#X obj 18 12 declare -path includes;
+#X obj 447 283 list.selector \$0.device_list;
+#X obj 16 41 inlet;
+#X obj 16 63 s \$1.ARDUINO.IN;
+#X obj 17 127 cnv 15 240 80 empty empty empty 20 12 0 14 -204786 -66577
+0;
+#X obj 25 157 arduino;
+#X obj 25 134 r \$1.ARDUINO.INLET;
+#X obj 25 180 s \$1.ARDUINO.OUT;
+#X obj 138 181 s \$1.ARDUINO.INFO;
+#X obj 20 356 r \$1.ARDUINO.OUT;
+#X obj 128 357 r \$1.ARDUINO.INFO;
+#X obj 20 379 outlet;
+#X obj 128 381 outlet;
 #X connect 61 0 62 0;
 #X connect 63 0 61 0;
-#X connect 64 0 107 0;
-#X connect 64 1 63 0;
-#X connect 64 1 108 0;
-#X connect 67 0 64 0;
-#X connect 115 0 118 0;
-#X connect 118 0 119 0;
-#X connect 120 0 129 0;
-#X connect 121 0 120 0;
-#X connect 122 0 129 0;
-#X connect 127 0 64 0;
-#X connect 130 0 64 0;
-#X connect 131 0 64 0;
-#X connect 132 0 110 0;
-#X connect 133 0 132 0;
-#X connect 139 0 136 0;
-#X connect 147 0 110 0;
-#X connect 159 0 160 0;
-#X connect 162 0 161 0;
+#X connect 108 0 110 0;
+#X connect 110 0 111 0;
+#X connect 112 0 120 0;
+#X connect 113 0 112 0;
+#X connect 114 0 120 0;
+#X connect 121 0 103 0;
+#X connect 122 0 121 0;
+#X connect 128 0 125 0;
+#X connect 136 0 103 0;
+#X connect 148 0 149 0;
+#X connect 151 0 150 0;
+#X connect 154 0 155 0;
+#X connect 157 0 159 0;
+#X connect 157 1 160 0;
+#X connect 158 0 157 0;
+#X connect 161 0 163 0;
+#X connect 162 0 164 0;
