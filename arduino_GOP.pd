@@ -1918,9 +1918,9 @@ empty 2 68 1 10 -257985 -1 -1 0;
 #X obj 268 18 cnv 15 200 250 empty empty empty 20 12 0 14 -203904 -66577
 0;
 #X obj 276 81 agop.firmware.check \$0;
-#X obj 276 43 agop.device.selector \$0;
 #X text 275 25 device selector;
 #X text 276 63 firmware check;
+#X obj 276 43 agop.device.selector \$0;
 #X connect 61 0 62 0;
 #X connect 63 0 61 0;
 #X connect 108 0 110 0;
