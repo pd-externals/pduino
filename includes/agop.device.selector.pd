@@ -61,7 +61,7 @@
 #X connect 25 0 11 0;
 #X restore 138 157 pd slider.wrapper;
 #X obj 20 22 vsl 70 7 10 4 0 0 \$0.selector.s \$0.selector.r empty
-2 5 1 9 -228856 -228856 -258113 600 1;
+2 5 1 9 -228856 -228856 -258113 0 1;
 #X msg 165 270 label \$1;
 #X obj 165 293 s \$0.selector.r;
 #X obj 138 86 t a a;
@@ -318,7 +318,7 @@
 #X connect 1 0 2 0;
 #X restore 301 15 pd INIT;
 #X obj 138 248 t a a;
-#N canvas 813 377 239 282 get.device.list 0;
+#N canvas 813 405 239 282 get.device.list 0;
 #X obj -102 108 r \$1.ARDUINO.INFO;
 #X msg -103 61 ports;
 #X obj -122 15 inlet;
@@ -330,7 +330,7 @@
 #X obj -122 206 list append;
 #X obj 18 127 t b;
 #X obj -122 235 outlet;
-#X obj -103 85 s \$1.ARDUINO.INLET;
+#X obj -103 85 s \$1.ARDUINO.TO;
 #X connect 0 0 3 0;
 #X connect 1 0 11 0;
 #X connect 2 0 4 0;
@@ -350,13 +350,13 @@
 #X obj 138 315 sel empty;
 #X msg 189 345 devicename \$1;
 #X msg 138 345 close;
-#X obj 138 421 s \$1.ARDUINO.INLET;
 #X msg 350 362 1;
 #X msg 309 363 0;
 #X msg 309 384 serial.com \$1;
 #X obj 138 368 t a b;
 #X obj 189 367 t b a;
 #X obj 309 408 s \$1.ARDUINO.INTERN;
+#X obj 138 421 s \$1.ARDUINO.TO;
 #X connect 0 0 6 0;
 #X connect 2 0 3 0;
 #X connect 4 0 5 0;
@@ -373,13 +373,13 @@
 #X connect 15 0 14 0;
 #X connect 16 0 18 0;
 #X connect 16 1 17 0;
-#X connect 17 0 24 0;
-#X connect 18 0 23 0;
-#X connect 20 0 22 0;
-#X connect 21 0 22 0;
+#X connect 17 0 23 0;
+#X connect 18 0 22 0;
+#X connect 19 0 21 0;
+#X connect 20 0 21 0;
+#X connect 21 0 24 0;
 #X connect 22 0 25 0;
+#X connect 22 1 20 0;
 #X connect 23 0 19 0;
-#X connect 23 1 21 0;
-#X connect 24 0 20 0;
-#X connect 24 1 19 0;
+#X connect 23 1 25 0;
 #X coords 0 -1 1 1 70 12 2 20 20;
