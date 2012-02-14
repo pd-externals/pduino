@@ -61,7 +61,7 @@
 #X connect 25 0 11 0;
 #X restore 138 157 pd slider.wrapper;
 #X obj 20 22 vsl 70 7 10 4 0 0 \$0.selector.s \$0.selector.r empty
-2 5 1 9 -228856 -228856 -258113 0 1;
+2 5 1 9 -228856 -228856 -1 600 1;
 #X msg 165 270 label \$1;
 #X obj 165 293 s \$0.selector.r;
 #X obj 138 86 t a a;
