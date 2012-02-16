@@ -1,4 +1,4 @@
-#N canvas 63 128 995 775 10;
+#N canvas 290 77 1005 797 10;
 #X declare -path includes;
 #X obj 560 249 cnv 15 350 250 empty empty empty 20 12 0 14 -67964 -66577
 0;
@@ -331,9 +331,8 @@
 #X text 764 548 analog;
 #X obj 417 287 cnv 15 70 40 empty empty empty 20 12 0 14 -258113 -66577
 0;
-#X obj 420 296 bng 20 250 50 0 empty empty empty 17 7 0 10 -261234
+#X obj 425 295 bng 20 250 50 0 empty empty empty 17 7 0 10 -261234
 -1 -1;
-#X text 419 328 2 select devices;
 #N canvas 150 314 413 393 list_ports 0;
 #X obj -22 149 route ports;
 #X msg -22 171 \$2;
@@ -405,11 +404,6 @@
 #X obj 425 403 r \$0.device_list;
 #X text 30 497 device info message auf close bei schliessen;
 #X text 35 476 _____2Do__________;
-#X obj 943 361 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
-1;
-#X text 432 339 by click & hovering;
-#X text 436 331 the mouse;
-#X obj 942 333 r \$0-s-Pin_13;
 #X text 32 515 Pin Numbering with white letters;
 #X text 764 560 values;
 #X text 763 539 incoming;
@@ -1882,12 +1876,6 @@ empty 2 68 1 10 -257985 -1 -1 0;
 #X restore 791 447 pd set Analog Pins;
 #X obj 492 697 cnv 15 300 70 empty empty Use 5 10 1 14 -228856 -66577
 0;
-#X obj 942 390 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
-1;
-#X obj 944 422 s \$0-r-by-Pin_16;
-#X obj 943 495 s \$0-r-by-Pin_16;
-#X obj 942 461 hsl 128 15 0 1 0 0 empty empty empty -2 -8 0 10 -262144
--1 -1 0 1;
 #X obj 18 12 declare -path includes;
 #X obj 16 41 inlet;
 #X obj 17 127 cnv 15 240 80 empty empty empty 20 12 0 14 -204786 -66577
@@ -1914,7 +1902,6 @@ empty 2 68 1 10 -257985 -1 -1 0;
 #X text 124 7 <- external commands (modules are listening here);
 #X text 124 35 <- Commands sent from modules -> [arduino];
 #X restore 177 133 pd EXPLAIN;
-#X obj 512 164 comport;
 #X obj 268 18 cnv 15 200 250 empty empty empty 20 12 0 14 -203904 -66577
 0;
 #X obj 276 81 agop.firmware.check \$0;
@@ -1923,27 +1910,25 @@ empty 2 68 1 10 -257985 -1 -1 0;
 #X obj 280 46 agop.device.selector \$0;
 #X obj 35 287 r \$0.ARDUINO.INTERN;
 #X obj 35 309 route ready;
-#X obj 35 350 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+#X obj 35 350 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
 #X text 53 348 <- Arduino fully ready?;
+#X obj 281 133 agop.digital.pin \$0 2;
 #X connect 61 0 62 0;
 #X connect 63 0 61 0;
-#X connect 108 0 110 0;
-#X connect 110 0 111 0;
-#X connect 112 0 162 0;
-#X connect 113 0 112 0;
-#X connect 114 0 162 0;
-#X connect 120 0 103 0;
-#X connect 121 0 120 0;
-#X connect 127 0 124 0;
-#X connect 135 0 103 0;
-#X connect 147 0 148 0;
+#X connect 108 0 109 0;
+#X connect 109 0 110 0;
+#X connect 111 0 153 0;
+#X connect 112 0 111 0;
+#X connect 113 0 153 0;
+#X connect 119 0 103 0;
+#X connect 120 0 119 0;
+#X connect 130 0 103 0;
+#X connect 143 0 154 0;
+#X connect 149 0 147 0;
+#X connect 149 1 148 0;
 #X connect 150 0 149 0;
-#X connect 152 0 163 0;
-#X connect 158 0 156 0;
-#X connect 158 1 157 0;
-#X connect 159 0 158 0;
-#X connect 160 0 154 0;
-#X connect 161 0 155 0;
-#X connect 171 0 172 0;
-#X connect 172 0 173 0;
+#X connect 151 0 145 0;
+#X connect 152 0 146 0;
+#X connect 161 0 162 0;
+#X connect 162 0 163 0;
