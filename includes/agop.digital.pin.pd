@@ -417,7 +417,7 @@
 #X obj 29 19 cnv 8 8 8 empty \$0.show.value empty 17 7 0 12 -1 -258113
 0;
 #X obj 21 21 vsl 8 9 5 -1 0 0 \$0.selector.s \$0.selector.r empty 1
-5 0 10 -228856 -228856 -1 133 1;
+5 0 10 -228856 -228856 -1 0 1;
 #X obj 42 19 nbx 1 14 0 100 0 0 \$0.nb.s \$0.nb.r empty 0 -8 0 10 -262144
 -1 -1 0 256;
 #X obj 29 21 vsl 12 9 0 1 0 0 \$0.sl.s \$0.sl.r 13 1 6 0 9 -257664
@@ -482,7 +482,7 @@
 #X connect 26 0 8 0;
 #X connect 26 1 15 0;
 #X restore 17 178 pd show.value;
-#N canvas 1136 72 266 386 color.indicator 0;
+#N canvas 1136 100 248 457 color.indicator 0;
 #N canvas 1083 72 231 303 color.blender 0;
 #N canvas 1144 153 166 250 blend 0;
 #X obj 12 12 inlet;
@@ -600,13 +600,17 @@
 #X obj 38 167 * 0.9;
 #X msg 131 64 210 0 255;
 #X msg 146 89 0 200 0;
-#X obj 4 349 s \$0.pull.up.r;
-#X msg 35 302 30;
-#X obj 4 277 sel 0 1;
-#X msg 4 327 pos \$1 20 \, size 1 \, vis_size 4 1;
-#X msg 4 303 25;
+#X obj 4 379 s \$0.pull.up.r;
+#X msg 35 332 30;
+#X obj 4 307 sel 0 1;
+#X msg 4 357 pos \$1 20 \, size 1 \, vis_size 4 1;
+#X msg 4 333 25;
 #X obj 4 108 list prepend;
 #X obj 4 130 route 1 2;
+#X obj 4 284 change;
+#X obj 97 289 r \$0.mode;
+#X obj 97 311 sel 1;
+#X msg 124 332 0;
 #X connect 0 0 3 0;
 #X connect 1 0 0 1;
 #X connect 3 0 2 0;
@@ -632,8 +636,12 @@
 #X connect 19 0 16 0;
 #X connect 20 0 19 0;
 #X connect 21 0 22 0;
-#X connect 22 0 18 0;
+#X connect 22 0 23 0;
 #X connect 22 1 13 0;
+#X connect 23 0 18 0;
+#X connect 24 0 25 0;
+#X connect 25 1 26 0;
+#X connect 26 0 23 0;
 #X restore 17 201 pd color.indicator;
 #N canvas 1012 153 237 184 input.output.toggle 0;
 #N canvas 1230 249 185 273 slider.click.detection 0;
