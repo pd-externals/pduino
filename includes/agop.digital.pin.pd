@@ -8,8 +8,6 @@
 #X connect 0 0 1 0;
 #X connect 1 0 2 0;
 #X restore 265 41 pd INIT;
-#X obj 21 21 vsl 8 9 5 -1 0 0 \$0.selector.s \$0.selector.r empty 1
-5 0 10 -228856 -228856 -1 0 1;
 #N canvas 735 208 285 396 mode.selector 0;
 #N canvas 278 280 419 327 slider.wrapper 0;
 #X obj 20 255 pack f f f;
@@ -384,12 +382,6 @@
 #X connect 20 1 14 0;
 #X connect 22 0 20 0;
 #X restore 265 85 pd mode.selector;
-#X obj 42 19 nbx 1 14 0 100 0 0 \$0.nb.s \$0.nb.r empty 0 -8 0 10 -262144
--1 -1 0 256;
-#X obj 21 21 vsl 8 9 30 24 0 0 \$0.selector.label.s \$0.selector.label.r
-I 1 5 0 10 -228856 -228856 -1 0 1;
-#X obj 29 21 vsl 12 9 0 1 0 0 \$0.sl.s \$0.sl.r  2 1 6 0 9 -262144
--262144 -1 100 1;
 #X obj 34 132 r \$0.nb.s;
 #N canvas 1230 221 185 273 slider.click.detection 0;
 #X obj 14 49 sel 0 1;
@@ -456,8 +448,41 @@ I 1 5 0 10 -228856 -228856 -1 0 1;
 #X connect 3 0 4 0;
 #X connect 4 0 1 0;
 #X restore 264 108 pd pin.no.label;
-#X connect 8 0 15 0;
+#X obj 29 19 cnv 8 8 8 empty \$0.show.value empty 17 7 0 12 -1 -1 0
+;
+#X obj 21 21 vsl 8 9 10 4 0 0 \$0.selector.s \$0.selector.r empty 1
+5 0 10 -228856 -228856 -1 633 1;
+#X obj 42 19 nbx 1 14 0 100 0 0 \$0.nb.s \$0.nb.r empty 0 -8 0 10 -262144
+-1 -1 84 256;
+#X obj 21 21 vsl 8 9 30 24 0 0 \$0.selector.label.s \$0.selector.label.r
+I 1 5 0 10 -228856 -228856 -1 0 1;
+#X obj 29 21 vsl 12 9 0 1 0 0 \$0.sl.s \$0.sl.r  2 1 6 0 9 -262144
+-262144 -1 0 1;
+#N canvas 927 128 255 228 show.value 0;
+#X obj 21 97 * 0.01;
+#X obj 130 23 loadbang;
+#X msg 130 45 32;
+#X obj 130 67 makefilename %c;
+#X obj 21 124 pack f s;
+#X msg 21 150 label \$1\$2;
+#X obj 21 186 s \$0.show.value;
+#X obj 21 23 r \$0.nb.s;
+#X obj 21 45 t a b;
+#X obj 107 121 del 1000;
+#X msg 107 150 label empty;
+#X connect 0 0 4 0;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 3 0 4 1;
+#X connect 4 0 5 0;
+#X connect 5 0 6 0;
+#X connect 7 0 8 0;
+#X connect 8 0 0 0;
+#X connect 8 1 9 0;
 #X connect 9 0 10 0;
-#X connect 11 0 12 0;
-#X connect 15 0 13 0;
+#X connect 10 0 6 0;
+#X restore 265 202 pd show.value;
+#X connect 4 0 11 0;
+#X connect 5 0 6 0;
+#X connect 7 0 8 0;
 #X coords 0 -1 1 1 20 14 2 21 19;
