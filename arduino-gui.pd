@@ -14,11 +14,11 @@
 #X obj 237 439 r \$0.ARDUINO.INFO;
 #X obj 340 83 s \$0.ARDUINO.IN;
 #N canvas 925 331 412 218 pin.capabilities 0;
-#X obj 30 93 tgl 15 0 empty empty O 3 7 0 10 -262144 -1 -1 0 1;
-#X obj 49 93 tgl 15 0 empty empty I 3 7 0 10 -262144 -1 -1 0 1;
-#X obj 68 93 tgl 15 0 empty empty P 3 7 0 10 -262144 -1 -1 0 1;
+#X obj 30 93 tgl 15 0 empty empty O 3 7 0 10 -262144 -1 -1 1 1;
+#X obj 49 93 tgl 15 0 empty empty I 3 7 0 10 -262144 -1 -1 1 1;
+#X obj 68 93 tgl 15 0 empty empty P 3 7 0 10 -262144 -1 -1 1 1;
 #X obj 87 93 tgl 15 0 empty empty S 3 7 0 10 -262144 -1 -1 0 1;
-#N canvas 1106 233 200 286 bitmask 0;
+#N canvas 1106 233 363 312 bitmask 0;
 #X obj 55 58 << 1;
 #X obj 145 59 << 3;
 #X obj 40 117 +;
@@ -33,11 +33,15 @@
 #X obj 145 24 inlet;
 #X obj 40 239 outlet;
 #X obj 98 60 << 2;
+#X obj 193 169 t b a;
+#X obj 193 24 inlet;
+#X obj 193 59 << 4;
+#X obj 40 209 +;
 #X connect 0 0 5 0;
 #X connect 1 0 7 0;
 #X connect 2 0 3 0;
 #X connect 3 0 4 0;
-#X connect 4 0 12 0;
+#X connect 4 0 17 0;
 #X connect 5 0 2 0;
 #X connect 5 1 2 1;
 #X connect 6 0 3 0;
@@ -49,19 +53,26 @@
 #X connect 10 0 13 0;
 #X connect 11 0 1 0;
 #X connect 13 0 6 0;
+#X connect 14 0 17 0;
+#X connect 14 1 17 1;
+#X connect 15 0 16 0;
+#X connect 16 0 14 0;
+#X connect 17 0 12 0;
 #X restore 30 113 pd bitmask;
 #N canvas 0 0 450 300 (subpatch) 0;
 #X array \$0.ARDUINO.PIN.MODES 128 float 3;
-#A 0 0 0 3 15 3 15 15 3 3 15 15 15 3 3 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+#A 0 0 0 3 15 3 15 15 3 3 15 15 15 3 3 0 0 23 23 23 23 23 23 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
-#X coords 0 16 128 0 256 32 1 0 0;
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0;
+#X coords 0 32 128 0 256 32 1 0 0;
 #X restore 18 26 graph;
 #X obj 30 166 tabwrite \$0.ARDUINO.PIN.MODES;
-#X floatatom 122 97 5 0 0 0 - - -;
-#X text 159 98 Pin no.;
+#X floatatom 192 97 5 0 0 0 - - -;
+#X text 229 98 Pin no.;
 #X floatatom 30 138 5 0 0 0 - - -;
+#X obj 106 93 tgl 15 0 empty empty A 3 7 0 10 -262144 -1 -1 1 1;
 #X connect 0 0 4 0;
 #X connect 1 0 4 1;
 #X connect 2 0 4 2;
@@ -69,6 +80,7 @@
 #X connect 4 0 9 0;
 #X connect 7 0 6 1;
 #X connect 9 0 6 0;
+#X connect 10 0 4 4;
 #X restore 485 273 pd pin.capabilities;
 #X obj 272 346 agop.digital.pin \$0 2;
 #X obj 272 332 agop.digital.pin \$0 3;
