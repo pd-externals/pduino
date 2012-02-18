@@ -14,9 +14,9 @@
 #X obj 237 439 r \$0.ARDUINO.INFO;
 #X obj 340 83 s \$0.ARDUINO.IN;
 #N canvas 925 331 412 218 pin.capabilities 0;
-#X obj 30 93 tgl 15 0 empty empty O 3 7 0 10 -262144 -1 -1 1 1;
-#X obj 49 93 tgl 15 0 empty empty I 3 7 0 10 -262144 -1 -1 1 1;
-#X obj 68 93 tgl 15 0 empty empty P 3 7 0 10 -262144 -1 -1 1 1;
+#X obj 30 93 tgl 15 0 empty empty O 3 7 0 10 -262144 -1 -1 0 1;
+#X obj 49 93 tgl 15 0 empty empty I 3 7 0 10 -262144 -1 -1 0 1;
+#X obj 68 93 tgl 15 0 empty empty P 3 7 0 10 -262144 -1 -1 0 1;
 #X obj 87 93 tgl 15 0 empty empty S 3 7 0 10 -262144 -1 -1 0 1;
 #N canvas 1106 233 363 312 bitmask 0;
 #X obj 55 58 << 1;
@@ -72,7 +72,7 @@
 #X floatatom 192 97 5 0 0 0 - - -;
 #X text 229 98 Pin no.;
 #X floatatom 30 138 5 0 0 0 - - -;
-#X obj 106 93 tgl 15 0 empty empty A 3 7 0 10 -262144 -1 -1 1 1;
+#X obj 106 93 tgl 15 0 empty empty A 3 7 0 10 -262144 -1 -1 0 1;
 #X connect 0 0 4 0;
 #X connect 1 0 4 1;
 #X connect 2 0 4 2;
@@ -102,18 +102,12 @@
 #X obj 280 171 agop.dummy.pin;
 #X obj 280 360 agop.dummy.pin;
 #X obj 280 373 agop.dummy.pin;
-#X obj 23 360 agop.dummy.pin;
-#X obj 23 373 agop.dummy.pin;
-#X obj 23 333 agop.dummy.pin;
-#X obj 23 346 agop.dummy.pin;
-#X obj 23 306 agop.dummy.pin;
-#X obj 23 319 agop.dummy.pin;
-#X obj 23 279 agop.dummy.pin;
-#X obj 23 265 agop.dummy.pin;
-#X obj 23 251 agop.dummy.pin;
-#X obj 23 237 agop.dummy.pin;
-#X obj 23 223 agop.dummy.pin;
-#X obj 23 209 agop.dummy.pin;
+#X obj 23 277 agop.dummy.pin;
+#X obj 23 263 agop.dummy.pin;
+#X obj 23 249 agop.dummy.pin;
+#X obj 23 235 agop.dummy.pin;
+#X obj 23 221 agop.dummy.pin;
+#X obj 23 207 agop.dummy.pin;
 #X obj 210 183 agop.tx.led \$0;
 #X obj 197 183 agop.rx.led \$0;
 #X text 340 175 \$0.ARDUINO.OUT;
@@ -129,12 +123,12 @@
 #X obj 20 20 agop.firmware.check \$0;
 #X obj 86 206 cnv 15 28 175 empty empty empty 20 12 0 14 -66577 -66577
 0;
-#X text 36 208 RESET;
-#X text 36 222 3v3;
-#X text 36 236 5V;
-#X text 36 250 GND;
-#X text 36 264 GND;
-#X text 36 278 Vin;
+#X text 36 206 RESET;
+#X text 36 220 3v3;
+#X text 36 234 5V;
+#X text 36 248 GND;
+#X text 36 262 GND;
+#X text 36 276 Vin;
 #X obj 115 213 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
 0;
 #X obj 115 225 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
@@ -205,6 +199,18 @@
 #X text 233 187 L;
 #X obj 204 358 agop.power.led \$0;
 #X text 201 362 PWR;
+#X obj 23 303 agop.analog.pin \$0 16;
+#X obj 23 317 agop.analog.pin \$0 17;
+#X obj 23 331 agop.analog.pin \$0 18;
+#X obj 23 345 agop.analog.pin \$0 19;
+#X obj 23 359 agop.analog.pin \$0 20;
+#X obj 23 373 agop.analog.pin \$0 21;
+#X text 44 302 A0;
+#X text 44 316 A1;
+#X text 44 330 A2;
+#X text 44 344 A3;
+#X text 44 358 A4;
+#X text 44 372 A5;
 #X connect 2 0 11 0;
 #X connect 7 0 5 0;
 #X connect 7 1 6 0;
