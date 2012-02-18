@@ -1,79 +1,79 @@
-#N canvas 372 44 1005 797 10;
+#N canvas 372 44 867 508 10;
 #X declare -path includes;
-#X obj 560 249 cnv 15 350 250 empty empty empty 20 12 0 14 -67964 -66577
+#X obj 499 163 cnv 15 350 250 empty empty empty 20 12 0 14 -67964 -66577
 0;
-#X obj 638 251 tgl 15 0 \$0-s-by-Pin_15 \$0-r-by-Pin_15 15 0 23 1 9
+#X obj 577 165 tgl 15 0 \$0-s-by-Pin_15 \$0-r-by-Pin_15 15 0 23 1 9
 -162280 -1 -191407 0 1;
-#X obj 859 251 tgl 15 0 \$0-s-by-Pin_2 \$0-r-by-Pin_2 N 4 8 1 9 -262144
+#X obj 798 165 tgl 15 0 \$0-s-by-Pin_2 \$0-r-by-Pin_2 N 4 8 1 9 -262144
 -262144 -166441 0 1;
-#X obj 876 251 tgl 15 0 \$0-s-by-Pin_1 \$0-r-by-Pin_1 1 5 23 1 9 -162280
+#X obj 815 165 tgl 15 0 \$0-s-by-Pin_1 \$0-r-by-Pin_1 1 5 23 1 9 -162280
 -262144 -191407 0 1;
-#X obj 893 251 tgl 15 0 \$0-s-by-Pin_0 \$0-r-by-Pin_0 0 5 23 1 9 -162280
+#X obj 832 165 tgl 15 0 \$0-s-by-Pin_0 \$0-r-by-Pin_0 0 5 23 1 9 -162280
 -262144 -191407 0 1;
-#X text 895 278 R;
-#X text 895 289 X;
-#X text 879 278 T;
-#X text 879 289 X;
-#X obj 655 251 tgl 15 0 \$0-s-by-Pin_14 \$0-r-by-Pin_14 14 0 23 1 9
+#X text 834 192 R;
+#X text 834 203 X;
+#X text 818 192 T;
+#X text 818 203 X;
+#X obj 594 165 tgl 15 0 \$0-s-by-Pin_14 \$0-r-by-Pin_14 14 0 23 1 9
 -162280 -1 -191407 0 1;
-#X text 657 289 N;
-#X text 657 300 D;
-#X text 640 279 A;
-#X text 640 290 R;
-#X text 640 300 E;
-#X text 640 310 F;
-#X text 752 312 Digital;
-#X text 707 278 P;
-#X text 708 289 W;
-#X text 707 300 M;
-#X text 725 278 P;
-#X text 726 289 W;
-#X text 725 300 M;
-#X text 744 278 P;
-#X text 745 289 W;
-#X text 744 300 M;
-#X text 794 278 P;
-#X text 795 289 W;
-#X text 794 300 M;
-#X text 811 278 P;
-#X text 812 289 W;
-#X text 811 300 M;
-#X text 845 277 P;
-#X text 846 289 W;
-#X text 845 300 M;
-#X text 823 427 Analog in;
-#X obj 768 482 tgl 15 0 empty empty empty 0 -6 1 9 -261234 -262144
+#X text 596 203 N;
+#X text 596 214 D;
+#X text 579 193 A;
+#X text 579 204 R;
+#X text 579 214 E;
+#X text 579 224 F;
+#X text 691 226 Digital;
+#X text 646 192 P;
+#X text 647 203 W;
+#X text 646 214 M;
+#X text 664 192 P;
+#X text 665 203 W;
+#X text 664 214 M;
+#X text 683 192 P;
+#X text 684 203 W;
+#X text 683 214 M;
+#X text 733 192 P;
+#X text 734 203 W;
+#X text 733 214 M;
+#X text 750 192 P;
+#X text 751 203 W;
+#X text 750 214 M;
+#X text 784 191 P;
+#X text 785 203 W;
+#X text 784 214 M;
+#X text 762 341 Analog in;
+#X obj 707 396 tgl 15 0 empty empty empty 0 -6 1 9 -261234 -262144
 -262144 0 1;
-#X text 769 448 V;
-#X text 770 458 i;
-#X text 770 466 n;
-#X obj 751 482 tgl 15 0 empty empty empty 0 23 1 9 -162280 -1 -191407
+#X text 708 362 V;
+#X text 709 372 i;
+#X text 709 380 n;
+#X obj 690 396 tgl 15 0 empty empty empty 0 23 1 9 -162280 -1 -191407
 0 1;
-#X text 752 444 G;
-#X text 752 455 N;
-#X text 752 466 D;
-#X obj 734 482 tgl 15 0 empty empty empty 0 23 1 9 -162280 -1 -191407
+#X text 691 358 G;
+#X text 691 369 N;
+#X text 691 380 D;
+#X obj 673 396 tgl 15 0 empty empty empty 0 23 1 9 -162280 -1 -191407
 0 1;
-#X text 735 444 G;
-#X text 735 455 N;
-#X text 735 466 D;
-#X obj 717 482 tgl 15 0 empty empty empty 0 -6 1 9 -261234 -262144
+#X text 674 358 G;
+#X text 674 369 N;
+#X text 674 380 D;
+#X obj 656 396 tgl 15 0 empty empty empty 0 -6 1 9 -261234 -262144
 -262144 0 1;
-#X text 718 455 5;
-#X text 718 465 V;
-#X obj 700 482 tgl 15 0 empty empty empty 0 -6 1 9 -261234 -1 -1 0
+#X text 657 369 5;
+#X text 657 379 V;
+#X obj 639 396 tgl 15 0 empty empty empty 0 -6 1 9 -261234 -1 -1 0
 1;
-#X text 701 465 V;
-#X text 701 455 3;
-#X text 701 445 3;
-#X obj 683 482 tgl 15 0 empty empty empty 0 23 1 9 -162280 -1 -191407
+#X text 640 379 V;
+#X text 640 369 3;
+#X text 640 359 3;
+#X obj 622 396 tgl 15 0 empty empty empty 0 23 1 9 -162280 -1 -191407
 0 1;
-#X text 684 466 T;
-#X text 684 444 R;
-#X text 684 455 S;
-#X text 587 361 White letters are showing the Pin Numbering Map for
+#X text 623 380 T;
+#X text 623 358 R;
+#X text 623 369 S;
+#X text 526 275 White letters are showing the Pin Numbering Map for
 ;
-#X text 586 376 Arduino UNO \, Duemilanove \, Nano \, Diecimila...
+#X text 525 290 Arduino UNO \, Duemilanove \, Nano \, Diecimila...
 ;
 #N canvas 276 274 451 224 ver 0;
 #X obj 23 7 inlet;
@@ -98,7 +98,7 @@
 #X connect 8 2 7 0;
 #X connect 9 0 3 0;
 #X coords 0 -1 1 1 145 17 1 250 100;
-#X restore 567 402 pd ver;
+#X restore 506 316 pd ver;
 #N canvas 643 518 411 212 firmware 0;
 #X obj 123 2 inlet;
 #X obj 250 100 cnv 15 145 17 empty \$0-firmware_cnv empty 4 10 0 12
@@ -127,7 +127,7 @@
 #X connect 12 0 2 0;
 #X connect 12 0 10 0;
 #X coords 0 -1 1 1 145 17 1 250 100;
-#X restore 567 422 pd firmware;
+#X restore 506 336 pd firmware;
 #N canvas 51 306 404 287 device 0;
 #X obj 35 60 inlet;
 #X obj 35 118 route open port ports;
@@ -145,233 +145,60 @@
 #X connect 1 3 5 0;
 #X connect 6 0 7 0;
 #X connect 7 0 5 0;
-#X restore 567 229 pd device info;
-#X obj 763 501 cnv 15 148 140 empty empty empty 5 7 1 14 -233017 -66577
-0;
-#X obj 842 251 tgl 15 0 \$0-s-by-Pin_3 \$0-r-by-Pin_3 N 4 8 1 9 -262144
+#X restore 506 143 pd device info;
+#X obj 781 165 tgl 15 0 \$0-s-by-Pin_3 \$0-r-by-Pin_3 N 4 8 1 9 -262144
 -262144 -166441 0 1;
-#X obj 825 251 tgl 15 0 \$0-s-by-Pin_4 \$0-r-by-Pin_4 N 4 8 1 9 -262144
+#X obj 764 165 tgl 15 0 \$0-s-by-Pin_4 \$0-r-by-Pin_4 N 4 8 1 9 -262144
 -262144 -166441 0 1;
-#X obj 808 251 tgl 15 0 \$0-s-by-Pin_5 \$0-r-by-Pin_5 N 4 8 1 9 -262144
+#X obj 747 165 tgl 15 0 \$0-s-by-Pin_5 \$0-r-by-Pin_5 N 4 8 1 9 -262144
 -262144 -166441 0 1;
-#X obj 791 251 tgl 15 0 \$0-s-by-Pin_6 \$0-r-by-Pin_6 N 4 8 1 9 -262144
+#X obj 730 165 tgl 15 0 \$0-s-by-Pin_6 \$0-r-by-Pin_6 N 4 8 1 9 -262144
 -262144 -166441 0 1;
-#X obj 774 251 tgl 15 0 \$0-s-by-Pin_7 \$0-r-by-Pin_7 N 4 8 1 9 -262144
+#X obj 713 165 tgl 15 0 \$0-s-by-Pin_7 \$0-r-by-Pin_7 N 4 8 1 9 -262144
 -262144 -166441 0 1;
-#X obj 757 251 tgl 15 0 \$0-s-by-Pin_8 \$0-r-by-Pin_8 N 4 8 1 9 -262144
+#X obj 696 165 tgl 15 0 \$0-s-by-Pin_8 \$0-r-by-Pin_8 N 4 8 1 9 -262144
 -262144 -166441 0 1;
-#X obj 740 251 tgl 15 0 \$0-s-by-Pin_9 \$0-r-by-Pin_9 N 4 8 1 9 -262144
+#X obj 679 165 tgl 15 0 \$0-s-by-Pin_9 \$0-r-by-Pin_9 N 4 8 1 9 -262144
 -262144 -166441 0 1;
-#X obj 723 251 tgl 15 0 \$0-s-by-Pin_10 \$0-r-by-Pin_10 N 4 8 1 9 -262144
+#X obj 662 165 tgl 15 0 \$0-s-by-Pin_10 \$0-r-by-Pin_10 N 4 8 1 9 -262144
 -262144 -166441 0 1;
-#X obj 706 251 tgl 15 0 \$0-s-by-Pin_11 \$0-r-by-Pin_11 N 4 8 1 9 -262144
+#X obj 645 165 tgl 15 0 \$0-s-by-Pin_11 \$0-r-by-Pin_11 N 4 8 1 9 -262144
 -262144 -166441 0 1;
-#X obj 689 251 tgl 15 0 \$0-s-by-Pin_12 \$0-r-by-Pin_12 N 4 8 1 9 -262144
+#X obj 628 165 tgl 15 0 \$0-s-by-Pin_12 \$0-r-by-Pin_12 N 4 8 1 9 -262144
 -262144 -166441 0 1;
-#X obj 672 251 tgl 15 0 \$0-s-by-Pin_13 \$0-r-by-Pin_13 N 4 8 1 9 -262144
+#X obj 611 165 tgl 15 0 \$0-s-by-Pin_13 \$0-r-by-Pin_13 N 4 8 1 9 -262144
 -262144 -166441 0 1;
-#X text 862 264 2;
-#X text 844 263 3;
-#X text 827 263 4;
-#X text 811 263 5;
-#X text 794 263 6;
-#X text 776 263 7;
-#X text 759 263 8;
-#X text 742 263 9;
-#X text 722 263 10;
-#X text 705 263 11;
-#X text 688 263 12;
-#X text 672 263 13;
-#X text 657 278 G;
-#X obj 808 482 tgl 15 0 \$0-s-by-Pin_16 \$0-r-by-Pin_16 N 4 8 1 9 -262144
+#X text 801 178 2;
+#X text 783 177 3;
+#X text 766 177 4;
+#X text 750 177 5;
+#X text 733 177 6;
+#X text 715 177 7;
+#X text 698 177 8;
+#X text 681 177 9;
+#X text 661 177 10;
+#X text 644 177 11;
+#X text 627 177 12;
+#X text 611 177 13;
+#X text 596 192 G;
+#X obj 747 396 tgl 15 0 \$0-s-by-Pin_16 \$0-r-by-Pin_16 N 4 8 1 9 -262144
 -262144 -166441 0 1;
-#X obj 825 482 tgl 15 0 \$0-s-by-Pin_17 \$0-r-by-Pin_17 N 4 8 1 9 -262144
+#X obj 764 396 tgl 15 0 \$0-s-by-Pin_17 \$0-r-by-Pin_17 N 4 8 1 9 -262144
 -262144 -166441 0 1;
-#X obj 842 482 tgl 15 0 \$0-s-by-Pin_18 \$0-r-by-Pin_18 N 4 8 1 9 -262144
+#X obj 781 396 tgl 15 0 \$0-s-by-Pin_18 \$0-r-by-Pin_18 N 4 8 1 9 -262144
 -262144 -166441 0 1;
-#X obj 859 482 tgl 15 0 \$0-s-by-Pin_19 \$0-r-by-Pin_19 N 4 8 1 9 -262144
+#X obj 798 396 tgl 15 0 \$0-s-by-Pin_19 \$0-r-by-Pin_19 N 4 8 1 9 -262144
 -262144 -166441 0 1;
-#X obj 876 482 tgl 15 0 \$0-s-by-Pin_20 \$0-r-by-Pin_20 N 4 8 1 9 -262144
+#X obj 815 396 tgl 15 0 \$0-s-by-Pin_20 \$0-r-by-Pin_20 N 4 8 1 9 -262144
 -262144 -166441 0 1;
-#X obj 893 482 tgl 15 0 \$0-s-by-Pin_21 \$0-r-by-Pin_21 N 4 8 1 9 -262144
+#X obj 832 396 tgl 15 0 \$0-s-by-Pin_21 \$0-r-by-Pin_21 N 4 8 1 9 -262144
 -262144 -166441 0 1;
-#X text 810 465 A0;
-#X text 828 465 A1;
-#X text 844 465 A2;
-#X text 860 465 A3;
-#X text 876 465 A4;
-#X text 891 465 A5;
-#N canvas 518 405 484 432 (subpatch) 0;
-#X floatatom -57 -65 5 0 0 3 a0 - -;
-#X floatatom -11 -65 5 0 0 3 a1 - -;
-#X floatatom 35 -65 5 0 0 3 a2 - -;
-#X floatatom 81 -65 5 0 0 3 a3 - -;
-#X floatatom 127 -65 5 0 0 3 a4 - -;
-#X floatatom 173 -65 5 0 0 3 a5 - -;
-#X floatatom 219 -65 5 0 0 3 a6 - -;
-#X floatatom 265 -65 5 0 0 3 a7 - -;
-#X obj 42 -122 route 0 1 2 3 4 5 6 7;
-#X text -70 -122 analog inputs:;
-#N canvas 0 76 499 396 display 0;
-#X obj 21 7 inlet;
-#X obj 6 50 outlet;
-#X obj 69 50 inlet;
-#X obj 54 93 outlet;
-#X obj 118 93 inlet;
-#X obj 103 136 outlet;
-#X obj 166 136 inlet;
-#X obj 151 179 outlet;
-#X obj 215 179 inlet;
-#X obj 200 222 outlet;
-#X obj 262 222 inlet;
-#X obj 247 265 outlet;
-#X obj 310 265 inlet;
-#X obj 295 308 outlet;
-#X obj 360 308 inlet;
-#X obj 345 351 outlet;
-#X obj 6 28 f;
-#X obj 54 71 f;
-#X obj 103 114 f;
-#X obj 151 157 f;
-#X obj 200 200 f;
-#X obj 247 244 f;
-#X obj 295 286 f;
-#X obj 345 329 f;
-#X obj 56 246 loadbang;
-#X obj 56 268 metro 100;
-#X obj 56 305 t b b b b b b b b;
-#X connect 0 0 16 1;
-#X connect 2 0 17 1;
-#X connect 4 0 18 1;
-#X connect 6 0 19 1;
-#X connect 8 0 20 1;
-#X connect 10 0 21 1;
-#X connect 12 0 22 1;
-#X connect 14 0 23 1;
-#X connect 16 0 1 0;
-#X connect 17 0 3 0;
-#X connect 18 0 5 0;
-#X connect 19 0 7 0;
-#X connect 20 0 9 0;
-#X connect 21 0 11 0;
-#X connect 22 0 13 0;
-#X connect 23 0 15 0;
-#X connect 24 0 25 0;
-#X connect 25 0 26 0;
-#X connect 26 0 16 0;
-#X connect 26 1 17 0;
-#X connect 26 2 18 0;
-#X connect 26 3 19 0;
-#X connect 26 4 20 0;
-#X connect 26 5 21 0;
-#X connect 26 6 22 0;
-#X connect 26 7 23 0;
-#X restore -28 -93 pd display values without pegging the CPU;
-#X obj 37 -187 cnv 15 110 26 empty empty empty 20 12 0 14 -159808 -66577
-0;
-#X obj 1 3 vsl 15 128 0 1 0 0 empty empty empty 0 -9 0 10 -232576 -1
--1 0 1;
-#X text -10 118 0;
-#X text -10 -2 1;
-#X obj 18 3 vsl 15 128 0 1 0 0 empty empty empty 0 -9 0 10 -232576
--1 -1 0 1;
-#X obj 35 3 vsl 15 128 0 1 0 0 empty empty empty 0 -9 0 10 -232576
--1 -1 0 1;
-#X obj 52 3 vsl 15 128 0 1 0 0 empty empty empty 0 -9 0 10 -232576
--1 -1 0 1;
-#X obj 69 3 vsl 15 128 0 1 0 0 empty empty empty 0 -9 0 10 -232576
--1 -1 0 1;
-#X obj 86 3 vsl 15 128 0 1 0 0 empty empty empty 0 -9 0 10 -232576
--1 -1 0 1;
-#X obj 42 -147 route analog;
-#X obj 42 -183 r \$0-arduino-out;
-#X obj -57 -22 outlet;
-#X obj -11 -22 outlet;
-#X obj 33 -22 outlet;
-#X obj 79 -22 outlet;
-#X obj 122 -22 outlet;
-#X obj 168 -22 outlet;
-#X connect 0 0 12 0;
-#X connect 0 0 22 0;
-#X connect 1 0 15 0;
-#X connect 1 0 23 0;
-#X connect 2 0 16 0;
-#X connect 2 0 24 0;
-#X connect 3 0 17 0;
-#X connect 3 0 25 0;
-#X connect 4 0 18 0;
-#X connect 4 0 26 0;
-#X connect 5 0 19 0;
-#X connect 5 0 27 0;
-#X connect 8 0 10 0;
-#X connect 8 1 10 1;
-#X connect 8 2 10 2;
-#X connect 8 3 10 3;
-#X connect 8 4 10 4;
-#X connect 8 5 10 5;
-#X connect 8 6 10 6;
-#X connect 8 7 10 7;
-#X connect 10 0 0 0;
-#X connect 10 1 1 0;
-#X connect 10 2 2 0;
-#X connect 10 3 3 0;
-#X connect 10 4 4 0;
-#X connect 10 5 5 0;
-#X connect 10 6 6 0;
-#X connect 10 7 7 0;
-#X connect 20 0 8 0;
-#X connect 21 0 20 0;
-#X coords 0 1 100 -1 102 136 1 0 0;
-#X restore 805 503 graph;
-#X obj 456 469 cnv 15 100 26 empty empty empty 20 12 0 14 -257985 -66577
-0;
-#X obj 461 473 s \$0-to-arduino;
-#X text 796 623 0;
-#X text 796 500 1;
-#X text 764 548 analog;
-#X obj 417 287 cnv 15 70 40 empty empty empty 20 12 0 14 -258113 -66577
-0;
-#X obj 425 295 bng 20 250 50 0 empty empty empty 17 7 0 10 -261234
--1 -1;
-#N canvas 150 314 413 393 list_ports 0;
-#X obj -22 149 route ports;
-#X msg -22 171 \$2;
-#X msg -87 68 ports;
-#X obj -22 194 list prepend;
-#X obj 59 194 t a;
-#X obj -104 252 list append;
-#X obj -104 312 list trim;
-#X obj -121 44 t b b b b;
-#X obj -104 286 list prepend set.list close;
-#X obj -104 350 outlet;
-#X text -59 350 outputs device list;
-#X obj -121 21 inlet;
-#X msg -190 252 set.default;
-#X obj -90 89 cnv 15 100 26 empty empty empty 20 12 0 14 -257985 -66577
-0;
-#X obj -87 94 s \$0-to-arduino;
-#X obj -24 119 cnv 15 110 26 empty empty empty 20 12 0 14 -159808 -66577
-0;
-#X obj -22 123 r \$0-arduino-info;
-#X connect 0 0 1 0;
-#X connect 1 0 3 0;
-#X connect 2 0 14 0;
-#X connect 3 0 4 0;
-#X connect 3 0 5 1;
-#X connect 4 0 3 1;
-#X connect 5 0 8 0;
-#X connect 6 0 9 0;
-#X connect 7 0 12 0;
-#X connect 7 1 5 0;
-#X connect 7 2 2 0;
-#X connect 7 3 3 1;
-#X connect 7 3 5 1;
-#X connect 8 0 6 0;
-#X connect 11 0 7 0;
-#X connect 12 0 9 0;
-#X connect 16 0 0 0;
-#X restore 425 365 pd list_ports;
-#X obj 425 384 s \$0.device_list;
+#X text 749 379 A0;
+#X text 767 379 A1;
+#X text 783 379 A2;
+#X text 799 379 A3;
+#X text 815 379 A4;
+#X text 830 379 A5;
 #X msg 623 79 digital 13 \$1;
 #X obj 623 61 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0 1
 ;
@@ -382,49 +209,7 @@
 #X text 711 22 <-;
 #X obj 599 102 cnv 15 100 26 empty empty empty 20 12 0 14 -257985 -66577
 0;
-#N canvas 0 0 284 286 device_selection 0;
-#X obj 66 134 route symbol float;
-#X obj 66 63 route return;
-#X obj 66 84 list;
-#X obj 81 110 print \$0.device_list;
-#X obj 66 166 select close;
-#X msg 66 186 close;
-#X msg 135 186 devicename \$1;
-#X obj 66 226 outlet;
-#X obj 66 25 inlet;
-#X connect 0 0 4 0;
-#X connect 1 0 2 0;
-#X connect 2 0 0 0;
-#X connect 4 0 5 0;
-#X connect 4 1 6 0;
-#X connect 5 0 7 0;
-#X connect 6 0 7 0;
-#X connect 8 0 1 0;
-#X restore 425 424 pd device_selection;
-#X obj 425 403 r \$0.device_list;
-#X text 30 497 device info message auf close bei schliessen;
-#X text 35 476 _____2Do__________;
-#X text 32 515 Pin Numbering with white letters;
-#X text 764 560 values;
-#X text 763 539 incoming;
-#X text 32 529 are analog Pins default set to input?;
-#X obj 492 623 cnv 15 300 70 empty empty Setup 5 10 1 14 -228856 -66577
-0;
-#X obj 497 644 cnv 15 280 12 empty empty empty 5 10 1 14 -260097 -66577
-0;
-#X obj 335 300 cnv 15 60 25 empty empty empty 5 10 1 14 -260097 -66577
-0;
-#X msg 342 303 devices;
-#X text 498 642 1 list the devices connected to your computer;
-#X obj 497 659 cnv 15 280 12 empty empty empty 5 10 1 14 -258113 -66577
-0;
-#X text 498 657 2 select a device;
-#X obj 497 674 cnv 15 280 12 empty empty empty 5 10 1 14 -4034 -66577
-0;
-#X text 498 672 3 set the pins;
-#X text 491 603 follow this recipe to dress for success using pduino
-;
-#X obj 668 328 cnv 15 205 25 empty empty empty 5 10 1 14 -4034 -66577
+#X obj 607 242 cnv 15 205 25 empty empty empty 5 10 1 14 -4034 -66577
 0;
 #N canvas 572 164 575 492 open 0;
 #N canvas 82 138 474 528 pinMode 0;
@@ -1333,8 +1118,8 @@ empty 2 68 1 10 -257985 -1 -1 0;
 #X text -137 281 Arduino UNO \, Duemilanove \, Nano \, Diecimila...
 ;
 #X text -41 36 set your Digital pins on this panel:;
-#X restore 672 332 pd open here to set Digital Pins;
-#X obj 784 443 cnv 15 125 25 empty empty empty 5 10 1 14 -4034 -66577
+#X restore 611 246 pd open here to set Digital Pins;
+#X obj 723 357 cnv 15 125 25 empty empty empty 5 10 1 14 -4034 -66577
 0;
 #N canvas 334 318 663 409 set 0;
 #N canvas 381 292 476 465 pinMode 0;
@@ -1873,21 +1658,19 @@ empty 2 68 1 10 -257985 -1 -1 0;
 ;
 #X text 408 364 set your Analog Pins;
 #X text 408 376 on this panel;
-#X restore 791 447 pd set Analog Pins;
-#X obj 492 697 cnv 15 300 70 empty empty Use 5 10 1 14 -228856 -66577
-0;
+#X restore 730 361 pd set Analog Pins;
 #X obj 18 12 declare -path includes;
 #X obj 16 41 inlet;
 #X obj 17 127 cnv 15 240 80 empty empty empty 20 12 0 14 -204786 -66577
 0;
-#X obj 31 666 outlet;
-#X obj 139 668 outlet;
+#X obj 29 434 outlet;
+#X obj 137 436 outlet;
 #X obj 25 180 s \$0.ARDUINO.OUT;
 #X obj 138 181 s \$0.ARDUINO.INFO;
 #X obj 25 157 arduino;
 #X obj 25 134 r \$0.ARDUINO.TO;
-#X obj 31 643 r \$0.ARDUINO.OUT;
-#X obj 139 644 r \$0.ARDUINO.INFO;
+#X obj 29 411 r \$0.ARDUINO.OUT;
+#X obj 137 412 r \$0.ARDUINO.INFO;
 #X obj 603 107 s \$0.ARDUINO.TO;
 #X obj 16 63 s \$0.ARDUINO.IN;
 #N canvas 626 145 455 241 EXPLAIN 0;
@@ -1913,22 +1696,74 @@ empty 2 68 1 10 -257985 -1 -1 0;
 #X obj 35 350 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
 #X text 53 348 <- Arduino fully ready?;
-#X obj 281 133 agop.digital.pin \$0 2;
+#X obj 285 124 agop.digital.pin \$0 13;
+#N canvas 925 331 412 218 pin.capabilities 0;
+#X obj 30 93 tgl 15 0 empty empty O 3 7 0 10 -262144 -1 -1 1 1;
+#X obj 49 93 tgl 15 0 empty empty I 3 7 0 10 -262144 -1 -1 1 1;
+#X obj 68 93 tgl 15 0 empty empty P 3 7 0 10 -262144 -1 -1 0 1;
+#X obj 87 93 tgl 15 0 empty empty S 3 7 0 10 -262144 -1 -1 0 1;
+#N canvas 1106 233 200 286 bitmask 0;
+#X obj 55 58 << 1;
+#X obj 145 59 << 3;
+#X obj 40 117 +;
+#X obj 40 148 +;
+#X obj 40 177 +;
+#X obj 55 80 t b a;
+#X obj 98 106 t b a;
+#X obj 145 136 t b a;
+#X obj 13 23 inlet;
+#X obj 55 24 inlet;
+#X obj 98 24 inlet;
+#X obj 145 24 inlet;
+#X obj 40 239 outlet;
+#X obj 98 60 << 2;
+#X connect 0 0 5 0;
+#X connect 1 0 7 0;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 4 0 12 0;
+#X connect 5 0 2 0;
+#X connect 5 1 2 1;
+#X connect 6 0 3 0;
+#X connect 6 1 3 1;
+#X connect 7 0 4 0;
+#X connect 7 1 4 1;
+#X connect 8 0 2 0;
+#X connect 9 0 0 0;
+#X connect 10 0 13 0;
+#X connect 11 0 1 0;
+#X connect 13 0 6 0;
+#X restore 30 113 pd bitmask;
+#N canvas 0 0 450 300 (subpatch) 0;
+#X array \$0.ARDUINO.PIN.MODES 128 float 1;
+#A 0 0 0 3 15 3 15 15 3 3 15 15 15 3 3 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X coords 0 16 127 0 128 32 1 0 0;
+#X restore 233 51 graph;
+#X obj 30 166 tabwrite \$0.ARDUINO.PIN.MODES;
+#X floatatom 122 97 5 0 0 0 - - -;
+#X text 159 98 Pin no.;
+#X floatatom 30 138 5 0 0 0 - - -;
+#X connect 0 0 4 0;
+#X connect 1 0 4 1;
+#X connect 2 0 4 2;
+#X connect 3 0 4 3;
+#X connect 4 0 9 0;
+#X connect 7 0 6 1;
+#X connect 9 0 6 0;
+#X restore 276 285 pd pin.capabilities;
 #X connect 61 0 62 0;
 #X connect 63 0 61 0;
-#X connect 108 0 109 0;
-#X connect 109 0 110 0;
-#X connect 111 0 153 0;
-#X connect 112 0 111 0;
-#X connect 113 0 153 0;
-#X connect 119 0 103 0;
+#X connect 100 0 123 0;
+#X connect 101 0 100 0;
+#X connect 102 0 123 0;
+#X connect 113 0 124 0;
+#X connect 119 0 117 0;
+#X connect 119 1 118 0;
 #X connect 120 0 119 0;
-#X connect 130 0 103 0;
-#X connect 143 0 154 0;
-#X connect 149 0 147 0;
-#X connect 149 1 148 0;
-#X connect 150 0 149 0;
-#X connect 151 0 145 0;
-#X connect 152 0 146 0;
-#X connect 161 0 162 0;
-#X connect 162 0 163 0;
+#X connect 121 0 115 0;
+#X connect 122 0 116 0;
+#X connect 131 0 132 0;
+#X connect 132 0 133 0;
