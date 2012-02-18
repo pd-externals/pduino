@@ -1698,8 +1698,8 @@ empty 2 68 1 10 -257985 -1 -1 0;
 #X text 53 348 <- Arduino fully ready?;
 #X obj 285 124 agop.digital.pin \$0 13;
 #N canvas 925 331 412 218 pin.capabilities 0;
-#X obj 30 93 tgl 15 0 empty empty O 3 7 0 10 -262144 -1 -1 1 1;
-#X obj 49 93 tgl 15 0 empty empty I 3 7 0 10 -262144 -1 -1 1 1;
+#X obj 30 93 tgl 15 0 empty empty O 3 7 0 10 -262144 -1 -1 0 1;
+#X obj 49 93 tgl 15 0 empty empty I 3 7 0 10 -262144 -1 -1 0 1;
 #X obj 68 93 tgl 15 0 empty empty P 3 7 0 10 -262144 -1 -1 0 1;
 #X obj 87 93 tgl 15 0 empty empty S 3 7 0 10 -262144 -1 -1 0 1;
 #N canvas 1106 233 200 286 bitmask 0;
@@ -1735,13 +1735,13 @@ empty 2 68 1 10 -257985 -1 -1 0;
 #X connect 13 0 6 0;
 #X restore 30 113 pd bitmask;
 #N canvas 0 0 450 300 (subpatch) 0;
-#X array \$0.ARDUINO.PIN.MODES 128 float 1;
+#X array \$0.ARDUINO.PIN.MODES 128 float 3;
 #A 0 0 0 3 15 3 15 15 3 3 15 15 15 3 3 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
-#X coords 0 16 127 0 128 32 1 0 0;
-#X restore 233 51 graph;
+#X coords 0 16 128 0 256 32 1 0 0;
+#X restore 18 26 graph;
 #X obj 30 166 tabwrite \$0.ARDUINO.PIN.MODES;
 #X floatatom 122 97 5 0 0 0 - - -;
 #X text 159 98 Pin no.;
