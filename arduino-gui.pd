@@ -114,16 +114,8 @@
 #X text 458 175 <- Arduino Pin Messages (sent to outlet0);
 #X text 458 120 <- external commands (modules are listening here);
 #X text 458 148 <- Commands sent from modules -> [arduino];
-#X obj 20 20 cnv 15 275 45 empty empty empty 20 12 0 14 -253822 -66577
-0;
-#X obj 194 35 cnv 15 55 70 empty empty empty 20 12 0 14 -191407 -66577
-0;
-#X obj 29 42 agop.firmware.check \$0;
-#X obj 29 25 agop.device.selector \$0;
-#X obj 103 25 agop.refresh.rate \$0;
-#X obj 34 59 cnv 15 37 60 empty empty empty 20 12 0 14 -33289 -66577
-0;
-#X obj 83 206 cnv 15 28 175 empty empty empty 20 12 0 14 -33289 -66577
+#X obj 20 20 agop.firmware.check \$0;
+#X obj 86 206 cnv 15 28 175 empty empty empty 20 12 0 14 -66577 -66577
 0;
 #X text 36 208 RESET;
 #X text 36 222 3v3;
@@ -131,6 +123,68 @@
 #X text 36 250 GND;
 #X text 36 264 GND;
 #X text 36 278 Vin;
+#X obj 115 213 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+0;
+#X obj 115 225 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+0;
+#X obj 115 237 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+0;
+#X obj 115 249 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+0;
+#X obj 115 261 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+0;
+#X obj 115 273 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+0;
+#X obj 115 285 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+0;
+#X obj 115 297 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+0;
+#X obj 115 309 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+0;
+#X obj 115 321 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+0;
+#X obj 115 333 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+0;
+#X obj 115 345 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+0;
+#X obj 115 357 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+0;
+#X obj 115 369 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+0;
+#X obj 84 213 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+0;
+#X obj 84 225 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+0;
+#X obj 84 237 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+0;
+#X obj 84 249 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+0;
+#X obj 84 261 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+0;
+#X obj 84 273 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+0;
+#X obj 84 285 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+0;
+#X obj 84 297 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+0;
+#X obj 84 309 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+0;
+#X obj 84 321 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+0;
+#X obj 84 333 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+0;
+#X obj 84 345 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+0;
+#X obj 84 357 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+0;
+#X obj 84 369 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+0;
+#X obj 194 35 cnv 15 55 70 empty empty empty 20 12 0 14 -191407 -66577
+0;
+#X obj 27 25 agop.device.selector \$0;
+#X obj 128 25 agop.refresh.rate \$0;
+#X obj 34 59 cnv 15 37 60 empty empty empty 20 12 0 14 -33289 -66577
+0;
 #X connect 2 0 11 0;
 #X connect 7 0 5 0;
 #X connect 7 1 6 0;
