@@ -185,6 +185,10 @@
 #X obj 128 25 agop.refresh.rate \$0;
 #X obj 34 59 cnv 15 37 60 empty empty empty 20 12 0 14 -33289 -66577
 0;
+#X text 196 187 R;
+#X text 196 196 X;
+#X text 210 196 X;
+#X text 210 187 T;
 #X connect 2 0 11 0;
 #X connect 7 0 5 0;
 #X connect 7 1 6 0;
