@@ -1,5 +1,6 @@
-#N canvas 372 44 799 532 10;
+#N canvas 372 44 847 546 10;
 #X declare -path includes;
+#X declare -stdpath extra/moocow -lib pdstring;
 #X obj 20 65 cnv 15 275 325 empty empty empty 20 12 0 14 -22189 -66577
 0;
 #X obj 340 21 declare -path includes;
@@ -187,9 +188,9 @@
 0;
 #X obj 194 35 cnv 15 55 70 empty empty empty 20 12 0 14 -191407 -66577
 0;
-#X obj 27 25 agop.device.selector \$0;
-#X obj 195 92 agop.refresh.rate \$0;
-#X obj 34 59 cnv 15 37 60 empty empty empty 20 12 0 14 -33289 -66577
+#X obj 73 65 agop.device.selector \$0;
+#X obj 195 65 agop.refresh.rate \$0;
+#X obj 35 59 cnv 15 37 60 empty empty empty 20 12 0 14 -33289 -66577
 0;
 #X text 194 187 R;
 #X text 194 196 X;
