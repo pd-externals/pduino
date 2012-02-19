@@ -32,7 +32,6 @@
 #X obj 280 158 agop.dummy.pin;
 #X obj 280 171 agop.dummy.pin;
 #X obj 280 360 agop.dummy.pin;
-#X obj 280 373 agop.dummy.pin;
 #X obj 23 277 agop.dummy.pin;
 #X obj 23 263 agop.dummy.pin;
 #X obj 23 249 agop.dummy.pin;
@@ -152,15 +151,6 @@
 #X obj 20 389 cnv 1 7 1 empty empty empty 20 12 0 14 -1 -66577 0;
 #X obj 288 389 cnv 1 7 1 empty empty empty 20 12 0 14 -1 -66577 0;
 #X obj 288 455 outlet;
-#N canvas 905 349 237 222 generate.messages 0;
-#X obj 17 160 outlet;
-#X obj 17 24 r \$0.ARDUINO.TO;
-#X obj 17 46 list prepend set;
-#X obj 17 68 list trim;
-#X connect 1 0 2 0;
-#X connect 2 0 3 0;
-#X connect 3 0 0 0;
-#X restore 288 426 pd generate.messages;
 #X obj 157 389 cnv 1 7 1 empty empty empty 20 12 0 14 -1 -66577 0;
 #X obj 27 425 r \$0.ARDUINO.OUT;
 #N canvas 925 331 412 218 supported.pin.modes.matrix 0;
@@ -232,11 +222,12 @@
 #X connect 9 0 6 0;
 #X connect 10 0 4 4;
 #X restore 342 282 pd supported.pin.modes.matrix;
+#X obj 280 374 agop.message.recorder \$0;
 #X connect 2 0 10 0;
 #X connect 7 0 5 0;
 #X connect 7 1 6 0;
 #X connect 8 0 7 0;
 #X connect 9 0 4 0;
-#X connect 119 0 118 0;
-#X connect 121 0 3 0;
+#X connect 119 0 3 0;
+#X connect 121 0 117 0;
 #X coords 0 -1 1 1 275 370 2 20 20;
