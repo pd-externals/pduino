@@ -1,3 +1,3 @@
 #N canvas 360 44 692 455 10;
 #X declare -path includes;
-#X obj 84 100 arduino-gui;
+#X obj 100 53 arduino-gui;
