@@ -64,8 +64,8 @@
 #X connect 26 0 6 0;
 #X connect 27 0 26 0;
 #X restore 21 197 pd slider.wrapper;
-#X obj 20 22 vsl 120 7 5 -1 0 0 \$0.selector.s \$0.selector.r empty
-2 4 0 10 -228856 -228856 -1 300 1;
+#X obj 20 22 vsl 120 7 10 4 0 0 \$0.selector.s \$0.selector.r empty
+2 4 0 10 -228856 -228856 -1 600 1;
 #X msg 48 310 label \$1;
 #X obj 48 333 s \$0.selector.r;
 #X obj 21 126 t a a;
@@ -361,6 +361,9 @@
 #X obj 72 407 t b a;
 #X obj 192 448 s \$1.ARDUINO.INTERN;
 #X obj 21 461 s \$1.ARDUINO.TO;
+#X obj 233 137 s \$0.selector.r;
+#X obj 233 88 loadbang;
+#X msg 233 114 label <select_device>;
 #X connect 0 0 6 0;
 #X connect 2 0 3 0;
 #X connect 4 0 5 0;
@@ -386,4 +389,6 @@
 #X connect 22 1 20 0;
 #X connect 23 0 19 0;
 #X connect 23 1 25 0;
+#X connect 27 0 28 0;
+#X connect 28 0 26 0;
 #X coords 0 -1 1 1 120 12 2 20 20;
