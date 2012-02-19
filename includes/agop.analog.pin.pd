@@ -420,10 +420,8 @@
 #X connect 3 0 4 0;
 #X connect 4 0 1 0;
 #X restore 17 163 pd pin.no.label;
-#X obj 33 21 vsl 8 9 10 -4 0 0 \$0.selector.s \$0.selector.r empty
-1 5 0 10 -228856 -228856 -1 171 1;
-#X obj 21 21 vsl 12 9 0 1 0 0 \$0.sl.s \$0.sl.r 16 1 6 0 9 -233017
--233017 -1 400 1;
+#X obj 33 21 vsl 8 9 10 4 0 0 \$0.selector.s \$0.selector.r empty 1
+5 0 10 -228856 -228856 -1 400 1;
 #N canvas 916 177 400 373 show.value 0;
 #X obj 92 327 s \$0.show.value;
 #X obj 53 170 del 1000;
@@ -431,17 +429,22 @@
 #X obj 99 16 r \$0.toggle;
 #X obj 168 33 r \$0.mode;
 #X obj 99 54 list prepend;
-#X obj 152 195 sel 0 1;
-#X msg 152 219 LOW;
-#X msg 178 219 HIGH;
+#X obj 152 215 sel 0 1;
+#X msg 152 239 LOW;
+#X msg 178 239 HIGH;
 #X msg 53 199 empty;
 #X obj 92 281 list prepend label;
 #X obj 92 303 list trim;
-#X obj 126 120 sel 0 1;
-#X msg 126 142 PULL_UP_OFF;
-#X msg 145 162 PULL_UP_ON;
+#X obj 126 140 sel 0 1;
+#X msg 126 162 PULL_UP_OFF;
+#X msg 145 182 PULL_UP_ON;
 #X obj 99 76 t b a;
 #X obj 126 96 route 0 1;
+#X msg 242 277 label_pos \$1 7;
+#X obj 126 118 t a b;
+#X obj 209 126 t a b;
+#X msg 287 212 -31;
+#X msg 258 211 -80;
 #X connect 1 0 9 0;
 #X connect 2 0 9 0;
 #X connect 3 0 5 0;
@@ -460,8 +463,15 @@
 #X connect 14 0 10 0;
 #X connect 15 0 1 0;
 #X connect 15 1 16 0;
-#X connect 16 0 12 0;
-#X connect 16 1 6 0;
+#X connect 16 0 18 0;
+#X connect 16 1 19 0;
+#X connect 17 0 0 0;
+#X connect 18 0 12 0;
+#X connect 18 1 21 0;
+#X connect 19 0 6 0;
+#X connect 19 1 20 0;
+#X connect 20 0 17 0;
+#X connect 21 0 17 0;
 #X restore 17 185 pd show.value;
 #N canvas 1136 268 336 455 color.indicator 0;
 #N canvas 1083 72 231 303 color.blender 0;
@@ -582,7 +592,7 @@
 #X msg 122 367 0;
 #X obj 95 346 sel 0;
 #X obj 49 115 r \$0.input;
-#N canvas 542 699 176 225 rate.limit 0;
+#N canvas 542 727 176 225 rate.limit 0;
 #X obj 129 52 inlet;
 #X obj 19 150 outlet;
 #X obj 19 47 route refresh;
@@ -863,5 +873,9 @@ empty 1 5 0 10 -228856 -228856 -1 0 1;
 #X restore 17 96 pd ready;
 #X text 230 89 1: OUTPUT;
 #X text 230 116 3: OFF (default);
-#X connect 16 0 2 0;
+#X obj 21 19 cnv 8 8 8 empty \$0.show.value empty -31 7 0 12 -1 -258113
+0;
+#X obj 21 21 vsl 12 9 0 1 0 0 \$0.sl.s \$0.sl.r 16 1 6 0 9 -233017
+-233017 -1 0 1;
+#X connect 15 0 2 0;
 #X coords 0 -1 1 1 20 14 2 21 19;
