@@ -212,6 +212,12 @@
 #X text 44 344 A3;
 #X text 44 358 A4;
 #X text 44 372 A5;
+#X text 249 240 PWM;
+#X text 249 212 PWM;
+#X text 249 289 PWM;
+#X text 249 226 PWM;
+#X text 249 303 PWM;
+#X text 249 331 PWM;
 #X connect 2 0 11 0;
 #X connect 7 0 5 0;
 #X connect 7 1 6 0;
