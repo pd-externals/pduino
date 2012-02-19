@@ -1,4 +1,4 @@
 #N canvas 955 96 378 347 10;
 #X obj 21 21 vsl 12 9 30 24 0 0 \$0.selector.label.s \$0.selector.label.r
-empty 1 5 0 10 -228856 -228856 -1 0 1;
+empty 1 5 0 10 -162280 -162280 -1 0 1;
 #X coords 0 -1 1 1 12 14 2 21 19;
