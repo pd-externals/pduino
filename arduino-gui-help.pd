@@ -1,3 +1,30 @@
-#N canvas 360 44 692 455 10;
+#N canvas 360 44 834 588 10;
 #X declare -path includes;
-#X obj 100 53 arduino-gui;
+#X declare -stdpath extra/moocow -lib pdstring;
+#X obj 51 115 arduino-gui;
+#X text 143 19 [arduino-gui];
+#X msg 51 44 open \$1;
+#X floatatom 51 23 5 0 0 0 - - -;
+#X msg 63 66 digitial 13 1;
+#X obj 51 548 print ARDUINO.OUT;
+#X obj 185 548 print ARDUINO.STATUS;
+#X msg 319 494;
+#X text 337 470 <- record all messages to a message box;
+#X text 335 156 <- select a device;
+#X text 336 169 <- set GUI refresh rate;
+#X text 332 282 <- set pin mode and change state;
+#X text 406 21 A R D U I N O - G U I;
+#X text 406 31 =====================;
+#X text 408 52;
+#X text 405 53 [arduino-gui] aims to be a drop-in replacement for the
+common [arduino] class. It provides similar functionality as [arduino]
+but has some graphical enhancements for ease of use. It tries to reflect
+all capabilities of an Arduino board with StandardFirmata installed.
+Additionally \, it allows to record any setting changes to a message
+box.;
+#X connect 0 0 5 0;
+#X connect 0 1 6 0;
+#X connect 0 2 7 0;
+#X connect 2 0 0 0;
+#X connect 3 0 2 0;
+#X connect 4 0 0 0;
