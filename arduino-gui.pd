@@ -10,7 +10,7 @@
 #X obj 342 364 s \$0.ARDUINO.OUT;
 #X obj 455 365 s \$0.ARDUINO.INFO;
 #X obj 342 341 arduino;
-#X obj 342 318 r \$0.ARDUINO.TO;
+#X obj 342 314 r \$0.ARDUINO.TO;
 #X obj 154 427 r \$0.ARDUINO.INFO;
 #X obj 340 83 s \$0.ARDUINO.IN;
 #X obj 272 346 agop.digital.pin \$0 2;
@@ -223,6 +223,7 @@
 #X connect 10 0 4 4;
 #X restore 342 282 pd supported.pin.modes.matrix;
 #X obj 280 374 agop.message.recorder \$0;
+#X obj 452 314 r \$0.ARDUINO.IN;
 #X connect 2 0 10 0;
 #X connect 7 0 5 0;
 #X connect 7 1 6 0;
@@ -230,4 +231,5 @@
 #X connect 9 0 4 0;
 #X connect 119 0 3 0;
 #X connect 121 0 117 0;
+#X connect 122 0 7 0;
 #X coords 0 -1 1 1 275 370 2 20 20;
