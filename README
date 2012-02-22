@@ -8,7 +8,7 @@ maintained by Hans-Christoph Steiner.
 The goals of the improvements are:
 
   * Get rid of avoidable dependencies on other external/abstraction
-    libraries
+    libraries (make it easier to use with Pd-vanilla setups)
 
   * Update help- and test-patches in accordance to current Firmata
 
