@@ -1,4 +1,4 @@
-#N canvas 484 120 424 506 10;
+#N canvas 447 44 414 619 10;
 #N canvas 278 280 419 327 slider.wrapper 0;
 #X obj 20 255 pack f f f;
 #X obj 20 233 - 1;
@@ -63,13 +63,13 @@
 #X connect 25 0 11 0;
 #X connect 26 0 6 0;
 #X connect 27 0 26 0;
-#X restore 21 197 pd slider.wrapper;
-#X obj 20 22 vsl 120 7 10 4 0 0 \$0.selector.s \$0.selector.r empty
-2 4 0 10 -228856 -228856 -1 600 1;
-#X msg 48 310 label \$1;
-#X obj 48 333 s \$0.selector.r;
-#X obj 21 126 t a a;
-#X obj 21 152 list length;
+#X restore 21 237 pd slider.wrapper;
+#X obj 20 22 vsl 120 7 5 -1 0 0 \$0.selector.s \$0.selector.r empty
+2 4 0 10 -228856 -228856 -1 300 1;
+#X msg 48 350 label \$1;
+#X obj 48 373 s \$0.selector.r;
+#X obj 21 166 t a a;
+#X obj 21 192 list length;
 #N canvas 683 62 385 462 list.selector.fields 0;
 #N canvas 1158 378 142 254 counter 0;
 #X obj 10 12 inlet;
@@ -308,10 +308,10 @@
 #X connect 38 0 2 0;
 #X connect 39 0 2 0;
 #X connect 40 0 2 0;
-#X restore 21 221 pd list.selector.fields;
-#X msg 21 174 range 1 \$1;
-#X obj 21 245 route select;
-#X obj 21 266 list;
+#X restore 21 261 pd list.selector.fields;
+#X msg 21 214 range 1 \$1;
+#X obj 21 285 route select;
+#X obj 21 306 list;
 #X obj 21 105 list prepend -------;
 #X obj 231 46 namecanvas \$0.goparea;
 #N canvas 978 347 154 108 INIT 0;
@@ -321,7 +321,7 @@
 #X connect 0 0 1 0;
 #X connect 1 0 2 0;
 #X restore 231 24 pd INIT;
-#X obj 21 288 t a a;
+#X obj 21 328 t a a;
 #N canvas 813 433 239 282 get.device.list 0;
 #X obj -102 108 r \$1.ARDUINO.INFO;
 #X msg -103 61 ports;
@@ -351,16 +351,14 @@
 #X connect 9 0 8 1;
 #X restore 21 81 pd get.device.list;
 #X obj 21 57 r \$0.refresh;
-#X obj 21 355 sel empty;
-#X msg 72 385 devicename \$1;
-#X msg 21 385 close;
-#X msg 78 430 1;
-#X msg 48 430 0;
-#X msg 192 424 serial.com \$1;
-#X obj 21 408 t a b;
-#X obj 72 407 t b a;
-#X obj 192 448 s \$1.ARDUINO.INTERN;
-#X obj 21 461 s \$1.ARDUINO.TO;
+#X msg 132 420 devicename \$1;
+#X msg 21 425 close;
+#X msg 216 511 1;
+#X msg 180 514 0;
+#X msg 256 540 serial.com \$1;
+#X obj 21 448 t a b;
+#X obj 256 577 s \$1.ARDUINO.INTERN;
+#X obj 21 553 s \$1.ARDUINO.TO;
 #X obj 233 137 s \$0.selector.r;
 #X obj 233 88 loadbang;
 #X msg 233 114 label <select_device>;
@@ -439,19 +437,14 @@
 #X connect 25 2 12 0;
 #X connect 25 3 26 0;
 #X connect 26 0 24 1;
-#X restore 192 320 pd handle.incoming;
-#X obj 138 21 cnv 1 1 1 empty 1164.field.3.r empty 1 5 0 10 -1 -1 0
-;
-#X obj 138 21 cnv 1 1 1 empty 1164.field.-2.r empty 1 5 0 10 -187246
--1 0;
-#X obj 138 21 cnv 1 1 1 empty 1164.field.-1.r empty 1 5 0 10 -187246
--1 0;
-#X obj 138 21 cnv 1 1 1 empty 1164.field.1.r empty 1 5 0 10 -187246
--1 0;
-#X obj 138 21 cnv 1 1 1 empty 1164.field.2.r empty 1 5 0 10 -187246
--1 0;
-#X obj 138 21 cnv 1 1 1 empty 1164.field.0.r empty 1 5 0 10 -233017
--1 0;
+#X restore 256 354 pd handle.incoming;
+#X obj 21 127 list append emulation;
+#X obj 21 395 sel empty emulation;
+#X msg 75 521 emulate \$1;
+#X msg 103 495 1;
+#X msg 75 495 0;
+#X obj 76 423 t b b;
+#X obj 132 442 t b b a;
 #X connect 0 0 6 0;
 #X connect 2 0 3 0;
 #X connect 4 0 5 0;
@@ -461,23 +454,32 @@
 #X connect 7 0 0 0;
 #X connect 8 0 9 0;
 #X connect 9 0 13 0;
-#X connect 10 0 4 0;
-#X connect 13 0 16 0;
+#X connect 10 0 28 0;
+#X connect 13 0 29 0;
 #X connect 13 1 2 0;
 #X connect 14 0 10 0;
 #X connect 15 0 14 0;
-#X connect 16 0 18 0;
-#X connect 16 1 17 0;
-#X connect 17 0 23 0;
-#X connect 18 0 22 0;
-#X connect 19 0 21 0;
-#X connect 20 0 21 0;
-#X connect 21 0 24 0;
-#X connect 22 0 25 0;
-#X connect 22 1 20 0;
-#X connect 23 0 19 0;
-#X connect 23 1 25 0;
-#X connect 27 0 28 0;
-#X connect 28 0 26 0;
-#X connect 29 0 21 0;
+#X connect 16 0 34 0;
+#X connect 17 0 21 0;
+#X connect 18 0 20 0;
+#X connect 19 0 20 0;
+#X connect 20 0 22 0;
+#X connect 21 0 23 0;
+#X connect 21 1 19 0;
+#X connect 21 1 32 0;
+#X connect 25 0 26 0;
+#X connect 26 0 24 0;
+#X connect 27 0 20 0;
+#X connect 28 0 4 0;
+#X connect 29 0 17 0;
+#X connect 29 1 33 0;
+#X connect 29 2 16 0;
+#X connect 30 0 22 0;
+#X connect 31 0 30 0;
+#X connect 32 0 30 0;
+#X connect 33 0 18 0;
+#X connect 33 1 31 0;
+#X connect 34 0 18 0;
+#X connect 34 1 32 0;
+#X connect 34 2 23 0;
 #X coords 0 -1 1 1 120 12 2 20 20;
