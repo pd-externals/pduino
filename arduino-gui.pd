@@ -153,8 +153,8 @@
 #X obj 154 389 cnv 1 7 1 empty empty empty 20 12 0 14 -1 -66577 0;
 #X obj 27 425 r \$0.ARDUINO.OUT;
 #N canvas 925 331 412 218 supported.pin.modes.matrix 0;
-#X obj 30 93 tgl 15 0 empty empty O 3 7 0 10 -262144 -1 -1 1 1;
-#X obj 49 93 tgl 15 0 empty empty I 3 7 0 10 -262144 -1 -1 1 1;
+#X obj 30 93 tgl 15 0 empty empty O 3 7 0 10 -262144 -1 -1 0 1;
+#X obj 49 93 tgl 15 0 empty empty I 3 7 0 10 -262144 -1 -1 0 1;
 #X obj 68 93 tgl 15 0 empty empty P 3 7 0 10 -262144 -1 -1 0 1;
 #X obj 87 93 tgl 15 0 empty empty S 3 7 0 10 -262144 -1 -1 0 1;
 #N canvas 1106 233 363 312 bitmask 0;
@@ -211,7 +211,7 @@
 #X floatatom 192 97 5 0 0 0 - - -;
 #X text 229 98 Pin no.;
 #X floatatom 30 138 5 0 0 0 - - -;
-#X obj 106 93 tgl 15 0 empty empty A 3 7 0 10 -262144 -1 -1 1 1;
+#X obj 106 93 tgl 15 0 empty empty A 3 7 0 10 -262144 -1 -1 0 1;
 #X connect 0 0 4 0;
 #X connect 1 0 4 1;
 #X connect 2 0 4 2;
@@ -230,6 +230,8 @@
 #X obj 334 407 cnv 15 65 25 empty empty empty 20 12 0 14 -203904 -66577
 0;
 #X obj 342 411 arduino;
+#X text 559 501 Copyright \, 2011 \, Roman Haefeli;
+#X text 661 516 Oliver Wolf;
 #X connect 2 0 9 0;
 #X connect 7 0 125 0;
 #X connect 8 0 4 0;
