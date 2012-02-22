@@ -1,10 +1,11 @@
 #N canvas 360 44 803 596 10;
 #X declare -path includes;
 #X declare -stdpath extra/moocow -lib pdstring;
+#X declare -stdpath extra/moocow -lib pdstring;
 #X obj 51 115 arduino-gui;
 #X text 238 94 [arduino-gui];
 #X msg 51 44 open \$1;
-#X floatatom 51 23 5 0 0 0 - - -;
+#X floatatom 51 19 5 0 0 0 - - -;
 #X obj 51 548 print ARDUINO.OUT;
 #X obj 185 548 print ARDUINO.STATUS;
 #X msg 319 494;
@@ -14,7 +15,7 @@
 #X text 378 21 A R D U I N O - G U I;
 #X text 378 31 =====================;
 #X text 337 470 <- record all arduino commands to a message box;
-#X obj 114 41 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 105 18 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
 #X obj 568 147 cnv 15 170 155 empty empty empty 20 12 0 14 -224640
 -66577 0;
@@ -25,7 +26,7 @@
 #X text 586 216 * NG;
 #X text 579 255 Supported Firmware:;
 #X text 586 273 * StandardFirmata v2.X;
-#X msg 114 66 digital 13 \$1;
+#X msg 105 44 digital 13 \$1;
 #X text 378 328 Emulation-Mode:;
 #X text 377 48 [arduino-gui] is a graphical version of the common [arduino]
 class. It is a wrapper with some GUI enhancements that facilitate sending
@@ -36,6 +37,12 @@ to emulate an arduino board without actually sending any commands to
 a physical device.;
 #X text 555 542 Copyright \, 2012 \, Roman Haefeli;
 #X text 657 557 Olsen Wolf;
+#X msg 198 44 pinMode 3 \$1;
+#X symbolatom 198 19 10 0 0 0 - - -;
+#X msg 283 44 port 1 \$1;
+#X floatatom 283 19 5 0 0 0 - - -;
+#X obj 570 429 arduino;
+#X text 378 429 For full reference \, see help of;
 #X connect 0 0 4 0;
 #X connect 0 1 5 0;
 #X connect 0 2 6 0;
@@ -43,3 +50,7 @@ a physical device.;
 #X connect 3 0 2 0;
 #X connect 13 0 22 0;
 #X connect 22 0 0 0;
+#X connect 28 0 0 0;
+#X connect 29 0 28 0;
+#X connect 30 0 0 0;
+#X connect 31 0 30 0;
