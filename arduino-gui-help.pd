@@ -35,7 +35,7 @@ to a message box.;
 to emulate an arduino board without actually sending any commands to
 a physical device.;
 #X text 555 542 Copyright \, 2011 \, Roman Haefeli;
-#X text 657 557 Oliver Wolf;
+#X text 657 557 Olsen Wolf;
 #X connect 0 0 4 0;
 #X connect 0 1 5 0;
 #X connect 0 2 6 0;

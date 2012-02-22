@@ -231,7 +231,7 @@
 0;
 #X obj 342 411 arduino;
 #X text 559 501 Copyright \, 2011 \, Roman Haefeli;
-#X text 661 516 Oliver Wolf;
+#X text 661 516 Olsen Wolf;
 #X connect 2 0 9 0;
 #X connect 7 0 125 0;
 #X connect 8 0 4 0;
