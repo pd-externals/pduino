@@ -1,4 +1,4 @@
-#N canvas 201 155 638 589 10;
+#N canvas 314 94 638 589 10;
 #X obj 2 47 cnv 15 400 230 empty empty 2.serial_connection 12 12 0
 10 -233017 -66577 0;
 #X msg 46 143 close;
@@ -506,25 +506,23 @@ Holzmann;
 #X text 280 5 ::::_PDUINO_::::;
 #X obj 9 12 cnv 15 230 30 empty empty empty 20 12 0 14 -261234 -66577
 0;
-#N canvas 706 129 445 342 INSTALL-NOTES 0;
-#X text 20 27 1 General information on arduino: http://www.arduino.cc
+#N canvas 700 111 445 342 INSTALL-NOTES 0;
+#X text 20 15 1 General information on arduino: http://www.arduino.cc
 ;
 #X text 20 113 3 The StandardFirmata firmware is the best place to
 start.;
-#X text 21 146 4 Pduino needs the following abstraction:;
-#X text 21 193 5 Pduino needs the following externals:;
-#X text 23 248 6 If you still have troubles \, mail to the pd list
+#X text 23 198 6 If you still have troubles \, mail to the pd list
 !;
-#X text 39 164 [arduino] \, from pd-svn/externals/hardware/arduino
+#X text 39 159 [comport] \, from pd-svn/externals/iem/comport;
+#X text 39 174 [moocow] \, from pd-svn/externals/moocow;
+#X text 20 36 2 You need to install a Firmata firmware. There are a
 ;
-#X text 39 210 [comport] \, from pd-svn/externals/iem/comport;
-#X text 39 224 [moocow] \, from pd-svn/externals/moocow;
-#X text 20 48 2 You need to install a Firmata firmware. There are a
+#X text 21 233 pd-svn: https://pure-data.svn.sourceforge.net/svnroot/pure-data/trunk/
 ;
-#X text 38 62 bunch of Firmata firmwares included with Arduino. Use
-Firmata >=2.1 (included in Arduino 18 or newer) for best results.;
-#X text 21 273 pd-svn: https://pure-data.svn.sourceforge.net/svnroot/pure-data/trunk/
-;
+#X text 21 143 5 [arduino] needs the following externals:;
+#X text 33 50 bunch of Firmata firmwares included with Arduino. Use
+Firmata >=2.1 (included in Arduino 18 or newer) for best results. Recently
+manufactured boards come with Firmata already installed.;
 #X restore 14 18 pd INSTALL-NOTES;
 #X text 119 16 <- read this first;
 #N canvas 147 357 559 381 ADDITIONAL-INFOS 0;
