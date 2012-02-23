@@ -829,7 +829,7 @@
 #X obj 11 285 list prepend pinMode;
 #X obj 147 192 t a b;
 #X msg 174 214 analog;
-#X msg 147 236 analogIns \$2 0;
+#X msg 147 236 analogIns \$1 0;
 #X connect 0 0 18 0;
 #X connect 2 0 22 0;
 #X connect 3 0 22 0;
