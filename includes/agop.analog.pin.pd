@@ -1,6 +1,6 @@
 #N canvas 751 305 426 368 10;
-#X obj 17 66 namecanvas \$0.goparea;
-#X obj 17 66 namecanvas \$0.goparea;
+#X obj 17 61 namecanvas \$0.goparea;
+#X obj 17 61 namecanvas \$0.goparea;
 #N canvas 558 102 370 431 mode.selector 0;
 #N canvas 278 280 413 391 slider.wrapper 0;
 #X obj 20 285 pack f f f;
@@ -411,18 +411,16 @@
 #X connect 29 1 17 0;
 #X connect 29 2 25 0;
 #X connect 29 3 26 0;
-#X restore 17 141 pd mode.selector;
-#N canvas 1121 375 200 148 pin.no.label 0;
+#X restore 17 161 pd mode.selector;
+#N canvas 1121 403 200 148 pin.no.label 0;
 #X obj 14 105 s \$0.sl.r;
 #X obj 14 62 makefilename %2d;
 #X msg 14 84 label \$1;
-#X obj 14 16 loadbang;
-#X obj 14 38 f \$2;
+#X obj 14 35 r \$0.pin.no;
 #X connect 1 0 2 0;
 #X connect 2 0 0 0;
-#X connect 3 0 4 0;
-#X connect 4 0 1 0;
-#X restore 17 163 pd pin.no.label;
+#X connect 3 0 1 0;
+#X restore 17 183 pd pin.no.label;
 #N canvas 472 155 520 484 show.value 0;
 #X obj 128 431 s \$0.show.value;
 #X obj 168 171 del 1000;
@@ -495,7 +493,7 @@
 #X connect 29 1 28 1;
 #X connect 30 0 28 0;
 #X connect 31 0 0 0;
-#X restore 17 185 pd show.value;
+#X restore 17 205 pd show.value;
 #N canvas 1136 268 336 455 color.indicator 0;
 #N canvas 1083 72 231 303 color.blender 0;
 #N canvas 1144 153 166 250 blend 0;
@@ -680,7 +678,7 @@
 #X connect 28 1 8 0;
 #X connect 28 2 26 0;
 #X connect 28 3 18 0;
-#X restore 17 207 pd color.indicator;
+#X restore 17 227 pd color.indicator;
 #N canvas 1012 377 271 302 input.output.toggle 0;
 #N canvas 1230 249 185 273 slider.click.detection 0;
 #X obj 14 49 sel 0 1;
@@ -745,13 +743,13 @@
 #X connect 12 2 14 0;
 #X connect 13 0 9 0;
 #X connect 14 0 9 0;
-#X restore 17 229 pd input.output.toggle;
+#X restore 17 249 pd input.output.toggle;
 #X text 230 76 0: INPUT;
 #X text 230 102 2: ANALOG;
 #X text 230 129 4: SERVO;
 #X text 230 47 Table Of PinModes:;
 #X text 230 56 ==================;
-#N canvas 1035 390 403 367 resolve.supported.modes 0;
+#N canvas 931 384 403 367 resolve.supported.modes 0;
 #X obj 23 76 tabread \$1.ARDUINO.PIN.MODES;
 #X obj 4 10 loadbang;
 #X obj 23 54 f \$2;
@@ -795,7 +793,7 @@
 #X connect 19 0 5 0;
 #X connect 19 1 2 0;
 #X connect 19 2 8 0;
-#X restore 17 118 pd resolve.supported.modes;
+#X restore 17 138 pd resolve.supported.modes;
 #N canvas 682 136 464 388 compose.arduino.messages 0;
 #X obj 11 9 r \$0.mode;
 #X text 68 91 <- don't send initial 'output' (it's the default);
@@ -851,7 +849,7 @@
 #X connect 22 0 23 0;
 #X connect 23 0 19 0;
 #X connect 24 0 6 0;
-#X restore 17 273 pd compose.arduino.messages;
+#X restore 17 293 pd compose.arduino.messages;
 #N canvas 789 199 371 285 digital.input 0;
 #X obj 33 15 r \$1.ARDUINO.OUT;
 #X obj 33 59 route \$2;
@@ -892,7 +890,7 @@
 #X connect 15 0 10 1;
 #X connect 16 0 14 0;
 #X connect 16 1 15 0;
-#X restore 17 251 pd digital.input;
+#X restore 17 271 pd digital.input;
 #N canvas 699 389 205 172 ready 0;
 #X obj -15 -92 r \$1.ARDUINO.INTERN;
 #X obj -15 -70 route ready;
@@ -903,14 +901,14 @@
 #X connect 1 0 2 0;
 #X connect 3 0 4 0;
 #X connect 4 0 2 0;
-#X restore 17 96 pd ready;
+#X restore 17 94 pd ready;
 #X text 230 89 1: OUTPUT;
 #X text 230 116 3: OFF (default);
 #X obj 21 19 cnv 8 8 8 empty \$0.show.value empty -80 7 0 12 -1 -258113
 0;
 #X obj 21 22 cnv 1 1 8 empty \$0.bar empty -31 7 0 12 -3121 -258113
 0;
-#X obj 21 21 vsl 12 9 0 1 0 0 \$0.sl.s \$0.sl.r 16 1 6 0 9 -233017
+#X obj 21 21 vsl 12 9 0 1 0 0 \$0.sl.s \$0.sl.r 14 1 6 0 9 -233017
 -233017 -1 400 1;
 #N canvas 780 237 297 413 bar.display 0;
 #X obj 72 59 r \$0.analog;
@@ -956,7 +954,7 @@
 #X connect 17 0 14 0;
 #X connect 18 0 17 0;
 #X connect 19 0 2 1;
-#X restore 17 295 pd bar.display;
+#X restore 17 315 pd bar.display;
 #N canvas 855 536 392 240 handle.incoming 0;
 #N canvas 789 211 642 381 pinMode 0;
 #N canvas 1127 211 407 276 get.supported.modes 0;
@@ -1207,7 +1205,7 @@
 #X connect 5 0 6 0;
 #X connect 7 0 8 1;
 #X connect 8 0 3 0;
-#X restore 17 318 pd handle.incoming;
+#X restore 17 338 pd handle.incoming;
 #X obj 33 20 cnv 1 4 1 empty \$0.pull.up.r empty 20 12 0 14 -1 -66577
 0;
 #X obj 33 21 vsl 8 9 10 -4 0 0 \$0.selector.s \$0.selector.r empty
@@ -1238,5 +1236,23 @@ empty 1 5 0 10 -228856 -228856 -1 0 1;
 -1 0;
 #X obj 34 20 cnv 1 1 1 empty 1512.field.0.r empty 1 5 0 10 -233017
 -1 0;
+#N canvas 206 262 294 235 pin.number.mangling 0;
+#X obj 30 19 r \$1.ARDUINO.STATUS;
+#X obj 30 41 route version;
+#X obj 30 63 route 2;
+#X obj 30 85 sel 2;
+#X msg 30 112 2;
+#X msg 57 112 0;
+#X obj 30 140 + \$2;
+#X obj 30 162 s \$0.pin.no;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 3 1 5 0;
+#X connect 4 0 6 0;
+#X connect 5 0 6 0;
+#X connect 6 0 7 0;
+#X restore 17 116 pd pin.number.mangling;
 #X connect 12 0 2 0;
 #X coords 0 -1 1 1 20 14 2 21 19;
