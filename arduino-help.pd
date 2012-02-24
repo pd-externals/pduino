@@ -9,8 +9,8 @@
 #X text 90 171 <- info for current connection;
 #X msg 59 192 version;
 #N canvas 165 527 470 222 ver 0;
-#X obj 250 100 cnv 15 145 17 empty \$0-version_cnv empty 4 10 0 12
--232576 -1 0;
+#X obj 250 100 cnv 15 145 17 empty \$0-version_cnv firmata_version_2_3
+4 10 0 12 -232576 -1 0;
 #X obj 23 202 send \$0-version_cnv;
 #X msg 23 177 label \$1;
 #X obj 48 148 symbol;
@@ -752,7 +752,7 @@ with one message;
 #X connect 4 0 2 0;
 #X restore 24 345 pd port messge;
 #X obj 24 321 nbx 3 14 0 255 0 0 empty empty empty 0 -8 0 10 -228856
--1 -1 58 256;
+-1 -1 0 256;
 #X text 365 32 To use a pin as a digital output \, you need to set
 its pin mode to output first.;
 #X text 365 70 NOTE:;
@@ -811,84 +811,182 @@ on the board.;
 #X connect 66 0 65 0;
 #X connect 75 0 18 0;
 #X restore 28 404 pd OUTPUT_DIGITAL;
-#N canvas 99 372 562 378 OUTPUT_PWM 0;
-#X text 16 17 Analog Output \, PWM (Pulse Width Modulation);
-#X msg 21 189 pwm 9 \$1;
-#X obj 24 168 hsl 150 17 0 1 0 0 empty empty PWM_control_(0-1) -2 -6
-1 10 -232576 -1 -1 0 1;
-#X text 29 215 disable PWM:;
-#X obj 192 168 hsl 150 17 0 1 0 0 empty empty PWM_control_(0-1) -2
--6 1 10 -232576 -1 -1 0 1;
-#X text 197 215 disable PWM:;
-#X obj 354 168 hsl 150 17 0 1 0 0 empty empty PWM_control_(0-1) -2
--6 1 10 -232576 -1 -1 0 1;
-#X text 359 215 disable PWM:;
-#X text 21 133 PIN9:;
-#X text 189 135 PIN10:;
-#X text 351 135 PIN11:;
-#X msg 189 189 pwm 10 \$1;
-#X msg 351 189 pwm 11 \$1;
-#X text 21 319 NOTE: it is possible to write as well on the other pins
-to send software-PWM signals (will come soon ...);
-#X msg 31 234 pwm 9 0;
-#X msg 199 234 pwm 10 0;
-#X msg 361 234 pwm 11 0;
-#X text 16 53 With the help of PWM you can write analog values to the
-PWM pins of your Arduino board.;
-#X obj 17 255 cnv 15 85 26 empty empty empty 20 12 0 14 -257985 -66577
+#N canvas 35 44 785 319 OUTPUT_PWM 0;
+#X obj 24 263 send \$0-arduino;
+#X obj 24 36 bng 15 250 50 0 empty empty 0 1 -6 1 10 -99865 -1 -1;
+#X obj 39 36 bng 15 250 50 0 empty empty 1 1 -6 1 10 -99865 -1 -1;
+#X obj 54 36 bng 15 250 50 0 empty empty 2 1 -6 1 10 -99865 -1 -1;
+#X obj 69 36 bng 15 250 50 0 empty empty 3 1 -6 1 10 -228856 -1 -1
+;
+#X obj 84 36 bng 15 250 50 0 empty empty 4 1 -6 1 10 -99865 -1 -1;
+#X obj 99 36 bng 15 250 50 0 empty empty 5 1 -6 1 10 -228856 -1 -1
+;
+#X obj 114 36 bng 15 250 50 0 empty empty 6 1 -6 1 10 -228856 -1 -1
+;
+#X obj 144 36 bng 15 250 50 0 empty empty 8 1 -6 1 10 -99865 -1 -1
+;
+#X obj 159 36 bng 15 250 50 0 empty empty 9 1 -6 1 10 -228856 -1 -1
+;
+#X obj 174 36 bng 15 250 50 0 empty empty 10 1 -6 1 10 -228856 -1 -1
+;
+#X obj 189 36 bng 15 250 50 0 empty empty 11 1 -6 1 10 -228856 -1 -1
+;
+#X obj 204 36 bng 15 250 50 0 empty empty 12 1 -6 1 10 -99865 -1 -1
+;
+#X obj 219 36 bng 15 250 50 0 empty empty 13 1 -6 1 10 -99865 -1 -1
+;
+#X obj 249 36 bng 15 250 50 0 empty empty 14 1 -6 1 10 -99865 -1 -1
+;
+#X obj 264 36 bng 15 250 50 0 empty empty 15 1 -6 1 10 -99865 -1 -1
+;
+#X obj 279 36 bng 15 250 50 0 empty empty 16 1 -6 1 10 -99865 -1 -1
+;
+#X obj 294 36 bng 15 250 50 0 empty empty 17 1 -6 1 10 -99865 -1 -1
+;
+#X obj 309 36 bng 15 250 50 0 empty empty 18 1 -6 1 10 -99865 -1 -1
+;
+#X obj 324 36 bng 15 250 50 0 empty empty 19 1 -6 1 10 -99865 -1 -1
+;
+#X obj 129 36 bng 15 250 50 0 empty empty 7 1 -6 1 10 -99865 -1 -1
+;
+#X text 248 8 A0;
+#X text 323 7 A6;
+#X text 268 6 .......;
+#X obj 9 139 cnv 1 750 1 empty empty empty 20 12 0 14 -1 -66577 0;
+#X text 109 235 <-- COMMAND;
+#X text 120 85 <-- COMMAND;
+#X text 366 12 SET PIN MODE;
+#X obj 24 109 send \$0-arduino;
+#X text 365 70 NOTE:;
+#X text 365 240 NOTE:;
+#X text 365 32 To use a pin as a pwm/analog output \, you need to set
+its pin mode to 'pwm' first.;
+#N canvas 101 162 791 311 generate_arduino_command_____________________
 0;
-#X obj 21 258 s \$0-arduino;
-#X obj 184 255 cnv 15 85 26 empty empty empty 20 12 0 14 -257985 -66577
-0;
-#X obj 189 258 s \$0-arduino;
-#X obj 346 255 cnv 15 85 26 empty empty empty 20 12 0 14 -257985 -66577
-0;
-#X obj 351 258 s \$0-arduino;
-#X obj 17 91 cnv 15 350 15 empty empty empty 20 12 0 14 -261234 -66577
-0;
-#X text 17 89 NOTE: don't forget to set the pins to 'pwm' mode first
-!;
-#X connect 1 0 19 0;
+#X obj 32 22 inlet;
+#X obj 288 262 outlet;
+#X obj 288 235 trigger bang anything;
+#X obj 68 22 inlet;
+#X obj 104 22 inlet;
+#X obj 140 22 inlet;
+#X obj 176 22 inlet;
+#X obj 212 22 inlet;
+#X obj 248 22 inlet;
+#X obj 284 22 inlet;
+#X obj 320 22 inlet;
+#X obj 356 22 inlet;
+#X obj 392 22 inlet;
+#X obj 428 22 inlet;
+#X obj 464 22 inlet;
+#X obj 500 22 inlet;
+#X obj 536 22 inlet;
+#X obj 572 22 inlet;
+#X obj 608 22 inlet;
+#X obj 644 22 inlet;
+#X obj 680 22 inlet;
+#X obj 716 22 inlet;
+#X msg 32 53 0;
+#X msg 68 74 1;
+#X msg 104 53 2;
+#X msg 140 74 3;
+#X msg 176 53 4;
+#X msg 212 74 5;
+#X msg 248 53 6;
+#X msg 284 74 7;
+#X msg 320 54 8;
+#X msg 356 74 9;
+#X msg 392 53 10;
+#X msg 428 75 11;
+#X msg 464 53 12;
+#X msg 500 74 13;
+#X msg 536 53 14;
+#X msg 572 74 15;
+#X msg 608 53 16;
+#X msg 644 74 17;
+#X msg 680 53 18;
+#X msg 716 74 19;
+#X obj 288 194 t a;
+#X msg 288 214 set pinMode \$1 pwm;
+#X connect 0 0 22 0;
 #X connect 2 0 1 0;
-#X connect 4 0 11 0;
-#X connect 6 0 12 0;
-#X connect 11 0 21 0;
-#X connect 12 0 23 0;
-#X connect 14 0 19 0;
-#X connect 15 0 21 0;
-#X connect 16 0 23 0;
+#X connect 2 1 1 0;
+#X connect 3 0 23 0;
+#X connect 4 0 24 0;
+#X connect 5 0 25 0;
+#X connect 6 0 26 0;
+#X connect 7 0 27 0;
+#X connect 8 0 28 0;
+#X connect 9 0 29 0;
+#X connect 10 0 30 0;
+#X connect 11 0 31 0;
+#X connect 12 0 32 0;
+#X connect 13 0 33 0;
+#X connect 14 0 34 0;
+#X connect 15 0 35 0;
+#X connect 16 0 36 0;
+#X connect 17 0 37 0;
+#X connect 18 0 38 0;
+#X connect 19 0 39 0;
+#X connect 20 0 40 0;
+#X connect 21 0 41 0;
+#X connect 22 0 42 0;
+#X connect 23 0 42 0;
+#X connect 24 0 42 0;
+#X connect 25 0 42 0;
+#X connect 26 0 42 0;
+#X connect 27 0 42 0;
+#X connect 28 0 42 0;
+#X connect 29 0 42 0;
+#X connect 30 0 42 0;
+#X connect 31 0 42 0;
+#X connect 32 0 42 0;
+#X connect 33 0 42 0;
+#X connect 34 0 42 0;
+#X connect 35 0 42 0;
+#X connect 36 0 42 0;
+#X connect 37 0 42 0;
+#X connect 38 0 42 0;
+#X connect 39 0 42 0;
+#X connect 40 0 42 0;
+#X connect 41 0 42 0;
+#X connect 42 0 43 0;
+#X connect 43 0 2 0;
+#X restore 24 61 pd generate_arduino_command_____________________;
+#N canvas 101 162 296 179 command 0;
+#X obj 32 22 inlet;
+#X obj 32 121 outlet;
+#X obj 162 25 inlet;
+#X obj 32 69 pack f f;
+#X msg 32 98 set analog \$2 \$1 \, bang;
+#X connect 0 0 3 0;
+#X connect 2 0 3 1;
+#X connect 3 0 4 0;
+#X connect 4 0 1 0;
+#X restore 24 207 pd command;
+#X obj 27 162 hsl 101 15 0 1 0 0 empty empty value -2 -8 0 10 -228856
+-1 -1 7800 1;
+#X obj 81 187 nbx 3 14 -1e+37 1e+37 0 0 empty empty pin_No. 40 6 0
+10 -228856 -1 -1 9 256;
+#X text 365 89 Only a few pins (the ones colored light-grey) support
+'PWM' mode.;
+#X text 367 180 Set the individual pins to a certain value.;
+#X text 366 153 SET PWM VALUE;
+#X text 366 256 The default value for pins in 'PWM' mode is 0;
+#X msg 24 234;
+#X msg 24 83;
+#X connect 4 0 32 3;
+#X connect 6 0 32 5;
+#X connect 7 0 32 6;
+#X connect 9 0 32 9;
+#X connect 10 0 32 10;
+#X connect 11 0 32 11;
+#X connect 32 0 41 0;
+#X connect 33 0 40 0;
+#X connect 34 0 33 0;
+#X connect 35 0 33 1;
+#X connect 40 0 0 0;
+#X connect 41 0 28 0;
 #X restore 28 425 pd OUTPUT_PWM;
-#N canvas 23 251 432 341 OUTPUT_SERVO 0;
-#X obj 52 224 hsl 150 17 0 1 0 0 empty empty Servo_control_(0-1) -2
--6 1 10 -232576 -1 -1 0 1;
-#X text 27 141 disable PWM:;
-#X obj 260 224 hsl 150 17 0 1 0 0 empty empty Servo_control_(0-1) -2
--6 1 10 -232576 -1 -1 0 1;
-#X text 235 141 disable PWM:;
-#X text 19 119 PIN9:;
-#X text 227 121 PIN10:;
-#X text 14 13 Servo control;
-#X msg 49 245 analog 9 \$1;
-#X msg 257 245 analog 10 \$1;
-#X msg 29 160 pinMode 9 servo;
-#X msg 237 160 pinMode 10 servo;
-#X text 15 40 You can control servo motors using Pd. First \, set the
-pin to servo mode using the pinMode message \, then send analog values
-to that pin with a range between 0 and 1 0 will set the position to
-one extreme \, and 1 to the other.;
-#X obj 252 270 cnv 15 85 26 empty empty empty 20 12 0 14 -257985 -66577
-0;
-#X obj 257 274 s \$0-arduino;
-#X obj 44 270 cnv 15 85 26 empty empty empty 20 12 0 14 -257985 -66577
-0;
-#X obj 49 274 s \$0-arduino;
-#X connect 0 0 7 0;
-#X connect 2 0 8 0;
-#X connect 7 0 15 0;
-#X connect 8 0 13 0;
-#X connect 9 0 15 0;
-#X connect 10 0 13 0;
-#X restore 28 446 pd OUTPUT_SERVO;
 #N canvas 14 501 578 280 INPUT_DIGITAL 0;
 #X text 387 93 connect the Digital Input;
 #X text 387 110 to the ground (=0) or to;
@@ -1040,6 +1138,186 @@ the ground \, if you want to avoid flickering of the values !;
 #X connect 15 7 12 0;
 #X connect 17 0 0 0;
 #X restore 220 429 pd INPUT_ANALOG;
+#N canvas 73 44 785 319 OUTPUT_SERVO 0;
+#X obj 24 263 send \$0-arduino;
+#X obj 24 36 bng 15 250 50 0 empty empty 0 1 -6 1 10 -99865 -1 -1;
+#X obj 39 36 bng 15 250 50 0 empty empty 1 1 -6 1 10 -99865 -1 -1;
+#X obj 54 36 bng 15 250 50 0 empty empty 2 1 -6 1 10 -228856 -1 -1
+;
+#X obj 69 36 bng 15 250 50 0 empty empty 3 1 -6 1 10 -228856 -1 -1
+;
+#X obj 84 36 bng 15 250 50 0 empty empty 4 1 -6 1 10 -228856 -1 -1
+;
+#X obj 99 36 bng 15 250 50 0 empty empty 5 1 -6 1 10 -228856 -1 -1
+;
+#X obj 114 36 bng 15 250 50 0 empty empty 6 1 -6 1 10 -228856 -1 -1
+;
+#X obj 144 36 bng 15 250 50 0 empty empty 8 1 -6 1 10 -228856 -1 -1
+;
+#X obj 159 36 bng 15 250 50 0 empty empty 9 1 -6 1 10 -228856 -1 -1
+;
+#X obj 174 36 bng 15 250 50 0 empty empty 10 1 -6 1 10 -228856 -1 -1
+;
+#X obj 189 36 bng 15 250 50 0 empty empty 11 1 -6 1 10 -228856 -1 -1
+;
+#X obj 204 36 bng 15 250 50 0 empty empty 12 1 -6 1 10 -228856 -1 -1
+;
+#X obj 219 36 bng 15 250 50 0 empty empty 13 1 -6 1 10 -228856 -1 -1
+;
+#X obj 249 36 bng 15 250 50 0 empty empty 14 1 -6 1 10 -99865 -1 -1
+;
+#X obj 264 36 bng 15 250 50 0 empty empty 15 1 -6 1 10 -99865 -1 -1
+;
+#X obj 279 36 bng 15 250 50 0 empty empty 16 1 -6 1 10 -99865 -1 -1
+;
+#X obj 294 36 bng 15 250 50 0 empty empty 17 1 -6 1 10 -99865 -1 -1
+;
+#X obj 309 36 bng 15 250 50 0 empty empty 18 1 -6 1 10 -99865 -1 -1
+;
+#X obj 324 36 bng 15 250 50 0 empty empty 19 1 -6 1 10 -99865 -1 -1
+;
+#X obj 129 36 bng 15 250 50 0 empty empty 7 1 -6 1 10 -228856 -1 -1
+;
+#X text 248 8 A0;
+#X text 323 7 A6;
+#X text 268 6 .......;
+#X obj 9 139 cnv 1 750 1 empty empty empty 20 12 0 14 -1 -66577 0;
+#X text 115 235 <-- COMMAND;
+#X text 134 84 <-- COMMAND;
+#X text 366 12 SET PIN MODE;
+#X obj 24 109 send \$0-arduino;
+#X text 365 70 NOTE:;
+#X text 365 240 NOTE:;
+#N canvas 101 162 791 311 generate_arduino_command_____________________
+0;
+#X obj 32 22 inlet;
+#X obj 288 250 outlet;
+#X obj 68 22 inlet;
+#X obj 104 22 inlet;
+#X obj 140 22 inlet;
+#X obj 176 22 inlet;
+#X obj 212 22 inlet;
+#X obj 248 22 inlet;
+#X obj 284 22 inlet;
+#X obj 320 22 inlet;
+#X obj 356 22 inlet;
+#X obj 392 22 inlet;
+#X obj 428 22 inlet;
+#X obj 464 22 inlet;
+#X obj 500 22 inlet;
+#X obj 536 22 inlet;
+#X obj 572 22 inlet;
+#X obj 608 22 inlet;
+#X obj 644 22 inlet;
+#X obj 680 22 inlet;
+#X obj 716 22 inlet;
+#X msg 32 53 0;
+#X msg 68 74 1;
+#X msg 104 53 2;
+#X msg 140 74 3;
+#X msg 176 53 4;
+#X msg 212 74 5;
+#X msg 248 53 6;
+#X msg 284 74 7;
+#X msg 320 54 8;
+#X msg 356 74 9;
+#X msg 392 53 10;
+#X msg 428 75 11;
+#X msg 464 53 12;
+#X msg 500 74 13;
+#X msg 536 53 14;
+#X msg 572 74 15;
+#X msg 608 53 16;
+#X msg 644 74 17;
+#X msg 680 53 18;
+#X msg 716 74 19;
+#X obj 288 194 t a;
+#X msg 288 214 set pinMode \$1 servo \, bang;
+#X connect 0 0 21 0;
+#X connect 2 0 22 0;
+#X connect 3 0 23 0;
+#X connect 4 0 24 0;
+#X connect 5 0 25 0;
+#X connect 6 0 26 0;
+#X connect 7 0 27 0;
+#X connect 8 0 28 0;
+#X connect 9 0 29 0;
+#X connect 10 0 30 0;
+#X connect 11 0 31 0;
+#X connect 12 0 32 0;
+#X connect 13 0 33 0;
+#X connect 14 0 34 0;
+#X connect 15 0 35 0;
+#X connect 16 0 36 0;
+#X connect 17 0 37 0;
+#X connect 18 0 38 0;
+#X connect 19 0 39 0;
+#X connect 20 0 40 0;
+#X connect 21 0 41 0;
+#X connect 22 0 41 0;
+#X connect 23 0 41 0;
+#X connect 24 0 41 0;
+#X connect 25 0 41 0;
+#X connect 26 0 41 0;
+#X connect 27 0 41 0;
+#X connect 28 0 41 0;
+#X connect 29 0 41 0;
+#X connect 30 0 41 0;
+#X connect 31 0 41 0;
+#X connect 32 0 41 0;
+#X connect 33 0 41 0;
+#X connect 34 0 41 0;
+#X connect 35 0 41 0;
+#X connect 36 0 41 0;
+#X connect 37 0 41 0;
+#X connect 38 0 41 0;
+#X connect 39 0 41 0;
+#X connect 40 0 41 0;
+#X connect 41 0 42 0;
+#X connect 42 0 1 0;
+#X restore 24 61 pd generate_arduino_command_____________________;
+#N canvas 101 162 296 179 command 0;
+#X obj 32 22 inlet;
+#X obj 32 121 outlet;
+#X obj 162 25 inlet;
+#X obj 32 69 pack f f;
+#X msg 32 98 set analog \$2 \$1 \, bang;
+#X connect 0 0 3 0;
+#X connect 2 0 3 1;
+#X connect 3 0 4 0;
+#X connect 4 0 1 0;
+#X restore 24 207 pd command;
+#X obj 27 162 hsl 101 15 0 1 0 0 empty empty value -2 -8 0 10 -228856
+-1 -1 5700 1;
+#X obj 81 187 nbx 3 14 -1e+37 1e+37 0 0 empty empty pin_No. 40 6 0
+10 -228856 -1 -1 16 256;
+#X text 367 180 Set the individual pins to a certain value.;
+#X text 366 153 SET SERVO VALUE;
+#X text 365 32 To use a pin as a servo output \, you need to set its
+pin mode to 'servo' first.;
+#X text 366 256 The default value for pins in 'SERVO' mode is 0;
+#X text 365 89 Only the pins from 2 to 13 support 'SERVO' mode.;
+#X msg 24 234;
+#X msg 24 83;
+#X connect 3 0 31 2;
+#X connect 4 0 31 3;
+#X connect 5 0 31 4;
+#X connect 6 0 31 5;
+#X connect 7 0 31 6;
+#X connect 8 0 31 8;
+#X connect 9 0 31 9;
+#X connect 10 0 31 10;
+#X connect 11 0 31 11;
+#X connect 12 0 31 12;
+#X connect 13 0 31 13;
+#X connect 20 0 31 7;
+#X connect 31 0 41 0;
+#X connect 32 0 40 0;
+#X connect 33 0 32 0;
+#X connect 34 0 32 1;
+#X connect 40 0 0 0;
+#X connect 41 0 28 0;
+#X restore 28 447 pd OUTPUT_SERVO;
 #X connect 1 0 16 0;
 #X connect 2 0 16 0;
 #X connect 3 0 16 0;
