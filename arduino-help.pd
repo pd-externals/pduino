@@ -1,4 +1,4 @@
-#N canvas 188 44 646 605 10;
+#N canvas 137 44 646 605 10;
 #X declare -stdpath extra/moocow -lib pdstring;
 #X declare -stdpath extra/moocow -lib pdstring;
 #X obj 2 47 cnv 15 400 230 empty empty 2.serial_connection 12 12 0
@@ -48,7 +48,7 @@
 #X obj 17 247 send \$0-arduino;
 #X text 84 88 enter the number of your serial device;
 #X text 67 94 <-;
-#X obj 8 279 cnv 15 400 300 empty empty 3.pin_settings 12 12 0 10 -233017
+#X obj 2 279 cnv 15 400 300 empty empty 3.pin_settings 12 12 0 10 -233017
 -66577 0;
 #X text 14 301 With the Arduino-Board you can do digital and analog
 input and output \, as descriped in the following sub-patches:;
@@ -459,47 +459,37 @@ Diecimila is adressed by the pins number \, here 16 A1 is the pin 17
 #N canvas 0 0 450 300 2do 0;
 #X text 53 58 on osx port opens automatically;
 #X restore 349 198 pd 2do;
-#N canvas 39 67 447 555 OUTPUT 0;
-#X obj 40 268 cnv 15 100 22 empty empty empty 20 12 0 14 -203904 -66577
-0;
-#X msg 49 271 digital 13 0;
-#X obj 155 213 tgl 15 0 empty empty 7 4 -6 1 12 -233017 -1 -1 0 1;
-#X obj 170 213 tgl 15 0 empty empty 8 4 -6 1 12 -233017 -1 -1 0 1;
-#X obj 185 213 tgl 15 0 empty empty 9 4 -6 1 12 -233017 -1 -1 0 1;
-#X obj 200 213 tgl 15 0 empty empty 10 0 -6 1 12 -233017 -1 -1 0 1
+#X text 27 384 Pure Data -> World;
+#X text 218 387 World -> Pure Data;
+#N canvas 0 44 774 440 OUTPUT_DIGITAL 0;
+#X obj 129 182 tgl 15 0 empty empty 7 4 -6 1 10 -233017 -1 -1 0 1;
+#X obj 144 182 tgl 15 0 empty empty 8 4 -6 1 10 -233017 -1 -1 0 1;
+#X obj 159 182 tgl 15 0 empty empty 9 4 -6 1 10 -233017 -1 -1 0 1;
+#X obj 174 182 tgl 15 0 empty empty 10 0 -6 1 10 -233017 -1 -1 0 1
 ;
-#X obj 215 213 tgl 15 0 empty empty 11 0 -6 1 12 -233017 -1 -1 0 1
+#X obj 189 182 tgl 15 0 empty empty 11 0 -6 1 10 -233017 -1 -1 0 1
 ;
-#X obj 230 213 tgl 15 0 empty empty 12 0 -6 1 12 -233017 -1 -1 0 1
+#X obj 204 182 tgl 15 0 empty empty 12 0 -6 1 10 -233017 -1 -1 0 1
 ;
-#X obj 245 213 tgl 15 0 empty empty 13 0 -6 1 12 -233017 -1 -1 0 1
+#X obj 219 182 tgl 15 0 empty empty 13 0 -6 1 10 -233017 -1 -1 0 1
 ;
-#X obj 80 213 tgl 15 0 empty empty 2 4 -6 1 12 -233017 -1 -1 0 1;
-#X obj 95 213 tgl 15 0 empty empty 3 4 -6 1 12 -233017 -1 -1 0 1;
-#X obj 110 213 tgl 15 0 empty empty 5 4 -6 1 12 -233017 -1 -1 0 1;
-#X obj 125 213 tgl 15 0 empty empty 6 4 -6 1 12 -233017 -1 -1 0 1;
-#X obj 140 213 tgl 15 0 empty empty 6 4 -6 1 12 -233017 -1 -1 0 1;
-#X text 143 271 <-- this is the message format;
-#X obj 50 213 tgl 15 0 empty empty 0 3 -6 1 12 -260818 -1 -1 0 1;
-#X obj 65 213 tgl 15 0 empty empty 1 3 -6 1 12 -260818 -1 -1 0 1;
-#X obj 51 214 cnv 13 13 13 empty empty Rx 0 8 0 10 -128992 -86277 0
+#X obj 54 182 tgl 15 0 empty empty 2 4 -6 1 10 -233017 -1 -1 0 1;
+#X obj 69 182 tgl 15 0 empty empty 3 4 -6 1 10 -233017 -1 -1 0 1;
+#X obj 84 182 tgl 15 0 empty empty 4 4 -6 1 10 -233017 -1 -1 0 1;
+#X obj 99 182 tgl 15 0 empty empty 5 4 -6 1 10 -233017 -1 -1 0 1;
+#X obj 114 182 tgl 15 0 empty empty 6 4 -6 1 10 -233017 -1 -1 0 1;
+#X obj 24 182 tgl 15 0 empty empty 0 3 -6 1 10 -260818 -1 -1 0 1;
+#X obj 39 182 tgl 15 0 empty empty 1 3 -6 1 10 -260818 -1 -1 0 1;
+#X obj 25 183 cnv 13 13 13 empty empty Rx 0 8 0 10 -128992 -86277 0
 ;
-#X obj 66 214 cnv 13 13 13 empty empty Tx 0 8 0 10 -128992 -13381 0
+#X obj 40 183 cnv 13 13 13 empty empty Tx 0 8 0 10 -128992 -13381 0
 ;
-#X text 48 356 You can also send digital messages 8-bits at a time
+#X text 366 338 You can also send digital messages 8-bits at a time
 \, called a "port". Microcontrollers like the Arduino are organized
 around 8-bit ports. This allows you to set 8 pins at the same time
 with one message;
-#X msg 267 432 port 1 0;
-#X msg 123 431 port 0 0;
-#X msg 49 431 port 0 255;
-#X msg 193 432 port 1 255;
-#X obj 45 305 cnv 15 100 26 empty empty empty 20 12 0 14 -257985 -66577
-0;
-#X obj 49 310 send \$0-arduino;
-#X obj 46 479 cnv 15 100 26 empty empty empty 20 12 0 14 -257985 -66577
-0;
-#X obj 49 483 send \$0-arduino;
+#X obj 24 263 send \$0-arduino;
+#X obj 24 398 send \$0-arduino;
 #N canvas 101 162 791 311 generate 0;
 #X obj 32 22 inlet;
 #X obj 288 262 outlet;
@@ -589,25 +579,23 @@ with one message;
 #X connect 41 0 4 0;
 #X connect 42 0 4 0;
 #X connect 43 0 4 0;
-#X restore 49 238 pd generate digital out messages - - - - - - - -
+#X restore 24 207 pd generate digital out messages - - - - - - - -
 ;
-#X obj 275 213 tgl 15 0 empty empty 14 0 -6 1 12 -233017 -1 -1 0 1
+#X obj 249 182 tgl 15 0 empty empty 14 0 -6 1 10 -233017 -1 -1 0 1
 ;
-#X obj 290 213 tgl 15 0 empty empty 15 0 -6 1 12 -233017 -1 -1 0 1
+#X obj 264 182 tgl 15 0 empty empty 15 0 -6 1 10 -233017 -1 -1 0 1
 ;
-#X obj 305 213 tgl 15 0 empty empty 16 0 -6 1 12 -233017 -1 -1 0 1
+#X obj 279 182 tgl 15 0 empty empty 16 0 -6 1 10 -233017 -1 -1 0 1
 ;
-#X obj 320 213 tgl 15 0 empty empty 17 0 -6 1 12 -233017 -1 -1 0 1
+#X obj 294 182 tgl 15 0 empty empty 17 0 -6 1 10 -233017 -1 -1 0 1
 ;
-#X obj 335 213 tgl 15 0 empty empty 18 0 -6 1 12 -233017 -1 -1 0 1
+#X obj 309 182 tgl 15 0 empty empty 18 0 -6 1 10 -233017 -1 -1 0 1
 ;
-#X obj 350 213 tgl 15 0 empty empty 19 0 -6 1 12 -233017 -1 -1 0 1
+#X obj 324 182 tgl 15 0 empty empty 19 0 -6 1 10 -233017 -1 -1 0 1
 ;
-#X text 274 185 A0;
-#X text 349 184 A6;
-#X text 294 183 .......;
-#X text 47 153 Set the individual pins HIGH / LOW:;
-#X text 46 169 (The default state for pins in OUTPUT mode is LOW);
+#X text 248 154 A0;
+#X text 323 153 A6;
+#X text 268 152 .......;
 #N canvas 101 162 791 311 generate 0;
 #X obj 32 22 inlet;
 #X obj 288 262 outlet;
@@ -697,96 +685,133 @@ with one message;
 #X connect 41 0 42 0;
 #X connect 42 0 43 0;
 #X connect 43 0 2 0;
-#X restore 54 98 pd generate digital out messages - - - - - - - -;
-#X obj 55 73 bng 15 250 50 0 empty empty 0 1 -6 1 10 -99865 -1 -1;
-#X obj 70 73 bng 15 250 50 0 empty empty 1 1 -6 1 10 -99865 -1 -1;
-#X obj 85 73 bng 15 250 50 0 empty empty 2 1 -6 1 10 -228856 -1 -1
+#X restore 24 61 pd generate digital out messages - - - - - - - -;
+#X obj 24 36 bng 15 250 50 0 empty empty 0 1 -6 1 10 -99865 -1 -1;
+#X obj 39 36 bng 15 250 50 0 empty empty 1 1 -6 1 10 -99865 -1 -1;
+#X obj 54 36 bng 15 250 50 0 empty empty 2 1 -6 1 10 -228856 -1 -1
 ;
-#X obj 100 73 bng 15 250 50 0 empty empty 3 1 -6 1 10 -228856 -1 -1
+#X obj 69 36 bng 15 250 50 0 empty empty 3 1 -6 1 10 -228856 -1 -1
 ;
-#X obj 115 73 bng 15 250 50 0 empty empty 4 1 -6 1 10 -228856 -1 -1
+#X obj 84 36 bng 15 250 50 0 empty empty 4 1 -6 1 10 -228856 -1 -1
 ;
-#X obj 130 73 bng 15 250 50 0 empty empty 5 1 -6 1 10 -228856 -1 -1
+#X obj 99 36 bng 15 250 50 0 empty empty 5 1 -6 1 10 -228856 -1 -1
 ;
-#X obj 145 73 bng 15 250 50 0 empty empty 6 1 -6 1 10 -228856 -1 -1
+#X obj 114 36 bng 15 250 50 0 empty empty 6 1 -6 1 10 -228856 -1 -1
 ;
-#X obj 175 73 bng 15 250 50 0 empty empty 8 1 -6 1 10 -228856 -1 -1
+#X obj 144 36 bng 15 250 50 0 empty empty 8 1 -6 1 10 -228856 -1 -1
 ;
-#X obj 190 73 bng 15 250 50 0 empty empty 9 1 -6 1 10 -228856 -1 -1
+#X obj 159 36 bng 15 250 50 0 empty empty 9 1 -6 1 10 -228856 -1 -1
 ;
-#X obj 205 73 bng 15 250 50 0 empty empty 10 1 -6 1 10 -228856 -1 -1
+#X obj 174 36 bng 15 250 50 0 empty empty 10 1 -6 1 10 -228856 -1 -1
 ;
-#X obj 220 73 bng 15 250 50 0 empty empty 11 1 -6 1 10 -228856 -1 -1
+#X obj 189 36 bng 15 250 50 0 empty empty 11 1 -6 1 10 -228856 -1 -1
 ;
-#X obj 235 73 bng 15 250 50 0 empty empty 12 1 -6 1 10 -228856 -1 -1
+#X obj 204 36 bng 15 250 50 0 empty empty 12 1 -6 1 10 -228856 -1 -1
 ;
-#X obj 250 73 bng 15 250 50 0 empty empty 13 1 -6 1 10 -228856 -1 -1
+#X obj 219 36 bng 15 250 50 0 empty empty 13 1 -6 1 10 -228856 -1 -1
 ;
-#X obj 280 73 bng 15 250 50 0 empty empty 14 1 -6 1 10 -228856 -1 -1
+#X obj 249 36 bng 15 250 50 0 empty empty 14 1 -6 1 10 -228856 -1 -1
 ;
-#X obj 295 73 bng 15 250 50 0 empty empty 15 1 -6 1 10 -228856 -1 -1
+#X obj 264 36 bng 15 250 50 0 empty empty 15 1 -6 1 10 -228856 -1 -1
 ;
-#X obj 310 73 bng 15 250 50 0 empty empty 16 1 -6 1 10 -228856 -1 -1
+#X obj 279 36 bng 15 250 50 0 empty empty 16 1 -6 1 10 -228856 -1 -1
 ;
-#X obj 325 73 bng 15 250 50 0 empty empty 17 1 -6 1 10 -228856 -1 -1
+#X obj 294 36 bng 15 250 50 0 empty empty 17 1 -6 1 10 -228856 -1 -1
 ;
-#X obj 340 73 bng 15 250 50 0 empty empty 18 1 -6 1 10 -228856 -1 -1
+#X obj 309 36 bng 15 250 50 0 empty empty 18 1 -6 1 10 -228856 -1 -1
 ;
-#X obj 355 73 bng 15 250 50 0 empty empty 19 1 -6 1 10 -228856 -1 -1
+#X obj 324 36 bng 15 250 50 0 empty empty 19 1 -6 1 10 -228856 -1 -1
 ;
-#X obj 160 73 bng 15 250 50 0 empty empty 7 1 -6 1 10 -228856 -1 -1
+#X obj 129 36 bng 15 250 50 0 empty empty 7 1 -6 1 10 -228856 -1 -1
 ;
-#X text 279 45 A0;
-#X text 354 44 A6;
-#X text 299 43 .......;
-#X obj 27 121 cnv 15 100 22 empty empty empty 20 12 0 14 -203904 -66577
-0;
-#X msg 54 120 pinMode 11 output;
-#X connect 1 0 25 0;
-#X connect 2 0 28 7;
-#X connect 3 0 28 8;
-#X connect 4 0 28 9;
-#X connect 5 0 28 10;
-#X connect 6 0 28 11;
-#X connect 7 0 28 12;
-#X connect 8 0 28 13;
-#X connect 9 0 28 2;
-#X connect 10 0 28 3;
-#X connect 11 0 28 4;
-#X connect 12 0 28 5;
-#X connect 13 0 28 6;
-#X connect 20 0 27 0;
-#X connect 21 0 27 0;
-#X connect 22 0 27 0;
-#X connect 23 0 27 0;
-#X connect 28 0 1 0;
-#X connect 29 0 28 14;
-#X connect 30 0 28 15;
-#X connect 31 0 28 16;
-#X connect 32 0 28 17;
-#X connect 33 0 28 18;
-#X connect 34 0 28 19;
-#X connect 40 0 65 0;
-#X connect 43 0 40 2;
-#X connect 44 0 40 3;
-#X connect 45 0 40 4;
-#X connect 46 0 40 5;
-#X connect 47 0 40 6;
-#X connect 48 0 40 8;
-#X connect 49 0 40 9;
-#X connect 50 0 40 10;
-#X connect 51 0 40 11;
-#X connect 52 0 40 12;
-#X connect 53 0 40 13;
-#X connect 54 0 40 14;
-#X connect 55 0 40 15;
-#X connect 56 0 40 16;
-#X connect 57 0 40 17;
-#X connect 58 0 40 18;
-#X connect 59 0 40 19;
-#X connect 60 0 40 7;
-#X restore 28 404 pd OUTPUT DIGITAL;
-#N canvas 99 372 562 378 OUTPUT 0;
+#X text 248 8 A0;
+#X text 323 7 A6;
+#X text 268 6 .......;
+#X obj 9 139 cnv 1 750 1 empty empty empty 20 12 0 14 -1 -66577 0;
+#X text 110 234 <-- COMMAND;
+#X text 134 84 <-- COMMAND;
+#X text 366 12 SET PIN MODE;
+#X obj 24 109 send \$0-arduino;
+#X obj 9 299 cnv 1 750 1 empty empty empty 20 12 0 14 -1 -66577 0;
+#X text 366 153 SET STATE (PER PIN);
+#X text 366 313 SET STATE (PER BLOCK);
+#X msg 24 83;
+#X msg 24 234;
+#X text 101 374 <-- COMMAND;
+#X obj 105 320 hradio 15 1 0 3 empty empty port 50 6 0 10 -228856 -1
+-1 0;
+#N canvas 745 205 210 188 port 0;
+#X obj 30 42 inlet;
+#X obj 98 42 inlet;
+#X obj 30 118 outlet;
+#X obj 30 73 pack f f;
+#X msg 30 96 set port \$2 \$1 \, bang;
+#X connect 0 0 3 0;
+#X connect 1 0 3 1;
+#X connect 3 0 4 0;
+#X connect 4 0 2 0;
+#X restore 24 345 pd port messge;
+#X obj 24 321 nbx 3 14 0 255 0 0 empty empty empty 0 -8 0 10 -228856
+-1 -1 58 256;
+#X text 365 32 To use a pin as a digital output \, you need to set
+its pin mode to output first.;
+#X text 365 70 NOTE:;
+#X text 365 240 NOTE:;
+#X text 367 180 Set the individual pins to a 'HIGH' or 'LOW' state.
+;
+#X text 364 85 'output' is the default mode for pins 2 to 13 when turning
+on the board.;
+#X text 366 256 The default state for pins in 'OUTPUT' mode is 'LOW'.
+;
+#X text 434 208 0 = 0V = LOW;
+#X text 433 221 1 = 5V = HIGH;
+#X msg 24 373;
+#X connect 0 0 19 7;
+#X connect 1 0 19 8;
+#X connect 2 0 19 9;
+#X connect 3 0 19 10;
+#X connect 4 0 19 11;
+#X connect 5 0 19 12;
+#X connect 6 0 19 13;
+#X connect 7 0 19 2;
+#X connect 8 0 19 3;
+#X connect 9 0 19 4;
+#X connect 10 0 19 5;
+#X connect 11 0 19 6;
+#X connect 19 0 62 0;
+#X connect 20 0 19 14;
+#X connect 21 0 19 15;
+#X connect 22 0 19 16;
+#X connect 23 0 19 17;
+#X connect 24 0 19 18;
+#X connect 25 0 19 19;
+#X connect 29 0 61 0;
+#X connect 32 0 29 2;
+#X connect 33 0 29 3;
+#X connect 34 0 29 4;
+#X connect 35 0 29 5;
+#X connect 36 0 29 6;
+#X connect 37 0 29 8;
+#X connect 38 0 29 9;
+#X connect 39 0 29 10;
+#X connect 40 0 29 11;
+#X connect 41 0 29 12;
+#X connect 42 0 29 13;
+#X connect 43 0 29 14;
+#X connect 44 0 29 15;
+#X connect 45 0 29 16;
+#X connect 46 0 29 17;
+#X connect 47 0 29 18;
+#X connect 48 0 29 19;
+#X connect 49 0 29 7;
+#X connect 61 0 57 0;
+#X connect 62 0 17 0;
+#X connect 64 0 65 1;
+#X connect 65 0 75 0;
+#X connect 66 0 65 0;
+#X connect 75 0 18 0;
+#X restore 28 404 pd OUTPUT_DIGITAL;
+#N canvas 99 372 562 378 OUTPUT_PWM 0;
 #X text 16 17 Analog Output \, PWM (Pulse Width Modulation);
 #X msg 21 189 pwm 9 \$1;
 #X obj 24 168 hsl 150 17 0 1 0 0 empty empty PWM_control_(0-1) -2 -6
@@ -832,8 +857,8 @@ PWM pins of your Arduino board.;
 #X connect 14 0 19 0;
 #X connect 15 0 21 0;
 #X connect 16 0 23 0;
-#X restore 28 425 pd OUTPUT PWM;
-#N canvas 23 251 432 341 OUTPUT 0;
+#X restore 28 425 pd OUTPUT_PWM;
+#N canvas 23 251 432 341 OUTPUT_SERVO 0;
 #X obj 52 224 hsl 150 17 0 1 0 0 empty empty Servo_control_(0-1) -2
 -6 1 10 -232576 -1 -1 0 1;
 #X text 27 141 disable PWM:;
@@ -863,8 +888,8 @@ one extreme \, and 1 to the other.;
 #X connect 8 0 13 0;
 #X connect 9 0 15 0;
 #X connect 10 0 13 0;
-#X restore 28 446 pd OUTPUT SERVO;
-#N canvas 14 501 578 280 INPUT 0;
+#X restore 28 446 pd OUTPUT_SERVO;
+#N canvas 14 501 578 280 INPUT_DIGITAL 0;
 #X text 387 93 connect the Digital Input;
 #X text 387 110 to the ground (=0) or to;
 #X text 387 127 the positive voltage (=1);
@@ -917,8 +942,8 @@ to the ground \, you will get random values (0 or 1) - to avoid that
 #X connect 5 12 16 0;
 #X connect 5 13 17 0;
 #X connect 24 0 4 0;
-#X restore 220 408 pd INPUT DIGITAL;
-#N canvas 303 503 441 343 INPUT 0;
+#X restore 220 408 pd INPUT_DIGITAL;
+#N canvas 303 503 441 343 INPUT_ANALOG 0;
 #X obj 121 108 spigot 0;
 #X obj 183 105 tgl 20 0 empty empty empty 0 -6 0 8 -258699 -1 -1 0
 1;
@@ -1014,9 +1039,7 @@ the ground \, if you want to avoid flickering of the values !;
 #X connect 15 6 11 0;
 #X connect 15 7 12 0;
 #X connect 17 0 0 0;
-#X restore 220 429 pd INPUT ANALOG;
-#X text 27 384 Pure Data -> World;
-#X text 218 387 World -> Pure Data;
+#X restore 220 429 pd INPUT_ANALOG;
 #X connect 1 0 16 0;
 #X connect 2 0 16 0;
 #X connect 3 0 16 0;
