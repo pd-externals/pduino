@@ -1266,7 +1266,7 @@ pin mode to 'servo' first.;
 #X connect 40 0 37 0;
 #X connect 41 0 36 0;
 #X restore 28 447 pd OUTPUT_SERVO;
-#N canvas 0 44 791 585 INPUT_DIGITAL 0;
+#N canvas 0 44 775 601 INPUT_DIGITAL 0;
 #X obj 129 319 tgl 15 0 empty empty 7 4 -6 1 10 -233017 -1 -1 0 1;
 #X obj 144 319 tgl 15 0 empty empty 8 4 -6 1 10 -233017 -1 -1 0 1;
 #X obj 159 319 tgl 15 0 empty empty 9 4 -6 1 10 -233017 -1 -1 0 1;
@@ -1290,7 +1290,7 @@ pin mode to 'servo' first.;
 #X obj 40 320 cnv 13 13 13 empty empty Tx 0 8 0 10 -128992 -13381 0
 ;
 #X obj 24 400 send \$0-arduino;
-#X obj 24 543 send \$0-arduino;
+#X obj 24 535 send \$0-arduino;
 #X obj 249 319 tgl 15 0 empty empty 14 0 -6 1 10 -233017 -1 -1 0 1
 ;
 #X obj 264 319 tgl 15 0 empty empty 15 0 -6 1 10 -233017 -1 -1 0 1
@@ -1352,14 +1352,12 @@ pin mode to 'servo' first.;
 #X text 134 84 <-- COMMAND;
 #X text 366 12 SET PIN MODE;
 #X obj 24 109 send \$0-arduino;
-#X obj 9 444 cnv 1 750 1 empty empty empty 20 12 0 14 -1 -66577 0;
+#X obj 9 436 cnv 1 750 1 empty empty empty 20 12 0 14 -1 -66577 0;
 #X msg 24 371;
-#X text 121 518 <-- COMMAND;
-#X obj 99 465 hradio 15 1 0 3 empty empty port 50 6 0 10 -228856 -1
+#X text 121 510 <-- COMMAND;
+#X obj 99 457 hradio 15 1 0 3 empty empty port 50 6 0 10 -228856 -1
 -1 0;
-#X text 365 385 NOTE:;
-#X text 365 32 To use a pin as a digital input \, you need to set its
-pin mode to 'input' first.;
+#X text 365 517 NOTE:;
 #X obj 9 276 cnv 1 750 1 empty empty empty 20 12 0 14 -1 -66577 0;
 #X obj 24 181 route digital;
 #X obj 24 159 r \$0-arduino-out;
@@ -1402,7 +1400,7 @@ pin mode to 'input' first.;
 #X text 397 211 digital <pin#> <0|1>;
 #X msg 24 83;
 #X text 366 290 TURN ON/OFF PULL-UP RESISTOR;
-#X text 366 458 TURN ON/OFF REPORTING (PER BLOCK);
+#X text 366 450 TURN ON/OFF REPORTING (PER BLOCK);
 #X text 367 169 Whenever the state changes on a pin currently set to
 'input' mode \, the arduino sends a message like this:;
 #X text 365 311 Each pin has an internal 20kOhm resistor \, that connects
@@ -1410,8 +1408,6 @@ to 5V when activated. This can be used to give disconnected inputs
 a defined state. Otherwise input pins not connected to anything pick
 up electromagnetic fluctuation from the environment which will often
 lead to flickering.;
-#X text 366 401 The default for pins in 'input' mode is to have pull-up
-resistor turned off.;
 #N canvas 745 233 210 188 digitalIns 0;
 #X obj 30 42 inlet;
 #X obj 98 42 inlet;
@@ -1422,11 +1418,10 @@ resistor turned off.;
 #X connect 1 0 3 1;
 #X connect 3 0 4 0;
 #X connect 4 0 2 0;
-#X restore 24 490 pd digitalIns;
-#X obj 24 465 tgl 15 0 empty empty on/off 20 6 0 10 -228856 -1 -1 0
+#X restore 24 482 pd digitalIns;
+#X obj 24 457 tgl 15 0 empty empty on/off 20 6 0 10 -228856 -1 -1 0
 1;
-#X text 366 483 Lorem ipsum bla;
-#X msg 24 518;
+#X msg 24 510;
 #N canvas 101 162 791 311 pinMode______________________________________
 0;
 #X obj 32 22 inlet;
@@ -1607,70 +1602,79 @@ resistor turned off.;
 #X connect 43 0 4 0;
 #X restore 24 344 pd digital______________________________________
 ;
-#X connect 0 0 100 7;
-#X connect 1 0 100 8;
-#X connect 2 0 100 9;
-#X connect 3 0 100 10;
-#X connect 4 0 100 11;
-#X connect 5 0 100 12;
-#X connect 6 0 100 13;
-#X connect 7 0 100 2;
-#X connect 8 0 100 3;
-#X connect 9 0 100 4;
-#X connect 10 0 100 5;
-#X connect 11 0 100 6;
-#X connect 18 0 100 14;
-#X connect 19 0 100 15;
-#X connect 20 0 100 16;
-#X connect 21 0 100 17;
-#X connect 22 0 100 18;
-#X connect 23 0 100 19;
-#X connect 29 0 99 2;
-#X connect 30 0 99 3;
-#X connect 31 0 99 4;
-#X connect 32 0 99 5;
-#X connect 33 0 99 6;
-#X connect 34 0 99 8;
-#X connect 35 0 99 9;
-#X connect 36 0 99 10;
-#X connect 37 0 99 11;
-#X connect 38 0 99 12;
-#X connect 39 0 99 13;
-#X connect 40 0 99 14;
-#X connect 41 0 99 15;
-#X connect 42 0 99 16;
-#X connect 43 0 99 17;
-#X connect 44 0 99 18;
-#X connect 45 0 99 19;
-#X connect 46 0 99 7;
+#X text 365 32 To use a pin as a digital input \, you need to set its
+pin mode to 'input'.;
+#X text 366 470 The reporting of the digital inputs can be turned off
+(and on). However \, this can only be done in blocks of 8 pins.;
+#X text 366 533 This command has only effect on pins that are currently
+set to 'input' mode. Pins set to other modes will silently ignore this
+command.;
+#X text 366 573 Pins set to 'input' mode have reporting enabled per
+default.;
+#X connect 0 0 97 7;
+#X connect 1 0 97 8;
+#X connect 2 0 97 9;
+#X connect 3 0 97 10;
+#X connect 4 0 97 11;
+#X connect 5 0 97 12;
+#X connect 6 0 97 13;
+#X connect 7 0 97 2;
+#X connect 8 0 97 3;
+#X connect 9 0 97 4;
+#X connect 10 0 97 5;
+#X connect 11 0 97 6;
+#X connect 18 0 97 14;
+#X connect 19 0 97 15;
+#X connect 20 0 97 16;
+#X connect 21 0 97 17;
+#X connect 22 0 97 18;
+#X connect 23 0 97 19;
+#X connect 29 0 96 2;
+#X connect 30 0 96 3;
+#X connect 31 0 96 4;
+#X connect 32 0 96 5;
+#X connect 33 0 96 6;
+#X connect 34 0 96 8;
+#X connect 35 0 96 9;
+#X connect 36 0 96 10;
+#X connect 37 0 96 11;
+#X connect 38 0 96 12;
+#X connect 39 0 96 13;
+#X connect 40 0 96 14;
+#X connect 41 0 96 15;
+#X connect 42 0 96 16;
+#X connect 43 0 96 17;
+#X connect 44 0 96 18;
+#X connect 45 0 96 19;
+#X connect 46 0 96 7;
 #X connect 56 0 16 0;
-#X connect 58 0 95 1;
-#X connect 62 0 86 0;
-#X connect 63 0 62 0;
-#X connect 86 0 71 0;
-#X connect 86 1 72 0;
-#X connect 86 2 73 0;
-#X connect 86 3 74 0;
-#X connect 86 4 75 0;
-#X connect 86 5 64 0;
-#X connect 86 6 65 0;
-#X connect 86 7 66 0;
-#X connect 86 8 67 0;
-#X connect 86 9 68 0;
-#X connect 86 10 69 0;
-#X connect 86 11 70 0;
-#X connect 86 12 80 0;
-#X connect 86 13 81 0;
-#X connect 86 14 82 0;
-#X connect 86 15 83 0;
-#X connect 86 16 84 0;
-#X connect 86 17 85 0;
-#X connect 89 0 54 0;
-#X connect 95 0 98 0;
-#X connect 96 0 95 0;
-#X connect 98 0 17 0;
-#X connect 99 0 89 0;
-#X connect 100 0 56 0;
+#X connect 58 0 93 1;
+#X connect 61 0 85 0;
+#X connect 62 0 61 0;
+#X connect 85 0 70 0;
+#X connect 85 1 71 0;
+#X connect 85 2 72 0;
+#X connect 85 3 73 0;
+#X connect 85 4 74 0;
+#X connect 85 5 63 0;
+#X connect 85 6 64 0;
+#X connect 85 7 65 0;
+#X connect 85 8 66 0;
+#X connect 85 9 67 0;
+#X connect 85 10 68 0;
+#X connect 85 11 69 0;
+#X connect 85 12 79 0;
+#X connect 85 13 80 0;
+#X connect 85 14 81 0;
+#X connect 85 15 82 0;
+#X connect 85 16 83 0;
+#X connect 85 17 84 0;
+#X connect 88 0 54 0;
+#X connect 93 0 95 0;
+#X connect 94 0 93 0;
+#X connect 95 0 17 0;
+#X connect 96 0 88 0;
+#X connect 97 0 56 0;
 #X restore 219 409 pd INPUT_DIGITAL;
 #X connect 1 0 16 0;
 #X connect 2 0 16 0;
