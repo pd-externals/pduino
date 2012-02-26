@@ -1,4 +1,4 @@
-#N canvas 137 44 646 605 10;
+#N canvas 137 44 650 613 10;
 #X declare -stdpath extra/moocow -lib pdstring;
 #X declare -stdpath extra/moocow -lib pdstring;
 #X obj 2 47 cnv 15 400 230 empty empty 2.serial_connection 12 12 0
@@ -858,7 +858,7 @@ its pin mode to 'pwm' first.;
 10 -228856 -1 -1 0 256;
 #X text 367 180 Set the individual pins to a certain value.;
 #X text 366 153 SET PWM VALUE;
-#X msg 24 234;
+#X msg 24 234 analog 0 0;
 #X msg 24 83;
 #X text 365 89 Only a few pins (the ones colored light-grey) support
 'pwm' mode.;
@@ -1568,7 +1568,7 @@ default.;
 #X connect 96 0 88 0;
 #X connect 97 0 56 0;
 #X restore 219 409 pd INPUT_DIGITAL;
-#N canvas 0 44 769 529 INPUT_ANALOG 0;
+#N canvas 0 44 776 666 INPUT_ANALOG 0;
 #X obj 24 418 send \$0-arduino;
 #X obj 24 36 bng 15 250 50 0 empty empty 0 1 -6 1 10 -99865 -1 -1;
 #X obj 39 36 bng 15 250 50 0 empty empty 1 1 -6 1 10 -99865 -1 -1;
@@ -1612,10 +1612,9 @@ default.;
 #X obj 24 109 send \$0-arduino;
 #X obj 9 319 cnv 1 750 1 empty empty empty 20 12 0 14 -1 -66577 0;
 #X text 121 393 <-- COMMAND;
-#X text 365 400 NOTE:;
+#X text 365 393 NOTE:;
 #X obj 24 162 r \$0-arduino-out;
 #X msg 24 83;
-#X msg 24 393;
 #N canvas 101 162 791 311 pinMode______________________________________
 0;
 #X obj 32 22 inlet;
@@ -1773,37 +1772,62 @@ with the printed labels on the board.;
 #X restore 24 365 pd analogIns_;
 #X text 366 353 The reporting of the analog inputs can be turned off
 (and on).;
-#X text 366 416 This command has only effect on pins that are currently
+#X text 366 409 This command has only effect on pins that are currently
 set to 'analog' mode. Pins set to other modes will silently ignore
 this command.;
-#X text 366 456 Pins set to 'analog' mode have reporting enabled per
+#X text 366 449 Pins set to 'analog' mode have reporting enabled per
 default.;
-#X text 366 483 Also here \, the numbering differs from the numbering
+#X text 366 476 Also here \, the numbering differs from the numbering
 to set the pin mode.;
-#X connect 14 0 33 14;
-#X connect 15 0 33 15;
-#X connect 16 0 33 16;
-#X connect 17 0 33 17;
-#X connect 18 0 33 18;
-#X connect 19 0 33 19;
-#X connect 30 0 37 0;
+#X obj 24 616 send \$0-arduino;
+#X obj 9 517 cnv 1 750 1 empty empty empty 20 12 0 14 -1 -66577 0;
+#X text 165 592 <-- COMMAND;
+#X text 365 530 SET THE SAMPLING INTERVAL;
+#N canvas 745 233 339 168 samplingInterval 0;
+#X obj 30 12 inlet;
+#X obj 30 118 outlet;
+#X msg 30 96 set samplingInterval \$1 \, bang;
+#X connect 0 0 2 0;
+#X connect 2 0 1 0;
+#X restore 24 563 pd samplingInterval;
+#X msg 24 393;
+#X obj 24 541 nbx 5 14 10 16383 0 0 empty empty empty 0 -8 0 10 -228856
+-1 -1 1002 256;
+#X text 84 541 ms;
+#X msg 24 591;
+#X text 366 551 You can adjust the rate at which the pins in 'analog'
+mode report their value. The shorter the interval time \, the higher
+the rate.;
+#X text 365 603 NOTE:;
+#X text 366 619 The default value is 20ms. The mininum interval time
+is 10ms (eguals 100Hz).;
+#X connect 14 0 32 14;
+#X connect 15 0 32 15;
+#X connect 16 0 32 16;
+#X connect 17 0 32 17;
+#X connect 18 0 32 18;
+#X connect 19 0 32 19;
+#X connect 30 0 36 0;
 #X connect 31 0 26 0;
-#X connect 32 0 0 0;
-#X connect 33 0 31 0;
+#X connect 32 0 31 0;
+#X connect 36 0 37 0;
 #X connect 37 0 38 0;
-#X connect 38 0 39 0;
-#X connect 38 1 43 0;
-#X connect 38 2 44 0;
-#X connect 38 3 45 0;
-#X connect 38 4 46 0;
-#X connect 38 5 47 0;
-#X connect 59 0 65 2;
-#X connect 60 0 65 3;
-#X connect 61 0 65 4;
-#X connect 62 0 65 5;
-#X connect 63 0 65 0;
-#X connect 64 0 65 1;
-#X connect 65 0 32 0;
+#X connect 37 1 42 0;
+#X connect 37 2 43 0;
+#X connect 37 3 44 0;
+#X connect 37 4 45 0;
+#X connect 37 5 46 0;
+#X connect 58 0 64 2;
+#X connect 59 0 64 3;
+#X connect 60 0 64 4;
+#X connect 61 0 64 5;
+#X connect 62 0 64 0;
+#X connect 63 0 64 1;
+#X connect 64 0 74 0;
+#X connect 73 0 77 0;
+#X connect 74 0 0 0;
+#X connect 75 0 73 0;
+#X connect 77 0 69 0;
 #X restore 219 431 pd INPUT_ANALOG;
 #X connect 1 0 16 0;
 #X connect 2 0 16 0;
