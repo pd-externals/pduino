@@ -194,45 +194,6 @@ for the pin modes:;
 0;
 #X obj 187 451 send \$0-arduino;
 #X msg 227 398 pinMode 16 analog;
-#N canvas 432 166 450 241 old 0;
-#X msg 57 130 digitalIns 0 0;
-#X text 56 93 which digital ports to enable:;
-#N canvas 162 133 610 460 seri 0;
-#X obj 59 337 outlet;
-#X obj 59 266 trigger bang anything;
-#X obj 201 286 list;
-#X obj 60 61 tgl 15 0 junk_to_hide_inlet ARDUINO_TEST_RESET 0 5 9 1
-12 -260736 -1 -1 0 1;
-#X obj 75 61 tgl 15 0 junk_to_hide_inlet ARDUINO_TEST_RESET 1 5 9 1
-12 -260736 -1 -1 0 1;
-#X obj 90 61 tgl 15 0 junk_to_hide_inlet ARDUINO_TEST_RESET 2 5 9 1
-12 -260736 -1 -1 0 1;
-#X msg 35 106 0 \$1;
-#X msg 70 106 1 \$1;
-#X msg 105 106 2 \$1;
-#X msg 202 307 set \$1 \$2 \$3;
-#X msg 59 210 digitalIns \$1 \$2;
-#X connect 1 0 0 0;
-#X connect 1 1 2 0;
-#X connect 2 0 9 0;
-#X connect 3 0 6 0;
-#X connect 4 0 7 0;
-#X connect 5 0 8 0;
-#X connect 6 0 10 0;
-#X connect 7 0 10 0;
-#X connect 8 0 10 0;
-#X connect 9 0 0 0;
-#X connect 10 0 1 0;
-#X coords 0 -1 1 1 45 16 1 60 60;
-#X restore 57 110 pd seri;
-#X obj 54 168 cnv 15 100 26 empty empty empty 20 12 0 14 -257985 -66577
-0;
-#X obj 57 173 send \$0-arduino;
-#X text 54 31 You have to tell StandardFirmata to send you data from
-the inputs. For Digital it is controller per 8-pin "port".;
-#X connect 0 0 4 0;
-#X connect 2 0 0 0;
-#X restore 169 227 pd old digital controls(deprecated);
 #N canvas 517 261 426 208 old 0;
 #X msg 35 111 analogIns 0 0;
 #N canvas 162 133 610 460 serin 0;
@@ -359,17 +320,17 @@ Diecimila is adressed by the pins number \, here 16 A1 is the pin 17
 #X text 120 68 R;
 #X text 120 78 E;
 #X text 120 88 F;
-#X obj 288 263 tgl 15 0 empty empty 16 0 -6 1 9 -262144 -262144 -262144
+#X obj 288 263 tgl 15 0 empty empty 14 0 -6 1 9 -262144 -262144 -262144
 0 1;
-#X obj 305 263 tgl 15 0 empty empty 17 0 -6 1 9 -262144 -262144 -262144
+#X obj 305 263 tgl 15 0 empty empty 15 0 -6 1 9 -262144 -262144 -262144
 0 1;
-#X obj 322 263 tgl 15 0 empty empty 18 0 -6 1 9 -262144 -262144 -262144
+#X obj 322 263 tgl 15 0 empty empty 16 0 -6 1 9 -262144 -262144 -262144
 0 1;
-#X obj 339 263 tgl 15 0 empty empty 19 0 -6 1 9 -262144 -262144 -262144
+#X obj 339 263 tgl 15 0 empty empty 17 0 -6 1 9 -262144 -262144 -262144
 0 1;
-#X obj 356 263 tgl 15 0 empty empty 20 0 -6 1 9 -262144 -262144 -262144
+#X obj 356 263 tgl 15 0 empty empty 18 0 -6 1 9 -262144 -262144 -262144
 0 1;
-#X obj 373 263 tgl 15 0 empty empty 21 0 -6 1 9 -262144 -262144 -262144
+#X obj 373 263 tgl 15 0 empty empty 19 0 -6 1 9 -262144 -262144 -262144
 0 1;
 #X text 232 95 Digital;
 #X text 187 56 P;
@@ -441,13 +402,10 @@ Diecimila is adressed by the pins number \, here 16 A1 is the pin 17
 #X connect 13 0 15 0;
 #X connect 24 0 26 0;
 #X connect 27 0 26 0;
-#X connect 31 0 26 0;
-#X restore 74 337 pd PINMODE;
-#X text 143 336 <- first \, you need to set the pinMode;
+#X connect 30 0 26 0;
+#X restore 69 358 pd PINMODE;
+#X text 149 354 <- first \, you need to set the pinMode;
 #X text 482 142 argument sets serial port;
-#N canvas 0 0 450 300 2do 0;
-#X text 53 58 on osx port opens automatically;
-#X restore 349 198 pd 2do;
 #X text 27 384 Pure Data -> World;
 #X text 218 387 World -> Pure Data;
 #N canvas 0 44 774 440 OUTPUT_DIGITAL 0;
@@ -1829,6 +1787,162 @@ is 10ms (eguals 100Hz).;
 #X connect 75 0 73 0;
 #X connect 77 0 69 0;
 #X restore 219 431 pd INPUT_ANALOG;
+#N canvas 664 145 428 412 Pin 0;
+#X obj 40 30 cnv 15 350 250 empty empty empty 20 12 0 14 -67964 -66577
+0;
+#X obj 118 32 tgl 15 0 empty empty empty 0 23 1 9 -162280 -1 -191407
+0 1;
+#X obj 152 32 tgl 15 0 empty empty 13 0 23 1 9 -262144 -262144 -262144
+0 1;
+#X obj 169 32 tgl 15 0 empty empty 12 0 23 1 9 -262144 -262144 -262144
+0 1;
+#X obj 203 32 tgl 15 0 empty empty 10 0 23 1 9 -262144 -262144 -262144
+0 1;
+#X obj 186 32 tgl 15 0 empty empty 11 0 23 1 9 -262144 -262144 -262144
+0 1;
+#X obj 220 32 tgl 15 0 empty empty 9 5 23 1 9 -262144 -262144 -262144
+0 1;
+#X obj 237 32 tgl 15 0 empty empty 8 5 23 1 9 -262144 -262144 -262144
+0 1;
+#X obj 254 32 tgl 15 0 empty empty 7 5 23 1 9 -262144 -262144 -262144
+0 1;
+#X obj 271 32 tgl 15 0 empty empty 6 5 23 1 9 -262144 -262144 -262144
+0 1;
+#X obj 288 32 tgl 15 0 empty empty 5 5 23 1 9 -262144 -262144 -262144
+0 1;
+#X obj 305 32 tgl 15 0 empty empty 4 5 23 1 9 -262144 -262144 -262144
+0 1;
+#X obj 322 32 tgl 15 0 empty empty 3 5 23 1 9 -262144 -262144 -262144
+0 1;
+#X obj 339 32 tgl 15 0 empty empty 2 5 23 1 9 -262144 -262144 -262144
+0 1;
+#X obj 356 32 tgl 15 0 empty empty 1 5 23 1 9 -162280 -262144 -191407
+0 1;
+#X obj 373 32 tgl 15 0 empty empty 0 5 23 1 9 -162280 -262144 -191407
+0 1;
+#X text 375 56 R;
+#X text 375 67 X;
+#X text 359 56 T;
+#X text 359 67 X;
+#X obj 135 32 tgl 15 0 empty empty empty 0 23 1 9 -162280 -1 -191407
+0 1;
+#X text 137 56 G;
+#X text 137 67 N;
+#X text 137 78 D;
+#X text 120 57 A;
+#X text 120 68 R;
+#X text 120 78 E;
+#X text 120 88 F;
+#X obj 288 263 tgl 15 0 empty empty 14 0 -6 1 9 -262144 -262144 -262144
+0 1;
+#X obj 305 263 tgl 15 0 empty empty 15 0 -6 1 9 -262144 -262144 -262144
+0 1;
+#X obj 322 263 tgl 15 0 empty empty 16 0 -6 1 9 -262144 -262144 -262144
+0 1;
+#X obj 339 263 tgl 15 0 empty empty 17 0 -6 1 9 -262144 -262144 -262144
+0 1;
+#X obj 356 263 tgl 15 0 empty empty 18 0 -6 1 9 -262144 -262144 -262144
+0 1;
+#X obj 373 263 tgl 15 0 empty empty 19 0 -6 1 9 -262144 -262144 -262144
+0 1;
+#X text 232 95 Digital;
+#X text 187 56 P;
+#X text 188 67 W;
+#X text 187 78 M;
+#X text 205 56 P;
+#X text 206 67 W;
+#X text 205 78 M;
+#X text 224 56 P;
+#X text 225 67 W;
+#X text 224 78 M;
+#X text 274 56 P;
+#X text 275 67 W;
+#X text 274 78 M;
+#X text 291 56 P;
+#X text 292 67 W;
+#X text 291 78 M;
+#X text 325 56 P;
+#X text 326 67 W;
+#X text 325 78 M;
+#X text 310 221 Analog in;
+#X obj 248 263 tgl 15 0 empty empty empty 0 -6 1 9 -261234 -262144
+-262144 0 1;
+#X text 249 229 V;
+#X text 250 239 i;
+#X text 250 247 n;
+#X obj 231 263 tgl 15 0 empty empty empty 0 23 1 9 -162280 -1 -191407
+0 1;
+#X text 232 225 G;
+#X text 232 236 N;
+#X text 232 247 D;
+#X obj 214 263 tgl 15 0 empty empty empty 0 23 1 9 -162280 -1 -191407
+0 1;
+#X text 215 225 G;
+#X text 215 236 N;
+#X text 215 247 D;
+#X obj 197 263 tgl 15 0 empty empty empty 0 -6 1 9 -261234 -262144
+-262144 0 1;
+#X text 198 236 5;
+#X text 198 246 V;
+#X obj 180 263 tgl 15 0 empty empty empty 0 -6 1 9 -261234 -262144
+-262144 0 1;
+#X text 181 246 V;
+#X text 181 236 3;
+#X text 181 226 3;
+#X obj 163 263 tgl 15 0 empty empty empty 0 23 1 9 -162280 -1 -191407
+0 1;
+#X text 164 247 T;
+#X text 164 225 R;
+#X text 164 236 S;
+#X text 286 236 A0;
+#X text 304 236 A1;
+#X text 321 236 A2;
+#X text 337 236 A3;
+#X text 354 236 A4;
+#X text 371 236 A5;
+#X text 52 142 White letters are showing the Pin Numbering Map for
+;
+#X text 51 157 Arduino UNO \, Duemilanove \, Nano \, Diecimila...;
+#X text 55 340 port 0 : pins 2 - 7;
+#X text 55 357 port 1 : pins 8 - 15;
+#X text 55 374 port 2 : pins 16 - 19;
+#X restore 140 543 pd Pin Numbering Map;
+#N canvas 85 44 525 488 PINMODE 0;
+#X text 16 35 Most pins of the Arduino board support different modes.
+You may need to tell the Arduino in which mode you intend to use a
+certain pin. This is achieved with the 'pinMode' command:;
+#X msg 45 111 pinMode <pin#> <mode>;
+#X msg 18 207 pinMode 11 output;
+#X msg 18 184 pinMode 11 input;
+#X msg 18 230 pinMode 16 analog;
+#X msg 18 253 pinMode 11 pwm;
+#X msg 18 276 pinMode 11 servo;
+#X text 137 184 =;
+#X text 137 208 =;
+#X text 137 231 =;
+#X text 137 254 =;
+#X text 137 276 =;
+#X msg 168 184 pinMode 11 0;
+#X msg 168 207 pinMode 11 1;
+#X msg 168 230 pinMode 16 2;
+#X msg 168 253 pinMode 11 3;
+#X msg 168 276 pinMode 11 4;
+#X text 287 184 digital input;
+#X text 287 208 digital output;
+#X text 287 231 analog input;
+#X text 287 254 pulse width modulation (output);
+#X text 287 276 servo (output);
+#X text 15 317 SET PIN MODE;
+#X text 15 13 PIN MODES;
+#X text 15 153 LIST OF SUPPORTED PIN MODES;
+#X obj 18 342 vradio 15 1 0 5 empty empty empty 0 -8 0 10 -228856 -1
+-1 0;
+#X text 37 341 input;
+#X text 37 356 output;
+#X text 37 371 analog;
+#X text 37 386 pwm;
+#X text 37 401 servo;
+#X restore 81 334 pd PINMODE;
 #X connect 1 0 16 0;
 #X connect 2 0 16 0;
 #X connect 3 0 16 0;
