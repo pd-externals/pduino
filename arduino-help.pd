@@ -270,7 +270,7 @@ the inputs. For analog \, its controlled per-pin.;
 #X text 17 538 define DigitalPin 10 for;
 #X text 17 560 pwm output;
 #X text 15 579 servo output;
-#X text 23 290 NOTE: the AnalogPins are adressed by numbers and not
+#X text 20 286 NOTE: the AnalogPins are adressed by numbers and not
 as A0-A7. Due to Arduinos naming scheme the AnalogPin f.e. A0 on a
 Diecimila is adressed by the pins number \, here 16 A1 is the pin 17
 \, A2 = 18 and so on.;
@@ -1787,7 +1787,7 @@ is 10ms (eguals 100Hz).;
 #X connect 75 0 73 0;
 #X connect 77 0 69 0;
 #X restore 219 431 pd INPUT_ANALOG;
-#N canvas 664 145 428 412 Pin 0;
+#N canvas 551 44 428 412 Pin 0;
 #X obj 40 30 cnv 15 350 250 empty empty empty 20 12 0 14 -67964 -66577
 0;
 #X obj 118 32 tgl 15 0 empty empty empty 0 23 1 9 -162280 -1 -191407
@@ -1886,8 +1886,6 @@ is 10ms (eguals 100Hz).;
 #X text 198 246 V;
 #X obj 180 263 tgl 15 0 empty empty empty 0 -6 1 9 -261234 -262144
 -262144 0 1;
-#X text 181 246 V;
-#X text 181 236 3;
 #X text 181 226 3;
 #X obj 163 263 tgl 15 0 empty empty empty 0 23 1 9 -162280 -1 -191407
 0 1;
@@ -1906,42 +1904,69 @@ is 10ms (eguals 100Hz).;
 #X text 55 340 port 0 : pins 2 - 7;
 #X text 55 357 port 1 : pins 8 - 15;
 #X text 55 374 port 2 : pins 16 - 19;
+#X text 181 236 V;
+#X text 181 246 3;
 #X restore 140 543 pd Pin Numbering Map;
-#N canvas 85 44 525 488 PINMODE 0;
+#N canvas 85 44 525 586 PINMODE 0;
 #X text 16 35 Most pins of the Arduino board support different modes.
 You may need to tell the Arduino in which mode you intend to use a
 certain pin. This is achieved with the 'pinMode' command:;
 #X msg 45 111 pinMode <pin#> <mode>;
-#X msg 18 207 pinMode 11 output;
-#X msg 18 184 pinMode 11 input;
-#X msg 18 230 pinMode 16 analog;
-#X msg 18 253 pinMode 11 pwm;
-#X msg 18 276 pinMode 11 servo;
-#X text 137 184 =;
-#X text 137 208 =;
-#X text 137 231 =;
-#X text 137 254 =;
-#X text 137 276 =;
-#X msg 168 184 pinMode 11 0;
-#X msg 168 207 pinMode 11 1;
-#X msg 168 230 pinMode 16 2;
-#X msg 168 253 pinMode 11 3;
-#X msg 168 276 pinMode 11 4;
-#X text 287 184 digital input;
-#X text 287 208 digital output;
-#X text 287 231 analog input;
-#X text 287 254 pulse width modulation (output);
-#X text 287 276 servo (output);
-#X text 15 317 SET PIN MODE;
+#X msg 18 266 pinMode 11 output;
+#X msg 18 243 pinMode 11 input;
+#X msg 18 289 pinMode 16 analog;
+#X msg 18 312 pinMode 11 pwm;
+#X msg 18 335 pinMode 11 servo;
+#X msg 168 243 pinMode 11 0;
+#X msg 168 266 pinMode 11 1;
+#X msg 168 289 pinMode 16 2;
+#X msg 168 312 pinMode 11 3;
+#X msg 168 335 pinMode 11 4;
+#X text 287 243 digital input;
+#X text 287 267 digital output;
+#X text 287 290 analog input;
+#X text 287 313 pulse width modulation (output);
+#X text 287 335 servo (output);
+#X text 15 380 SET PIN MODE;
 #X text 15 13 PIN MODES;
-#X text 15 153 LIST OF SUPPORTED PIN MODES;
-#X obj 18 342 vradio 15 1 0 5 empty empty empty 0 -8 0 10 -228856 -1
--1 0;
-#X text 37 341 input;
-#X text 37 356 output;
-#X text 37 371 analog;
-#X text 37 386 pwm;
-#X text 37 401 servo;
+#X obj 18 405 vradio 15 1 0 5 empty empty empty 0 -8 0 10 -228856 -1
+-1 2;
+#X text 37 404 input;
+#X text 37 419 output;
+#X text 37 434 analog;
+#X text 37 449 pwm;
+#X text 37 464 servo;
+#X obj 18 543 send \$0-arduino;
+#X text 103 515 <-- COMMAND;
+#X obj 117 466 nbx 3 14 -1e+37 1e+37 0 0 empty empty pin_No. 40 6 0
+10 -228856 -1 -1 14 256;
+#N canvas 101 162 296 179 pinMode_______ 0;
+#X obj 32 22 inlet;
+#X obj 32 121 outlet;
+#X obj 162 25 inlet;
+#X obj 32 69 pack f f;
+#X msg 32 98 set pinMode \$2 \$1 \, bang;
+#X connect 0 0 3 0;
+#X connect 2 0 3 1;
+#X connect 3 0 4 0;
+#X connect 4 0 1 0;
+#X restore 18 487 pd pinMode_______;
+#X msg 18 514 pinMode 14 2;
+#X text 137 243 ==;
+#X text 137 267 ==;
+#X text 137 290 ==;
+#X text 137 313 ==;
+#X text 137 335 ==;
+#X text 15 140 NOTE:;
+#X obj 9 199 cnv 1 500 1 empty empty empty 20 12 0 14 -1 -66577 0;
+#X obj 9 368 cnv 1 500 1 empty empty empty 20 12 0 14 -1 -66577 0;
+#X text 16 156 Not every pin supports every mode. Each pin supports
+only a subset of the available modes.;
+#X text 15 212 LIST OF AVAILABLE PIN MODES;
+#X connect 19 0 28 0;
+#X connect 27 0 28 1;
+#X connect 28 0 29 0;
+#X connect 29 0 25 0;
 #X restore 81 334 pd PINMODE;
 #X connect 1 0 16 0;
 #X connect 2 0 16 0;
