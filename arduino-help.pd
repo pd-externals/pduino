@@ -1,110 +1,33 @@
-#N canvas 137 44 650 613 10;
+#N canvas 137 44 641 574 10;
 #X declare -stdpath extra/moocow -lib pdstring;
 #X declare -stdpath extra/moocow -lib pdstring;
 #X obj 2 47 cnv 15 400 210 empty empty empty 12 12 0 10 -233017 -66577
 0;
-#X msg 46 143 close;
-#X msg 17 69 devices;
-#X msg 59 170 version;
-#N canvas 126 230 546 358 ver 0;
-#X obj 250 100 cnv 15 200 17 empty \$0-version_cnv empty 4 10 0 12
--262144 -1 0;
-#X obj 23 201 send \$0-version_cnv;
-#X msg 23 176 label \$1;
-#X obj 48 147 symbol;
-#X obj 38 121 loadbang;
-#X msg 96 122 bang;
-#X obj 23 6 receive \$0-arduino-info;
-#X obj 104 49 route -1;
-#X obj 23 93 includes/agop.symbol2list;
-#X obj 23 29 route firmware;
-#X msg 104 70 connection closed;
-#X connect 2 0 1 0;
-#X connect 3 0 2 0;
-#X connect 4 0 3 0;
-#X connect 5 0 3 0;
-#X connect 6 0 9 0;
-#X connect 7 0 10 0;
-#X connect 8 0 2 0;
-#X connect 9 0 8 0;
-#X connect 9 1 7 0;
-#X connect 10 0 8 0;
-#X coords 0 -1 1 1 200 17 2 250 100;
-#X restore 126 226 pd ver;
-#X text 118 169 <- get protocol version;
-#X msg 59 193 firmware;
-#X text 84 121 select the serial port;
-#X text 86 141 close the serial port;
-#X msg 29 123 open \$1;
-#X floatatom 29 96 5 0 0 0 - - -;
-#X text 85 103 listed by the 'device' message above;
-#X obj 17 227 send \$0-arduino;
-#X text 84 88 enter the number of your serial device;
-#X text 67 94 <-;
 #X obj 2 260 cnv 15 400 200 empty empty empty 12 12 0 10 -233017 -66577
 0;
-#X obj 405 47 cnv 15 230 230 empty empty arduino_object 12 12 0 10
--233017 -66577 0;
-#X obj 405 280 cnv 15 230 200 empty empty example 12 12 0 10 -233017
+#X obj 405 47 cnv 15 230 210 empty empty empty 12 12 0 10 -233017 -66577
+0;
+#X obj 405 260 cnv 15 230 200 empty empty empty 12 12 0 10 -233017
 -66577 0;
-#X text 423 497 2006 \, released under GNU GPL \; Gerda Strobl \, Georg
-Holzmann;
-#X text 424 529 slight cosmetics in 2011 by;
-#X msg 440 413 digital 13 \$1;
-#X obj 440 395 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0
+#X msg 440 389 digital 13 \$1;
+#X obj 440 371 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0
 1;
-#X msg 419 356 pinMode 13 output;
-#X obj 416 433 cnv 15 100 26 empty empty empty 20 12 0 14 -257985 -66577
-0;
-#X obj 419 436 send \$0-arduino;
-#X text 416 321 the pins for digital IO:;
-#X text 456 392 <- toggle pin 13 on and off;
-#X text 544 358 output mode;
-#X text 543 346 set pin 13 to;
-#X text 527 353 <-;
-#X text 415 305 Example to set input/output mode of;
+#X msg 419 330 pinMode 13 output;
+#X obj 419 416 send \$0-arduino;
+#X text 456 368 <- toggle pin 13 on and off;
+#X text 544 332 output mode;
+#X text 543 320 set pin 13 to;
+#X text 527 327 <-;
 #X obj 418 131 arduino 1;
-#X obj 469 181 send \$0-arduino-info;
-#X obj 477 161 print INFO;
-#X obj 414 76 cnv 15 120 26 empty empty empty 20 12 0 14 -257985 -66577
-0;
+#X obj 469 164 send \$0-arduino-info;
 #X obj 418 82 receive \$0-arduino;
-#X obj 414 201 cnv 15 125 26 empty empty empty 20 12 0 14 -159808 -66577
-0;
-#X obj 418 205 send \$0-arduino-out;
-#X text 496 114 here's our;
-#X text 495 128 Arduino object;
+#X obj 418 188 send \$0-arduino-out;
+#X text 495 122 here's our;
+#X text 494 134 Arduino object;
 #X text 479 130 <-;
-#X obj 2 -6 cnv 15 633 50 empty empty empty 12 10 0 10 -233017 -66577
+#X obj 2 -6 cnv 15 400 50 empty empty empty 12 10 0 10 -233017 -66577
 0;
-#X text 253 20 Arduino Interface For PD;
-#X text 280 5 ::::_PDUINO_::::;
-#X obj 9 12 cnv 15 230 30 empty empty empty 20 12 0 14 -261234 -66577
-0;
-#N canvas 700 111 445 342 INSTALL-NOTES 0;
-#X text 20 15 1 General information on arduino: http://www.arduino.cc
-;
-#X text 20 113 3 The StandardFirmata firmware is the best place to
-start.;
-#X text 34 159 [comport] \, from pd-svn/externals/iem/comport;
-#X text 34 174 [moocow] \, from pd-svn/externals/moocow;
-#X text 20 36 2 You need to install a Firmata firmware. There are a
-;
-#X text 33 50 bunch of Firmata firmwares included with Arduino. Use
-Firmata >=2.2 (included in Arduino 22 or newer) for best results. Arduino
-UNO boards come with Firmata v2.2 pre-installed.;
-#X text 35 191 Pd-extended already covers all dependencies.;
-#X text 21 143 4 [arduino] needs the following externals:;
-#X text 22 219 5 If you still have troubles \, mail to the pd list
-!;
-#X text 20 266 pd-svn: https://pure-data.svn.sourceforge.net/svnroot/pure-data/trunk/externals/hardware/arduino
-;
-#X restore 14 18 pd INSTALL-NOTES;
-#X text 119 16 <- read this first;
-#X text 425 543 Roman Haefeli and Olsen;
-#X text 70 70 <- list devices -> check the pd-console output!;
-#X text 482 142 argument sets serial port;
-#X text 17 365 Pure Data -> World;
+#X text 16 365 Pure Data -> World;
 #X text 188 365 World -> Pure Data;
 #N canvas 0 44 774 440 OUTPUT_DIGITAL 0;
 #X obj 129 182 tgl 15 0 empty empty 7 4 -6 1 10 -233017 -1 -1 0 1;
@@ -510,10 +433,10 @@ its pin mode to 'pwm' first.;
 #X obj 27 162 hsl 101 15 0 1 0 0 empty empty value -2 -8 0 10 -228856
 -1 -1 0 1;
 #X obj 117 187 nbx 3 14 -1e+37 1e+37 0 0 empty empty pin_No. 40 6 0
-10 -228856 -1 -1 0 256;
+10 -228856 -1 -1 9 256;
 #X text 367 180 Set the individual pins to a certain value.;
 #X text 366 153 SET PWM VALUE;
-#X msg 24 83;
+#X msg 24 83 pinMode 9 pwm;
 #X text 365 89 Only a few pins (the ones colored light-grey) support
 'pwm' mode.;
 #X text 366 256 The default value for pins in 'pwm' mode is 0;
@@ -620,7 +543,7 @@ its pin mode to 'pwm' first.;
 #X connect 4 0 1 0;
 #X restore 24 207 pd analog_______;
 #X text 323 7 A5;
-#X msg 24 234;
+#X msg 24 234 analog 9 0;
 #X connect 4 0 38 3;
 #X connect 6 0 38 5;
 #X connect 7 0 38 6;
@@ -1604,32 +1527,11 @@ is 10ms (eguals 100Hz).;
 #X text 55 374 port 2 : pins 16 - 19;
 #X text 181 236 V;
 #X text 181 246 3;
-#X restore 21 329 pd Pin Numbering Map;
-#X text 108 305 <- configure pins for different modes;
-#X text 7 -7 1) Installation;
+#X restore 18 327 pd Pin Numbering Map;
+#X text 105 305 <- configure pins for different modes;
+#X text 6 -2 1) Installation;
 #X text 6 49 2) Serial connection;
-#X text 10 266 3) Set pins \, send and receive messages;
-#N canvas 147 357 559 381 ADDITIONAL_INFOS 0;
-#X text 58 326 http://answers.ros.org/answers/101/revisions/;
-#X text 68 170 $ udevadm control u2013reload-rules;
-#X text 72 90 $ echo 'SUBSYSTEMS=="usb" \, KERNEL=="ttyUSB[0-9]*" \,
-ATTRSidVendor=="0403" \, ATTRSidProduct=="6001" \, SYMLINK+="arduino/ftdi_%sserial"'
-> /etc/udev/rules.d/52-ftdi.rules;
-#X msg 73 254 open /dev/arduino/ftdi_A9005eBF;
-#X text 72 231 your open message then looks f.e. like this:;
-#X obj 73 285 arduino;
-#X text 54 155 2 reload your udev rules:;
-#X obj 47 25 cnv 15 430 45 empty empty empty 20 12 0 14 -261234 -66577
-0;
-#X text 51 72 1 execute this command as root:;
-#X text 53 196 3 you should get a unique symlink of your device in
-/dev/arduino/ftdi_yourserialddress.;
-#X text 58 313 info source:;
-#X text 52 26 how to make shure that various arduinos plugged into
-one Linux-system are always connected to the same arduino object after
-unplugging/reboot:;
-#X connect 3 0 5 0;
-#X restore 85 538 pd ADDITIONAL_INFOS;
+#X text 6 269 3) Set pins \, send and receive messages;
 #N canvas 85 44 525 586 PIN_MODES 0;
 #X text 16 35 Most pins of the Arduino board support different modes.
 You may need to tell the Arduino in which mode you intend to use a
@@ -1690,7 +1592,34 @@ only a subset of the available modes.;
 #X connect 27 0 28 1;
 #X connect 28 0 39 0;
 #X connect 39 0 25 0;
-#X restore 21 304 pd PIN_MODES;
+#X restore 18 304 pd PIN_MODES;
+#X text 528 496 Olsen Wolf;
+#X text 492 511 2006 \, Georg Holzmann;
+#X text 528 526 Gerda Strobl;
+#X text 492 481 2012 \, Roman Haefeli;
+#N canvas 700 111 452 364 INSTALL_NOTES 0;
+#X text 19 143 3 The StandardFirmata firmware is the best place to
+start.;
+#X text 31 186 [comport] \, from pd-svn/externals/iem/comport;
+#X text 31 199 [moocow] \, from pd-svn/externals/moocow;
+#X text 20 60 2 You need to install a Firmata firmware. There are a
+;
+#X text 19 173 4 [arduino] needs the following externals:;
+#X text 19 259 5 If you still have troubles \, mail to the pd list
+!;
+#X text 20 296 pd-svn: https://pure-data.svn.sourceforge.net/svnroot/pure-data/trunk/externals/hardware/arduino
+;
+#X text 32 30 http://www.arduino.cc;
+#X text 20 15 1 General information about Arduino:;
+#X text 32 216 NOTE:;
+#X text 31 74 bunch of Firmata firmwares included with the Arduino
+IDE. Use Firmata >=2.2 (included in Arduino 22 or newer) for best results.
+Arduino UNO boards come with Firmata v2.2 pre-installed.;
+#X text 32 229 Pd-extended already covers all necessary dependencies.
+;
+#X restore 18 18 pd INSTALL_NOTES;
+#X obj 2 463 cnv 15 400 100 empty empty empty 12 12 0 10 -233017 -66577
+0;
 #N canvas 109 44 581 535 REFERENCE 0;
 #X text 9 14 LIST OF COMMANDS;
 #X msg 12 207 digital <pin#> <0|1>;
@@ -1731,18 +1660,83 @@ ms);
 #X msg 12 475 analog <apin#> <0...1>;
 #X text 197 475 - current value of analog input pin;
 #X text 197 452 - current state of digital input pin;
-#X restore 215 546 pd REFERENCE;
-#X text 119 194 <- get firmware specification;
-#X connect 1 0 12 0;
-#X connect 2 0 12 0;
-#X connect 3 0 12 0;
-#X connect 6 0 12 0;
-#X connect 9 0 12 0;
-#X connect 10 0 9 0;
-#X connect 20 0 24 0;
-#X connect 21 0 20 0;
-#X connect 22 0 24 0;
-#X connect 31 0 37 0;
-#X connect 31 1 32 0;
-#X connect 31 1 33 0;
-#X connect 35 0 31 0;
+#X restore 18 495 pd REFERENCE;
+#N canvas 147 357 559 381 PERSISTENT_DEVICENAMES_IN_LINUX 0;
+#X text 58 326 http://answers.ros.org/answers/101/revisions/;
+#X text 68 170 $ udevadm control u2013reload-rules;
+#X text 72 90 $ echo 'SUBSYSTEMS=="usb" \, KERNEL=="ttyUSB[0-9]*" \,
+ATTRSidVendor=="0403" \, ATTRSidProduct=="6001" \, SYMLINK+="arduino/ftdi_%sserial"'
+> /etc/udev/rules.d/52-ftdi.rules;
+#X msg 73 254 open /dev/arduino/ftdi_A9005eBF;
+#X text 72 231 your open message then looks f.e. like this:;
+#X obj 73 285 arduino;
+#X text 54 155 2 reload your udev rules:;
+#X obj 47 25 cnv 15 430 45 empty empty empty 20 12 0 14 -261234 -66577
+0;
+#X text 51 72 1 execute this command as root:;
+#X text 53 196 3 you should get a unique symlink of your device in
+/dev/arduino/ftdi_yourserialddress.;
+#X text 58 313 info source:;
+#X text 52 26 how to make shure that various arduinos plugged into
+one Linux-system are always connected to the same arduino object after
+unplugging/reboot:;
+#X connect 3 0 5 0;
+#X restore 18 518 pd PERSISTENT_DEVICENAMES_IN_LINUX;
+#X text 10 469 4) Supplementary information;
+#X msg 47 144 close;
+#X msg 18 70 devices;
+#X msg 60 171 version;
+#N canvas 126 230 546 358 ver 0;
+#X obj 250 100 cnv 15 200 17 empty \$0-version_cnv empty 4 10 0 12
+-262144 -1 0;
+#X obj 23 201 send \$0-version_cnv;
+#X msg 23 176 label \$1;
+#X obj 48 147 symbol;
+#X obj 38 121 loadbang;
+#X msg 96 122 bang;
+#X obj 23 6 receive \$0-arduino-info;
+#X obj 104 49 route -1;
+#X obj 23 93 includes/agop.symbol2list;
+#X obj 23 29 route firmware;
+#X msg 104 70 connection closed;
+#X connect 2 0 1 0;
+#X connect 3 0 2 0;
+#X connect 4 0 3 0;
+#X connect 5 0 3 0;
+#X connect 6 0 9 0;
+#X connect 7 0 10 0;
+#X connect 8 0 2 0;
+#X connect 9 0 8 0;
+#X connect 9 1 7 0;
+#X connect 10 0 8 0;
+#X coords 0 -1 1 1 200 17 2 250 100;
+#X restore 127 228 pd ver;
+#X text 119 170 <- get protocol version;
+#X msg 60 194 firmware;
+#X text 87 142 close the serial port;
+#X msg 30 119 open \$1;
+#X floatatom 30 97 5 0 0 0 - - -;
+#X text 86 104 listed by the 'device' message above;
+#X obj 18 228 send \$0-arduino;
+#X text 85 89 enter the number of your serial device;
+#X text 68 95 <-;
+#X text 71 71 <- list devices -> check the pd-console output!;
+#X text 120 195 <- get firmware specification;
+#X text 85 120 open serial port to Arduino board;
+#X text 423 20 Arduino Interface For Pure Data;
+#X text 454 5 ::::_ [arduino] _::::;
+#X text 410 264 EXAMPLE;
+#X text 411 284 Turn the built-in LED on pin 13 on;
+#X text 411 299 and off:;
+#X connect 4 0 7 0;
+#X connect 5 0 4 0;
+#X connect 6 0 7 0;
+#X connect 12 0 15 0;
+#X connect 12 1 13 0;
+#X connect 14 0 12 0;
+#X connect 42 0 52 0;
+#X connect 43 0 52 0;
+#X connect 44 0 52 0;
+#X connect 47 0 52 0;
+#X connect 49 0 52 0;
+#X connect 50 0 49 0;
