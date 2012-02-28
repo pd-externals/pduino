@@ -437,7 +437,6 @@ its pin mode to 'pwm' first.;
 10 -228856 -1 -1 0 256;
 #X text 367 180 Set the individual pins to a certain value.;
 #X text 366 153 SET PWM VALUE;
-#X msg 24 83 pinMode 9 pwm;
 #X text 365 89 Only a few pins (the ones colored light-grey) support
 'pwm' mode.;
 #X text 366 256 The default value for pins in 'pwm' mode is 0;
@@ -551,18 +550,19 @@ its pin mode to 'pwm' first.;
 0;
 #X obj 24 263 send \$0-arduino;
 #X obj 24 109 send \$0-arduino;
-#X connect 3 0 36 3;
-#X connect 5 0 36 5;
-#X connect 6 0 36 6;
-#X connect 8 0 36 9;
-#X connect 9 0 36 10;
-#X connect 10 0 36 11;
-#X connect 29 0 37 0;
-#X connect 30 0 37 1;
-#X connect 33 0 43 0;
-#X connect 36 0 33 0;
-#X connect 37 0 39 0;
-#X connect 39 0 42 0;
+#X msg 24 83;
+#X connect 3 0 35 3;
+#X connect 5 0 35 5;
+#X connect 6 0 35 6;
+#X connect 8 0 35 9;
+#X connect 9 0 35 10;
+#X connect 10 0 35 11;
+#X connect 29 0 36 0;
+#X connect 30 0 36 1;
+#X connect 35 0 43 0;
+#X connect 36 0 38 0;
+#X connect 38 0 41 0;
+#X connect 43 0 42 0;
 #X restore 18 408 pd OUTPUT_PWM;
 #N canvas 73 44 785 319 OUTPUT_SERVO 0;
 #X obj 24 36 bng 15 250 50 0 empty empty 0 1 -6 1 10 -99865 -1 -1;
@@ -1439,37 +1439,37 @@ is 10ms (eguals 100Hz).;
 #X text 6 -2 1) Installation;
 #X text 6 49 2) Serial connection;
 #X text 6 269 3) Set pins \, send and receive messages;
-#N canvas 85 44 525 586 PIN_MODES 0;
+#N canvas 85 44 525 562 PIN_MODES 0;
 #X text 16 35 Most pins of the Arduino board support different modes.
 You may need to tell the Arduino in which mode you intend to use a
 certain pin. This is achieved with the 'pinMode' command:;
 #X msg 45 111 pinMode <pin#> <mode>;
-#X msg 18 266 pinMode 11 output;
-#X msg 18 243 pinMode 11 input;
-#X msg 18 289 pinMode 16 analog;
-#X msg 18 312 pinMode 11 pwm;
-#X msg 18 335 pinMode 11 servo;
-#X msg 168 243 pinMode 11 0;
-#X msg 168 266 pinMode 11 1;
-#X msg 168 289 pinMode 16 2;
-#X msg 168 312 pinMode 11 3;
-#X msg 168 335 pinMode 11 4;
-#X text 287 243 digital input;
-#X text 287 267 digital output;
-#X text 287 290 analog input;
-#X text 287 313 pulse width modulation (output);
-#X text 287 335 servo (output);
-#X text 15 380 SET PIN MODE;
+#X msg 18 252 pinMode 11 output;
+#X msg 18 229 pinMode 11 input;
+#X msg 18 275 pinMode 16 analog;
+#X msg 18 298 pinMode 11 pwm;
+#X msg 18 321 pinMode 11 servo;
+#X msg 168 229 pinMode 11 0;
+#X msg 168 252 pinMode 11 1;
+#X msg 168 275 pinMode 16 2;
+#X msg 168 298 pinMode 11 3;
+#X msg 168 321 pinMode 11 4;
+#X text 287 229 digital input;
+#X text 287 253 digital output;
+#X text 287 276 analog input;
+#X text 287 299 pulse width modulation (output);
+#X text 287 321 servo (output);
+#X text 15 366 SET PIN MODE;
 #X text 15 13 PIN MODES;
-#X obj 18 405 vradio 15 1 0 5 empty empty empty 0 -8 0 10 -228856 -1
+#X obj 18 391 vradio 15 1 0 5 empty empty empty 0 -8 0 10 -228856 -1
 -1 0;
-#X text 37 404 input;
-#X text 37 419 output;
-#X text 37 434 analog;
-#X text 37 449 pwm;
-#X text 37 464 servo;
-#X text 103 515 <-- COMMAND;
-#X obj 117 466 nbx 3 14 -1e+37 1e+37 0 0 empty empty pin_No. 40 6 0
+#X text 37 390 input;
+#X text 37 405 output;
+#X text 37 420 analog;
+#X text 37 435 pwm;
+#X text 37 450 servo;
+#X text 103 501 <-- COMMAND;
+#X obj 117 452 nbx 3 14 -1e+37 1e+37 0 0 empty empty pin_No. 40 6 0
 10 -228856 -1 -1 0 256;
 #N canvas 101 162 296 179 pinMode_______ 0;
 #X obj 32 22 inlet;
@@ -1481,26 +1481,26 @@ certain pin. This is achieved with the 'pinMode' command:;
 #X connect 2 0 3 1;
 #X connect 3 0 4 0;
 #X connect 4 0 1 0;
-#X restore 18 487 pd pinMode_______;
-#X text 137 243 ==;
-#X text 137 267 ==;
-#X text 137 290 ==;
-#X text 137 313 ==;
-#X text 137 335 ==;
+#X restore 18 473 pd pinMode_______;
+#X text 137 229 ==;
+#X text 137 253 ==;
+#X text 137 276 ==;
+#X text 137 299 ==;
+#X text 137 321 ==;
 #X text 15 140 NOTE:;
-#X obj 9 199 cnv 1 500 1 empty empty empty 20 12 0 14 -1 -66577 0;
-#X obj 9 368 cnv 1 500 1 empty empty empty 20 12 0 14 -1 -66577 0;
-#X text 16 156 Not every pin supports every mode. Each pin supports
-only a subset of the available modes.;
-#X text 15 212 LIST OF AVAILABLE PIN MODES;
-#X msg 18 514;
-#X obj 16 541 cnv 15 98 21 empty empty empty 20 12 0 14 -261234 -66577
+#X obj 9 185 cnv 1 500 1 empty empty empty 20 12 0 14 -1 -66577 0;
+#X obj 9 354 cnv 1 500 1 empty empty empty 20 12 0 14 -1 -66577 0;
+#X text 15 198 LIST OF AVAILABLE PIN MODES;
+#X msg 18 500;
+#X obj 16 527 cnv 15 98 21 empty empty empty 20 12 0 14 -261234 -66577
 0;
-#X obj 18 543 send \$0-arduino;
+#X obj 18 529 send \$0-arduino;
+#X text 16 156 Each pin supports only a subset of the available modes.
+;
 #X connect 19 0 27 0;
 #X connect 26 0 27 1;
-#X connect 27 0 38 0;
-#X connect 38 0 40 0;
+#X connect 27 0 37 0;
+#X connect 37 0 39 0;
 #X restore 18 304 pd PIN_MODES;
 #X text 528 496 Olsen Wolf;
 #X text 492 511 2006 \, Georg Holzmann;
@@ -1642,137 +1642,149 @@ unplugging/reboot:;
 #X text 411 299 and off:;
 #X text 83 122 <- open serial port to Arduino board;
 #X text 87 144 <- close the serial port;
-#N canvas 386 44 492 754 PIN_MODE_MATRIX 0;
-#X obj 20 30 cnv 15 280 200 empty empty empty 20 12 0 14 -67964 -66577
+#X obj 416 186 cnv 15 122 21 empty empty empty 20 12 0 14 -203904 -66577
 0;
-#X obj 90 32 tgl 13 0 empty empty empty 0 23 1 9 -99865 -1 -191407
+#X obj 418 188 send \$0-arduino-out;
+#X obj 416 80 cnv 15 116 21 empty empty empty 20 12 0 14 -261234 -66577
+0;
+#X obj 418 82 receive \$0-arduino;
+#X obj 16 226 cnv 15 98 21 empty empty empty 20 12 0 14 -261234 -66577
+0;
+#X obj 18 228 send \$0-arduino;
+#X obj 417 414 cnv 15 98 21 empty empty empty 20 12 0 14 -261234 -66577
+0;
+#X obj 419 416 send \$0-arduino;
+#N canvas 386 44 492 754 PIN_PROPERTIES_INFO 0;
+#X obj 20 37 cnv 15 280 200 empty empty empty 20 12 0 14 -67964 -66577
+0;
+#X obj 90 39 tgl 13 0 empty empty empty 0 23 1 9 -99865 -1 -191407
 0 1;
-#X obj 116 32 tgl 13 0 empty empty 13 0 23 1 9 -228856 -262144 -262144
+#X obj 116 39 tgl 13 0 empty empty 13 0 23 1 9 -228856 -262144 -262144
 0 1;
-#X obj 129 32 tgl 13 0 empty empty 12 0 23 1 9 -228856 -262144 -262144
+#X obj 129 39 tgl 13 0 empty empty 12 0 23 1 9 -228856 -262144 -262144
 0 1;
-#X obj 155 32 tgl 13 0 empty empty 10 0 23 1 9 -228856 -262144 -262144
+#X obj 155 39 tgl 13 0 empty empty 10 0 23 1 9 -228856 -262144 -262144
 0 1;
-#X obj 142 32 tgl 13 0 empty empty 11 0 23 1 9 -228856 -262144 -262144
+#X obj 142 39 tgl 13 0 empty empty 11 0 23 1 9 -228856 -262144 -262144
 0 1;
-#X obj 168 32 tgl 13 0 empty empty 9 5 23 1 9 -228856 -262144 -262144
+#X obj 168 39 tgl 13 0 empty empty 9 5 23 1 9 -228856 -262144 -262144
 0 1;
-#X obj 181 32 tgl 13 0 empty empty 8 5 23 1 9 -228856 -262144 -262144
+#X obj 181 39 tgl 13 0 empty empty 8 5 23 1 9 -228856 -262144 -262144
 0 1;
-#X obj 194 32 tgl 13 0 empty empty 7 5 23 1 9 -228856 -262144 -262144
+#X obj 194 39 tgl 13 0 empty empty 7 5 23 1 9 -228856 -262144 -262144
 0 1;
-#X obj 207 32 tgl 13 0 empty empty 6 5 23 1 9 -228856 -262144 -262144
+#X obj 207 39 tgl 13 0 empty empty 6 5 23 1 9 -228856 -262144 -262144
 0 1;
-#X obj 220 32 tgl 13 0 empty empty 5 5 23 1 9 -228856 -262144 -262144
+#X obj 220 39 tgl 13 0 empty empty 5 5 23 1 9 -228856 -262144 -262144
 0 1;
-#X obj 233 32 tgl 13 0 empty empty 4 5 23 1 9 -228856 -262144 -262144
+#X obj 233 39 tgl 13 0 empty empty 4 5 23 1 9 -228856 -262144 -262144
 0 1;
-#X obj 246 32 tgl 13 0 empty empty 3 5 23 1 9 -228856 -262144 -262144
+#X obj 246 39 tgl 13 0 empty empty 3 5 23 1 9 -228856 -262144 -262144
 0 1;
-#X obj 259 32 tgl 13 0 empty empty 2 5 23 1 9 -228856 -262144 -262144
+#X obj 259 39 tgl 13 0 empty empty 2 5 23 1 9 -228856 -262144 -262144
 0 1;
-#X obj 272 32 tgl 13 0 empty empty 1 5 23 1 9 -99865 -262144 -191407
+#X obj 272 39 tgl 13 0 empty empty 1 5 23 1 9 -99865 -262144 -191407
 0 1;
-#X obj 285 32 tgl 13 0 empty empty 0 5 23 1 9 -99865 -262144 -191407
+#X obj 285 39 tgl 13 0 empty empty 0 5 23 1 9 -99865 -262144 -191407
 0 1;
-#X text 287 56 R;
-#X text 287 67 X;
-#X text 271 56 T;
-#X text 271 67 X;
-#X obj 103 32 tgl 13 0 empty empty empty 0 23 1 9 -99865 -1 -191407
+#X text 287 63 R;
+#X text 287 74 X;
+#X text 271 63 T;
+#X text 271 74 X;
+#X obj 103 39 tgl 13 0 empty empty empty 0 23 1 9 -99865 -1 -191407
 0 1;
-#X text 104 57 G;
-#X text 104 67 N;
-#X text 104 77 D;
-#X text 92 57 A;
-#X text 92 67 R;
-#X text 92 77 E;
-#X text 92 87 F;
-#X obj 220 215 tgl 13 0 empty empty 14 0 -6 1 9 -228856 -262144 -262144
+#X text 104 64 G;
+#X text 104 74 N;
+#X text 104 84 D;
+#X text 92 64 A;
+#X text 92 74 R;
+#X text 92 84 E;
+#X text 92 94 F;
+#X obj 220 222 tgl 13 0 empty empty 14 0 -6 1 9 -228856 -262144 -262144
 0 1;
-#X obj 233 215 tgl 13 0 empty empty 15 0 -6 1 9 -228856 -262144 -262144
+#X obj 233 222 tgl 13 0 empty empty 15 0 -6 1 9 -228856 -262144 -262144
 0 1;
-#X obj 246 215 tgl 13 0 empty empty 16 0 -6 1 9 -228856 -262144 -262144
+#X obj 246 222 tgl 13 0 empty empty 16 0 -6 1 9 -228856 -262144 -262144
 0 1;
-#X obj 259 215 tgl 13 0 empty empty 17 0 -6 1 9 -228856 -262144 -262144
+#X obj 259 222 tgl 13 0 empty empty 17 0 -6 1 9 -228856 -262144 -262144
 0 1;
-#X obj 272 215 tgl 13 0 empty empty 18 0 -6 1 9 -228856 -262144 -262144
+#X obj 272 222 tgl 13 0 empty empty 18 0 -6 1 9 -228856 -262144 -262144
 0 1;
-#X obj 285 215 tgl 13 0 empty empty 19 0 -6 1 9 -228856 -262144 -262144
+#X obj 285 222 tgl 13 0 empty empty 19 0 -6 1 9 -228856 -262144 -262144
 0 1;
-#X text 142 57 P;
-#X text 143 67 W;
-#X text 142 77 M;
-#X obj 194 215 tgl 13 0 empty empty empty 0 -6 1 9 -99865 -262144 -262144
+#X text 142 64 P;
+#X text 143 74 W;
+#X text 142 84 M;
+#X obj 194 222 tgl 13 0 empty empty empty 0 -6 1 9 -99865 -262144 -262144
 0 1;
-#X text 197 181 V;
-#X text 197 191 i;
-#X text 197 199 n;
-#X obj 181 215 tgl 13 0 empty empty empty 0 23 1 9 -99865 -1 -191407
+#X text 197 188 V;
+#X text 197 198 i;
+#X text 197 206 n;
+#X obj 181 222 tgl 13 0 empty empty empty 0 23 1 9 -99865 -1 -191407
 0 1;
-#X text 182 177 G;
-#X text 182 188 N;
-#X text 182 199 D;
-#X obj 168 215 tgl 13 0 empty empty empty 0 23 1 9 -99865 -1 -191407
+#X text 182 184 G;
+#X text 182 195 N;
+#X text 182 206 D;
+#X obj 168 222 tgl 13 0 empty empty empty 0 23 1 9 -99865 -1 -191407
 0 1;
-#X text 169 177 G;
-#X text 169 188 N;
-#X text 169 199 D;
-#X obj 155 215 tgl 13 0 empty empty empty 0 -6 1 9 -99865 -262144 -262144
+#X text 169 184 G;
+#X text 169 195 N;
+#X text 169 206 D;
+#X obj 155 222 tgl 13 0 empty empty empty 0 -6 1 9 -99865 -262144 -262144
 0 1;
-#X text 156 188 5;
-#X text 156 198 V;
-#X obj 142 215 tgl 13 0 empty empty empty 0 -6 1 9 -99865 -262144 -262144
+#X text 156 195 5;
+#X text 156 205 V;
+#X obj 142 222 tgl 13 0 empty empty empty 0 -6 1 9 -99865 -262144 -262144
 0 1;
-#X text 143 178 3;
-#X obj 129 215 tgl 13 0 empty empty empty 0 23 1 9 -99865 -1 -191407
+#X text 143 185 3;
+#X obj 129 222 tgl 13 0 empty empty empty 0 23 1 9 -99865 -1 -191407
 0 1;
-#X text 130 199 T;
-#X text 130 177 R;
-#X text 130 188 S;
-#X text 218 188 A0;
-#X text 232 188 A1;
-#X text 245 188 A2;
-#X text 257 188 A3;
-#X text 270 188 A4;
-#X text 283 188 A5;
+#X text 130 206 T;
+#X text 130 184 R;
+#X text 130 195 S;
+#X text 218 195 A0;
+#X text 232 195 A1;
+#X text 245 195 A2;
+#X text 257 195 A3;
+#X text 270 195 A4;
+#X text 283 195 A5;
 #X text 331 33 port 0 : pins 2 - 7;
 #X text 331 50 port 1 : pins 8 - 15;
 #X text 331 67 port 2 : pins 16 - 19;
-#X text 143 188 V;
-#X text 143 198 3;
-#X text 155 57 P;
-#X text 156 67 W;
-#X text 155 77 M;
-#X text 168 57 P;
-#X text 169 67 W;
-#X text 168 77 M;
-#X text 210 57 P;
-#X text 211 67 W;
-#X text 210 77 M;
-#X text 223 57 P;
-#X text 224 67 W;
-#X text 223 77 M;
-#X text 248 57 P;
-#X text 249 67 W;
-#X text 248 77 M;
-#X text 31 119 Pin Layout for;
-#X text 31 134 Arduino \, NG \, Duemilanove \, Diecimila \, UNO;
-#X obj 220 215 tgl 13 0 empty empty 16 0 23 1 9 -228856 -262144 -258113
+#X text 143 195 V;
+#X text 143 205 3;
+#X text 155 64 P;
+#X text 156 74 W;
+#X text 155 84 M;
+#X text 168 64 P;
+#X text 169 74 W;
+#X text 168 84 M;
+#X text 210 64 P;
+#X text 211 74 W;
+#X text 210 84 M;
+#X text 223 64 P;
+#X text 224 74 W;
+#X text 223 84 M;
+#X text 248 64 P;
+#X text 249 74 W;
+#X text 248 84 M;
+#X text 31 126 Pin Layout for;
+#X text 31 141 Arduino \, NG \, Duemilanove \, Diecimila \, UNO;
+#X obj 220 222 tgl 13 0 empty empty 16 0 23 1 9 -228856 -262144 -258113
 0 1;
-#X obj 233 215 tgl 13 0 empty empty 17 0 23 1 9 -228856 -262144 -258113
+#X obj 233 222 tgl 13 0 empty empty 17 0 23 1 9 -228856 -262144 -258113
 0 1;
-#X obj 246 215 tgl 13 0 empty empty 18 0 23 1 9 -228856 -262144 -258113
+#X obj 246 222 tgl 13 0 empty empty 18 0 23 1 9 -228856 -262144 -258113
 0 1;
-#X obj 259 215 tgl 13 0 empty empty 19 0 23 1 9 -228856 -262144 -258113
+#X obj 259 222 tgl 13 0 empty empty 19 0 23 1 9 -228856 -262144 -258113
 0 1;
-#X obj 272 215 tgl 13 0 empty empty 20 0 23 1 9 -228856 -262144 -258113
+#X obj 272 222 tgl 13 0 empty empty 20 0 23 1 9 -228856 -262144 -258113
 0 1;
-#X obj 285 215 tgl 13 0 empty empty 21 0 23 1 9 -228856 -262144 -258113
+#X obj 285 222 tgl 13 0 empty empty 21 0 23 1 9 -228856 -262144 -258113
 0 1;
-#X obj 23 240 cnv 5 5 5 empty empty red:___Firmata_v2.2 0 0 0 10 -262144
+#X obj 23 247 cnv 5 5 5 empty empty red:___Firmata_v2.2 0 0 0 10 -262144
 -258113 0;
-#X obj 23 254 cnv 5 5 5 empty empty white:_Firmata_v2.3 0 0 0 10 -262144
+#X obj 23 261 cnv 5 5 5 empty empty white:_Firmata_v2.3 0 0 0 10 -262144
 -1 0;
 #X text 331 9 PORT<->PIN MAPPING;
 #X text 18 9 PIN NUMBERING MAP;
@@ -1915,28 +1927,16 @@ unplugging/reboot:;
 #X text 285 573 ONLY 2.3;
 #X text 285 693 ONLY 2.2;
 #X text 285 713 ONLY 2.2;
-#X restore 18 327 pd PIN_MODE_MATRIX;
-#X obj 416 186 cnv 15 122 21 empty empty empty 20 12 0 14 -203904 -66577
-0;
-#X obj 418 188 send \$0-arduino-out;
-#X obj 416 80 cnv 15 116 21 empty empty empty 20 12 0 14 -261234 -66577
-0;
-#X obj 418 82 receive \$0-arduino;
-#X obj 16 226 cnv 15 98 21 empty empty empty 20 12 0 14 -261234 -66577
-0;
-#X obj 18 228 send \$0-arduino;
-#X obj 417 414 cnv 15 98 21 empty empty empty 20 12 0 14 -261234 -66577
-0;
-#X obj 419 416 send \$0-arduino;
-#X connect 4 0 66 0;
+#X restore 18 327 pd PIN_PROPERTIES_INFO;
+#X connect 4 0 65 0;
 #X connect 5 0 4 0;
-#X connect 6 0 66 0;
-#X connect 11 0 60 0;
+#X connect 6 0 65 0;
+#X connect 11 0 59 0;
 #X connect 11 1 12 0;
-#X connect 38 0 64 0;
-#X connect 39 0 64 0;
-#X connect 40 0 64 0;
-#X connect 43 0 64 0;
-#X connect 44 0 64 0;
+#X connect 38 0 63 0;
+#X connect 39 0 63 0;
+#X connect 40 0 63 0;
+#X connect 43 0 63 0;
+#X connect 44 0 63 0;
 #X connect 45 0 44 0;
-#X connect 62 0 11 0;
+#X connect 61 0 11 0;
