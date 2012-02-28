@@ -20,8 +20,6 @@
 #X text 527 327 <-;
 #X obj 418 131 arduino 1;
 #X obj 469 164 send \$0-arduino-info;
-#X obj 418 82 receive \$0-arduino;
-#X obj 418 188 send \$0-arduino-out;
 #X text 495 122 here's our;
 #X text 494 134 Arduino object;
 #X text 479 130 <-;
@@ -56,8 +54,6 @@
 \, called a "port". Microcontrollers like the Arduino are organized
 around 8-bit ports. This allows you to set 8 pins at the same time
 with one message;
-#X obj 24 263 send \$0-arduino;
-#X obj 24 398 send \$0-arduino;
 #X obj 249 182 tgl 15 0 empty empty 14 0 -6 1 10 -233017 -1 -1 0 1
 ;
 #X obj 264 182 tgl 15 0 empty empty 15 0 -6 1 10 -233017 -1 -1 0 1
@@ -117,7 +113,6 @@ with one message;
 #X text 110 234 <-- COMMAND;
 #X text 134 84 <-- COMMAND;
 #X text 366 12 SET PIN MODE;
-#X obj 24 109 send \$0-arduino;
 #X obj 9 299 cnv 1 750 1 empty empty empty 20 12 0 14 -1 -66577 0;
 #X text 366 153 SET STATE (PER PIN);
 #X text 366 313 SET STATE (PER BLOCK);
@@ -336,53 +331,61 @@ its pin mode to 'output' first.;
 #X connect 4 0 2 0;
 #X restore 24 345 pd port_______;
 #X text 323 7 A5;
-#X connect 0 0 73 7;
-#X connect 1 0 73 8;
-#X connect 2 0 73 9;
-#X connect 3 0 73 10;
-#X connect 4 0 73 11;
-#X connect 5 0 73 12;
-#X connect 6 0 73 13;
-#X connect 7 0 73 2;
-#X connect 8 0 73 3;
-#X connect 9 0 73 4;
-#X connect 10 0 73 5;
-#X connect 11 0 73 6;
-#X connect 19 0 73 14;
-#X connect 20 0 73 15;
-#X connect 21 0 73 16;
-#X connect 22 0 73 17;
-#X connect 23 0 73 18;
-#X connect 24 0 73 19;
-#X connect 30 0 72 2;
-#X connect 31 0 72 3;
-#X connect 32 0 72 4;
-#X connect 33 0 72 5;
-#X connect 34 0 72 6;
-#X connect 35 0 72 8;
-#X connect 36 0 72 9;
-#X connect 37 0 72 10;
-#X connect 38 0 72 11;
-#X connect 39 0 72 12;
-#X connect 40 0 72 13;
-#X connect 41 0 72 14;
-#X connect 42 0 72 15;
-#X connect 43 0 72 16;
-#X connect 44 0 72 17;
-#X connect 45 0 72 18;
-#X connect 46 0 72 19;
-#X connect 47 0 72 7;
-#X connect 58 0 54 0;
-#X connect 59 0 17 0;
-#X connect 61 0 74 1;
-#X connect 62 0 74 0;
-#X connect 69 0 18 0;
-#X connect 72 0 58 0;
-#X connect 73 0 59 0;
-#X connect 74 0 69 0;
+#X obj 22 107 cnv 15 98 21 empty empty empty 20 12 0 14 -261234 -66577
+0;
+#X obj 22 261 cnv 15 98 21 empty empty empty 20 12 0 14 -261234 -66577
+0;
+#X obj 22 396 cnv 15 98 21 empty empty empty 20 12 0 14 -261234 -66577
+0;
+#X obj 24 263 send \$0-arduino;
+#X obj 24 398 send \$0-arduino;
+#X obj 24 109 send \$0-arduino;
+#X connect 0 0 70 7;
+#X connect 1 0 70 8;
+#X connect 2 0 70 9;
+#X connect 3 0 70 10;
+#X connect 4 0 70 11;
+#X connect 5 0 70 12;
+#X connect 6 0 70 13;
+#X connect 7 0 70 2;
+#X connect 8 0 70 3;
+#X connect 9 0 70 4;
+#X connect 10 0 70 5;
+#X connect 11 0 70 6;
+#X connect 17 0 70 14;
+#X connect 18 0 70 15;
+#X connect 19 0 70 16;
+#X connect 20 0 70 17;
+#X connect 21 0 70 18;
+#X connect 22 0 70 19;
+#X connect 28 0 69 2;
+#X connect 29 0 69 3;
+#X connect 30 0 69 4;
+#X connect 31 0 69 5;
+#X connect 32 0 69 6;
+#X connect 33 0 69 8;
+#X connect 34 0 69 9;
+#X connect 35 0 69 10;
+#X connect 36 0 69 11;
+#X connect 37 0 69 12;
+#X connect 38 0 69 13;
+#X connect 39 0 69 14;
+#X connect 40 0 69 15;
+#X connect 41 0 69 16;
+#X connect 42 0 69 17;
+#X connect 43 0 69 18;
+#X connect 44 0 69 19;
+#X connect 45 0 69 7;
+#X connect 55 0 78 0;
+#X connect 56 0 76 0;
+#X connect 58 0 71 1;
+#X connect 59 0 71 0;
+#X connect 66 0 77 0;
+#X connect 69 0 55 0;
+#X connect 70 0 56 0;
+#X connect 71 0 66 0;
 #X restore 18 385 pd OUTPUT_DIGITAL;
 #N canvas 35 44 785 319 OUTPUT_PWM 0;
-#X obj 24 263 send \$0-arduino;
 #X obj 24 36 bng 15 250 50 0 empty empty 0 1 -6 1 10 -99865 -1 -1;
 #X obj 39 36 bng 15 250 50 0 empty empty 1 1 -6 1 10 -99865 -1 -1;
 #X obj 54 36 bng 15 250 50 0 empty empty 2 1 -6 1 10 -99865 -1 -1;
@@ -425,7 +428,6 @@ its pin mode to 'output' first.;
 #X text 109 235 <-- COMMAND;
 #X text 120 85 <-- COMMAND;
 #X text 366 12 SET PIN MODE;
-#X obj 24 109 send \$0-arduino;
 #X text 365 70 NOTE:;
 #X text 365 240 NOTE:;
 #X text 365 32 To use a pin as a pwm/analog output \, you need to set
@@ -544,21 +546,26 @@ its pin mode to 'pwm' first.;
 #X restore 24 207 pd analog_______;
 #X text 323 7 A5;
 #X msg 24 234 analog 9 0;
-#X connect 4 0 38 3;
-#X connect 6 0 38 5;
-#X connect 7 0 38 6;
-#X connect 9 0 38 9;
-#X connect 10 0 38 10;
-#X connect 11 0 38 11;
-#X connect 31 0 39 0;
-#X connect 32 0 39 1;
-#X connect 35 0 27 0;
-#X connect 38 0 35 0;
-#X connect 39 0 41 0;
-#X connect 41 0 0 0;
+#X obj 22 107 cnv 15 98 21 empty empty empty 20 12 0 14 -261234 -66577
+0;
+#X obj 22 261 cnv 15 98 21 empty empty empty 20 12 0 14 -261234 -66577
+0;
+#X obj 24 263 send \$0-arduino;
+#X obj 24 109 send \$0-arduino;
+#X connect 3 0 36 3;
+#X connect 5 0 36 5;
+#X connect 6 0 36 6;
+#X connect 8 0 36 9;
+#X connect 9 0 36 10;
+#X connect 10 0 36 11;
+#X connect 29 0 37 0;
+#X connect 30 0 37 1;
+#X connect 33 0 43 0;
+#X connect 36 0 33 0;
+#X connect 37 0 39 0;
+#X connect 39 0 42 0;
 #X restore 18 408 pd OUTPUT_PWM;
 #N canvas 73 44 785 319 OUTPUT_SERVO 0;
-#X obj 24 263 send \$0-arduino;
 #X obj 24 36 bng 15 250 50 0 empty empty 0 1 -6 1 10 -99865 -1 -1;
 #X obj 39 36 bng 15 250 50 0 empty empty 1 1 -6 1 10 -99865 -1 -1;
 #X obj 54 36 bng 15 250 50 0 empty empty 2 1 -6 1 10 -228856 -1 -1
@@ -603,7 +610,6 @@ its pin mode to 'pwm' first.;
 #X text 115 235 <-- COMMAND;
 #X text 134 84 <-- COMMAND;
 #X text 366 12 SET PIN MODE;
-#X obj 24 109 send \$0-arduino;
 #X text 365 70 NOTE:;
 #X text 365 240 NOTE:;
 #X obj 27 162 hsl 101 15 0 1 0 0 empty empty value -2 -8 0 10 -228856
@@ -718,24 +724,30 @@ pin mode to 'servo' first.;
 #X connect 4 0 1 0;
 #X restore 24 207 pd analog____;
 #X text 323 7 A5;
-#X connect 3 0 39 2;
-#X connect 4 0 39 3;
-#X connect 5 0 39 4;
-#X connect 6 0 39 5;
-#X connect 7 0 39 6;
-#X connect 8 0 39 8;
-#X connect 9 0 39 9;
-#X connect 10 0 39 10;
-#X connect 11 0 39 11;
-#X connect 12 0 39 12;
-#X connect 13 0 39 13;
-#X connect 20 0 39 7;
-#X connect 30 0 40 0;
-#X connect 31 0 40 1;
-#X connect 35 0 0 0;
-#X connect 36 0 27 0;
-#X connect 39 0 36 0;
-#X connect 40 0 35 0;
+#X obj 22 107 cnv 15 98 21 empty empty empty 20 12 0 14 -261234 -66577
+0;
+#X obj 22 261 cnv 15 98 21 empty empty empty 20 12 0 14 -261234 -66577
+0;
+#X obj 24 263 send \$0-arduino;
+#X obj 24 109 send \$0-arduino;
+#X connect 2 0 37 2;
+#X connect 3 0 37 3;
+#X connect 4 0 37 4;
+#X connect 5 0 37 5;
+#X connect 6 0 37 6;
+#X connect 7 0 37 8;
+#X connect 8 0 37 9;
+#X connect 9 0 37 10;
+#X connect 10 0 37 11;
+#X connect 11 0 37 12;
+#X connect 12 0 37 13;
+#X connect 19 0 37 7;
+#X connect 28 0 38 0;
+#X connect 29 0 38 1;
+#X connect 33 0 42 0;
+#X connect 34 0 43 0;
+#X connect 37 0 34 0;
+#X connect 38 0 33 0;
 #X restore 18 431 pd OUTPUT_SERVO;
 #N canvas 0 44 775 601 INPUT_DIGITAL 0;
 #X obj 129 319 tgl 15 0 empty empty 7 4 -6 1 10 -233017 -1 -1 0 1;
@@ -760,8 +772,6 @@ pin mode to 'servo' first.;
 ;
 #X obj 40 320 cnv 13 13 13 empty empty Tx 0 8 0 10 -128992 -13381 0
 ;
-#X obj 24 400 send \$0-arduino;
-#X obj 24 535 send \$0-arduino;
 #X obj 249 319 tgl 15 0 empty empty 14 0 -6 1 10 -233017 -1 -1 0 1
 ;
 #X obj 264 319 tgl 15 0 empty empty 15 0 -6 1 10 -233017 -1 -1 0 1
@@ -820,7 +830,6 @@ pin mode to 'servo' first.;
 #X text 110 371 <-- COMMAND;
 #X text 134 84 <-- COMMAND;
 #X text 366 12 SET PIN MODE;
-#X obj 24 109 send \$0-arduino;
 #X obj 9 436 cnv 1 750 1 empty empty empty 20 12 0 14 -1 -66577 0;
 #X msg 24 371;
 #X text 121 510 <-- COMMAND;
@@ -829,7 +838,6 @@ pin mode to 'servo' first.;
 #X text 365 517 NOTE:;
 #X obj 9 276 cnv 1 750 1 empty empty empty 20 12 0 14 -1 -66577 0;
 #X obj 24 181 route digital;
-#X obj 24 159 r \$0-arduino-out;
 #X obj 129 232 tgl 15 0 empty empty 7 4 25 1 10 -203904 -1 -1 0 1;
 #X obj 144 232 tgl 15 0 empty empty 8 4 25 1 10 -203904 -1 -1 0 1;
 #X obj 159 232 tgl 15 0 empty empty 9 4 25 1 10 -203904 -1 -1 0 1;
@@ -1082,73 +1090,84 @@ command.;
 default.;
 #X text 323 7 A5;
 #X text 323 290 A5;
-#X connect 0 0 95 7;
-#X connect 1 0 95 8;
-#X connect 2 0 95 9;
-#X connect 3 0 95 10;
-#X connect 4 0 95 11;
-#X connect 5 0 95 12;
-#X connect 6 0 95 13;
-#X connect 7 0 95 2;
-#X connect 8 0 95 3;
-#X connect 9 0 95 4;
-#X connect 10 0 95 5;
-#X connect 11 0 95 6;
-#X connect 18 0 95 14;
-#X connect 19 0 95 15;
-#X connect 20 0 95 16;
-#X connect 21 0 95 17;
-#X connect 22 0 95 18;
-#X connect 23 0 95 19;
-#X connect 28 0 94 2;
-#X connect 29 0 94 3;
-#X connect 30 0 94 4;
-#X connect 31 0 94 5;
-#X connect 32 0 94 6;
-#X connect 33 0 94 8;
-#X connect 34 0 94 9;
-#X connect 35 0 94 10;
-#X connect 36 0 94 11;
-#X connect 37 0 94 12;
-#X connect 38 0 94 13;
-#X connect 39 0 94 14;
-#X connect 40 0 94 15;
-#X connect 41 0 94 16;
-#X connect 42 0 94 17;
-#X connect 43 0 94 18;
-#X connect 44 0 94 19;
-#X connect 45 0 94 7;
-#X connect 54 0 16 0;
-#X connect 56 0 91 1;
-#X connect 59 0 83 0;
-#X connect 60 0 59 0;
-#X connect 83 0 68 0;
-#X connect 83 1 69 0;
-#X connect 83 2 70 0;
-#X connect 83 3 71 0;
-#X connect 83 4 72 0;
-#X connect 83 5 61 0;
-#X connect 83 6 62 0;
-#X connect 83 7 63 0;
-#X connect 83 8 64 0;
-#X connect 83 9 65 0;
-#X connect 83 10 66 0;
-#X connect 83 11 67 0;
-#X connect 83 12 77 0;
-#X connect 83 13 78 0;
-#X connect 83 14 79 0;
-#X connect 83 15 80 0;
-#X connect 83 16 81 0;
-#X connect 83 17 82 0;
-#X connect 86 0 52 0;
-#X connect 91 0 93 0;
-#X connect 92 0 91 0;
-#X connect 93 0 17 0;
-#X connect 94 0 86 0;
-#X connect 95 0 54 0;
+#X obj 22 107 cnv 15 98 21 empty empty empty 20 12 0 14 -261234 -66577
+0;
+#X obj 22 533 cnv 15 98 21 empty empty empty 20 12 0 14 -261234 -66577
+0;
+#X obj 24 535 send \$0-arduino;
+#X obj 24 109 send \$0-arduino;
+#X obj 22 398 cnv 15 98 21 empty empty empty 20 12 0 14 -261234 -66577
+0;
+#X obj 24 400 send \$0-arduino;
+#X obj 22 157 cnv 15 140 21 empty empty empty 20 12 0 14 -203904 -66577
+0;
+#X obj 24 159 receive \$0-arduino-out;
+#X connect 0 0 91 7;
+#X connect 1 0 91 8;
+#X connect 2 0 91 9;
+#X connect 3 0 91 10;
+#X connect 4 0 91 11;
+#X connect 5 0 91 12;
+#X connect 6 0 91 13;
+#X connect 7 0 91 2;
+#X connect 8 0 91 3;
+#X connect 9 0 91 4;
+#X connect 10 0 91 5;
+#X connect 11 0 91 6;
+#X connect 16 0 91 14;
+#X connect 17 0 91 15;
+#X connect 18 0 91 16;
+#X connect 19 0 91 17;
+#X connect 20 0 91 18;
+#X connect 21 0 91 19;
+#X connect 26 0 90 2;
+#X connect 27 0 90 3;
+#X connect 28 0 90 4;
+#X connect 29 0 90 5;
+#X connect 30 0 90 6;
+#X connect 31 0 90 8;
+#X connect 32 0 90 9;
+#X connect 33 0 90 10;
+#X connect 34 0 90 11;
+#X connect 35 0 90 12;
+#X connect 36 0 90 13;
+#X connect 37 0 90 14;
+#X connect 38 0 90 15;
+#X connect 39 0 90 16;
+#X connect 40 0 90 17;
+#X connect 41 0 90 18;
+#X connect 42 0 90 19;
+#X connect 43 0 90 7;
+#X connect 51 0 103 0;
+#X connect 53 0 87 1;
+#X connect 56 0 79 0;
+#X connect 79 0 64 0;
+#X connect 79 1 65 0;
+#X connect 79 2 66 0;
+#X connect 79 3 67 0;
+#X connect 79 4 68 0;
+#X connect 79 5 57 0;
+#X connect 79 6 58 0;
+#X connect 79 7 59 0;
+#X connect 79 8 60 0;
+#X connect 79 9 61 0;
+#X connect 79 10 62 0;
+#X connect 79 11 63 0;
+#X connect 79 12 73 0;
+#X connect 79 13 74 0;
+#X connect 79 14 75 0;
+#X connect 79 15 76 0;
+#X connect 79 16 77 0;
+#X connect 79 17 78 0;
+#X connect 82 0 101 0;
+#X connect 87 0 89 0;
+#X connect 88 0 87 0;
+#X connect 89 0 100 0;
+#X connect 90 0 82 0;
+#X connect 91 0 51 0;
+#X connect 105 0 56 0;
 #X restore 189 385 pd INPUT_DIGITAL;
-#N canvas 0 44 776 666 INPUT_ANALOG 0;
-#X obj 24 418 send \$0-arduino;
+#N canvas 49 44 776 666 INPUT_ANALOG 0;
 #X obj 24 36 bng 15 250 50 0 empty empty 0 1 -6 1 10 -99865 -1 -1;
 #X obj 39 36 bng 15 250 50 0 empty empty 1 1 -6 1 10 -99865 -1 -1;
 #X obj 54 36 bng 15 250 50 0 empty empty 2 1 -6 1 10 -99865 -1 -1;
@@ -1188,11 +1207,9 @@ default.;
 #X obj 9 142 cnv 1 750 1 empty empty empty 20 12 0 14 -1 -66577 0;
 #X text 134 84 <-- COMMAND;
 #X text 364 12 SET PIN MODE;
-#X obj 24 109 send \$0-arduino;
 #X obj 9 319 cnv 1 750 1 empty empty empty 20 12 0 14 -1 -66577 0;
 #X text 121 393 <-- COMMAND;
 #X text 365 393 NOTE:;
-#X obj 24 162 r \$0-arduino-out;
 #X msg 24 83;
 #N canvas 101 162 791 311 pinMode______________________________________
 0;
@@ -1358,7 +1375,6 @@ this command.;
 default.;
 #X text 366 476 Also here \, the numbering differs from the numbering
 to set the pin mode.;
-#X obj 24 616 send \$0-arduino;
 #X obj 9 517 cnv 1 750 1 empty empty empty 20 12 0 14 -1 -66577 0;
 #X text 165 592 <-- COMMAND;
 #X text 365 530 SET THE SAMPLING INTERVAL;
@@ -1380,154 +1396,46 @@ the rate.;
 #X text 365 603 NOTE:;
 #X text 366 619 The default value is 20ms. The mininum interval time
 is 10ms (eguals 100Hz).;
-#X connect 14 0 32 14;
-#X connect 15 0 32 15;
-#X connect 16 0 32 16;
-#X connect 17 0 32 17;
-#X connect 18 0 32 18;
-#X connect 19 0 32 19;
-#X connect 30 0 36 0;
-#X connect 31 0 26 0;
-#X connect 32 0 31 0;
-#X connect 36 0 37 0;
-#X connect 37 0 38 0;
-#X connect 37 1 42 0;
-#X connect 37 2 43 0;
-#X connect 37 3 44 0;
-#X connect 37 4 45 0;
-#X connect 37 5 46 0;
-#X connect 58 0 64 2;
-#X connect 59 0 64 3;
-#X connect 60 0 64 4;
-#X connect 61 0 64 5;
-#X connect 62 0 64 0;
-#X connect 63 0 64 1;
-#X connect 64 0 74 0;
-#X connect 73 0 77 0;
-#X connect 74 0 0 0;
-#X connect 75 0 73 0;
-#X connect 77 0 69 0;
-#X restore 189 408 pd INPUT_ANALOG;
-#N canvas 551 44 428 412 Pin 0;
-#X obj 40 30 cnv 15 350 250 empty empty empty 20 12 0 14 -67964 -66577
+#X obj 22 107 cnv 15 98 21 empty empty empty 20 12 0 14 -261234 -66577
 0;
-#X obj 118 32 tgl 15 0 empty empty empty 0 23 1 9 -162280 -1 -191407
-0 1;
-#X obj 152 32 tgl 15 0 empty empty 13 0 23 1 9 -262144 -262144 -262144
-0 1;
-#X obj 169 32 tgl 15 0 empty empty 12 0 23 1 9 -262144 -262144 -262144
-0 1;
-#X obj 203 32 tgl 15 0 empty empty 10 0 23 1 9 -262144 -262144 -262144
-0 1;
-#X obj 186 32 tgl 15 0 empty empty 11 0 23 1 9 -262144 -262144 -262144
-0 1;
-#X obj 220 32 tgl 15 0 empty empty 9 5 23 1 9 -262144 -262144 -262144
-0 1;
-#X obj 237 32 tgl 15 0 empty empty 8 5 23 1 9 -262144 -262144 -262144
-0 1;
-#X obj 254 32 tgl 15 0 empty empty 7 5 23 1 9 -262144 -262144 -262144
-0 1;
-#X obj 271 32 tgl 15 0 empty empty 6 5 23 1 9 -262144 -262144 -262144
-0 1;
-#X obj 288 32 tgl 15 0 empty empty 5 5 23 1 9 -262144 -262144 -262144
-0 1;
-#X obj 305 32 tgl 15 0 empty empty 4 5 23 1 9 -262144 -262144 -262144
-0 1;
-#X obj 322 32 tgl 15 0 empty empty 3 5 23 1 9 -262144 -262144 -262144
-0 1;
-#X obj 339 32 tgl 15 0 empty empty 2 5 23 1 9 -262144 -262144 -262144
-0 1;
-#X obj 356 32 tgl 15 0 empty empty 1 5 23 1 9 -162280 -262144 -191407
-0 1;
-#X obj 373 32 tgl 15 0 empty empty 0 5 23 1 9 -162280 -262144 -191407
-0 1;
-#X text 375 56 R;
-#X text 375 67 X;
-#X text 359 56 T;
-#X text 359 67 X;
-#X obj 135 32 tgl 15 0 empty empty empty 0 23 1 9 -162280 -1 -191407
-0 1;
-#X text 137 56 G;
-#X text 137 67 N;
-#X text 137 78 D;
-#X text 120 57 A;
-#X text 120 68 R;
-#X text 120 78 E;
-#X text 120 88 F;
-#X obj 288 263 tgl 15 0 empty empty 14 0 -6 1 9 -262144 -262144 -262144
-0 1;
-#X obj 305 263 tgl 15 0 empty empty 15 0 -6 1 9 -262144 -262144 -262144
-0 1;
-#X obj 322 263 tgl 15 0 empty empty 16 0 -6 1 9 -262144 -262144 -262144
-0 1;
-#X obj 339 263 tgl 15 0 empty empty 17 0 -6 1 9 -262144 -262144 -262144
-0 1;
-#X obj 356 263 tgl 15 0 empty empty 18 0 -6 1 9 -262144 -262144 -262144
-0 1;
-#X obj 373 263 tgl 15 0 empty empty 19 0 -6 1 9 -262144 -262144 -262144
-0 1;
-#X text 232 95 Digital;
-#X text 187 56 P;
-#X text 188 67 W;
-#X text 187 78 M;
-#X text 205 56 P;
-#X text 206 67 W;
-#X text 205 78 M;
-#X text 224 56 P;
-#X text 225 67 W;
-#X text 224 78 M;
-#X text 274 56 P;
-#X text 275 67 W;
-#X text 274 78 M;
-#X text 291 56 P;
-#X text 292 67 W;
-#X text 291 78 M;
-#X text 325 56 P;
-#X text 326 67 W;
-#X text 325 78 M;
-#X text 310 221 Analog in;
-#X obj 248 263 tgl 15 0 empty empty empty 0 -6 1 9 -261234 -262144
--262144 0 1;
-#X text 249 229 V;
-#X text 250 239 i;
-#X text 250 247 n;
-#X obj 231 263 tgl 15 0 empty empty empty 0 23 1 9 -162280 -1 -191407
-0 1;
-#X text 232 225 G;
-#X text 232 236 N;
-#X text 232 247 D;
-#X obj 214 263 tgl 15 0 empty empty empty 0 23 1 9 -162280 -1 -191407
-0 1;
-#X text 215 225 G;
-#X text 215 236 N;
-#X text 215 247 D;
-#X obj 197 263 tgl 15 0 empty empty empty 0 -6 1 9 -261234 -262144
--262144 0 1;
-#X text 198 236 5;
-#X text 198 246 V;
-#X obj 180 263 tgl 15 0 empty empty empty 0 -6 1 9 -261234 -262144
--262144 0 1;
-#X text 181 226 3;
-#X obj 163 263 tgl 15 0 empty empty empty 0 23 1 9 -162280 -1 -191407
-0 1;
-#X text 164 247 T;
-#X text 164 225 R;
-#X text 164 236 S;
-#X text 286 236 A0;
-#X text 304 236 A1;
-#X text 321 236 A2;
-#X text 337 236 A3;
-#X text 354 236 A4;
-#X text 371 236 A5;
-#X text 52 142 White letters are showing the Pin Numbering Map for
-;
-#X text 51 157 Arduino UNO \, Duemilanove \, Nano \, Diecimila...;
-#X text 55 340 port 0 : pins 2 - 7;
-#X text 55 357 port 1 : pins 8 - 15;
-#X text 55 374 port 2 : pins 16 - 19;
-#X text 181 236 V;
-#X text 181 246 3;
-#X restore 18 327 pd Pin Numbering Map;
+#X obj 22 160 cnv 15 140 21 empty empty empty 20 12 0 14 -203904 -66577
+0;
+#X obj 22 416 cnv 15 98 21 empty empty empty 20 12 0 14 -261234 -66577
+0;
+#X obj 22 614 cnv 15 98 21 empty empty empty 20 12 0 14 -261234 -66577
+0;
+#X obj 24 418 send \$0-arduino;
+#X obj 24 109 send \$0-arduino;
+#X obj 24 616 send \$0-arduino;
+#X obj 24 162 receive \$0-arduino-out;
+#X connect 13 0 29 14;
+#X connect 14 0 29 15;
+#X connect 15 0 29 16;
+#X connect 16 0 29 17;
+#X connect 17 0 29 18;
+#X connect 18 0 29 19;
+#X connect 28 0 82 0;
+#X connect 29 0 28 0;
+#X connect 33 0 34 0;
+#X connect 34 0 35 0;
+#X connect 34 1 39 0;
+#X connect 34 2 40 0;
+#X connect 34 3 41 0;
+#X connect 34 4 42 0;
+#X connect 34 5 43 0;
+#X connect 55 0 61 2;
+#X connect 56 0 61 3;
+#X connect 57 0 61 4;
+#X connect 58 0 61 5;
+#X connect 59 0 61 0;
+#X connect 60 0 61 1;
+#X connect 61 0 70 0;
+#X connect 69 0 73 0;
+#X connect 70 0 81 0;
+#X connect 71 0 69 0;
+#X connect 73 0 83 0;
+#X connect 84 0 33 0;
+#X restore 189 408 pd INPUT_ANALOG;
 #X text 105 305 <- configure pins for different modes;
 #X text 6 -2 1) Installation;
 #X text 6 49 2) Serial connection;
@@ -1561,7 +1469,6 @@ certain pin. This is achieved with the 'pinMode' command:;
 #X text 37 434 analog;
 #X text 37 449 pwm;
 #X text 37 464 servo;
-#X obj 18 543 send \$0-arduino;
 #X text 103 515 <-- COMMAND;
 #X obj 117 466 nbx 3 14 -1e+37 1e+37 0 0 empty empty pin_No. 40 6 0
 10 -228856 -1 -1 0 256;
@@ -1588,10 +1495,13 @@ certain pin. This is achieved with the 'pinMode' command:;
 only a subset of the available modes.;
 #X text 15 212 LIST OF AVAILABLE PIN MODES;
 #X msg 18 514;
-#X connect 19 0 28 0;
-#X connect 27 0 28 1;
-#X connect 28 0 39 0;
-#X connect 39 0 25 0;
+#X obj 16 541 cnv 15 98 21 empty empty empty 20 12 0 14 -261234 -66577
+0;
+#X obj 18 543 send \$0-arduino;
+#X connect 19 0 27 0;
+#X connect 26 0 27 1;
+#X connect 27 0 38 0;
+#X connect 38 0 40 0;
 #X restore 18 304 pd PIN_MODES;
 #X text 528 496 Olsen Wolf;
 #X text 492 511 2006 \, Georg Holzmann;
@@ -1722,7 +1632,6 @@ unplugging/reboot:;
 #X msg 30 119 open \$1;
 #X floatatom 30 97 5 0 0 0 - - -;
 #X text 86 104 listed by the 'device' message above;
-#X obj 18 228 send \$0-arduino;
 #X text 85 89 enter the number of your serial device;
 #X text 68 95 <-;
 #X text 71 71 <- list devices -> check the pd-console output!;
@@ -1734,15 +1643,157 @@ unplugging/reboot:;
 #X text 411 299 and off:;
 #X text 83 122 <- open serial port to Arduino board;
 #X text 87 144 <- close the serial port;
+#N canvas 386 44 428 412 PIN_MODE_MATRIX 0;
+#X obj 40 30 cnv 15 280 200 empty empty empty 20 12 0 14 -67964 -66577
+0;
+#X obj 110 32 tgl 13 0 empty empty empty 0 23 1 9 -99865 -1 -191407
+0 1;
+#X obj 136 32 tgl 13 0 empty empty 13 0 23 1 9 -228856 -262144 -262144
+0 1;
+#X obj 149 32 tgl 13 0 empty empty 12 0 23 1 9 -228856 -262144 -262144
+0 1;
+#X obj 175 32 tgl 13 0 empty empty 10 0 23 1 9 -228856 -262144 -262144
+0 1;
+#X obj 162 32 tgl 13 0 empty empty 11 0 23 1 9 -228856 -262144 -262144
+0 1;
+#X obj 188 32 tgl 13 0 empty empty 9 5 23 1 9 -228856 -262144 -262144
+0 1;
+#X obj 201 32 tgl 13 0 empty empty 8 5 23 1 9 -228856 -262144 -262144
+0 1;
+#X obj 214 32 tgl 13 0 empty empty 7 5 23 1 9 -228856 -262144 -262144
+0 1;
+#X obj 227 32 tgl 13 0 empty empty 6 5 23 1 9 -228856 -262144 -262144
+0 1;
+#X obj 240 32 tgl 13 0 empty empty 5 5 23 1 9 -228856 -262144 -262144
+0 1;
+#X obj 253 32 tgl 13 0 empty empty 4 5 23 1 9 -228856 -262144 -262144
+0 1;
+#X obj 266 32 tgl 13 0 empty empty 3 5 23 1 9 -228856 -262144 -262144
+0 1;
+#X obj 279 32 tgl 13 0 empty empty 2 5 23 1 9 -228856 -262144 -262144
+0 1;
+#X obj 292 32 tgl 13 0 empty empty 1 5 23 1 9 -99865 -262144 -191407
+0 1;
+#X obj 305 32 tgl 13 0 empty empty 0 5 23 1 9 -99865 -262144 -191407
+0 1;
+#X text 307 56 R;
+#X text 307 67 X;
+#X text 291 56 T;
+#X text 291 67 X;
+#X obj 123 32 tgl 13 0 empty empty empty 0 23 1 9 -99865 -1 -191407
+0 1;
+#X text 124 57 G;
+#X text 124 67 N;
+#X text 124 77 D;
+#X text 112 57 A;
+#X text 112 67 R;
+#X text 112 77 E;
+#X text 112 87 F;
+#X obj 240 215 tgl 13 0 empty empty 14 0 -6 1 9 -228856 -262144 -262144
+0 1;
+#X obj 253 215 tgl 13 0 empty empty 15 0 -6 1 9 -228856 -262144 -262144
+0 1;
+#X obj 266 215 tgl 13 0 empty empty 16 0 -6 1 9 -228856 -262144 -262144
+0 1;
+#X obj 279 215 tgl 13 0 empty empty 17 0 -6 1 9 -228856 -262144 -262144
+0 1;
+#X obj 292 215 tgl 13 0 empty empty 18 0 -6 1 9 -228856 -262144 -262144
+0 1;
+#X obj 305 215 tgl 13 0 empty empty 19 0 -6 1 9 -228856 -262144 -262144
+0 1;
+#X text 162 57 P;
+#X text 163 67 W;
+#X text 162 77 M;
+#X obj 214 215 tgl 13 0 empty empty empty 0 -6 1 9 -99865 -262144 -262144
+0 1;
+#X text 217 181 V;
+#X text 217 191 i;
+#X text 217 199 n;
+#X obj 201 215 tgl 13 0 empty empty empty 0 23 1 9 -99865 -1 -191407
+0 1;
+#X text 202 177 G;
+#X text 202 188 N;
+#X text 202 199 D;
+#X obj 188 215 tgl 13 0 empty empty empty 0 23 1 9 -99865 -1 -191407
+0 1;
+#X text 189 177 G;
+#X text 189 188 N;
+#X text 189 199 D;
+#X obj 175 215 tgl 13 0 empty empty empty 0 -6 1 9 -99865 -262144 -262144
+0 1;
+#X text 176 188 5;
+#X text 176 198 V;
+#X obj 162 215 tgl 13 0 empty empty empty 0 -6 1 9 -99865 -262144 -262144
+0 1;
+#X text 163 178 3;
+#X obj 149 215 tgl 13 0 empty empty empty 0 23 1 9 -99865 -1 -191407
+0 1;
+#X text 150 199 T;
+#X text 150 177 R;
+#X text 150 188 S;
+#X text 238 188 A0;
+#X text 252 188 A1;
+#X text 265 188 A2;
+#X text 277 188 A3;
+#X text 290 188 A4;
+#X text 303 188 A5;
+#X text 34 283 port 0 : pins 2 - 7;
+#X text 34 300 port 1 : pins 8 - 15;
+#X text 34 317 port 2 : pins 16 - 19;
+#X text 163 188 V;
+#X text 163 198 3;
+#X text 175 57 P;
+#X text 176 67 W;
+#X text 175 77 M;
+#X text 188 57 P;
+#X text 189 67 W;
+#X text 188 77 M;
+#X text 230 57 P;
+#X text 231 67 W;
+#X text 230 77 M;
+#X text 243 57 P;
+#X text 244 67 W;
+#X text 243 77 M;
+#X text 268 57 P;
+#X text 269 67 W;
+#X text 268 77 M;
+#X text 51 119 Pin Layout for;
+#X text 51 134 Arduino \, NG \, Duemilanove \, Diecimila \, UNO;
+#X obj 240 215 tgl 13 0 empty empty 16 0 23 1 9 -228856 -262144 -258113
+0 1;
+#X obj 253 215 tgl 13 0 empty empty 17 0 23 1 9 -228856 -262144 -258113
+0 1;
+#X obj 266 215 tgl 13 0 empty empty 18 0 23 1 9 -228856 -262144 -258113
+0 1;
+#X obj 279 215 tgl 13 0 empty empty 19 0 23 1 9 -228856 -262144 -258113
+0 1;
+#X obj 292 215 tgl 13 0 empty empty 20 0 23 1 9 -228856 -262144 -258113
+0 1;
+#X obj 305 215 tgl 13 0 empty empty 21 0 23 1 9 -228856 -262144 -258113
+0 1;
+#X obj 43 240 cnv 5 5 5 empty empty red:____Firmata_v2.2 0 0 0 10 -262144
+-258113 0;
+#X obj 43 254 cnv 5 5 5 empty empty white:__Firmata_v2.3 0 0 0 10 -262144
+-1 0;
+#X restore 18 327 pd PIN_MODE_MATRIX;
+#X obj 416 186 cnv 15 122 21 empty empty empty 20 12 0 14 -203904 -66577
+0;
+#X obj 418 188 send \$0-arduino-out;
+#X obj 416 80 cnv 15 116 21 empty empty empty 20 12 0 14 -261234 -66577
+0;
+#X obj 418 82 receive \$0-arduino;
+#X obj 16 226 cnv 15 98 21 empty empty empty 20 12 0 14 -261234 -66577
+0;
+#X obj 18 228 send \$0-arduino;
 #X connect 4 0 7 0;
 #X connect 5 0 4 0;
 #X connect 6 0 7 0;
-#X connect 12 0 15 0;
+#X connect 12 0 61 0;
 #X connect 12 1 13 0;
-#X connect 14 0 12 0;
-#X connect 42 0 51 0;
-#X connect 43 0 51 0;
-#X connect 44 0 51 0;
-#X connect 47 0 51 0;
-#X connect 48 0 51 0;
-#X connect 49 0 48 0;
+#X connect 39 0 65 0;
+#X connect 40 0 65 0;
+#X connect 41 0 65 0;
+#X connect 44 0 65 0;
+#X connect 45 0 65 0;
+#X connect 46 0 45 0;
+#X connect 63 0 12 0;
