@@ -1571,7 +1571,6 @@ ms);
 #X restore 18 495 pd REFERENCE;
 #N canvas 147 357 559 381 PERSISTENT_DEVICENAMES_IN_LINUX 0;
 #X text 58 326 http://answers.ros.org/answers/101/revisions/;
-#X text 68 170 $ udevadm control u2013reload-rules;
 #X text 72 90 $ echo 'SUBSYSTEMS=="usb" \, KERNEL=="ttyUSB[0-9]*" \,
 ATTRSidVendor=="0403" \, ATTRSidProduct=="6001" \, SYMLINK+="arduino/ftdi_%sserial"'
 > /etc/udev/rules.d/52-ftdi.rules;
@@ -1588,7 +1587,8 @@ ATTRSidVendor=="0403" \, ATTRSidProduct=="6001" \, SYMLINK+="arduino/ftdi_%sseri
 #X text 52 26 how to make shure that various arduinos plugged into
 one Linux-system are always connected to the same arduino object after
 unplugging/reboot:;
-#X connect 3 0 5 0;
+#X text 68 170 $ udevadm control -reload-rules;
+#X connect 2 0 4 0;
 #X restore 18 518 pd PERSISTENT_DEVICENAMES_IN_LINUX;
 #X text 10 469 4) Supplementary information;
 #X msg 47 144 close;
@@ -1927,21 +1927,24 @@ unplugging/reboot:;
 #X text 285 693 ONLY 2.2;
 #X text 285 713 ONLY 2.2;
 #X restore 18 327 pd PIN_PROPERTIES_INFO;
-#N canvas 429 62 428 295 IMPORTANT_NOTES 0;
+#N canvas 429 62 427 378 IMPORTANT_NOTES 0;
 #X text 10 16 IMPORTANT NOTICE;
-#X text 10 100 FIRMATA 2.3;
-#X text 10 144 FIRMATA 2.2;
-#X text 10 117 is fully covered in this help.;
-#X text 10 161 is fully covered \, but the actual pin numbering for
+#X text 10 170 FIRMATA 2.3;
+#X text 10 214 FIRMATA 2.2;
+#X text 10 187 is fully covered in this help.;
+#X text 10 231 is fully covered \, but the actual pin numbering for
 the analog pins differs from this documentation. The pins A0 - A5 are
 numbered 16 to 21;
-#X text 10 219 FIRMATA 2.1 and 2;
+#X text 10 289 FIRMATA 2.1 and 2;
 #X text 10 33 This help patch assumes the Firmware StandardFirmata
 2.3 to be installed on your Arduino board. Other and older Firmwares
 are generally supported as well \, but may not support all features
 covered in this documentation.;
-#X text 10 236 Some pins do not support all modes as mentioned in this
+#X text 10 306 Some pins do not support all modes as mentioned in this
 documentation.;
+#X text 10 95 NOTE:;
+#X text 10 108 There is no good reason to stick with an old firmware
+version. Please update if possible.;
 #X restore 130 18 pd IMPORTANT_NOTES;
 #X text 248 18 <- please read;
 #X obj 416 129 cnv 15 62 21 empty empty empty 20 12 0 14 -262144 -66577
