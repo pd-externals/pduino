@@ -1,4 +1,4 @@
-#N canvas 174 444 585 366 10;
+#N canvas 139 310 585 366 10;
 #X obj 32 26 inlet;
 #X obj 32 304 outlet;
 #X obj 515 304 outlet;
@@ -789,7 +789,17 @@ byte left over;
 #X obj 450 83 print [arduino];
 #X obj 450 36 loadbang;
 #X text 417 7 supports Firmata v2.1;
-#X msg 450 59 version_0.5beta8;
+#N canvas 762 49 450 300 comport 0;
+#X obj 43 270 outlet;
+#X obj 43 17 loadbang;
+#X msg 43 161 pollintervall 10;
+#X text 56 78 set default poll time to 10ms since for most uses of
+serial at 115200 baud or less \, the data doesn't come any faster than
+every 10ms;
+#X connect 1 0 2 0;
+#X connect 2 0 0 0;
+#X restore 46 110 pd comport config;
+#X msg 450 59 version_0.5;
 #X connect 0 0 3 0;
 #X connect 3 0 8 0;
 #X connect 5 0 3 0;
@@ -800,5 +810,6 @@ byte left over;
 #X connect 9 0 1 0;
 #X connect 9 0 7 0;
 #X connect 9 1 2 0;
-#X connect 13 0 15 0;
-#X connect 15 0 12 0;
+#X connect 13 0 16 0;
+#X connect 15 0 8 0;
+#X connect 16 0 12 0;
