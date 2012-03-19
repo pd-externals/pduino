@@ -16,9 +16,9 @@ arduino-test.pd in Pd, then choose your serial port with the [open( message.
 * for more information about this firmware here: http://firmata.org
 
 WARNING!  This version of the arduino object for Pd will only work with 2.1
-versions of Firmata.  It will not work with older versions of the firmware!
+versions of Firmata or newer!  It will not work with older versions of the firmware!
 
-(You can also optionally unzip the included Firmata-2.1 firmware and follow
+(You can also optionally unzip the included Firmata-2.2 firmware and follow
 the README included in there.)
 
 Hans-Christoph Steiner <hans@eds.org>
