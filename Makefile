@@ -13,7 +13,7 @@ SOURCES =
 PDOBJECTS = arduino.pd
 
 # example patches and related files, in the 'examples' subfolder
-EXAMPLES = LED-lighting-fade.pd simple_input.pd
+EXAMPLES = LED-lighting-fade.pd simple_input.pd arduinomega-test.pd arduino-test.pd wiring-test.pd
 
 # manuals and related files, in the 'manual' subfolder
 MANUAL = 
@@ -22,7 +22,7 @@ MANUAL =
 # list them here.  This can be anything from header files, test patches,
 # documentation, etc.  README.txt and LICENSE.txt are required and therefore
 # automatically included
-EXTRA_DIST = arduinomega-test.pd arduino-stress-test.pd arduino-test.pd
+EXTRA_DIST = arduino-stress-test.pd
 
 # unit tests and related files here, in the 'unittests' subfolder
 UNITTESTS = 

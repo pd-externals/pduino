@@ -1,4 +1,5 @@
 #N canvas 148 59 645 521 10;
+#X declare -lib pduino;
 #X obj 233 112 cnv 15 100 22 empty empty empty 20 12 0 14 -253938 -66577
 0;
 #X obj 405 216 cnv 15 85 22 empty empty empty 20 12 0 14 -253938 -66577
@@ -927,6 +928,7 @@
 #X text 418 155 switch pin to 'pwm' or 'servo' first;
 #X msg 413 218;
 #X msg 239 114;
+#X obj 551 8 import pduino;
 #X connect 3 0 83 0;
 #X connect 3 1 5 0;
 #X connect 5 0 51 0;

@@ -1,4 +1,5 @@
 #N canvas 33 50 968 551 10;
+#X declare -lib pduino;
 #X obj 405 92 cnv 15 100 22 empty empty empty 20 12 0 14 -253938 -66577
 0;
 #X obj 405 216 cnv 15 85 22 empty empty empty 20 12 0 14 -253938 -66577
@@ -1209,6 +1210,7 @@ the Firmata library.;
 #X text 1178 123 51;
 #X text 1192 123 52;
 #X text 1207 123 53;
+#X obj 838 -9 import pduino;
 #X connect 3 0 66 0;
 #X connect 3 1 5 0;
 #X connect 5 0 81 0;
