@@ -1,3 +1,3 @@
-usr/lib/pd/extra/arduino/README.txt        usr/share/doc/pd-arduino/README
-usr/lib/pd/extra/arduino/examples          usr/share/doc/pd-arduino/examples
-usr/share/common-licenses/GPL-2             usr/lib/pd/extra/arduino/LICENSE.txt
+usr/lib/pd/extra/pduino/README.txt        usr/share/doc/pd-pduino/README
+usr/lib/pd/extra/pduino/examples          usr/share/doc/pd-pduino/examples
+usr/share/common-licenses/GPL-3             usr/lib/pd/extra/pduino/LICENSE.txt

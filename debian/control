@@ -1,4 +1,4 @@
-Source: pd-arduino
+Source: pd-pduino
 Section: sound
 Priority: optional
 Maintainer: Debian Multimedia Maintainers <pkg-multimedia-maintainers@lists.alioth.debian.org>
@@ -7,10 +7,10 @@ Build-Depends: debhelper (>= 7.0.50~),
                puredata-dev | puredata (<< 0.43)
 Standards-Version: 3.9.3
 Homepage: http://firmata.org
-Vcs-Git: git://anonscm.debian.org/pkg-multimedia/pd-arduino.git
-Vcs-Browser: http://anonscm.debian.org/gitweb/?p=pkg-multimedia/pd-arduino.git;a=summary
+Vcs-Git: git://anonscm.debian.org/pkg-multimedia/pd-pduino.git
+Vcs-Browser: http://anonscm.debian.org/gitweb/?p=pkg-multimedia/pd-pduino.git;a=summary
 
-Package: pd-arduino
+Package: pd-pduino
 Architecture: any
 Depends: ${shlibs:Depends},
          puredata-core | pd,
@@ -21,7 +21,7 @@ Depends: ${shlibs:Depends},
          pd-pddp,
          pd-zexy,
          ${misc:Depends}
-Suggests: arduino
+Suggests: pduino
 Description: Pd object for Firmata communications with Arduinos
  This package includes a Pd object and a matching Arduino firmware.  It allows
  you to control the Arduino board from Pd without having to program in
