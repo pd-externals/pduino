@@ -1,7 +1,7 @@
 ## Pd library template version 1.0.13
 # For instructions on how to use this template, see:
 #  http://puredata.info/docs/developer/MakefileTemplate
-LIBRARY_NAME = arduino
+LIBRARY_NAME = pduino
 
 # add your .c source files, one object per file, to the SOURCES
 # variable, help files will be included automatically, and for GUI
