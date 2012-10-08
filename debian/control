@@ -11,7 +11,7 @@ Vcs-Git: git://anonscm.debian.org/pkg-multimedia/pd-pduino.git
 Vcs-Browser: http://anonscm.debian.org/gitweb/?p=pkg-multimedia/pd-pduino.git;a=summary
 
 Package: pd-pduino
-Architecture: any
+Architecture: all
 Depends: ${shlibs:Depends},
          puredata-core | pd,
          pd-comport,
