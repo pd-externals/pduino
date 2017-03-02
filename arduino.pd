@@ -532,19 +532,17 @@
 #N canvas 0 50 525 269 check 0;
 #X obj 47 62 inlet;
 #X obj 47 88 route version;
-#X obj 87 119 unpack float float;
-#X obj 132 163 print [arduino]_WARNING_INCOMPATIBLE_FIRMWARE_VERSION
+#X obj 47 127 unpack float float;
+#X obj 92 171 print [arduino]_WARNING_INCOMPATIBLE_FIRMWARE_VERSION
 ;
-#X obj 47 192 print Arduino/Firmata_version;
-#X obj 87 141 select 2;
-#X text 142 142 <-- sets the protocol major version this is compatible
+#X obj 47 149 select 2;
+#X text 102 150 <-- sets the protocol major version this is compatible
 with;
 #X connect 0 0 1 0;
 #X connect 1 0 2 0;
-#X connect 1 0 4 0;
-#X connect 2 0 5 0;
-#X connect 5 1 3 0;
-#X restore 52 287 pd check version;
+#X connect 2 0 4 0;
+#X connect 4 1 3 0;
+#X restore 215 325 pd check version;
 #N canvas 192 246 541 319 convert 0;
 #X obj 142 278 outlet;
 #X obj 340 150 print UNKNOWN_INPUT_COMMAND;
@@ -2067,8 +2065,8 @@ byte left over;
 #X connect 5 0 3 0;
 #X connect 6 0 8 0;
 #X connect 8 0 1 0;
-#X connect 8 0 7 0;
 #X connect 8 1 2 0;
+#X connect 8 1 7 0;
 #X connect 11 0 15 0;
 #X connect 12 0 6 0;
 #X connect 12 1 5 0;
