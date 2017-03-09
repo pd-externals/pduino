@@ -125,12 +125,12 @@
 #X text 293 187 L;
 #X obj 264 358 includes/agop.power.led \$0;
 #X text 261 362 PWR;
-#X obj 83 303 includes/agop.analog.pin \$0 14;
-#X obj 83 317 includes/agop.analog.pin \$0 15;
-#X obj 83 331 includes/agop.analog.pin \$0 16;
-#X obj 83 345 includes/agop.analog.pin \$0 17;
-#X obj 83 359 includes/agop.analog.pin \$0 18;
-#X obj 83 373 includes/agop.analog.pin \$0 19;
+#X obj 83 303 includes/agop.analog.pin \$0 0;
+#X obj 83 317 includes/agop.analog.pin \$0 1;
+#X obj 83 331 includes/agop.analog.pin \$0 2;
+#X obj 83 345 includes/agop.analog.pin \$0 3;
+#X obj 83 359 includes/agop.analog.pin \$0 4;
+#X obj 83 373 includes/agop.analog.pin \$0 5;
 #X text 104 302 A0;
 #X text 104 316 A1;
 #X text 104 330 A2;
