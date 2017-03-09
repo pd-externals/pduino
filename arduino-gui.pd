@@ -1,154 +1,154 @@
-#N canvas 115 43 862 586 10;
-#X obj 20 65 cnv 15 275 325 empty empty empty 20 12 0 14 -22189 -66577
+#N canvas 115 50 932 590 10;
+#X obj 80 65 cnv 15 275 325 empty empty empty 20 12 0 14 -22189 -66577
 0;
-#X obj 340 61 inlet;
-#X obj 19 533 outlet;
-#X obj 149 543 outlet;
-#X obj 342 474 s \$0.ARDUINO.OUT;
-#X obj 449 474 s \$0.ARDUINO.INFO;
-#X obj 342 314 r \$0.ARDUINO.TO;
-#X obj 149 495 r \$0.ARDUINO.INFO;
-#X obj 340 83 s \$0.ARDUINO.IN;
-#X obj 272 346 includes/agop.digital.pin \$0 2;
-#X obj 272 332 includes/agop.digital.pin \$0 3;
-#X obj 272 318 includes/agop.digital.pin \$0 4;
-#X obj 272 304 includes/agop.digital.pin \$0 5;
-#X obj 272 290 includes/agop.digital.pin \$0 6;
-#X obj 272 276 includes/agop.digital.pin \$0 7;
-#X obj 272 255 includes/agop.digital.pin \$0 8;
-#X obj 272 241 includes/agop.digital.pin \$0 9;
-#X obj 272 227 includes/agop.digital.pin \$0 10;
-#X obj 272 213 includes/agop.digital.pin \$0 11;
-#X obj 272 199 includes/agop.digital.pin \$0 12;
-#X obj 272 185 includes/agop.digital.pin \$0 13;
-#X text 243 156 AREF;
-#X text 249 170 GND;
-#X text 255 359 TX;
-#X text 255 373 RX;
-#X obj 280 158 includes/agop.dummy.pin;
-#X obj 280 171 includes/agop.dummy.pin;
-#X obj 280 360 includes/agop.dummy.pin;
-#X obj 23 277 includes/agop.dummy.pin;
-#X obj 23 263 includes/agop.dummy.pin;
-#X obj 23 249 includes/agop.dummy.pin;
-#X obj 23 235 includes/agop.dummy.pin;
-#X obj 23 221 includes/agop.dummy.pin;
-#X obj 23 207 includes/agop.dummy.pin;
-#X obj 210 183 includes/agop.tx.led \$0;
-#X obj 197 183 includes/agop.rx.led \$0;
-#X text 340 175 \$0.ARDUINO.OUT;
-#X text 340 202 \$0.ARDUINO.INFO;
-#X text 340 229 \$0.ARDUINO.INTERN;
-#X text 340 148 \$0.ARDUINO.TO;
-#X text 340 121 \$0.ARDUINO.IN;
-#X text 458 230 <- GOP-internal Communication;
-#X text 458 203 <- Arduino Status Messages (sent to outlet1);
-#X text 458 175 <- Arduino Pin Messages (sent to outlet0);
-#X text 458 120 <- external commands (modules are listening here);
-#X text 458 148 <- Commands sent from modules -> [arduino];
-#X obj 20 20 includes/agop.firmware.check \$0;
-#X obj 86 206 cnv 15 28 175 empty empty empty 20 12 0 14 -66577 -66577
+#X obj 400 61 inlet;
+#X obj 79 533 outlet;
+#X obj 209 543 outlet;
+#X obj 402 474 s \$0.ARDUINO.OUT;
+#X obj 509 474 s \$0.ARDUINO.INFO;
+#X obj 402 314 r \$0.ARDUINO.TO;
+#X obj 209 495 r \$0.ARDUINO.INFO;
+#X obj 400 83 s \$0.ARDUINO.IN;
+#X obj 332 346 includes/agop.digital.pin \$0 2;
+#X obj 332 332 includes/agop.digital.pin \$0 3;
+#X obj 332 318 includes/agop.digital.pin \$0 4;
+#X obj 332 304 includes/agop.digital.pin \$0 5;
+#X obj 332 290 includes/agop.digital.pin \$0 6;
+#X obj 332 276 includes/agop.digital.pin \$0 7;
+#X obj 332 255 includes/agop.digital.pin \$0 8;
+#X obj 332 241 includes/agop.digital.pin \$0 9;
+#X obj 332 227 includes/agop.digital.pin \$0 10;
+#X obj 332 213 includes/agop.digital.pin \$0 11;
+#X obj 332 199 includes/agop.digital.pin \$0 12;
+#X obj 332 185 includes/agop.digital.pin \$0 13;
+#X text 303 156 AREF;
+#X text 309 170 GND;
+#X text 315 359 TX;
+#X text 315 373 RX;
+#X obj 340 158 includes/agop.dummy.pin;
+#X obj 340 171 includes/agop.dummy.pin;
+#X obj 340 360 includes/agop.dummy.pin;
+#X obj 83 277 includes/agop.dummy.pin;
+#X obj 83 263 includes/agop.dummy.pin;
+#X obj 83 249 includes/agop.dummy.pin;
+#X obj 83 235 includes/agop.dummy.pin;
+#X obj 83 221 includes/agop.dummy.pin;
+#X obj 83 207 includes/agop.dummy.pin;
+#X obj 270 183 includes/agop.tx.led \$0;
+#X obj 257 183 includes/agop.rx.led \$0;
+#X text 400 175 \$0.ARDUINO.OUT;
+#X text 400 202 \$0.ARDUINO.INFO;
+#X text 400 229 \$0.ARDUINO.INTERN;
+#X text 400 148 \$0.ARDUINO.TO;
+#X text 400 121 \$0.ARDUINO.IN;
+#X text 518 230 <- GOP-internal Communication;
+#X text 518 203 <- Arduino Status Messages (sent to outlet1);
+#X text 518 175 <- Arduino Pin Messages (sent to outlet0);
+#X text 518 120 <- external commands (modules are listening here);
+#X text 518 148 <- Commands sent from modules -> [arduino];
+#X obj 80 20 includes/agop.firmware.check \$0;
+#X obj 146 206 cnv 15 28 175 empty empty empty 20 12 0 14 -66577 -66577
 0;
-#X text 36 206 RESET;
-#X text 36 220 3v3;
-#X text 36 234 5V;
-#X text 36 248 GND;
-#X text 36 262 GND;
-#X text 36 276 Vin;
-#X obj 115 213 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+#X text 96 206 RESET;
+#X text 96 220 3v3;
+#X text 96 234 5V;
+#X text 96 248 GND;
+#X text 96 262 GND;
+#X text 96 276 Vin;
+#X obj 175 213 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 115 225 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 175 225 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 115 237 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 175 237 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 115 249 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 175 249 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 115 261 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 175 261 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 115 273 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 175 273 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 115 285 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 175 285 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 115 297 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 175 297 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 115 309 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 175 309 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 115 321 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 175 321 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 115 333 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 175 333 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 115 345 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 175 345 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 115 357 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 175 357 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 115 369 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 175 369 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 84 213 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 144 213 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 84 225 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 144 225 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 84 237 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 144 237 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 84 249 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 144 249 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 84 261 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 144 261 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 84 273 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 144 273 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 84 285 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 144 285 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 84 297 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 144 297 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 84 309 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 144 309 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 84 321 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 144 321 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 84 333 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 144 333 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 84 345 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 144 345 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 84 357 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 144 357 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 84 369 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 144 369 cnv 1 1 5 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 194 35 cnv 15 55 70 empty empty empty 20 12 0 14 -191407 -66577
+#X obj 254 35 cnv 15 55 70 empty empty empty 20 12 0 14 -191407 -66577
 0;
-#X obj 73 65 includes/agop.device.selector \$0;
-#X obj 195 65 includes/agop.refresh.rate \$0;
-#X obj 35 59 cnv 15 37 60 empty empty empty 20 12 0 14 -33289 -66577
+#X obj 133 65 includes/agop.device.selector \$0;
+#X obj 255 65 includes/agop.refresh.rate \$0;
+#X obj 95 59 cnv 15 37 60 empty empty empty 20 12 0 14 -33289 -66577
 0;
-#X text 194 187 R;
-#X text 194 196 X;
-#X text 208 196 X;
-#X text 208 187 T;
-#X obj 236 183 includes/agop.13.led \$0;
-#X text 233 187 L;
-#X obj 204 358 includes/agop.power.led \$0;
-#X text 201 362 PWR;
-#X obj 23 303 includes/agop.analog.pin \$0 14;
-#X obj 23 317 includes/agop.analog.pin \$0 15;
-#X obj 23 331 includes/agop.analog.pin \$0 16;
-#X obj 23 345 includes/agop.analog.pin \$0 17;
-#X obj 23 359 includes/agop.analog.pin \$0 18;
-#X obj 23 373 includes/agop.analog.pin \$0 19;
-#X text 44 302 A0;
-#X text 44 316 A1;
-#X text 44 330 A2;
-#X text 44 344 A3;
-#X text 44 358 A4;
-#X text 44 372 A5;
-#X text 249 240 PWM;
-#X text 249 212 PWM;
-#X text 249 289 PWM;
-#X text 249 226 PWM;
-#X text 249 303 PWM;
-#X text 249 331 PWM;
-#X obj 20 20 cnv 1 7 1 empty empty empty 20 12 0 14 -1 -66577 0;
-#X obj 20 389 cnv 1 7 1 empty empty empty 20 12 0 14 -1 -66577 0;
-#X obj 288 389 cnv 1 7 1 empty empty empty 20 12 0 14 -1 -66577 0;
-#X obj 288 455 outlet;
-#X obj 154 389 cnv 1 7 1 empty empty empty 20 12 0 14 -1 -66577 0;
-#X obj 19 490 r \$0.ARDUINO.OUT;
+#X text 254 187 R;
+#X text 254 196 X;
+#X text 268 196 X;
+#X text 268 187 T;
+#X obj 296 183 includes/agop.13.led \$0;
+#X text 293 187 L;
+#X obj 264 358 includes/agop.power.led \$0;
+#X text 261 362 PWR;
+#X obj 83 303 includes/agop.analog.pin \$0 14;
+#X obj 83 317 includes/agop.analog.pin \$0 15;
+#X obj 83 331 includes/agop.analog.pin \$0 16;
+#X obj 83 345 includes/agop.analog.pin \$0 17;
+#X obj 83 359 includes/agop.analog.pin \$0 18;
+#X obj 83 373 includes/agop.analog.pin \$0 19;
+#X text 104 302 A0;
+#X text 104 316 A1;
+#X text 104 330 A2;
+#X text 104 344 A3;
+#X text 104 358 A4;
+#X text 104 372 A5;
+#X text 309 240 PWM;
+#X text 309 212 PWM;
+#X text 309 289 PWM;
+#X text 309 226 PWM;
+#X text 309 303 PWM;
+#X text 309 331 PWM;
+#X obj 80 20 cnv 1 7 1 empty empty empty 20 12 0 14 -1 -66577 0;
+#X obj 80 389 cnv 1 7 1 empty empty empty 20 12 0 14 -1 -66577 0;
+#X obj 348 389 cnv 1 7 1 empty empty empty 20 12 0 14 -1 -66577 0;
+#X obj 348 455 outlet;
+#X obj 214 389 cnv 1 7 1 empty empty empty 20 12 0 14 -1 -66577 0;
+#X obj 79 490 r \$0.ARDUINO.OUT;
 #N canvas 919 311 412 218 supported.pin.modes.matrix 0;
 #X obj 30 93 tgl 15 0 empty empty O 3 7 0 10 -262144 -1 -1 0 1;
 #X obj 49 93 tgl 15 0 empty empty I 3 7 0 10 -262144 -1 -1 0 1;
@@ -217,77 +217,77 @@
 #X connect 7 0 6 1;
 #X connect 9 0 6 0;
 #X connect 10 0 4 4;
-#X restore 578 382 pd supported.pin.modes.matrix;
-#X obj 280 374 includes/agop.message.recorder \$0;
-#X obj 447 314 r \$0.ARDUINO.IN;
-#X obj 447 343 r \$0.ARDUINO.INTERN;
-#X obj 342 376 spigot 1;
-#X obj 337 407 cnv 25 75 25 empty empty empty 20 12 0 14 -203904 -66577
+#X restore 638 382 pd supported.pin.modes.matrix;
+#X obj 340 374 includes/agop.message.recorder \$0;
+#X obj 507 314 r \$0.ARDUINO.IN;
+#X obj 507 343 r \$0.ARDUINO.INTERN;
+#X obj 402 376 spigot 1;
+#X obj 397 407 cnv 25 75 25 empty empty empty 20 12 0 14 -203904 -66577
 0;
-#X obj 212 113 cnv 15 18 48 empty empty empty 20 12 0 14 -66577 -66577
+#X obj 272 113 cnv 15 18 48 empty empty empty 20 12 0 14 -66577 -66577
 0;
-#X obj 232 116 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 292 116 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 232 119 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 292 119 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 232 122 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 292 122 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 232 125 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 292 125 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 232 128 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 292 128 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 232 131 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 292 131 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 232 134 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 292 134 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 232 137 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 292 137 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 232 140 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 292 140 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 232 143 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 292 143 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 232 146 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 292 146 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 232 149 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 292 149 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 205 116 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 265 116 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 205 119 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 265 119 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 205 122 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 265 122 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 205 125 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 265 125 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 205 128 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 265 128 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 205 131 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 265 131 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 205 134 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 265 134 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 205 137 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 265 137 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 205 140 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 265 140 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 205 143 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 265 143 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 205 146 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 265 146 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 205 149 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 265 149 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 232 152 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 292 152 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 232 155 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 292 155 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 205 152 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 265 152 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 205 155 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 265 155 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 232 158 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 292 158 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 205 158 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
+#X obj 265 158 cnv 1 6 1 empty empty empty 20 12 0 14 -233017 -66577
 0;
-#X obj 195 92 includes/agop.sample.rate \$0;
-#X obj 342 411 arduino \$1;
+#X obj 255 92 includes/agop.sample.rate \$0;
+#X obj 402 411 arduino \$1;
 #N canvas 1004 185 333 283 DEBUG 0;
 #X obj 13 76 r \$0.ARDUINO.IN;
 #X obj 13 96 spigot;
@@ -329,11 +329,11 @@
 #X connect 19 0 18 1;
 #X connect 20 0 22 0;
 #X connect 22 1 18 0;
-#X restore 618 464 pd DEBUG;
-#X obj 618 441 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X restore 678 464 pd DEBUG;
+#X obj 678 441 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X text 640 440 enable debug prints;
-#N canvas 80 43 344 496 CAPABILITY 0;
+#X text 700 440 enable debug prints;
+#N canvas 80 50 344 496 CAPABILITY 0;
 #X obj 15 14 r \$0.ARDUINO.INTERN;
 #X obj 15 34 route ready emulate;
 #X obj 70 59 == 0;
@@ -441,15 +441,15 @@
 #X connect 12 1 14 0;
 #X connect 14 0 13 0;
 #X connect 17 0 18 0;
-#X restore 633 284 pd CAPABILITY query;
-#X obj 447 386 == 0;
-#X obj 447 366 route emulate;
-#X obj 114 419 r \$0.ARDUINO.INTERN;
-#X obj 114 462 ==;
-#X obj 114 441 route internal_request;
-#X obj 19 510 spigot 1;
-#X obj 149 518 spigot 1;
-#N canvas 0 43 352 467 ANALOG_MAPPING 0;
+#X restore 693 284 pd CAPABILITY query;
+#X obj 507 386 == 0;
+#X obj 507 366 route emulate;
+#X obj 174 419 r \$0.ARDUINO.INTERN;
+#X obj 174 462 ==;
+#X obj 174 441 route internal_request;
+#X obj 79 510 spigot 1;
+#X obj 209 518 spigot 1;
+#N canvas 0 50 352 467 ANALOG_MAPPING 0;
 #X obj 15 14 r \$0.ARDUINO.INTERN;
 #X obj 15 34 route ready emulate;
 #X obj 70 59 == 0;
@@ -495,9 +495,9 @@
 #X connect 22 0 20 0;
 #X connect 23 0 22 0;
 #X connect 23 1 21 0;
-#X restore 633 306 pd ANALOG_MAPPING query;
-#X text 576 545 Authors: Roman Haefeli & Olsen Wolf;
-#N canvas 755 43 484 419 PIN_ALIAS_MAPPING 0;
+#X restore 693 306 pd ANALOG_MAPPING query;
+#X text 636 545 Authors: Roman Haefeli & Olsen Wolf;
+#N canvas 755 50 484 419 PIN_ALIAS_MAPPING 0;
 #X text 18 21 Some boards like the Arduino Leonard report more pin
 than they physically have. This is a hand-crafted (a.k.a hard-coded)
 table that maps aliases to physical pins.;
@@ -538,9 +538,9 @@ table that maps aliases to physical pins.;
 #X connect 18 0 22 0;
 #X connect 21 0 18 0;
 #X connect 22 0 19 0;
-#X restore 633 327 pd PIN_ALIAS_MAPPING;
-#X text 568 363 <old hard-coded capability matrix>;
-#X text 569 400 <we don't need to support this anymore>;
+#X restore 693 327 pd PIN_ALIAS_MAPPING;
+#X text 628 363 <old hard-coded capability matrix>;
+#X text 629 400 <we don't need to support this anymore>;
 #X connect 1 0 8 0;
 #X connect 6 0 122 0;
 #X connect 7 0 167 0;
@@ -560,4 +560,4 @@ table that maps aliases to physical pins.;
 #X connect 165 0 164 0;
 #X connect 166 0 2 0;
 #X connect 167 0 3 0;
-#X coords 0 -1 1 1 275 370 2 20 20;
+#X coords 0 -1 1 1 275 370 2 80 20;
