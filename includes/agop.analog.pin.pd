@@ -822,7 +822,7 @@
 #X connect 24 0 5 0;
 #X connect 25 0 22 0;
 #X restore 17 293 pd compose.arduino.messages;
-#N canvas 699 438 192 147 ready 0;
+#N canvas 699 459 192 147 ready 0;
 #X obj 22 10 r \$1.ARDUINO.INTERN;
 #X obj 22 32 route ready;
 #X obj 22 109 s \$0.ready;
@@ -1137,10 +1137,6 @@
 #X connect 7 0 8 1;
 #X connect 8 0 3 0;
 #X restore 17 338 pd handle.incoming;
-#X obj 33 21 vsl 8 9 10 -4 0 0 \$0.selector.s \$0.selector.r empty
-1 5 0 10 -228856 -228856 -1 171 1;
-#X obj 33 21 vsl 8 9 30 24 0 0 \$0.selector.label.s \$0.selector.label.r
-empty 1 5 0 10 -228856 -228856 -1 0 1;
 #N canvas 789 199 371 285 digital.analog.output 0;
 #X obj 33 15 r \$1.ARDUINO.OUT;
 #X obj 33 219 s \$0.input;
@@ -1157,7 +1153,7 @@ empty 1 5 0 10 -228856 -228856 -1 0 1;
 #X obj 140 115 s \$0.analog;
 #X obj 185 41 r \$0.pin.no;
 #X obj 33 98 route -1;
-#X obj 129 87 route -1;
+#X obj 129 87 route \$2;
 #X connect 0 0 2 0;
 #X connect 2 0 14 0;
 #X connect 2 1 15 0;
@@ -1174,12 +1170,17 @@ empty 1 5 0 10 -228856 -228856 -1 0 1;
 #X connect 11 0 9 0;
 #X connect 11 1 10 0;
 #X connect 13 0 14 1;
-#X connect 13 0 15 1;
 #X connect 14 0 4 0;
 #X connect 15 0 5 0;
 #X connect 15 0 12 0;
 #X restore 17 271 pd digital.analog.output;
+#X obj 21 22 cnv 2 1 8 empty \$0.bar empty 20 12 0 14 -3056 -66577
+0;
+#X obj 33 21 vsl 8 9 20 14 0 0 \$0.selector.s \$0.selector.r empty
+1 5 0 10 -228856 -228856 -1 633 1;
+#X obj 33 21 vsl 8 9 30 24 0 0 \$0.selector.label.s \$0.selector.label.r
+empty 1 5 0 10 -228856 -228856 -1 0 1;
 #X obj 21 21 vsl 12 9 0 1 0 0 \$0.sl.s \$0.sl.r empty 1 6 0 9 -233017
--233017 -1 400 1;
+-233017 -1 0 1;
 #X connect 7 0 2 0;
 #X coords 0 -1 1 1 20 14 2 21 19;
