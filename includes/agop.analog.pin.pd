@@ -1,6 +1,5 @@
 #N canvas 99 85 452 375 10;
 #X obj 17 61 namecanvas \$0.goparea;
-#X obj 17 61 namecanvas \$0.goparea;
 #N canvas 558 102 376 474 mode.selector 0;
 #N canvas 278 280 413 391 slider.wrapper 0;
 #X obj 20 285 pack f f f;
@@ -356,7 +355,7 @@
 #X connect 27 5 18 0;
 #X connect 28 0 6 0;
 #X connect 29 0 6 0;
-#X restore 17 161 pd mode.selector;
+#X restore 17 141 pd mode.selector;
 #N canvas 355 187 357 228 pin.no.label 0;
 #X obj 18 192 s \$0.sl.r;
 #X obj 18 149 makefilename %2d;
@@ -380,7 +379,7 @@
 #X connect 9 0 1 0;
 #X connect 9 1 8 0;
 #X connect 10 0 9 0;
-#X restore 17 183 pd pin.no.label;
+#X restore 17 163 pd pin.no.label;
 #N canvas 472 155 520 484 show.value 0;
 #X obj 128 431 s \$0.show.value;
 #X obj 168 171 del 1000;
@@ -600,11 +599,13 @@
 #X obj 2 62 list prepend;
 #X msg 33 367 28;
 #X msg 2 368 33;
-#X msg 248 221 0 190 190;
+#X msg 217 167 0 190 190;
 #X obj 129 69 sel -1;
-#X msg 232 194 255 140 0;
-#X msg 217 169 0 0 220;
+#X msg 248 217 255 140 0;
+#X msg 232 191 0 0 220;
 #X obj 186 92 sel 0 1 2 3 4 -1;
+#X obj 90 23 r \$0.nb.s;
+#X obj 90 45 * 0.01;
 #X connect 0 0 2 0;
 #X connect 2 0 1 0;
 #X connect 3 0 21 0;
@@ -640,10 +641,12 @@
 #X connect 29 0 0 1;
 #X connect 30 0 7 0;
 #X connect 30 1 8 0;
-#X connect 30 2 29 0;
-#X connect 30 3 28 0;
-#X connect 30 4 26 0;
+#X connect 30 2 26 0;
+#X connect 30 3 29 0;
+#X connect 30 4 28 0;
 #X connect 30 5 18 0;
+#X connect 31 0 32 0;
+#X connect 32 0 6 0;
 #X restore 17 227 pd color.indicator;
 #N canvas 1012 377 271 302 input.output.toggle 0;
 #N canvas 1230 291 185 273 slider.click.detection 0;
@@ -768,8 +771,8 @@
 #X connect 23 0 5 0;
 #X connect 24 0 22 0;
 #X connect 25 0 24 0;
-#X restore 17 138 pd resolve.supported.modes;
-#N canvas 682 136 421 475 compose.arduino.messages 0;
+#X restore 17 118 pd resolve.supported.modes;
+#N canvas 333 136 629 473 compose.arduino.messages 0;
 #X obj 11 9 r \$0.mode;
 #X text 68 91 <- don't send initial 'output' (it's the default);
 #X msg 11 232 input;
@@ -788,7 +791,7 @@
 #X obj 11 111 sel 0 1 2 3 4 -1;
 #X msg 80 50 set -1;
 #X obj 11 90 change -1;
-#X obj 283 268 r \$0.pin.no;
+#X obj 289 277 r \$0.pin.no;
 #X obj 256 186 list prepend -1;
 #X obj 11 263 list prepend -1;
 #X obj 11 285 list prepend pinMode;
@@ -796,12 +799,19 @@
 #X msg 174 214 analog;
 #X msg 147 236 analogIns \$1 0;
 #X obj 147 139 f \$2;
+#X obj 360 206 list prepend \$2;
+#X obj 360 123 r \$0.nb.s;
+#X msg 360 228 analog \$1 \$2;
+#X obj 360 184 * 0.01;
+#X obj 256 158 spigot;
+#X obj 360 155 spigot;
+#X obj 429 128 r \$0.ready;
 #X connect 0 0 17 0;
 #X connect 2 0 20 0;
 #X connect 3 0 20 0;
 #X connect 4 0 20 0;
 #X connect 5 0 13 0;
-#X connect 6 0 19 0;
+#X connect 6 0 30 0;
 #X connect 7 0 13 0;
 #X connect 8 0 9 0;
 #X connect 9 0 16 0;
@@ -817,8 +827,9 @@
 #X connect 15 5 25 0;
 #X connect 16 0 17 0;
 #X connect 17 0 15 0;
-#X connect 18 0 19 1;
 #X connect 18 0 20 1;
+#X connect 18 0 19 1;
+#X connect 18 0 26 1;
 #X connect 19 0 7 0;
 #X connect 20 0 21 0;
 #X connect 21 0 5 0;
@@ -827,6 +838,14 @@
 #X connect 23 0 20 0;
 #X connect 24 0 5 0;
 #X connect 25 0 22 0;
+#X connect 26 0 28 0;
+#X connect 27 0 31 0;
+#X connect 28 0 13 0;
+#X connect 29 0 26 0;
+#X connect 30 0 19 0;
+#X connect 31 0 29 0;
+#X connect 32 0 30 1;
+#X connect 32 0 31 1;
 #X restore 17 293 pd compose.arduino.messages;
 #N canvas 699 459 192 147 ready 0;
 #X obj 22 10 r \$1.ARDUINO.INTERN;
@@ -1174,13 +1193,37 @@
 #X connect 15 0 5 0;
 #X connect 15 0 12 0;
 #X restore 17 271 pd digital.analog.output;
+#N canvas 927 261 312 156 switch.click/number 0;
+#X obj 16 119 s \$0.nb.r;
+#X msg 16 93 pos \$1 \$2;
+#X obj 16 9 r \$0.mode;
+#X text 133 34 INPUT \, OUTPUT -> click;
+#X text 133 50 PWM \, SERVO -> value;
+#X obj 139 84 r \$0.ready;
+#X obj 139 106 sel 0;
+#X obj 16 33 sel 0 1 -1;
+#X msg 16 63 42 19;
+#X msg 74 60 22 19;
+#X connect 1 0 0 0;
+#X connect 2 0 7 0;
+#X connect 5 0 6 0;
+#X connect 6 0 8 0;
+#X connect 7 0 8 0;
+#X connect 7 1 8 0;
+#X connect 7 2 8 0;
+#X connect 7 3 9 0;
+#X connect 8 0 1 0;
+#X connect 9 0 1 0;
+#X restore 17 185 pd switch.click/number;
 #X obj 21 22 cnv 2 1 8 empty \$0.bar empty 20 12 0 14 -3056 -66577
 0;
 #X obj 33 21 vsl 8 9 10 -4 0 0 \$0.selector.s \$0.selector.r empty
 1 5 0 10 -228856 -228856 -1 171 1;
+#X obj 42 19 nbx 1 14 0 100 0 0 \$0.nb.s \$0.nb.r empty 0 -8 0 10 -262144
+-1 -1 0 256;
 #X obj 33 21 vsl 8 9 30 24 0 0 \$0.selector.label.s \$0.selector.label.r
 empty 1 5 0 10 -228856 -228856 -1 0 1;
 #X obj 21 21 vsl 12 9 0 1 0 0 \$0.sl.s \$0.sl.r empty 1 6 0 9 -233017
 -233017 -1 400 1;
-#X connect 7 0 2 0;
+#X connect 6 0 1 0;
 #X coords 0 -1 1 1 20 14 2 21 19;
