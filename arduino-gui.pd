@@ -526,7 +526,7 @@ table that maps aliases to physical pins.;
 #X connect 161 0 160 0;
 #X connect 162 0 166 0;
 #X connect 166 0 167 1;
-#X connect 166 0 168 0;
+#X connect 166 0 168 1;
 #X connect 167 0 2 0;
 #X connect 168 0 3 0;
 #X coords 0 -1 1 1 275 370 2 80 20;
