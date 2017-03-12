@@ -1,0 +1,14 @@
+#N canvas 305 197 450 300 10;
+#X obj 21 22 cnv 2 1 8 empty \$1.bar empty 20 12 0 14 -3056 -66577
+0;
+#X obj 21 19 cnv 8 8 8 empty \$1.show.value empty -80 7 0 12 -1 -258113
+0;
+#X obj 33 21 vsl 8 9 10 -4 0 0 \$1.selector.s \$1.selector.r empty
+1 5 0 10 -228856 -228856 -1 0 1;
+#X obj 42 19 nbx 1 14 0 100 0 0 \$1.nb.s \$1.nb.r empty 0 -8 0 10 -262144
+-1 -1 0 256;
+#X obj 33 21 vsl 8 9 30 24 0 0 \$1.selector.label.s \$1.selector.label.r
+empty 1 5 0 10 -228856 -228856 -1 0 1;
+#X obj 21 21 vsl 12 9 0 1 0 0 \$1.sl.s \$1.sl.r empty 1 6 0 9 -233017
+-233017 -1 0 1;
+#X coords 0 -1 1 1 20 14 2 21 19;
