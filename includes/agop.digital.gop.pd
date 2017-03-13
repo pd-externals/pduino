@@ -1,4 +1,4 @@
-#N canvas 436 43 295 202 10;
+#N canvas 427 43 295 202 10;
 #X obj 21 22 cnv 2 1 8 empty \$1.bar empty 20 12 0 14 -3056 -66577
 0;
 #X obj 21 19 cnv 8 8 8 empty \$1.show.value empty 25 7 0 12 -1 -258113
@@ -11,4 +11,5 @@
 -233017 -1 400 1;
 #X obj 21 21 vsl 8 9 30 24 0 0 \$1.selector.label.s \$1.selector.label.r
 empty 1 5 0 10 -228856 -228856 -1 0 1;
+#X obj 17 66 namecanvas \$1.goparea;
 #X coords 0 -1 1 1 20 14 2 21 19;
