@@ -1,13 +1,13 @@
-#N canvas 112 43 932 590 10;
+#N canvas 109 43 893 507 10;
 #X obj 80 65 cnv 15 275 325 empty empty empty 20 12 0 14 -22189 -66577
 0;
 #X obj 400 61 inlet;
-#X obj 79 533 outlet;
-#X obj 209 543 outlet;
-#X obj 402 474 s \$0.ARDUINO.OUT;
-#X obj 509 474 s \$0.ARDUINO.INFO;
+#X obj 79 451 outlet;
+#X obj 209 451 outlet;
+#X obj 402 451 s \$0.ARDUINO.OUT;
+#X obj 509 451 s \$0.ARDUINO.INFO;
 #X obj 402 314 r \$0.ARDUINO.TO;
-#X obj 209 495 r \$0.ARDUINO.INFO;
+#X obj 209 415 r \$0.ARDUINO.INFO;
 #X obj 400 83 s \$0.ARDUINO.IN;
 #X obj 332 199 includes/agop.digital.pin \$0 12;
 #X text 303 156 AREF;
@@ -135,9 +135,9 @@
 #X obj 80 20 cnv 1 7 1 empty empty empty 20 12 0 14 -1 -66577 0;
 #X obj 80 389 cnv 1 7 1 empty empty empty 20 12 0 14 -1 -66577 0;
 #X obj 348 389 cnv 1 7 1 empty empty empty 20 12 0 14 -1 -66577 0;
-#X obj 348 455 outlet;
+#X obj 340 451 outlet;
 #X obj 214 389 cnv 1 7 1 empty empty empty 20 12 0 14 -1 -66577 0;
-#X obj 79 490 r \$0.ARDUINO.OUT;
+#X obj 79 415 r \$0.ARDUINO.OUT;
 #X obj 340 374 includes/agop.message.recorder \$0;
 #X obj 507 314 r \$0.ARDUINO.IN;
 #X obj 507 343 r \$0.ARDUINO.INTERN;
@@ -249,10 +249,10 @@
 #X connect 19 0 18 1;
 #X connect 20 0 22 0;
 #X connect 22 1 18 0;
-#X restore 678 464 pd DEBUG;
-#X obj 678 441 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X restore 692 404 pd DEBUG;
+#X obj 692 381 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X text 700 440 enable debug prints;
+#X text 714 380 enable debug prints;
 #N canvas 520 118 498 502 CAPABILITY 0;
 #X obj 15 14 r \$0.ARDUINO.INTERN;
 #X obj 82 57 == 0;
@@ -416,8 +416,7 @@
 #X restore 693 284 pd CAPABILITY query;
 #X obj 507 386 == 0;
 #X obj 507 366 route emulate;
-#X obj 174 419 r \$0.ARDUINO.INTERN;
-#N canvas 0 43 361 415 ANALOG_MAPPING 0;
+#N canvas 0 50 361 415 ANALOG_MAPPING 0;
 #X obj 15 69 s \$0.ARDUINO.TO;
 #X obj 14 89 r \$0.ARDUINO.INFO;
 #X msg 15 49 analogMapping;
@@ -449,7 +448,7 @@
 #X connect 14 0 8 0;
 #X connect 15 0 14 0;
 #X restore 693 306 pd ANALOG_MAPPING query;
-#X text 636 545 Authors: Roman Haefeli & Olsen Wolf;
+#X text 649 450 Authors: Roman Haefeli & Olsen Wolf;
 #N canvas 755 50 484 419 PIN_ALIAS_MAPPING 0;
 #X text 18 21 Some boards like the Arduino Leonard report more pin
 than they physically have. This is a hand-crafted (a.k.a hard-coded)
@@ -498,9 +497,6 @@ table that maps aliases to physical pins.;
 #X connect 26 0 2 0;
 #X connect 26 1 24 0;
 #X restore 693 327 pd PIN_ALIAS_MAPPING;
-#X obj 174 441 route ready;
-#X obj 79 511 spigot 0;
-#X obj 209 518 spigot 0;
 #X obj 332 346 includes/agop.digital.pin \$0 2;
 #X obj 332 332 includes/agop.digital.pin \$0 3;
 #X obj 332 318 includes/agop.digital.pin \$0 4;
@@ -514,8 +510,8 @@ table that maps aliases to physical pins.;
 #X obj 332 185 includes/agop.digital.pin \$0 13;
 #X connect 1 0 8 0;
 #X connect 6 0 110 0;
-#X connect 7 0 157 0;
-#X connect 106 0 156 0;
+#X connect 7 0 3 0;
+#X connect 106 0 2 0;
 #X connect 107 0 104 0;
 #X connect 108 0 110 0;
 #X connect 109 0 150 0;
@@ -523,12 +519,7 @@ table that maps aliases to physical pins.;
 #X connect 144 0 4 0;
 #X connect 144 1 5 0;
 #X connect 146 0 145 0;
-#X connect 148 0 152 0;
+#X connect 148 0 151 0;
 #X connect 149 0 110 1;
 #X connect 150 0 149 0;
-#X connect 151 0 155 0;
-#X connect 155 0 156 1;
-#X connect 155 0 157 1;
-#X connect 156 0 2 0;
-#X connect 157 0 3 0;
 #X coords 0 -1 1 1 275 370 2 80 20;
