@@ -21,7 +21,7 @@ Installation:
   * this pduino package is supposed to live somewhere in Pd's search path
   
   * You may want to [declare -stdpath pduino] before creating [arduino] or
-    [arduino-gui]
+    [arduino-gui] in Pd.
 
 
 Dependencies:
