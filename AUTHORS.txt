@@ -1,5 +1,0 @@
-Georg Holzmann <grh@mur.at>
-Gerda Strobl <gerda.strobl@student.tugraz.at> 
-Hans-Christoph Steiner <hans@at.or.at>
-Olsen Wolf <sesselastronaut@googlemail.com>
-Roman Haefeli <reduzent@gmail.com>
