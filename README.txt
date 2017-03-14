@@ -16,6 +16,14 @@ should get you started quickly without having to look up all available
 commands first. 
 
 
+Installation:
+  
+  * this pduino package is supposed to live somewhere in Pd's search path
+  
+  * You may want to [declare -stdpath pduino] before creating [arduino] or
+    [arduino-gui]
+
+
 Dependencies:
 
   * comport
