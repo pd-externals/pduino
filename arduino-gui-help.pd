@@ -1,11 +1,8 @@
-#N canvas 360 44 803 596 10;
-#X declare -path includes;
-#X declare -stdpath extra/moocow -lib pdstring;
-#X declare -stdpath extra/moocow -lib pdstring;
-#X obj 51 115 arduino-gui;
+#N canvas 357 43 803 596 10;
+#X declare -stdpath pduino;
 #X text 238 94 [arduino-gui];
 #X msg 51 44 open \$1;
-#X floatatom 51 19 5 0 0 0 - - -;
+#X floatatom 51 19 5 0 0 0 - - -, f 5;
 #X obj 51 548 print ARDUINO.OUT;
 #X msg 319 494;
 #X text 335 156 <- select a device;
@@ -16,44 +13,44 @@
 #X text 337 470 <- record all arduino commands to a message box;
 #X obj 105 18 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj 568 147 cnv 15 170 190 empty empty empty 20 12 0 14 -224640
+#X obj 568 147 cnv 15 170 210 empty empty empty 20 12 0 14 -224640
 -66577 0;
-#X text 572 155 Supported Models:;
-#X text 579 174 * UNO;
-#X text 579 188 * Duemilanove;
-#X text 579 203 * Diecimila;
-#X text 579 216 * NG;
-#X text 572 246 Supported Firmware:;
+#X text 579 184 * UNO;
+#X text 579 198 * Duemilanove;
+#X text 579 213 * Diecimila;
+#X text 579 226 * NG;
+#X text 572 256 Supported Firmware:;
 #X msg 105 44 digital 13 \$1;
 #X text 377 48 [arduino-gui] is a graphical version of the common [arduino]
 class. It is a wrapper with some GUI enhancements that facilitate sending
 commands to the arduino board. Those commands can also be recorded
 to a message box.;
-#X text 378 354 Select 'emulation' in the device selector in order
-to emulate an arduino board without actually sending any commands to
-a physical device.;
-#X text 555 542 Copyright \, 2012 \, Roman Haefeli;
 #X text 657 557 Olsen Wolf;
 #X msg 198 44 pinMode 3 \$1;
-#X symbolatom 198 19 10 0 0 0 - - -;
+#X symbolatom 198 19 10 0 0 0 - - -, f 10;
 #X msg 283 44 port 1 \$1;
-#X floatatom 283 19 5 0 0 0 - - -;
+#X floatatom 283 19 5 0 0 0 - - -, f 5;
 #X obj 570 434 arduino;
-#X text 378 434 For full reference \, see help of;
-#X text 579 264 * StandardFirmata >= v2.2;
+#X text 370 434 For full reference \, see help of;
 #X obj 185 548 print ARDUINO.INFO;
-#X text 378 328 EMULATION MODE;
 #X text 336 185 <- set analog input refresh rate;
-#X text 572 295 Requires:;
-#X text 579 313 * Pd[-extended] >= 0.43;
-#X connect 0 0 4 0;
-#X connect 0 1 32 0;
-#X connect 0 2 5 0;
-#X connect 2 0 0 0;
-#X connect 3 0 2 0;
-#X connect 12 0 20 0;
-#X connect 20 0 0 0;
-#X connect 25 0 0 0;
-#X connect 26 0 25 0;
-#X connect 27 0 0 0;
-#X connect 28 0 27 0;
+#X text 572 315 Requires:;
+#X text 579 333 * Pd >= 0.45;
+#X text 579 274 * StandardFirmata;
+#X text 579 288 * Any Firmata >= 2.2;
+#X text 579 171 * Leonardo;
+#X text 572 155 Supported Models:;
+#X text 621 543 2017 \, Roman Haefeli;
+#X obj 568 123 declare -stdpath pduino;
+#X obj 51 115 arduino-gui;
+#X connect 1 0 37 0;
+#X connect 2 0 1 0;
+#X connect 11 0 18 0;
+#X connect 18 0 37 0;
+#X connect 21 0 37 0;
+#X connect 22 0 21 0;
+#X connect 23 0 37 0;
+#X connect 24 0 23 0;
+#X connect 37 0 3 0;
+#X connect 37 1 27 0;
+#X connect 37 2 4 0;
