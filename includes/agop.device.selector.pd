@@ -1,4 +1,4 @@
-#N canvas 447 44 741 618 10;
+#N canvas 444 43 741 618 10;
 #N canvas 278 280 419 327 slider.wrapper 0;
 #X obj 20 255 pack f f f;
 #X obj 20 233 - 1;
@@ -445,8 +445,8 @@
 #X obj 523 431 sel 1;
 #X obj 276 440 t a b b;
 #X obj 496 221 t a b;
-#X obj 21 117 list append emulation_(v2.2);
-#X obj 21 139 list append emulation_(v2.3);
+#X obj 27 117 list append emulation_(v2.2);
+#X obj 27 139 list append emulation_(v2.3);
 #X obj 21 395 sel empty emulation_(v2.2) emulation_(v2.3);
 #X obj 106 428 t b b b;
 #X obj 191 422 t b b b;
@@ -463,7 +463,7 @@
 #X connect 7 0 0 0;
 #X connect 8 0 9 0;
 #X connect 9 0 13 0;
-#X connect 10 0 35 0;
+#X connect 10 0 4 0;
 #X connect 13 0 37 0;
 #X connect 13 1 2 0;
 #X connect 14 0 10 0;
@@ -491,7 +491,6 @@
 #X connect 34 0 31 0;
 #X connect 34 1 6 2;
 #X connect 35 0 36 0;
-#X connect 36 0 4 0;
 #X connect 37 0 17 0;
 #X connect 37 1 38 0;
 #X connect 37 2 39 0;
