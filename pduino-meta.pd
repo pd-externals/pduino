@@ -5,7 +5,7 @@
 Steiner \, Olsen Wolf \, Roman Haefeli;
 #X text 10 52 NAME pduino;
 #N canvas 341 85 450 300 OBJECTS 0;
-#X text 15 17 arduino interace the to analog and digital input and
+#X text 15 17 arduino interface Pd to analog and digital input and
 output pins of an arduino board;
 #X text 14 47 arduino-gui graphic version of the arduino object that
 also reflects the boards state;
