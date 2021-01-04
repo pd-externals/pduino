@@ -1,28 +1,28 @@
-#N canvas 357 43 657 587 10;
-#X obj 2 47 cnv 15 400 210 empty empty empty 12 12 0 10 -233017 -66577
+#N canvas 357 106 645 579 10;
+#X obj 2 55 cnv 15 400 210 empty empty empty 12 12 0 10 -233017 -66577
 0;
-#X obj 2 260 cnv 15 400 200 empty empty empty 12 12 0 10 -233017 -66577
+#X obj 2 268 cnv 15 400 200 empty empty empty 12 12 0 10 -233017 -66577
 0;
-#X obj 405 47 cnv 15 230 210 empty empty empty 12 12 0 10 -233017 -66577
+#X obj 405 55 cnv 15 230 210 empty empty empty 12 12 0 10 -233017 -66577
 0;
-#X obj 405 260 cnv 15 230 200 empty empty empty 12 12 0 10 -233017
+#X obj 405 268 cnv 15 230 200 empty empty empty 12 12 0 10 -233017
 -66577 0;
-#X msg 440 389 digital 13 \$1;
-#X obj 440 371 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0
+#X msg 440 397 digital 13 \$1;
+#X obj 440 379 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0
 1;
-#X msg 419 330 pinMode 13 output;
-#X text 456 368 <- toggle pin 13 on and off;
-#X text 544 332 output mode;
-#X text 543 320 set pin 13 to;
-#X text 527 327 <-;
-#X obj 469 164 send \$0-arduino-info;
-#X text 495 122 here's our;
-#X text 494 134 Arduino object;
-#X text 479 130 <-;
-#X obj 2 -6 cnv 15 400 50 empty empty empty 12 10 0 10 -233017 -66577
+#X msg 419 338 pinMode 13 output;
+#X text 456 376 <- toggle pin 13 on and off;
+#X text 544 340 output mode;
+#X text 543 328 set pin 13 to;
+#X text 527 335 <-;
+#X obj 469 172 send \$0-arduino-info;
+#X text 495 130 here's our;
+#X text 494 142 Arduino object;
+#X text 479 138 <-;
+#X obj 2 2 cnv 15 400 50 empty empty empty 12 10 0 10 -233017 -66577
 0;
-#X text 16 365 Pure Data -> World;
-#X text 188 365 World -> Pure Data;
+#X text 16 373 Pure Data -> World;
+#X text 188 373 World -> Pure Data;
 #N canvas 0 50 774 440 OUTPUT_DIGITAL 0;
 #X obj 129 182 tgl 15 0 empty empty 7 4 -6 1 10 -233017 -1 -1 0 1;
 #X obj 144 182 tgl 15 0 empty empty 8 4 -6 1 10 -233017 -1 -1 0 1;
@@ -380,7 +380,7 @@ its pin mode to 'output' first.;
 #X connect 69 0 55 0;
 #X connect 70 0 56 0;
 #X connect 71 0 66 0;
-#X restore 18 385 pd OUTPUT_DIGITAL;
+#X restore 18 393 pd OUTPUT_DIGITAL;
 #N canvas 35 50 785 319 OUTPUT_PWM 0;
 #X obj 24 36 bng 15 250 50 0 empty empty 0 1 -6 1 10 -99865 -1 -1;
 #X obj 39 36 bng 15 250 50 0 empty empty 1 1 -6 1 10 -99865 -1 -1;
@@ -560,7 +560,7 @@ its pin mode to 'pwm' first.;
 #X connect 36 0 38 0;
 #X connect 38 0 41 0;
 #X connect 43 0 42 0;
-#X restore 18 408 pd OUTPUT_PWM;
+#X restore 18 416 pd OUTPUT_PWM;
 #N canvas 73 50 785 319 OUTPUT_SERVO 0;
 #X obj 24 36 bng 15 250 50 0 empty empty 0 1 -6 1 10 -99865 -1 -1;
 #X obj 39 36 bng 15 250 50 0 empty empty 1 1 -6 1 10 -99865 -1 -1;
@@ -744,7 +744,7 @@ pin mode to 'servo' first.;
 #X connect 34 0 43 0;
 #X connect 37 0 34 0;
 #X connect 38 0 33 0;
-#X restore 18 431 pd OUTPUT_SERVO;
+#X restore 18 439 pd OUTPUT_SERVO;
 #N canvas 0 43 775 601 INPUT_DIGITAL 0;
 #X obj 129 319 tgl 15 0 empty empty 7 4 -6 1 10 -233017 -1 -1 0 1;
 #X obj 144 319 tgl 15 0 empty empty 8 4 -6 1 10 -233017 -1 -1 0 1;
@@ -1162,7 +1162,7 @@ default.;
 #X connect 90 0 82 0;
 #X connect 91 0 51 0;
 #X connect 105 0 56 0;
-#X restore 189 385 pd INPUT_DIGITAL;
+#X restore 189 393 pd INPUT_DIGITAL;
 #N canvas 49 50 776 666 INPUT_ANALOG 0;
 #X obj 24 36 bng 15 250 50 0 empty empty 0 1 -6 1 10 -99865 -1 -1;
 #X obj 39 36 bng 15 250 50 0 empty empty 1 1 -6 1 10 -99865 -1 -1;
@@ -1431,11 +1431,11 @@ is 10ms (eguals 100Hz).;
 #X connect 71 0 69 0;
 #X connect 73 0 83 0;
 #X connect 84 0 33 0;
-#X restore 189 408 pd INPUT_ANALOG;
-#X text 105 305 <- configure pins for different modes;
-#X text 6 -2 1) Installation;
-#X text 6 49 2) Serial connection;
-#X text 6 269 3) Set pins \, send and receive messages;
+#X restore 189 416 pd INPUT_ANALOG;
+#X text 105 313 <- configure pins for different modes;
+#X text 6 6 1) Installation;
+#X text 6 57 2) Serial connection;
+#X text 6 277 3) Set pins \, send and receive messages;
 #N canvas 82 43 525 562 PIN_MODES 0;
 #X text 16 35 Most pins of the Arduino board support different modes.
 You may need to tell the Arduino in which mode you intend to use a
@@ -1498,10 +1498,10 @@ modes.;
 #X connect 26 0 27 1;
 #X connect 27 0 37 0;
 #X connect 37 0 39 0;
-#X restore 18 304 pd PIN_MODES;
-#X text 528 496 Olsen Wolf;
-#X text 492 511 2006 \, Georg Holzmann;
-#X text 528 526 Gerda Strobl;
+#X restore 18 312 pd PIN_MODES;
+#X text 528 504 Olsen Wolf;
+#X text 492 519 2006 \, Georg Holzmann;
+#X text 528 534 Gerda Strobl;
 #N canvas 697 101 452 364 INSTALL_NOTES 0;
 #X text 19 143 3 The StandardFirmata firmware is the best place to
 start.;
@@ -1519,8 +1519,8 @@ is 2.5.1. It is shipped with Arduino IDE 1.8.1;
 ;
 #X text 24 288 This is hosted at:;
 #X text 24 303 https://github.com/reduzent/pduino;
-#X restore 18 18 pd INSTALL_NOTES;
-#X obj 2 463 cnv 15 400 100 empty empty empty 12 12 0 10 -233017 -66577
+#X restore 18 26 pd INSTALL_NOTES;
+#X obj 2 471 cnv 15 400 100 empty empty empty 12 12 0 10 -233017 -66577
 0;
 #N canvas 103 43 571 630 REFERENCE 0;
 #X text 9 14 LIST OF COMMANDS;
@@ -1577,7 +1577,7 @@ ms);
 #X msg 12 595 pinState pin# mode value;
 #X text 197 595 - pinState response (one message per requested pin)
 ;
-#X restore 18 495 pd REFERENCE;
+#X restore 18 503 pd REFERENCE;
 #N canvas 144 347 559 381 PERSISTENT_DEVICENAMES_IN_LINUX 0;
 #X text 58 326 http://answers.ros.org/answers/101/revisions/;
 #X text 72 90 $ echo 'SUBSYSTEMS=="usb" \, KERNEL=="ttyUSB[0-9]*" \,
@@ -1598,11 +1598,11 @@ one Linux-system are always connected to the same arduino object after
 unplugging/reboot:;
 #X text 68 170 $ udevadm control -reload-rules;
 #X connect 2 0 4 0;
-#X restore 18 518 pd PERSISTENT_DEVICENAMES_IN_LINUX;
-#X text 10 469 4) Supplementary information;
-#X msg 47 144 close;
-#X msg 18 70 devices;
-#X msg 60 171 version;
+#X restore 18 526 pd PERSISTENT_DEVICENAMES_IN_LINUX;
+#X text 10 477 4) Supplementary information;
+#X msg 47 152 close;
+#X msg 18 78 devices;
+#X msg 60 179 version;
 #N canvas 126 230 546 358 ver 0;
 #X obj 250 100 cnv 15 200 17 empty \$0-version_cnv empty 4 10 0 12
 -262144 -1 0;
@@ -1633,39 +1633,39 @@ unplugging/reboot:;
 #X connect 12 0 14 0;
 #X connect 13 0 11 0;
 #X coords 0 -1 1 1 200 17 2 250 100;
-#X restore 127 228 pd ver;
-#X text 119 170 <- get protocol version;
-#X msg 60 194 firmware;
-#X msg 30 119 open \$1;
-#X floatatom 30 97 5 0 0 0 - - -, f 5;
-#X text 86 104 listed by the 'device' message above;
-#X text 85 89 enter the number of your serial device;
-#X text 68 95 <-;
-#X text 71 71 <- list devices -> check the pd-console output!;
-#X text 120 195 <- get firmware specification;
-#X text 423 20 Arduino Interface For Pure Data;
-#X text 454 5 ::::_ [arduino] _::::;
-#X text 410 264 EXAMPLE;
-#X text 411 284 Turn the built-in LED on pin 13 on;
-#X text 411 299 and off:;
-#X text 83 122 <- open serial port to Arduino board;
-#X text 87 144 <- close the serial port;
-#X obj 416 186 cnv 15 122 21 empty empty empty 20 12 0 14 -203904 -66577
+#X restore 127 236 pd ver;
+#X text 119 178 <- get protocol version;
+#X msg 60 202 firmware;
+#X msg 30 127 open \$1;
+#X floatatom 30 105 5 0 0 0 - - -;
+#X text 86 112 listed by the 'device' message above;
+#X text 85 97 enter the number of your serial device;
+#X text 68 103 <-;
+#X text 71 79 <- list devices -> check the pd-console output!;
+#X text 120 203 <- get firmware specification;
+#X text 423 28 Arduino Interface For Pure Data;
+#X text 454 13 ::::_ [arduino] _::::;
+#X text 410 272 EXAMPLE;
+#X text 411 292 Turn the built-in LED on pin 13 on;
+#X text 411 307 and off:;
+#X text 83 130 <- open serial port to Arduino board;
+#X text 87 152 <- close the serial port;
+#X obj 416 194 cnv 15 122 21 empty empty empty 20 12 0 14 -203904 -66577
 0;
-#X obj 418 188 send \$0-arduino-out;
-#X obj 416 80 cnv 15 116 21 empty empty empty 20 12 0 14 -261234 -66577
+#X obj 418 196 send \$0-arduino-out;
+#X obj 416 88 cnv 15 116 21 empty empty empty 20 12 0 14 -261234 -66577
 0;
-#X obj 418 82 receive \$0-arduino;
-#X obj 16 226 cnv 15 98 21 empty empty empty 20 12 0 14 -261234 -66577
+#X obj 418 90 receive \$0-arduino;
+#X obj 16 234 cnv 15 98 21 empty empty empty 20 12 0 14 -261234 -66577
 0;
-#X obj 18 228 send \$0-arduino;
-#X obj 417 414 cnv 15 98 21 empty empty empty 20 12 0 14 -261234 -66577
+#X obj 18 236 send \$0-arduino;
+#X obj 417 422 cnv 15 98 21 empty empty empty 20 12 0 14 -261234 -66577
 0;
-#X obj 419 416 send \$0-arduino;
-#X obj 416 129 cnv 15 62 21 empty empty empty 20 12 0 14 -262144 -66577
+#X obj 419 424 send \$0-arduino;
+#X obj 416 137 cnv 15 62 21 empty empty empty 20 12 0 14 -262144 -66577
 0;
-#X obj 418 131 arduino 1;
-#X text 492 481 2017 \, Roman Haefeli;
+#X obj 418 139 arduino 1;
+#X text 492 489 2017 \, Roman Haefeli;
 #N canvas 420 43 438 181 FIRMWARE_SUPPORT 0;
 #X text 10 16 IMPORTANT NOTICE;
 #X text 10 33 This help patch assumes the Firmware StandardFirmata
@@ -1675,8 +1675,8 @@ features covered in this documentation.;
 #X text 10 99 You may want to use the 'capability' message to query
 information about the supported pin modes with your combination of
 firmware version and board.;
-#X restore 130 18 pd FIRMWARE_SUPPORT;
-#N canvas 599 77 496 306 SUPPORTED_MODES_/_MAPPINGS 1;
+#X restore 130 26 pd FIRMWARE_SUPPORT;
+#N canvas 599 106 496 306 SUPPORTED_MODES_/_MAPPINGS 0;
 #X obj 14 253 send \$0-arduino;
 #X text 6 10 GET SOME INFORMATION ABOUT YOUR CURRENT SETUP;
 #X msg 14 37 analogMapping;
@@ -1691,7 +1691,7 @@ be greater than the actual physical pins on the board. For instance
 \, Arduino Leonardo supports 12 analog inputs. A6-A11 are mapped to
 virtual digital pins 24-29 (which are again mapped on physical digital
 pins);
-#X floatatom 41 185 5 0 0 0 - - -, f 5;
+#X floatatom 41 185 5 0 0 0 - - -;
 #X msg 41 202 pinState \$1;
 #X text 123 203 Query the current mode and state of a specific pin.
 ;
@@ -1699,7 +1699,7 @@ pins);
 #X connect 3 0 0 0;
 #X connect 6 0 7 0;
 #X connect 7 0 0 0;
-#X restore 18 327 pd SUPPORTED_MODES_/_MAPPINGS;
+#X restore 18 335 pd SUPPORTED_MODES_/_MAPPINGS;
 #X connect 4 0 63 0;
 #X connect 5 0 4 0;
 #X connect 6 0 63 0;
